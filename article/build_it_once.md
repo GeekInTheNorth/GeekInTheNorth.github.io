@@ -4,13 +4,13 @@ description: "A proposition for using Razor Class Libraries and componentising O
 permalink: "/article/build_it_once"
 ---
 
-## Build it Once (A proposal for CMS 12 builds)
+# Build it Once (A proposal for CMS 12 builds)
 
-### Introduction
+## Introduction
 
 The following is based on a 30 minute presentation performed by myself at Optimizely North in Manchester on the 1st March 2023.  Some of this content is based on question and answer sections performed on the day as well as observing builds that I have contributed to that have origins both internal and external to the agency that I am currently with. It should be noted that this is the proposition of an approach to help reduce the duplication of effort and to allow developers to focus on what is truely unique to a client.
 
-### The Problem
+## The Problem
 
 As Agencies we build sites for multiple customers and commonly end up building a lot of the same components over and over again.  Most agencies have considered at least one solution to how we can save our development teams from repeating the same tasks with every single build.  Solutions including:
 
@@ -20,7 +20,7 @@ As Agencies we build sites for multiple customers and commonly end up building a
 
 These are essentially a copy and paste situations and do ultimately save on some time within a new website build and as part of this presentation and now blog, I attempt to offer another possible solution if we consider a change in how we build Optimizely websites.
 
-### The Technology
+## The Technology
 
 Optimizely CMS 12 has now been available to the community for 18+ months and as part of the shift to .NET 6+, we have a new development tools available that we can use to componentise our builds.  A personal favourite of mine is the [Razor Class Library](https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-7.0&amp;amp;amp;tabs=visual-studio) (RCL) which I have used now to build two different plugins for Optimizely CMS 12.  A Razor Class Library is a standard class library that can also contain Razor files and static assets within it's own wwwroot folder.  These can in turn be packaged as their own nuget package or dll that contains it's own razor files and static assets that can be added to any other build.
 
@@ -45,7 +45,7 @@ In my [demo build](https://github.com/GeekInTheNorth/opti-north-feb-2023) for th
 
 This solution contains a Razor file on the path of **OptiNorthDemo.News/Views/NewsArticlePage/Index.cshtml** and when I ran the solution the razor file from that path was used to render the article.  When I then added a razor file on the path of **OptiNorthDemo/Views/NewsArticlePage/Index.cshtml**, the razor file from the OptiNorthDemo project was used instead while all of the existing business logic and controller logic from the **OptiNorthDemo.News** project facilitated the program flow.
 
-### The Proposition
+## The Proposition
 
 If we analyze all that we build across all of the websites we currently manage / develop, we should be able to identify common themes or features.  We should then be able to identify what makes these individual features work well and design a content structure and business logic structure that should fulfil the needs of most if not all usages of that feature.  We should then fully build out that feature and manage it as a product. 
 
@@ -107,20 +107,20 @@ As agencies it is common to sell development time.  The dream here with this app
 
 The end result being less time spent developing the common stuff and being able to either improve profit margins or do more for our clients with their budgets.
 
-### Problems with this approach
+## Problems with this approach
 
 It is not expected that that this would be achieveable to fulfill for all possible agencies to use a single feature.  Each agency will have it's own coding standards, it's own preferred list of plugins they like to use within each of their builds, it's own preferred architectural structures and frontend libraries.  e.g. different agencies might have frontend teams that specialise in React, Angular, Vue etc.  It is also expected that this would only work if you are adopting a more Atomic content structure with minimal content type and block type restrictions.
 
-#### 1. Who looks after this and how do we stop it going out of date?
+### 1. Who looks after this and how do we stop it going out of date?
 To keep a product or feature up to date, it needs to be allocated a Product Owner, someone who is responsible for the product or feature and ensuring it is not forgotten.  After it's initially been built, keeping the module up to date can either be factored in to the additional needs of a specific client or the needs of keeping packages up to date.
 
-#### 2. What if a client leaves and our nuget feed is internal?
+### 2. What if a client leaves and our nuget feed is internal?
 For any given feature, this would require the nuget reference is removed from the website project and the matching version of the project is added to the solution.  This would mean that you should version each "release" of a given feature and ensure that the relevant commit within the repository is correctly tagged with the release version to make this task as easy as possible.
 
-#### 3. What if I need to change the structure of the markup for a specific build?
+### 3. What if I need to change the structure of the markup for a specific build?
 This would be a simple case of creating a new razor file on the same path but within the client specific website.
 
-#### 4. What if there are properties that client does not need that I want to hide?
+### 4. What if there are properties that client does not need that I want to hide?
 It is possible to create an **EditorDescriptor** that is decorated with the **EditorDescriptorRegistration** attribute and then use this to hide properties from the CMS editor.  In the following code snippet I have created a base **EditorDescriptor** called **HideDefaultFieldsEditorDescriptor** and then created additional classes which inherit from **HideDefaultFieldsEditorDescriptor** and simply have the correct target field types applied.  This logic is executed when a field is rendered within the CMS interface and then sets it's visibility to false if it is within a given list of hidden page and properties.
 
     [EditorDescriptorRegistration(EditorDescriptorBehavior = EditorDescriptorBehavior.PlaceLast, TargetType = typeof(ContentArea))]
@@ -161,11 +161,11 @@ It is possible to create an **EditorDescriptor** that is decorated with the **Ed
         }
     }
 
-### In Summary
+## In Summary
 
 With the advent of .NET 6+, CMS 12 and the concept of Atomic Content, are we now truely in a place where we can conceptualize content features as packages that are built once and installed into multiple clients and then customized to match their design?  With the power of Razor Class Libraries we are now able to create extensible collections of content features, the question does remain if we are able to make that next leap forward into selling value.
 
-### References
+## References
 
 - <https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-7.0&tabs=visual-studio>
 - <https://github.com/GeekInTheNorth/opti-north-feb-2023>
