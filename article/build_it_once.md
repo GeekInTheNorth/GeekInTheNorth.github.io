@@ -166,5 +166,5 @@ With the advent of .NET 6+, CMS 12 and the concept of Atomic Content, are we now
 
 ### References
 
-- https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-7.0&tabs=visual-studio
-- https://github.com/GeekInTheNorth/opti-north-feb-2023
+- <https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-7.0&tabs=visual-studio>
+- <https://github.com/GeekInTheNorth/opti-north-feb-2023>
