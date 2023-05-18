@@ -1,7 +1,7 @@
 ---
 layout: articlelist
 title: "Development"
-permalink: "/articles/development"
+permalink: "/article/list/development"
 category: "Development"
 ---
 
