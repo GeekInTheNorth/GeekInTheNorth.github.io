@@ -53,12 +53,10 @@
         <section>
           <ul>
             {% for article in site.articles %}
-            {% if article.category == page.category %}
               <li>
                 <h2><a href="{{ post.url }}">{{ article.title }}</a></h2>
                 {{ article.excerpt }}
               </li>
-            {% endif %}
             {% endfor %}
           </ul>
         </section>
