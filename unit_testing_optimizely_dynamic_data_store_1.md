@@ -1,4 +1,5 @@
 ---
+layout: article
 title: "Unit Testing Optimizely CMS 12 Dynamic Data Store - Part 1"
 description: "Optimizely CMS 12 provides a Dynamic Data Store for custom storing of data, but how do we unit test a repository using the Dynamic Data Store?"
 permalink: "/article/unit_testing_optimizely_dynamic_data_store_1"
