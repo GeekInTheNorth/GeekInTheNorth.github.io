@@ -40,7 +40,7 @@
         <section id="main-content">
           {{ content }}
         </section>
-        <section>
+        
           <ul>
             {% for post in site.posts %}
               <li>
@@ -49,8 +49,8 @@
               </li>
             {% endfor %}
           </ul>
-        </section>
-        <section>
+        
+        
           <ul>
             {% for post in site.page %}
             <li>
@@ -59,7 +59,7 @@
             </li>
             {% endfor %}
           </ul>
-        </section>
+        
 
         <aside id="sidebar">
           {% if site.show_downloads %}
