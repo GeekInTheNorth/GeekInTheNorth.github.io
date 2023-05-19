@@ -6,3 +6,9 @@ layout: default
 <p>{{ page.data | date_to_string }} - {{ page.author }}</p>
 
 {{ content }}
+
+<div>
+    {% for category in page.category %}
+      <a href="/article/list/{{ category }}">{{ category }}</a>
+    {% endfor %}
+</div>
