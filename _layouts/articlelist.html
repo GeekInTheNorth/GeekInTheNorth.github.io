@@ -40,7 +40,8 @@
         <section id="main-content">
           {{ content }}
         </section>
-        
+
+        <section>
           <ul>
             {% for post in site.posts %}
               <li>
@@ -49,17 +50,7 @@
               </li>
             {% endfor %}
           </ul>
-        
-        
-          <ul>
-            {% for post in site.page %}
-            <li>
-              <a href="{{ page.permalink }}">{{ page.title }}</a>
-              <p>{{ page.description }}</p>
-            </li>
-            {% endfor %}
-          </ul>
-        
+        </section>
 
         <aside id="sidebar">
           {% if site.show_downloads %}
