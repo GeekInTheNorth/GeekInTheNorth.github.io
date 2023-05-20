@@ -6,6 +6,6 @@ layout: default
 
 <div>
     {% for category in page.categories %}
-      <a href="/article/list/{{ category | downcase }}" class="button">{{ category }}</a>
+      <a href="/article/list/{{ category | downcase }}">{{ category }}</a>
     {% endfor %}
 </div>
