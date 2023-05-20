@@ -3,6 +3,8 @@ layout: post
 title: "Build it Once (A proposal for CMS 12 builds)"
 description: "A proposition for using Razor Class Libraries and componentising Optimizely CMS 12 builds to reduce long term effort and rebuilding."
 permalink: "/article/build_it_once"
+category:
+  - Optimizely
 ---
 
 # Build it Once (A proposal for CMS 12 builds)
