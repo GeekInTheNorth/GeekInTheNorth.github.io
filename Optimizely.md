@@ -1,6 +1,7 @@
 ---
 layout: articlelist
 title: "Optimizely"
+description: "Articles about developing for Optimizely CMS and other Optimizely products."
 permalink: "/article/list/optimizely"
 category: "Optimizely"
 ---
