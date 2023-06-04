@@ -23,9 +23,9 @@ The biggest benefit is that it makes it very clean to install and remove said pl
 
 I was contacted by Praveen Soni on the Optimizely Community slack about an issue they were encountering.  In development the Stott.Optimizely.RobotsHandler module was working as anticipated, however when it deployed into DXP they were receiving a 404 error on the following file: 
 
-'''
+```
 https://example.dxcloud.episerver.net/_content/Stott.Optimizely.RobotsHandler/RobotsAdmin.js
-'''
+```
 
 Praveen and I chatted some more, we talked about the requirements within the startup.cs file, I got them to share their error logs in hopes of trying to understand why this javascript file from the Razor Class Library was not being served.
 
@@ -35,15 +35,15 @@ I later stumbled upon this article that resonated with the issue that we were en
 
 If your Razor Class library includes Razor Pages, then the following methods need to called with the the Startup.cs of the consuming application:
 
-'''
+```
 services.AddRazorPages();
 
 app.MapRazorPages();
-'''
+```
 
 If your Razor Class library includes static files like .css and .js files, then a call to UseStaticWebAssetts() must be used in the Program.cs of the consuming application:
 
-'''
+```
 public static class Program
 {
    public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();
@@ -56,6 +56,6 @@ public static class Program
                webBuilder.UseStaticWebAssets();
            });
 }
-'''
+```
 
 Now here is the fun part: if the **ASPNETCORE_ENVIRONMENT** environment variable is set to Development, then .NET automatically includes a call to **UseStaticWebAssets()**, if it is set to any other value, then you have to manually add this to your code!  It is this final part of the puzzle which explains why the code worked perfectly in some environments but failed in others.
