@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "404 Error on Static Assets Within an Optimizely Plugin"
-description: "Introducing a second way to mock and unit test with the Dynamic Data Store in Optimizely CMS 12."
+description: "Resolving 404 issues on static files in razor class libraries using the _content/foo.bar/scripts.js path."
 permalink: "/article/404_error_on_static_assets_within_an_optimizely_plugin/"
 category:
   - Development
