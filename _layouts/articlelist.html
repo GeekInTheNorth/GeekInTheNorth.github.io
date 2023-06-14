@@ -7,11 +7,9 @@ layout: default
 <section>
     {% for post in site.posts %}
     {% if post.categories contains page.title %}
-    <div class="card">
-      <div class="card-header">
-          {{ post.title }}
-      </div>
+    <div class="card mb-3">
       <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
           <p class="card-text">{{ post.description }}</p>
           <a href="{{ post.url }}" class="btn btn-primary">Read more</a>
       </div>
