@@ -1,6 +1,7 @@
 ---
 title: Mark Stott, Lead Developer, Optimizely MVP
 description: Welcome to the Blog of Mark Stott, a Lead Developer, Optimizely MVP, Roller Skater and Dancer.
+layout: homepage
 permalink: /
 ---
 

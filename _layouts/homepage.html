@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+{{ content }}
+
+<section>
+    {% for post in site.posts limit:3 %}
+      <div>
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        <p>{{ post.description }}</p>
+        <a href="{{ post.url }}">Read more</a>
+      </div>
+    {% endfor %}
+</section>
