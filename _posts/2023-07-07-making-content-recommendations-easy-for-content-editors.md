@@ -45,7 +45,7 @@ public class CustomContentRecommendationsBlock : ContentRecommendationsBlock
 }
 ```
 
-The razor file itself was then created to conditionally render elements within the Content Recommendations script tag on the server side in accordance with the designs by our creative team. To handle recommendations which lacked a main image, a fallback image was rendered server side within the **{{^main_image_url}}** handlebars tag.  Markup with **{{^main_image_url}}** is then only rendered by the content recommendations code when the main_image_url is null.
+The razor file itself was then created to conditionally render elements within the Content Recommendations script tag on the server side in accordance with the designs by our creative team. To handle recommendations which lacked a main image, a fallback image was rendered server side within the `{{^main_image_url}}` handlebars tag.  Markup with `{{^main_image_url}}` is then only rendered by the content recommendations code when the main_image_url is null.
 
 ```
 @model CustomContentRecommendationsBlock
