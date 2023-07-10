@@ -48,6 +48,7 @@ public class CustomContentRecommendationsBlock : ContentRecommendationsBlock
 The razor file itself was then created to conditionally render elements within the Content Recommendations script tag on the server side in accordance with the designs by our creative team. To handle recommendations which lacked a main image, a fallback image was rendered server side within the `{{^main_image_url}}` handlebars tag.  Markup with `{{^main_image_url}}` is then only rendered by the content recommendations code when the main_image_url is null.
 
 ```
+{% raw %}
 @model CustomContentRecommendationsBlock
 
 <script class="idio-recommendations" type="text/x-mustache" data-api-key="@Model.DeliveryApiKey" data-rpp="@Model.NumberOfRecommendations">
@@ -108,6 +109,7 @@ The razor file itself was then created to conditionally render elements within t
     </div>
 </div>
 </script>
+{% endraw %}
 ```
 
 There were additional concerns that had to be addressed, the first being that the design of the block only allowed for a single category (Topic) to be rendered for each content card.  In this case we addressed this by using CSS styles to render hide off all but the first category.
