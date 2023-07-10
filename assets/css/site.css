@@ -1,1 +1,8 @@
 body { padding-top: 70px; }
+
+pre.highlight {
+  background: black;
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+}
