@@ -18,7 +18,7 @@ There are actually two different ways to implement an image XML sitemap.
 
 ### Image only XML Sitemap
 
-In this format, the image node sits beneathly below the urlset node and exists once per image within your site:
+In this format, the image node sits beneath the urlset node and exists once per image within your site:
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
