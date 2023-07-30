@@ -5,6 +5,7 @@ description: "Making Content Recommendations easy and consistent for content edi
 permalink: "/article/making-content-recommendations-consistent-and-easy-for-content-editors"
 category:
   - Optimizely
+  - Development
 ---
 
 # Making Content Recommendations Easy For Content Editors
