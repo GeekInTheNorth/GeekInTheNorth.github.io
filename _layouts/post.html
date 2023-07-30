@@ -6,6 +6,10 @@ layout: default
 
 <div>
     {% for category in page.categories %}
-      <a href="/article/list/{{ category | downcase }}">{{ category }}</a>
+      {{#if category === "Geek Stories"}}
+        <a href="/article/list/geek-stories">Geek Stories</a>
+      {{else}}
+        <a href="/article/list/{{ category | downcase }}">{{ category }}</a>
+      {{/if}}
     {% endfor %}
 </div>
