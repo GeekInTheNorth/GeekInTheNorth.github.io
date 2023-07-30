@@ -5,7 +5,6 @@ description: "Recollections of the day that I met Quark from Star Trek Deep Spac
 permalink: "/article/meeting_the_ferengi"
 category:
   - "Geek Stories"
-  - "Star Trek"
 ---
 
 # Meeting The Ferengi
