@@ -14,11 +14,11 @@ One of our Optimizely CMS 12 clients has a media heavy site and part of our SEO 
 
 ## Image XML Sitemap Format
 
-There are a few reasons why you might want to use an image XML sitemap.  Perhaps images on your site are not easily indexable by search engines due to the way they are loaded into the browser, possible from a separate javascript event so that they do not form part of the initially rendered document.  Perhaps your site is mobile optimized and only optimized versions of your images are available in your HTML and you want to expose the original images to search engines.  So you decide that you do in fact want to use an image XML sitemap, but then there are two separate ways to do implement this.
+There are a few reasons why you might want to use an image XML sitemap.  Perhaps images on your site are not easily indexable by search engines due to the way they are loaded into the browser, possibly from a separate javascript event so that they do not form part of the initially rendered HTML.  Perhaps your site is mobile optimized and only optimized versions of your images are available in your HTML and you want to expose the original images to search engines.  So you decide that you do in fact want to use an image XML sitemap, but then there are two separate ways to do implement this.
 
 ### Image only XML Sitemap
 
-In this format, the image node sits beneath the urlset node and exists once per image within your site:
+In this format, the image (image:image) node exists as a child of the urlset node and exists once per image within your site:
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -33,11 +33,11 @@ In this format, the image node sits beneath the urlset node and exists once per 
 </urlset>
 ```
 
-Initially I thought that the level of information packaged with the image was excellent as it added a lot of context.  However as of May 2022, all nodes except image:image and image:loc were deprecated and are no longer consumed by google.  I also tied setting up a sitemap within Geta Optimizely Sitemaps that used an image asset node as it's root and this included decorating the image content types with the sitemap configuration properties, however this just resulted in an empty sitemap.xml.
+Initially I thought that the level of information packaged with the image was excellent as it added a lot of context.  However as of May 2022, all nodes except **image:image** and **image:loc** were deprecated and are no longer consumed by google.  I also tied setting up a sitemap within Geta Optimizely Sitemaps that used an image asset node as it's root and this included decorating the image content types with the sitemap configuration properties, however this just resulted in an empty sitemap.xml.
 
 ### Standard XML Sitemap with images
 
-In this format, the image nodes sit beneath the url node and exists once per image that should be found on that page:
+In this format, the image nodes exist as a child of the url node and exists once per image that should be associated with that page:
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -64,13 +64,13 @@ In this format, the image nodes sit beneath the url node and exists once per ima
 </urlset>
 ```
 
-In this format, the context of an image is directly related to the page, but other than defining that the image exists, no additional context is provided.  This format did however have the benefit of being able to follow the content tree.
+In this format, the context of an image is directly related to the page, but other than defining that the image exists, no additional context is provided.  This format did have the benefit of being able to follow the content tree which simplified the extending of the Geta Optimizely Sitemap solution.
 
 ## The Solution
 
-The core generation functionality for XML sitemaps within Geta Optimizely Sitemaps comes down to one primary abstract class called SitemapXmlGenerator and all the XML Sitemap formats all inherit and extend this class by overriding specific methods.  The core logic has been split out into lots of different methods, each with a single responsibility that has been marked as virtual to allow for them to be individually overridden.
+The core generation functionality for XML sitemaps within Geta Optimizely Sitemaps comes down to one primary abstract class called [SitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/SitemapXmlGenerator.cs) and all the XML Sitemap formats all inherit and extend this class by overriding specific methods.  The core logic has been split out into lots of different methods, each with a single responsibility that has been marked as virtual to allow for them to be overridden.
 
-The first step was to implement a new class that inherits the SitemapXmlGenerator and to then override the dependency injection by replacing Geta's own implementation of their standard sitemap generator with our new custom class:
+The first step was to make our own implementation of [IStandardSitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/IStandardSitemapXmlGenerator.cs) that inherits the [SitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/SitemapXmlGenerator.cs) and to then override the dependency injection to replace Geta's implementation with our own:
 
 ```
 public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandardSitemapXmlGenerator
@@ -145,9 +145,9 @@ public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandar
 }
 ```
 
-This overridden method is a clone of the base method, in order for the image namespace to be rendered correctly within the XML document, we have to create the image attribute as a direct child of the urlset node at the point in time the node is created.  Attempting to use the base method and then appending the XAttribute led to undesired prefixing of namespaces within the parent node.
+This overridden method is a clone of the base method. In order for the image namespace to be rendered correctly within the XML document, we have to create the image attribute as a direct child of the urlset node at the point in time the node is created.  Attempting to use the base method and then appending the XAttribute led to undesired prefixing of namespaces within the parent node.
 
-The next step was to make sure content types had a common method that could be used to return images that should be included with the page in the XML sitemap, this could easily be a property instead that could be in the hands of the CMS Editor.  This would also need to be identifiable to the generation logic, so I added an interface that could be used to identify pages with images:
+The next step was to make sure content types had a common method that could be used to identify images that should be included with the page in the XML sitemap. This could easily be a property that allows the CMS Editor to have full control of said images.  This would also need to be identifiable to the generation logic, so I added an interface that could be used to identify pages with images:
 
 ```
 public interface ISitePageWithSitemapImages : IContent
@@ -168,7 +168,7 @@ public class SitePageData : PageData, ISitePageWithSitemapImages
 }
 ```
 
-The final part of the puzzle is then to override the GenerateSiteElement method within the SitemapXmlGenerator.  This method's responsibility is to create the URL node and all of it's child elements.  In this case I was able to leverage the base method, then if the page being implemented my interface, additional logic would then parse and add the image nodes:
+The final part of the puzzle is then to override the GenerateSiteElement method within the [SitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/SitemapXmlGenerator.cs).  This method's responsibility is to create the URL node and all of it's child elements.  In this case I was able to leverage the base method and extend it to parse and add image nodes only if the page implemented my interface:
 
 ```
 public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandardSitemapXmlGenerator
@@ -240,11 +240,11 @@ The final generated XML Sitemap looks like this (please note I've sanitised the 
 
 ## Conclusion
 
-The end result is that we can generate XML Sitemaps with image elements.  Some consideration needs to be made around your own implementation and how you want to manage images.  Do you want your SEO team to be able to curate this or do you want it to be automated through some custom logic?  This could be enhanced futher to include video elements and news elements. More details around these XML Sitemap variants can be found here: https://moz.com/learn/seo/xml-sitemaps.
+The end result is that we can generate XML Sitemaps with image elements.  Some consideration needs to be made around your own implementation and how you want to manage images.  Do you want your SEO team to be able to curate this or do you want it to be automated through some custom logic?  This could be enhanced futher to include video elements and news elements. More details around these XML Sitemap variants can be found here: [https://moz.com/learn/seo/xml-sitemaps](https://moz.com/learn/seo/xml-sitemaps).
 
 ### Limitations
 
-There are some additional considerations to be made in terms of the size of XML Sitemaps here, especially if you start adding all of the media types.  Here are some limitations extrapolated from google's developer documentation (worth a read around best practices): https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
+There are some additional considerations to be made in terms of the size of XML Sitemaps here, especially if you start adding all of the media types.  Here are some limitations extrapolated from google's developer documentation (which is worth a read around best practices): [https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
 
 - Maximum XML Sitemap file size: 50MB
 - Maximum number of URL nodes per sitemap: 50000
