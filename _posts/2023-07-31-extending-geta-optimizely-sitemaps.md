@@ -10,11 +10,11 @@ category:
 
 # The Requirement
 
-One of our Optimizely CMS 12 clients has a media heavy site which includes media that may otherwise be undetected by google when indexing content, this could be an image that is resolved via a Javascript method or a separate asynchronous request.  One part of our SEO brief for this client was to include an Image XML Sitemap to improve visibility of said media to search engines such as google.  For all of our CMS 12 builds, we like to use the Geta Optimizely Sitemaps plugin as this puts a lot of power into the hands of content editors and SEO specialists.  Unfortunately for this particular client, the plugin does not handle image sitemaps.
+One of our Optimizely CMS 12 clients has a media heavy site and part of our SEO brief was to include an Image XML Sitemap to improve visibility of media to search engines such as google.  For all of our CMS 12 builds, we like to use the Geta Optimizely Sitemaps plugin as this puts a lot of power into the hands of content editors and SEO specialists.  Unfortunately for this particular client, the plugin does not handle image sitemaps.
 
 ## Image XML Sitemap Format
 
-There are actually two different ways to implement an image XML sitemap.
+There are a few reasons why you might want to use an image XML sitemap.  Perhaps images on your site are not easily indexable by search engines due to the way they are loaded into the browser, possible from a separate javascript event so that they do not form part of the initially rendered document.  Perhaps your site is mobile optimized and only optimized versions of your images are available in your HTML and you want to expose the original images to search engines.  So you decide that you do in fact want to use an image XML sitemap, but then there are two separate ways to do implement this.
 
 ### Image only XML Sitemap
 
