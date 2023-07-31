@@ -212,27 +212,27 @@ The final generated XML Sitemap looks like this (please note I've sanitised the 
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://localhost:5000/en/test-page-one/</loc>
+        <loc>https://www.example.com/en/test-page-one/</loc>
         <lastmod>2023-07-03T16:29:07+01:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
         <image:image>
-            <image:loc>https://localhost:5000/globalassets/images/image-one.jpg</image:loc>
+            <image:loc>https://www.example.com/globalassets/images/image-one.jpg</image:loc>
         </image:image>
         <image:image>
-            <image:loc>https://localhost:5000/globalassets/images/image-two.jpg</image:loc>
+            <image:loc>https://www.example.com/globalassets/images/image-two.jpg</image:loc>
         </image:image>
     </url>
     <url>
-        <loc>https://localhost:5000/en/test-page-two/</loc>
+        <loc>https://www.example.com/en/test-page-two/</loc>
         <lastmod>2023-07-07T14:44:30+01:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
         <image:image>
-            <image:loc>https://localhost:5000/globalassets/images/image-three.jpg</image:loc>
+            <image:loc>https://www.example.com/globalassets/images/image-three.jpg</image:loc>
         </image:image>
         <image:image>
-            <image:loc>https://localhost:5000/globalassets/images/image-four.jpg</image:loc>
+            <image:loc>https://www.example.com/globalassets/images/image-four.jpg</image:loc>
         </image:image>
     </url>
 </urlset>
