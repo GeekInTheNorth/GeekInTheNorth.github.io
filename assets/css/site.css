@@ -10,3 +10,17 @@ pre.highlight {
 div.main-content img {
   max-width: 100%;
 }
+
+div.main-content table {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+div.main-content table tr:nth-child(2n) {
+  background-color: lightgray;
+}
+
+div.main-content table tr:hover {
+  background-color: lightblue;
+}
