@@ -21,6 +21,10 @@ div.main-content table tr:nth-child(2n) {
   background-color: lightgray;
 }
 
-div.main-content table tr:hover {
+div.main-content table tbody tr:hover {
   background-color: lightblue;
+}
+
+div.main-content table thead tr {
+  border-bottom: 1px solid darkgray;
 }
