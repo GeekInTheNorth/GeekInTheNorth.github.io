@@ -10,7 +10,7 @@ layout: default
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Published: {{ post.time | date_to_long_string: "ordinal" }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Published: {{ post.date | date_to_long_string: "ordinal" }}</h6>
             <p class="card-text">{{ post.description }}</p>
             <a href="{{ post.url }}" class="btn btn-primary">Read more</a>
         </div>
