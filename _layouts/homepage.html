@@ -12,9 +12,9 @@ layout: default
             <h5 class="card-title">{{ post.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Published: {{ post.date | date_to_long_string: "ordinal" }}</h6>
             <p class="card-text">{{ post.description }}</p>
-            <a href="{{ post.url }}" class="btn btn-primary">Read more</a>
+            <a href="{{ post.url }}" class="btn btn-primary me-2">Read more</a>
             {% for category in post.categories %}
-                <a href="/article/list/{{ category | downcase }}" class="btn btn-outline-secondary btn-sm mx-2">{{ category }}</a>
+                <a href="/article/list/{{ category | downcase }}" class="btn btn-outline-secondary btn-sm me-2">{{ category }}</a>
             {% endfor %}
         </div>
       </div>
