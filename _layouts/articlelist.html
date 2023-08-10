@@ -4,6 +4,18 @@ layout: default
 
 {{ content }}
 
+{% if page.title == "Optimizely" %}
+    <section>
+        <div class="row">
+            <div class="col-6">
+                <img src="/assets/optimizely-mvp-technology.png" alt="Optimizely Most Valuable Professional (Platinum, Technology)" class="credly-badge" />
+            </div>
+            <div class="col-6">
+                <img src="/assets/optimizely-content-cloud-developer.png" alt="Optimizely Certified Content Cloud Developer class="credly-badge""/>
+            </div>
+        </div>
+    </section>
+{% endif %}
 <section>
     {% for post in site.posts %}
     {% if post.categories contains page.title %}
