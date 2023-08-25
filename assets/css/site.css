@@ -34,3 +34,7 @@ img.home-profile {
   min-height: 300px;
   border-radius: 30px;
 }
+
+img.credly-badge {
+  height: 25vh;
+}
