@@ -22,7 +22,7 @@ Each track holds some meaning for us, some are from musicals we've seen together
 A Thousand Years was played as the Processional song as the bride walked down the isle.  Love Story Meets Love Story was played during the signing of the Register, at just over 6 minutes long it was long enough to cover all of that. Finally, Shut Up and Dance was played as the Recessional Song as we walked back down the isle together with the family in tow.
 
 | Song Title | Artist(s) | Links |
-|:---------- |:--------- |:----- |
+|------------|-----------|-------|
 | A Thousand Years | Peter Hollens, Evynne Hollens & Lindsey Stirling | [YouTube](https://www.youtube.com/watch?v=rGMgdmrlZHM) [iTunes](https://itunes.apple.com/gb/album/love-story-meets-love-story/id332485531?i=332485837) |
 | Love Story Meets Love Story | Jon Schmidt | [YouTube](https://www.youtube.com/watch?v=GgXmiLztne4) [iTunes](https://itunes.apple.com/gb/album/love-story-meets-love-story/id332485531?i=332485837) |
 | Shut Up and Dance | Walk The Moon | [YouTube](https://www.youtube.com/watch?v=6JCLY0Rlx6Q) [iTunes](https://itunes.apple.com/gb/album/shut-up-and-dance/id915448845?i=915448860&app=itunes&ign-mpt=uo%3D4) |
@@ -30,7 +30,7 @@ A Thousand Years was played as the Processional song as the bride walked down th
 ## Wedding Breakfast - Disc 1
 
 | Song Title | Artist(s) | Links |
-|:---------- |:--------- |:----- |
+|------------|-----------|-------|
 | A Thousand Years | Peter Hollens, Evynne Hollens & Lindsey Stirling | [YouTube](https://www.youtube.com/watch?v=rGMgdmrlZHM) [iTunes](https://itunes.apple.com/gb/album/thousand-years-feat.-lindsey/id700357386?i=700357839&app=itunes&ign-mpt=uo%3D4) |
 | Love Story Meets Love Story | Jon Schmidt | [YouTube](https://www.youtube.com/watch?v=GgXmiLztne4) [iTunes](https://itunes.apple.com/gb/album/love-story-meets-love-story/id332485531?i=332485837) |
 | Frozen Medley | Peter Hollens (feat. Colleen Ballinger) | [YouTube](https://www.youtube.com/watch?v=mrp_g93e1Gw) [iTunes](https://itunes.apple.com/gb/album/frozen-medley-feat.-colleen/id953541129?i=953541130&app=itunes&ign-mpt=uo%3D4) |
@@ -56,7 +56,7 @@ A Thousand Years was played as the Processional song as the bride walked down th
 Due to the staff forgetting to swap the discs over, we ended up playing this CD during the intermission period between the Wedding Breakfast and the Reception Party.
 
 | Song Title | Artist(s) | Links |
-|:---------- |:--------- |:----- |
+|------------|-----------|-------|
 | Everything | Michael Bublé | [YouTube](https://www.youtube.com/watch?v=SPUJIbXN0WY) [iTunes](https://itunes.apple.com/gb/album/everything/id495215040?i=495215115) |
 | That's How You Know | Amy Adams (Enchanted) | [YouTube](https://www.youtube.com/watch?v=2idK0qoBuWo) [iTunes](https://itunes.apple.com/gb/album/thats-how-you-know/id714973334?i=714973704) |
 | Breaking Free | Sam Tsui & Kurt Schneider (feat. Allison Williams) | [YouTube](https://www.youtube.com/watch?v=nSl0mqBjQW4) [iTunes](https://itunes.apple.com/gb/album/breaking-free-feat.-allison/id350110257?i=350110523) |
