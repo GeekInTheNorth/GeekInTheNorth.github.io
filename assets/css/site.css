@@ -36,5 +36,5 @@ img.home-profile {
 }
 
 img.credly-badge {
-  height: 25vh;
+  max-height: 25vh;
 }
