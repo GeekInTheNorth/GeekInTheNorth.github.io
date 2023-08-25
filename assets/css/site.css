@@ -28,3 +28,9 @@ div.main-content table tbody tr:hover {
 div.main-content table thead tr {
   border-bottom: 1px solid darkgray;
 }
+
+img.home-profile {
+  max-height: 40vh;
+  min-height: 300px;
+  border-radius: 30px;
+}
