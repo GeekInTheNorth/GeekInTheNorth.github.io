@@ -20,7 +20,7 @@ Optimizely CMS for .NET 5.0 is a very exciting thing.  Recently the .NET Core Pr
 
 When you create the index, you will be shown this snippet to add to your web.config:
 
-```XML
+```
 <configuration>
     <configSections>
         <section
@@ -34,7 +34,7 @@ When you create the index, you will be shown this snippet to add to your web.con
 
 You will instead add this to appsettings.json like so:
 
-```C#
+```
 {
     "EPiServer": {
         "Find": {
@@ -47,7 +47,7 @@ You will instead add this to appsettings.json like so:
 
 4. Configure your startup.cs to include the find configuration:
 
-```C#
+```
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddCmsAspNetIdentity<ApplicationUser>();
@@ -58,6 +58,7 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 You should now have everything you need to write your search queries as normal:
+
 ```
 var searchResult = _findClient.Search<SitePageData>()
                               .For(request.SearchText)
