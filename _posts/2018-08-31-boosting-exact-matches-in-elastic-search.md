@@ -7,6 +7,8 @@ category:
   - Development
 ---
 
+# Boosting Exact Matches in Elastic Search
+
 ## The Problem
 
 A client had a site built using EPiServer CMS which featured a search page utilizing ElasticSearch.Net. They had a new requirement for the search page to return partial matches in the search results.  For example, if the user were to search for the word "car", they would also get results for "career".
