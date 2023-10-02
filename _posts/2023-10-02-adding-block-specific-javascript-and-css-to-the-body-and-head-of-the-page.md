@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Adding Block Specific JavaScript and CSS to the body and head of the page"
-description: ""
+description: "Using the ClientResource management within Optimizely CMS to render JavaScript and CSS resources correctly within the rendered HTML document."
 permalink: "/article/adding-block-specific-javascript-and-css-to-the-body-and-head-of-the-page"
 category:
   - Development
@@ -128,3 +128,13 @@ Which would then render like so:
 ```
 <script crossorigin="anonymous" defer="defer" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 ```
+
+## In Summary
+
+When constructing an Optimizely CMS website that allows the embedding of JavaScript and CSS resources, leverage the use of the static `ClientResources.RequireScript` and `ClientResources.RequireStyle` static methods within your controllers and view components to register your resources in order to:
+
+- Ensure that Stylesheet resources are rendered correctly within the header
+- Ensure that JavaScript resources are rendered correctly at the bottom of the body
+- Ensure that all resources are rendered uniquely
+- Ensure that all resources are rendered with standard attributes for performance.
+ 
