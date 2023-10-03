@@ -102,7 +102,7 @@ Will result in the follow script tag being rendered:
 <script defer="defer" src="/globalassets/embeds/test.js"></script>
 ```
 
-You can extend this same functionality to render externally hosted files with additional attributes, which could include cross origin and subresource integrity hashes as such:
+You can extend this same functionality to render externally hosted files with additional attributes, which could include cross origin and subresource integrity hashes like the following example:
 
 ```
 var externalJavaScript = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js";
