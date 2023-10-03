@@ -38,3 +38,7 @@ img.home-profile {
 img.credly-badge {
   max-height: 25vh;
 }
+
+.fa-stack-2x {
+  color: #000000;
+}
