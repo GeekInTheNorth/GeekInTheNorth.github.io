@@ -10,12 +10,12 @@ category:
 
 # Adding Block Specific JavaScript and CSS to the body and head of the page
 
-A common requirement for CMS implementations includes the ability to embed third party content into a website as it formed part of the website itself.  Sometimes this takes the form of a full page embed like a campaign page and other cases this can be smaller artefacts within an embed block placed between differing blocks within the flow of a page.  Often these embeds come with additional JavaScript and Stylesheet content, which in turn can lead to a Content Security Policy being opened up for an entire site for a single embed on a single page.
+A common requirement for CMS implementations includes the ability to embed third party content into a website as if it formed part of the website itself.  Sometimes this takes the form of a full page embed like a campaign page and in other cases this can be smaller artefacts within an embed block placed between differing blocks within the flow of a page.  Often these embeds come with additional JavaScript and Stylesheet content, which in turn can lead to a Content Security Policy being opened up for an entire site for a single embed on a single page.
 
 The following block provides three separate properties:
 
 - Embed Code: A text area that will be rendered in it's raw state on a razor file.
-- Hosted JavaScript File: A content reference for an optimized production javascript file that has been uploaded to the CMS to be used by this block and rendered at the bottom of the body of the page.
+- Hosted JavaScript File: A content reference for an optimized production JavaScript file that has been uploaded to the CMS to be used by this block and rendered at the bottom of the body of the page.
 - Hosted CSS File: A content reference for an optimized production stylesheet file that has been uploaded to the CMS to be used by this block and rendered within the head element of the page.
 
 ```
