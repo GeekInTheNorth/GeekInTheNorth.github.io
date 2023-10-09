@@ -99,4 +99,4 @@ The end result is a fully functioning CMS editable CORS Policy that can be updat
 
 ## In Beta
 
-I'm classing version 2.0.0 of this Add-on as being in beta until one or more CMS websites are live and consuming the CORS configuration and any raised issues are either prioritised or fixed.  If you'd like to use the 2.0.0 beta version, do feel free to go ahead and install it into your Optimizely CMS 12 website and join the [discussion](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/143) page on the [GitHub Repository](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/143).
+I'm classing version 2.0.0 of this Add-on as being in beta until one or more CMS websites are live and consuming the CORS configuration and any raised issues are either prioritised or fixed.  If you'd like to use the 2.0.0 beta version, then do feel free to go ahead and install it into your Optimizely CMS 12 website and join the [discussion](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/143) page on the [GitHub Repository](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/143).
