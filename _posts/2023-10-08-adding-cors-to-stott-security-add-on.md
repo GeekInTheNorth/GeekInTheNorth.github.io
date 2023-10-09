@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Adding CORS Management to Optimizely CMS 12"
-description: "Adding Cross-origin Resource Sharing headers to the Stott Security Add-on for Optimizely CMS 12."
+description: "Adding Cross-origin Resource Sharing response headers to the Stott Security Add-on for Optimizely CMS 12."
 permalink: "/article/adding-cors-to-stott-security-add-on"
 category:
   - Development
