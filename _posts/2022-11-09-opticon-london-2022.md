@@ -10,6 +10,8 @@ category:
 
 # Opticon London 2022
 
+Published: 9th November 2022
+
 ## About Opticon London 2022
 
 Every year, Optimizely put on a three day conference in the US where they engage with potential and existing customers and with the development community.  They then follow this up with smaller versions of the same conference in differing countries with this years events taking place in San Diego, London and Stockholm. This annual event was formerly known as EPiServer Ascend, but with the brand shift to Optimizely, this event has now become Opticon; which oddly sounds like something born of the Transformers TV series.

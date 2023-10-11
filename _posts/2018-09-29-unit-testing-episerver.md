@@ -10,6 +10,8 @@ category:
 
 # Unit Testing EPiServer CMS 11
 
+Published: 29th September 2018
+
 ## The Requirement
 
 I needed to implement a new visitor group criterion for an EPiServer CMS website. As part of this work I was introducing unit testing into the project and wanted to make sure that all of my new classes were unit tested.

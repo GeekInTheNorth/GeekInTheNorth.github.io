@@ -9,6 +9,8 @@ category:
 
 # Testing Solutions: Faking Communication with a Third Party Service
 
+Published: 27th July 2015
+
 One of the problems in performing Quality Assurance for a system that communicates with a third party service is that it can be hard to test to an acceptable level of confidence.  As a payroll provider, we have to provide functionality for sending and receiving employee updates from the HMRC to the customer and this functionality is a pain to test.
 
 The source code for the final product can be found here: [HmrcDpsTestServer](https://github.com/GeekInTheNorth/HmrcDpsTestServer)

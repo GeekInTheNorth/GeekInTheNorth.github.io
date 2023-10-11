@@ -42,3 +42,9 @@ img.credly-badge {
 .fa-stack-2x {
   color: #000000;
 }
+
+h1 + p {
+  color: #333333;
+  font-style: italic;
+  margin-top: 0;
+}

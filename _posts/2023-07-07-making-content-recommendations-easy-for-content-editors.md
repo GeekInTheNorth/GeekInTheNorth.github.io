@@ -10,6 +10,8 @@ category:
 
 # Making Content Recommendations Easy For Content Editors
 
+Published: 7th July 2023
+
 ## The Problem
 One of our clients had purchased the Content Recommendations module for use within their newly build CMS 12 corporate site.  Our challenge was that the main content team lacked development expertese and would outsource functionality like embedded content to external parties.  On top of this, the client had a desire for consistency in design across the system.  In it's default implementation, the addition of content recommendations across the system would require content editors to make changes to the handlebars scripts for every instance of the block.
 

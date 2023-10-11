@@ -9,7 +9,7 @@ category:
 
 # Wedding Memories : Our Set List
 
-Published: Dec 28, 2015
+Published: 28th December 2015
 
 While going to Wedding Fairs, we saw a couple of groups who specialised in background wedding music to be played during the Wedding Breakfast. While some of these were really good, we didn't want to hire them.  Budget aside, we wanted our wedding to reflect our passions and personalities, not just in the visual theme, but also in the musical theme.
 

@@ -9,7 +9,7 @@ category:
 
 # Wedding Memories : Comment Slips
 
-Published: Dec 27, 2015
+Published: 27th December 2015
 
 For our wedding, we didn't want to get a standard Wedding Guest Book.  We wanted something that could be placed upon our wall as a memento of the day.  So we purchased a wedding heart frame, the idea being that each person would sign a heart and post it into our frame.  It was later that we decided to create a set of comment slips so that we could make a scrap book of memories.  The following is the collection of completed comment slips that we received:
 

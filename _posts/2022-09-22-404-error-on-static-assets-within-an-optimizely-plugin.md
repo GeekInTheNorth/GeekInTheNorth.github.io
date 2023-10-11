@@ -10,6 +10,8 @@ category:
 
 # 404 Error on Static Assets Within an Optimizely Plugin
 
+Published: 22nd September 2022
+
 ## Background
 
 With the move to CMS 12 and .NET 5/6/7, developers are now able to build Plugins and Extensions using Razor Class Libraries (RCL).  These are a fantastic option as it allows you to bundle up any client side scripts, styles and razor files into the same compiled dll as your buisness logic.  The structure of the Razor files and static files within an RCL is the same structure as what you would expect to see within a Web project.
