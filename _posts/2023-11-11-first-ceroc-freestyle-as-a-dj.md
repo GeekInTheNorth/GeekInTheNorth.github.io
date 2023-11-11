@@ -111,10 +111,10 @@ I spent the majority of the night at the DJ desk dancing away by myself having a
 | Yoav | Club Thing | 104 | 2007 |
 | Geroge Ezra | Anyone For You | 103 | 2022 |
 
-<p id="#user-content-one"><sup>1</sup> I made some edits to this track to make it more suitable for dancing.</p>
-<p id="#user-content-two"><sup>2</sup> This track was added as a request for a customer.</p>
-<p id="#user-content-three"><sup>3</sup> This track is a cover of a 70s song.</p>
-<p id="#user-content-four"><sup>4</sup> This track charted in the 70s despite initial release in the 60s.</p>
+<p id="user-content-one"><sup>1</sup> I made some edits to this track to make it more suitable for dancing.</p>
+<p id="user-content-two"><sup>2</sup> This track was added as a request for a customer.</p>
+<p id="user-content-three"><sup>3</sup> This track is a cover of a 70s song.</p>
+<p id="user-content-four"><sup>4</sup> This track charted in the 70s despite initial release in the 60s.</p>
 
 ### Breakdown By Decade
 
