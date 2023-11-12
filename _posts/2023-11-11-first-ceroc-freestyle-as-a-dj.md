@@ -10,11 +10,11 @@ category: "Geek Stories"
 
 Published: 11th November 2023
 
-Recently my local Ceroc franchise (Ceroc Yorkshire) expanded to include new venues and to add more freestyle nights.  As a result they started looking for new DJs.  I expressed an interest in learning how to DJ, but I wasn't comfortable committing to a regular weekly slot.  The reason being that I have a demanding regular job and didn't want to turn my hobby into a second job.
+Recently my local Ceroc franchise ([Ceroc Yorkshire](https://www.facebook.com/CerocYorkshire)) expanded to include new venues and to add more freestyle nights.  As a result they started looking for new DJs.  I expressed an interest in learning how to DJ, but I wasn't comfortable committing to a regular weekly slot.  The reason being that I have a demanding regular job and didn't want to turn my hobby into a second job.
 
-My first freestyle night as a DJ was a 70s theme night at my regular venue (Ceroc Yorkshire at the Tadcaster Riley-Smith Hall). To date I had DJ'd for two Ceroc class nights at the Ceroc Yorkshire St. Chads venue, but a class night is very different to a freestyle. To prepare for this I dropped into CEX in Leeds and started looking for pre-loved 70s compilation CDs, Caroline managed to find 2 such 1 disk compilations for me, both priced at £1 each.  We then dropped by HMV and took advantage of their deals on compilation albums and picked up another 3 disk 70s compilation and picked up a mixed pop 3 disk compilation.  It took a long time to add these disks to iTunes and then to listen to every track to assess them for whether they would be dancable. Still feeling like I had some gaps, I started looking through our own previously purchased albums and added those to iTunes so I could assess them. Finally I cherry picked some songs I know I like to dance to and purchased them directly from iTunes.  As a result I was able to add a lot of tracks to my Ceroc playlists. 
+My first freestyle night as a DJ was a 70s theme night at my regular venue ([Ceroc Yorkshire at the Tadcaster Riley-Smith Hall](https://www.facebook.com/groups/300424136820710)). To date I had DJ'd for two Ceroc class nights at the [Ceroc Yorkshire St. Chads](https://www.facebook.com/groups/358893437550145) venue, but a class night is very different to a freestyle. To prepare for this I dropped into CEX in Leeds and started looking for pre-loved 70s compilation CDs, Caroline managed to find 2 such 1 disk compilations for me, both priced at £1 each.  We then dropped by HMV and took advantage of their deals on compilation albums and picked up another 3 disk 70s compilation and a mixed pop 3 disk compilation.  It took a long time to add all this music to iTunes and then to listen to every track to assess them for whether they would be dancable. Still feeling like I had some gaps, I started looking through our own previously purchased albums and added those to iTunes as well. Finally I cherry picked some songs I know I like to dance to and purchased them directly from iTunes.  As a result I was able to add a lot of tracks to my Ceroc playlists. 
 
-As the big night loomed, I was playing all of my candidate tracks repeatidly.  I had one play list set up as a "testing" playlist and would only move tracks from this playlist into a Ceroc playlist if I felt they were good enough to dance to.  In some cases I had to adjust some songs, in certain cases the intro or outro of a track was undanceable and I used a tool called Audacity to trim those down.
+As the big night loomed, I was playing all of my candidate tracks repeatidly.  I had one play list set up as a "testing" playlist and would only move tracks from this playlist into a Ceroc playlist if I felt they were good enough to dance to.  In some cases I had to adjust some songs, in certain cases the intro or outro of a track was undanceable and I used a tool called [Audacity](https://www.audacityteam.org/) to trim those down.
 
 ## On The Night
 
@@ -22,11 +22,29 @@ At the beginning of the night I was nervous and worried that despite all of the 
 
 Once enough customers had turned up, the floor started to get busy and those worrying feelings started to abide.  I was fortunate enough to get some advice from my friend Jo (an experienced DJ) that proved to be invaluable.  Tips including handling variance in sound levels in songs, what sort of sound levels to be aiming for and for handling of track cross overs.
 
+![My view as a DJ.](/assets/FirstFreestyleDjSet.jpg)
+
 Once I got into the flow of things and the dance floor remained busy, I started to relax into the role of DJ and that was the point that DJing became a lot of fun.  I was regularly reviewing my line of tracks, swapping tracks in and out, aiming to mix in songs appropriate to the 70s theme amongst the needs to cover multiple genres and making sure there were dance floor classics and modern hits.
 
 I spent the majority of the night at the DJ desk dancing away by myself having a lovely time.  I did come down to the dance floor to test sound levels regularly and sneaked in some cheeky dances with the customers in close proximity to the DJ desk.
 
+## My Kit
+
+My DJ kit is very basic, but adequate enough for a Ceroc freestyle night that is typically attended by around 100 dancers.  My Kit includes:
+
+- Apple iPad Pro (11" 3rd Generation)
+- Apple Magic Keyboard
+- DJAY Pro App
+- XENYX 302USB - 5-Input Mixer with XENYX Mic Preamp and USB/Audio Interface
+- 2M USB to USB-C cable with USB Plug
+- 1M USB-C to USB-B cable
+- Dual RCA to XLR cable
+
+While the Apple Magic Keyboard has a USB-C port, it is used purely to charging the iPad Pro and offers no other functionality.  But this means that I power the iPad while keeping the main USB-C port free to connect to the mixer via USB-C to USB-B cable.  The mixer itself doesn't need much power and the iPad Pro is more than capable of feeding it enough.  I then connect the outputs of the mixer to the speakers via the RCA to XLR adapter cable.  Sadly the level of the kit I have right now does not allow me to preview songs while the music is playing out of the main speaker, so in the interim I have been previewing the tracks via bluetooth headphones using my iPhone.
+
 ## The Set
+
+My set for the night was not pre-planned, all of my preparation had been to provide me with enough options that I could be flexible with what I played through out the night.  I made sure to mix the 70s theme tracks in amongst dance floor classics, varying genres and modern hits.  My aim being not to create waves of increasing musical intensity with varying genres to appeal to as many of the dancers as I could.
 
 | Artist | Song | BPM | Year |
 |--------|------|-----|------|
