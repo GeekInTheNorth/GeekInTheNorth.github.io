@@ -138,7 +138,7 @@ contentRepository.Save(editableVersion, SaveAction.Patch, AccessLevel.NoAccess);
 
 `SaveAction.Patch` updates the existing version of the content without creating a new version or triggering any validation.  As the save is being performed outside of the context of a user action, I had to pass in `AccessLevel.NoAccess` as the minimum access rights needed for the save to complete.  Had I passed in `AccessLevel.Publish`, then the save action would have to take place as part of a user action where the user had "publish" permissions to the content.
 
-##Summary
+## Summary
 
 - If you are changing the name of a property because it's type is the same
   - Create a MigrationStep and add a line to the AddChanges() method like this:
