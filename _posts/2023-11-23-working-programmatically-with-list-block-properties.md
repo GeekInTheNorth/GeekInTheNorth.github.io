@@ -141,13 +141,13 @@ contentRepository.Save(editableVersion, SaveAction.Patch, AccessLevel.NoAccess);
 ## Summary
 
 - If you are changing the name of a property because it's type is the same
-  - Create a MigrationStep and add a line to the AddChanges() method like this:
-  - ContentType(nameof(MyContentType)).Property(nameof(MyContentType.NewPropertyName)).UsedToBeNamed("OldPropertyName");
+  - Create a MigrationStep and add a line to the `AddChanges()` method like this:
+    - `ContentType(nameof(MyContentType)).Property(nameof(MyContentType.NewPropertyName)).UsedToBeNamed("OldPropertyName");`
 - If you are changing the type of the property:
   - Give the new property an entirely new name, this will prevent casting issues with the property on the content type.
-  - Create a MigrationStep for handling the property type change.
-    - Use IContentTypeRepository to get the content type
-    - Use IContentModelUsage to get all instances of the content type 
-    - Use IContentRepository to create default instances of content types before creating new instances of a content type.
-    - Use MyContentType.CreateWriteableClone() to get an editable version of the content you are changing.
+  - Create a `MigrationStep` for handling the property type change.
+    - Use `IContentTypeRepository` to get the content type
+    - Use `IContentModelUsage` to get all instances of the content type 
+    - Use `IContentRepository` to create default instances of content types before creating new instances of a content type.
+    - Use `MyContentType.CreateWriteableClone()` to get an editable version of the content you are changing.
     - Make sure you cast properties to the correct types when assigning them.
