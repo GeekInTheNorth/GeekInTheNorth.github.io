@@ -11,30 +11,6 @@ permalink: "/projects"
 
 The following projects have been developed in isolation by myself outside of my professional role.
 
-### Roller Girl Gang Virtual Skate Marathon
-*May 2023 to Present*
-
-[Roller Girl Gang](https://www.rollergirlgang.co.uk/) is both a local business and community promoting and teaching Roller Skating in and around Leeds as well as existing as a skate goods store within the Leeds Corn Exchange. I was approached as they were aware of my previous roller skate challenge statistic site for the ALL IN: Community Roller Derby to help them with their own virtual skate marathon.
-
-As part of this, I updated the previously existing code base with new image assets and content and brought the code base up to date to host on Azure using .NET 7, Azure App Service and Azure Function Apps.
-
-Application Technologies:
-
-- .NET 6.0
-- MVC
-- Web API
-- Entity Framework
-- Microsoft Identities 
-- Microsoft Identities for Strava
-- Bootstrap
-
-Platform Technogies
-- Azure Web Apps
-- Azure Function Apps
-- Azure Storage Container
-- Azure SQL Server
-- GitHub Actions (CI/CD)
-
 ### Stott Security
 *16th December 2021 to Present*
 
@@ -87,6 +63,30 @@ Application Technologies:
 
 Platform Technologies:
 - GitHub Actions (CI, PR Quality Gate)
+
+### Roller Girl Gang Virtual Skate Marathon
+*May 2023 to October 2023*
+
+[Roller Girl Gang](https://www.rollergirlgang.co.uk/) is both a local business and community promoting and teaching Roller Skating in and around Leeds as well as existing as a skate goods store within the Leeds Corn Exchange. I was approached as they were aware of my previous roller skate challenge statistic site for the ALL IN: Community Roller Derby to help them with their own virtual skate marathon.
+
+As part of this, I updated the previously existing code base with new image assets and content and brought the code base up to date to host on Azure using .NET 7, Azure App Service and Azure Function Apps.
+
+Application Technologies:
+
+- .NET 6.0
+- MVC
+- Web API
+- Entity Framework
+- Microsoft Identities 
+- Microsoft Identities for Strava
+- Bootstrap
+
+Platform Technogies
+- Azure Web Apps
+- Azure Function Apps
+- Azure Storage Container
+- Azure SQL Server
+- GitHub Actions (CI/CD)
 
 ### ALL IN Leeds-Liverpool Skate Challenge
 *19th September 2020 to 1st January 2022*
