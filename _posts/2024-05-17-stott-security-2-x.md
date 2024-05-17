@@ -27,7 +27,9 @@ For further insights into the original CORS implementation within Stott Security
 
 When I initially developed Stott Security, I didn't foresee the sheer volume of sources that would be added to each site. It's become apparent that some implementations contain upwards of 50 sources or more, making the list difficult to navigate. Additionally, the CSP Violation List can become overwhelming with potentially hundreds of violated sources.
 
-To enhance user experience on these tabs, I've introduced the option to filter the list based on partial matches in the Source URL and the desired Directive. This feature aims to streamline navigation and improve usability for users dealing with extensive lists.
+To enhance user experience on these tabs, I've introduced the option to filter the list based on partial matches in the Source URL and the desired Directive. This feature aims to streamline navigation and improve usability for users dealing with extensive lists.  The free text filter will filter the list of sources to just those sources that contain the term entered. The drop down will filter the sources to just those which have been granted access to the specifically chosen directive; this can make it a lot easier to see which sources can perform a specific action.
+
+![CSP Sources Tab in Stott Security](/assets/StottSecurityCspSourcesTab.png)
 
 ## Language Updates
 
@@ -40,7 +42,6 @@ Another motivation for this linguistic adjustment is clarity. The terms Whitelis
 In essence, renaming to Allowlist enhances clarity and inclusivity, aligning with modern sensibilities and facilitating easier comprehension for all users.
 
 Microsoft has already embraced the language of Allowlist and Blocklist.  This is immediately apparant in articles such as [Allow list for Microsoft Edge endpoints](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-security-endpoints) and [Azure SQL Database and Azure Synapse IP firewall rules](https://learn.microsoft.com/en-gb/azure/azure-sql/database/firewall-configure?view=azuresql).  Google is another one of the big players that have started to use this newer language as we can see from their documentation such as [Allowlists, denylists, and approved senders](https://support.google.com/a/answer/60752?hl=en).
- 
 
 ## Customisable Reporting Endpoints
 
