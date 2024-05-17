@@ -6,6 +6,6 @@ layout: default
 
 <div>
     {% for category in page.categories %}
-        <a href="/article/list/{{ category | downcase }}" class="btn btn-outline-primary">{{ category }}</a>
+        <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-primary'>{{ category }}</a>
     {% endfor %}
 </div>

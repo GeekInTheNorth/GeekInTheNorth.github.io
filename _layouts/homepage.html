@@ -22,7 +22,7 @@ layout: default
             <p class="card-text">{{ post.description }}</p>
             <a href="{{ post.url }}" class="btn btn-primary me-2">Read more</a>
             {% for category in post.categories %}
-                <a href="/article/list/{{ category | downcase }}" class="btn btn-outline-secondary btn-sm me-2">{{ category }}</a>
+                <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-secondary btn-sm me-2'>{{ category }}</a>
             {% endfor %}
         </div>
       </div>

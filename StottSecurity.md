@@ -1,7 +1,7 @@
 ---
 layout: articlelist
 title: "Stott Security"
-permalink: "/article/list/stott%20security"
+permalink: "/article/list/stott-security"
 category: "Stott Security"
 ---
 
