@@ -15,7 +15,7 @@ In December 2023, I unveiled the initial version of Stott Security version 2. Al
 
 ## Cross-Origin Resource Sharing Headers
 
-Cross-Origin Resource Sharing (CORS) headers serve as your web server's means of specifying which domains, other than its own, are permitted to access its APIs and how. If you aim to bolster your website's security, implementing both CORS and CSP is advisable, as they safeguard your website from different angles.
+Cross-Origin Resource Sharing (CORS) headers serve as your web server's means of specifying which domains, other than its own, are permitted to access its APIs. If you aim to bolster your website's security, implementing both CORS and CSP is advisable, as they safeguard your website from different angles.  The UI for managing CORS within Stott Security can be seen below:
 
 ![CORS Tab in Stott Security](/assets/StottSecurityCorsUi.png)
 
