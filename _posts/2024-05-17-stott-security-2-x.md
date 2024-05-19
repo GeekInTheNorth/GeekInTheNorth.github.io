@@ -33,11 +33,11 @@ To enhance user experience on these tabs, I've introduced the option to filter t
 
 ## Language Updates
 
-I decided to rename the feature formerly known as "Remote CSP Whitelist" to "Remote CSP Allowlist" deliberately. This choice reflects a shift towards more inclusive and descriptive terminology, opting for terms like Allowlist and Blocklist.
+I decided to rename the feature formerly known as "Remote CSP Whitelist" to "Remote CSP Allowlist". This choice reflects a shift towards more inclusive and descriptive terminology, opting for terms like Allowlist and Blocklist.
 
 The terms Whitelist and Blacklist have historical roots dating back centuries. Blacklisting originated in the 17th century, referring to a list of individuals to be ostracized or punished. In the 20th century, being blacklisted meant social and professional exclusion, representing a form of oppression. Moreover, associating "Good" with "White" and "Bad" with "Black" can carry divisive racial connotations.
 
-Another motivation for this linguistic adjustment is clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them, as they rely on simple color prefixes. In a casual discussion with a lay-person, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, they swiftly understood their meanings without ambiguity or prior knowledge.
+Another motivation for this linguistic adjustment is clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them as they rely on simple color prefixes. In a casual discussion with a lay-person, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, they swiftly understood their meanings without ambiguity or prior knowledge.
 
 In essence, renaming to Allowlist enhances clarity and inclusivity, aligning with modern sensibilities and facilitating easier comprehension for all users.
 
@@ -76,7 +76,7 @@ This feature allows exporting all configurations as a JSON file, which can be do
 
 ## Improved Performance
 
-I received a report concerning performance issues occurring in production with the Stott Security module. Notable stability concerns were raised regarding the instantiation of numerous DB Contexts, resulting in connection limit breaches. Optimizely typically configures the Production environment with the most conservative setup initially, scaling up as necessary. This strategy ensures a healthy profit margin on the DXP platform. However, in this instance, the limit of around 100 concurrent connections was surpassed, indicating that the database was scaled too low for a large client. In response, Optimizely temporarily resolved the issue by scaling up the database instance.
+I received a report concerning performance issues occurring in production with the Stott Security module. Notable stability concerns were raised regarding the instantiation of numerous DB Contexts, resulting in connection limit breaches. Optimizely typically configures the Production environment with the most conservative setup initially, scaling up as necessary. This strategy is to keep the costs down on the DXP platform. However, in this instance, the limit of around 100 concurrent connections was surpassed, indicating that the database was scaled too low for a large client. In response, Optimizely temporarily resolved the issue by scaling up the database instance.
 
 Upon receiving this report, I introduced additional logging into the DB context and key repositories to monitor instantiation frequency. Swiftly, I pinpointed areas for significant performance enhancement:
 
