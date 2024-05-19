@@ -37,7 +37,7 @@ I decided to rename the feature formerly known as "Remote CSP Whitelist" to "Rem
 
 The terms Whitelist and Blacklist have historical roots dating back centuries. Blacklisting originated in the 17th century, referring to a list of individuals to be ostracized or punished. In the 20th century, being blacklisted meant social and professional exclusion, representing a form of oppression. Moreover, associating "Good" with "White" and "Bad" with "Black" can carry divisive racial connotations.
 
-Another motivation for this linguistic adjustment is clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them, as they rely on simple color prefixes. In a casual survey, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, respondents swiftly understood their meanings without ambiguity or prior knowledge.
+Another motivation for this linguistic adjustment is clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them, as they rely on simple color prefixes. In a casual discussion with a lay-person, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, they swiftly understood their meanings without ambiguity or prior knowledge.
 
 In essence, renaming to Allowlist enhances clarity and inclusivity, aligning with modern sensibilities and facilitating easier comprehension for all users.
 
