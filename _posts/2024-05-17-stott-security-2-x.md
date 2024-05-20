@@ -43,6 +43,8 @@ In essence, renaming to Allowlist enhances clarity and inclusivity, aligning wit
 
 Microsoft has already embraced the language of Allowlist and Blocklist.  This is immediately apparant in articles such as [Allow list for Microsoft Edge endpoints](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-security-endpoints) and [Azure SQL Database and Azure Synapse IP firewall rules](https://learn.microsoft.com/en-gb/azure/azure-sql/database/firewall-configure?view=azuresql).  Google is another one of the big players that have started to use this newer language as we can see from their documentation such as [Allowlists, denylists, and approved senders](https://support.google.com/a/answer/60752?hl=en).
 
+Please Note, that I do not pretend to be in a position of Authority on subject matters like this. How can I be when I am not the victim of racism? How can I tell you how that makes another person feel? What I want to do here is continue to learn and to try to show my fellow humans the respect they deserve while making my software as user friendly as possible.
+
 ## Customisable Reporting Endpoints
 
 Stott Security has provided support for internal reporting endpoints since its inception, but the development journey for this feature has taken various paths. Initially, it employed a view component that generated a JavaScript tag to intercept browser events and transmit violations to the module's endpoint. Later, I modified this to align with standard definitions for the report-uri and report-to schema.
