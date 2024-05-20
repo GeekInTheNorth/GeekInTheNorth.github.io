@@ -35,7 +35,7 @@ To enhance user experience on these tabs, I've introduced the option to filter t
 
 I decided to rename the feature formerly known as "Remote CSP Whitelist" to "Remote CSP Allowlist". This choice reflects a shift towards more inclusive and descriptive terminology, opting for terms like Allowlist and Blocklist.
 
-The terms Whitelist and Blacklist have historical roots dating back centuries. Blacklisting originated in the 17th century, referring to a list of individuals to be ostracized or punished. In the 20th century, being blacklisted meant social and professional exclusion, representing a form of oppression. Moreover, associating "Good" with "White" and "Bad" with "Black" can carry divisive racial connotations.
+The terms Whitelist and Blacklist have historical roots dating back centuries. Blacklisting originated in the 17th century, referring to a list of individuals to be ostracized or punished and is considered to refer to criminality, however the term began life in a period of time under which mass slavery of African people began. Jumping forward to the late 18th century, blacklisting started to be used to list people who should be socially and professionally excluded.  People would be placed in a state where they could not obtain any form of employment and were pushed into poverty for performing an action not approved of by their employers such as striking; this is a form of social oppression.  In stark contrast, whitelisting was also used to list people or organizations who were to be considered good and trustworthy. Overall in the english language, "White" is often associated with "Good" while "Black" is associated with "Bad".  While the origin of these terms is not considered to be about race, the continued use of these terms is a form of micro-aggression that continue to reinforce racial divides and systemic racism.
 
 Another motivation for this linguistic adjustment is clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them as they rely on simple color prefixes. In a casual discussion with a lay-person, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, they swiftly understood their meanings without ambiguity or prior knowledge.
 
@@ -101,3 +101,5 @@ In testing, there was a minimum reduction of 95% in all DB Context instantiation
 ## References
 
 - The Shelf: [Allowlisting vs. Whitelisting: Why the Industry is Retiring the Term “Whitelisting”](https://www.theshelf.com/industry-news/allowlisting-vs-whitelisting/)
+- National Library of Medicine [“Blacklists” and “whitelists”: a salutary warning concerning the prevalence of racist language in discussions of predatory publishing](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6148600/)
+- Wikipedia : [Blacklisting](https://en.wikipedia.org/wiki/Blacklisting)
