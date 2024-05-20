@@ -33,17 +33,13 @@ To enhance user experience on these tabs, I've introduced the option to filter t
 
 ## Language Updates
 
-I decided to rename the feature formerly known as "Remote CSP Whitelist" to "Remote CSP Allowlist". This choice reflects a shift towards more inclusive and descriptive terminology, opting for terms like Allowlist and Blocklist.
+I decided to rename the feature formerly known as "Remote CSP Whitelist" to "Remote CSP Allowlist". This choice reflects a shift towards more inclusive and descriptive terminology, opting for terms like Allowlist and Blocklist which are more overt in their meaning.
 
-The terms Whitelist and Blacklist have historical roots dating back centuries. Blacklisting originated in the 17th century, referring to a list of individuals to be ostracized or punished and is considered to refer to criminality, however the term began life in a period of time under which mass slavery of African people began. Jumping forward to the late 18th century, blacklisting started to be used to list people who should be socially and professionally excluded.  People would be placed in a state where they could not obtain any form of employment and were pushed into poverty for performing an action not approved of by their employers such as striking; this is a form of social oppression.  In stark contrast, whitelisting was also used to list people or organizations who were to be considered good and trustworthy. Overall in the english language, "White" is often associated with "Good" while "Black" is associated with "Bad".  While the origin of these terms is not considered to be about race, the continued use of these terms is a form of micro-aggression that continue to reinforce racial divides and systemic racism.
+There is a lot of history to the terms "Whitelist" and "Blacklist" and often it is claimed that these have origins in trust and criminality respectively.  Blacklisting however has a darker history where it was used as a means of oppression with individuals being unable to gain employment for performing acts that were either not approved of by their employers (such as striking) essentially leading to them being pushed into poverty. Overall in the english language, where "White" is used in a term it is often associated with "Good" while "Black" is associated with "Bad".  Irrespective of the origin of these terms, the continued use of these terms is a form of micro-aggression that continue to reinforce racial divides and systemic racism. I do not pretend to be in a position of Authority on subject matters like this. How can I be when I am not the victim of racism? How can I tell you how that makes another person feel? What I want to do here is continue to learn and to try to show my fellow humans the respect they deserve while making my software as user friendly and intiuitive as possible.
 
-Another motivation for this linguistic adjustment is clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them as they rely on simple color prefixes. In a casual discussion with a lay-person, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, they swiftly understood their meanings without ambiguity or prior knowledge.
-
-In essence, renaming to Allowlist enhances clarity and inclusivity, aligning with modern sensibilities and facilitating easier comprehension for all users.
+The switch to Allowlist and Blocklist is a good move in terms of clarity. The terms Whitelist and Blacklist may not be immediately comprehensible to those unfamiliar with them as they rely on simple color prefixes. In a casual discussion with a lay-person, I found that while the concept of a Blacklist was quickly grasped, the Whitelist prompted confusion and required explanation. On the other hand, when I asked about Allowlist and Blocklist, they swiftly understood their meanings without ambiguity or prior knowledge.
 
 Microsoft has already embraced the language of Allowlist and Blocklist.  This is immediately apparant in articles such as [Allow list for Microsoft Edge endpoints](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-security-endpoints) and [Azure SQL Database and Azure Synapse IP firewall rules](https://learn.microsoft.com/en-gb/azure/azure-sql/database/firewall-configure?view=azuresql).  Google is another one of the big players that have started to use this newer language as we can see from their documentation such as [Allowlists, denylists, and approved senders](https://support.google.com/a/answer/60752?hl=en).
-
-Please Note, that I do not pretend to be in a position of Authority on subject matters like this. How can I be when I am not the victim of racism? How can I tell you how that makes another person feel? What I want to do here is continue to learn and to try to show my fellow humans the respect they deserve while making my software as user friendly as possible.
 
 ## Customisable Reporting Endpoints
 
@@ -100,8 +96,3 @@ In testing, there was a minimum reduction of 95% in all DB Context instantiation
 - [Version 2.5](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/201)
 - [Version 2.6](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/207)
 
-## References
-
-- The Shelf: [Allowlisting vs. Whitelisting: Why the Industry is Retiring the Term “Whitelisting”](https://www.theshelf.com/industry-news/allowlisting-vs-whitelisting/)
-- National Library of Medicine [“Blacklists” and “whitelists”: a salutary warning concerning the prevalence of racist language in discussions of predatory publishing](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6148600/)
-- Wikipedia : [Blacklisting](https://en.wikipedia.org/wiki/Blacklisting)
