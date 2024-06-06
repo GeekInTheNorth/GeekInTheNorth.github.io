@@ -212,3 +212,5 @@ GitHub Copilot can significantly speed up your test writing process; it helped m
 - Scrutinize everything the AI generates, as there is a significant chance of errors or inefficiencies.
 - "Garbage in, garbage out" still applies; the quality of the code depends on the quality of the code it can access.
 - AI, in its current state, will not replace you but can augment your productivity.
+
+_**Disclaimer:** Please note that content within this article has been reworded with the aid of Chat GPT, but the content provided has been written by me (Mark Stott)._
