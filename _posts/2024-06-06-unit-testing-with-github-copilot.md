@@ -5,7 +5,6 @@ description: "Writing unit tests with the help of GitHub Copilot, how well does 
 permalink: "/article/unit-testing-with-github-copilot"
 category:
   - Development
-  - Optimizely
 ---
 
 # Unit Testing With GitHub Copilot
