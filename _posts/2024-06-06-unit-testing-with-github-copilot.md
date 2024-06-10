@@ -13,7 +13,9 @@ Published: 6th June 2024
 
 I recently signed up for GitHub Copilot to explore the integration of AI in software development. My primary experience with AI in coding has been through ChatGPT, which has largely been disappointing and does not live up to the hype. Over 80% of the coding assistance I've received from ChatGPT has been incorrect or outdated. Additionally, attempts to clarify or provide further instructions often resulted in the same incorrect answers. When using ChatGPT to rephrase article content, about 50% of the outcomes altered the context so significantly that the meaning was entirely different.  Given these experiences, my expectations for GitHub Copilot are quite low.
 
-The first unit test I wanted to write was for this handy extension method inside of a SiteDefinitionExtensions class that I have created for my Optimizely Robots AddOn:
+## The Method Under Test
+
+The code I wanted to unit test was this handy extension method inside of a `SiteDefinitionExtensions` class that I had created for my Optimizely Robots AddOn:
 
 ```
 public static IEnumerable<KeyValuePair<string, string>> ToHostSummaries(this IList<HostDefinition> hostDefinitions)
@@ -31,7 +33,11 @@ public static IEnumerable<KeyValuePair<string, string>> ToHostSummaries(this ILi
 }
 ```
 
-I created a new test class by the name of SiteDefinitionExtensionTests, added the [TestFixture] attribute to the class and then started to write my first test.  I got as far as writing `public void ToHostSummaries` and I was presented with the following test as an auto complete:
+The method isn't particularly complex, it converts the `IList<HostDefinition>` property on the `SiteDefinition` class into a simplified collection of key value pairs and adds in a default host entry at the beginning of the collection.  This collection is then returned in an API response in place of the more complicated collection of `HostDefinition` objects.
+
+## The First Test
+
+I created a new test class by the name of `SiteDefinitionExtensionTests`, added the `[TestFixture]` attribute to the class and then started to write my first test.  I got as far as writing `public void ToHostSummaries` and I was presented with the following test as an auto complete:
 
 ```
 [Test]
@@ -69,6 +75,8 @@ public void ToHostSummaries_WhenHostDefinitionsIsNull_ShouldReturnDefault()
 }
 ```
 
+## The Second Test
+
 I started writing my second test as `public void ToHostSummaries`, and it suggested the following test, which was entirely correct. It learned from my previous intervention, adopting my preferred assertion style and the way I declared the opening variable.
 
 ```
@@ -87,6 +95,8 @@ public void ToHostSummaries_WhenHostDefinitionsIsEmpty_ShouldReturnDefault()
     Assert.That(result[0].Value, Is.EqualTo(string.Empty));
 }
 ```
+
+## The Third Test
 
 The third test I wanted to write was where the `hostDefinitions` collection contained entries, again I typed `public void ToHostSummaries` and the following was generated:
 
@@ -149,6 +159,8 @@ public void ToHostSummaries_WhenHostDefinitionsIsNotEmpty_ShouldReturnHostSummar
     Assert.That(result[2].Value, Is.EqualTo("http://host2.com/"));
 }
 ```
+
+## The Forth Test
 
 The final test for this class was to prove that host definitions with a null URL are omitted from the result.  Again I just had to type `public void ToHostSummaries` to get the following result:
 
