@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Unit Testing With GitHub Copilot"
-description: "Writing unit tests with the help of GitHub Copilot, how well does it perform."
+description: "Writing unit tests with the help of GitHub Copilot for the first time."
 permalink: "/article/unit-testing-with-github-copilot"
 category:
   - Development
