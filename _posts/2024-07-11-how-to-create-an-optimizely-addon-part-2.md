@@ -17,4 +17,4 @@ Notes:
 - Reference Part One
 - Controller Attributes and UI
 - Module.config, the two options
-- Outputting configuration files to the appropriate folder in nuget
+- Outputting configuration files to the appropriate folder in NuGet

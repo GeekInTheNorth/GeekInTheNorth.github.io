@@ -44,5 +44,5 @@ Notes:
 - Handling Issues with wwwroot being omitted
 - Menu Providers
 - Authentication
-- Nuget Parameters
+- NuGet Parameters
 - Submitting a module

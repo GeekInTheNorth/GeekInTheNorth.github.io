@@ -18,7 +18,7 @@ Published: 15th December 2021
 
 ## The Interface
 
-The interface is built using a standard .NET 5.0 MVC Controller with a Razor view with a small supporting JS file that is compiled as a Razor Class Library.  The benefit of building this as a Razor Class Library is that Nuget only needs to provide the DLL keeping your solution otherwise clean of any artefacts from the package. 
+The interface is built using a standard .NET 5.0 MVC Controller with a Razor view with a small supporting JS file that is compiled as a Razor Class Library.  The benefit of building this as a Razor Class Library is that NuGet only needs to provide the DLL keeping your solution otherwise clean of any artefacts from the package. 
 
 The UI is a single page using Bootstrap 5.0 and JQuery that renders a complete list of all sites configured within the CMS instance.
 
@@ -30,7 +30,7 @@ The content of the robots.txt for any site is shown in a modal dialog and saved 
 
 ## Installation & Configuration
 
-Installation is straight forward, the Stott.Optimizely.RobotsHandler package can be installed either from the Optimizely nuget feed or from the nuget.org feed.  You will then need to add the following lines to the Startup class in your .NET 5.0 solution:
+Installation is straight forward, the Stott.Optimizely.RobotsHandler package can be installed either from the Optimizely NuGet feed or from the nuget.org feed.  You will then need to add the following lines to the Startup class in your .NET 5.0 solution:
 
 ```
 public void ConfigureServices(IServiceCollection services)

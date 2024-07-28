@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Creating an Optimizely Addon - Packaging for Nuget"
+title: "Creating an Optimizely Addon - Packaging for NuGet"
 description: "How to a custom report within Optimizely CMS PAAS Core."
 permalink: "/article/creating-an-optimizely-addon-part-4"
 category:
@@ -8,14 +8,26 @@ category:
   - Optimizely
 ---
 
-# Creating an Optimizely Addon - Packaging for Nuget
+# Creating an Optimizely Addon - Packaging for NuGet
 
 Published: 11th July 2024
 
-The following article is part four in a four part series about making Addons for Optimizely CMS 12.  In this part I will be covering the challenges of creating and submitting your AddOn as a Nuget package into the Optimizely NuGet feed.
+The following article is part four in a four part series about making Addons for Optimizely CMS 12.  In this part I will be covering the challenges of creating and submitting your AddOn as a NuGet package into the Optimizely NuGet feed.
 
+_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to create a more formal tone._
 
-## Defining Nuget Properties
+## Defining What to Package
+
+Each project within your solution must be created as a NuGet package if it is deemed to be the primary project or a dependency for the primary project. Consider the following solution as an example:
+
+- MySolution.sln
+  - MyAddOn.Admin.csproj
+  - MyAddOn.Core.csproj
+  - MyAddOn.Test.csproj
+
+In this scenario, the administrator interface for the AddOn is separated from its core shared functionality. This design enables a consuming site to incorporate MyAddOn.Admin into their Optimizely website project and to reference MyAddOn.Core within any project in their solution structure. Consequently, MyAddOn.Admin has a direct dependency on MyAddOn.Core. To publish MyAddOn.Admin as a NuGet package, MyAddOn.Core must also be published as a NuGet package. It should be noted that MyAddOn.Admin only requires MyAddOn.Core as a project dependency during development; this dependency will be converted into a package dependency during the packaging process.
+
+## Defining NuGet Properties
 
 If you are using Visual Studio, right click on the project you want to package and select properties to show the project properties screen.  Under the Package section you can define all of the properties for your NuGet package.
 
@@ -27,7 +39,7 @@ I would recommend you complete the following:
 |----------|--------|
 | Package Id | This will need to be globally unique name within nuget.org and nuget.optimizely.com.  If you use the `$(AssemblyName)` variable, then this will match the name of the project. |
 | Title | Visual Studio describes this as the name of the package used in UI displays such as Package Manager, but this largely does not get used. |
-| Package Version | This should be a semantic version number with three or four parts.  e.g. 2.7.0 |
+| Package Version | This should be a semantic version number with three or four parts and an optional alpha or beta tag. For Example:<br/>1.0.0<br/>1.0.0.0<br/>0.1.1-alpha<br/>0.2.2.0-beta |
 | Authors | This should contain the names of all of the package owners. |
 | Company | This should contain the name of the business that is behind creating the Addon.  If this is individually owned, then seting this to `$(Authors)` will mirror the value from the Authors property. |
 | Description | This should be a short description about your Addon, this will be visible within the NuGet package feed and within the Plugin Manager screen within Optimizely CMS. |
@@ -36,8 +48,8 @@ I would recommend you complete the following:
 | Readme | I have set this to the readme.md for my repositories, this will be visible to developers within the NuGet platform. |
 | Repository Url | This should point to the repository for your Addon, assuming that your Addon is Open Source. |
 | Tags | This is a delimited set of tags that make your package easier to find within the NuGet feeds. |
-| License File | This should point to the license within your repository.  You should think hard about what type of license your Addon will have.  I am using an MIT license because it's very permissive and without warranty.  Some license types can require your consumers to make their code open source in order to use your package, so think carefully about how permissive or restrictive you make your license.  I can say that some very popular Addons use an MIT or Apache license. |
-| Require License Acceptance | If you tick this, the consumer will have to accept the license as they install the package. |
+| License File | This should reference the license within your repository. Careful consideration should be given to the type of license for your AddOn. Certain licenses may require your users to make their code open source to utilize your package, so think carefully about the permissiveness or restrictiveness of your license. It is noteworthy that some highly popular AddOns employ an MIT or Apache license.<br/><br/>I am utilizing an MIT license due to its permissive nature and lack of warranty. While I do engage with my users and address any issues that are raised, my AddOns are free and are maintained in my free time. |
+| Require License Acceptance | If you tick this, the consumer will have to accept the license as they install the package. If you are using an MIT license, you may want to tick this to encourage the consumer to accept the warranty free nature of your AddOn. |
 
 If you are using Visual Studio Code instead of Visual Studio, then you can edit the .csproj directly and add the package properties directly as XML values at the top of the csproj file.  You can also add these properties into a .nuspec instead, when you package your project, the values from the .csproj and .nuspec are merged into a new .nuspec that is contained in the root of the compiled .npg file.  I personnally prefer to put the NuGet properties directly into the .csproj.
 
@@ -92,9 +104,9 @@ Folders such as build, contentFiles and the target folders under lib will vary d
 
 ## Packaging for Multiple Frameworks
 
-.NET Core is backwards compatible, this means that if you build your package for .NET 6, it can be installed into .NET 6, 7 and 8.  For most AddOns you will just want to directly compile for .NET 6 for maximum compatability.
+.NET Core is backwards compatible, meaning that if you build your package for .NET 6, it can be installed into .NET 6, 7, and 8. For most AddOns, compiling directly for .NET 6 ensures maximum compatibility.
 
-You may however need to compile your application in multiple framework versions.  If you are using Entity Framework and Migrations, then there is a breaking change between .NET 6 and .NET 8.  Fortunately you do not need to make any code changes, but you do want to set your dependencies separately for .NET 6 and .NET 8.  In order to achieve this, you need to make two changes.
+However, there may be instances where you need to compile your application in multiple framework versions. For example, if you are using Entity Framework and Migrations, there is a breaking change between .NET 6 and .NET 8. Fortunately, no code changes are required, but you will need to set your dependencies separately for .NET 6 and .NET 8. To accomplish this, you must make two modifications.
 
 1. Change the `TargetFramework` node in your .csproj to be `TargetFrameworks` and separate your target frameworks with a semicolon. e.g. `net6.0;net8.0`.
 2. Add a separate `ItemGroup` per framework version to contain framework specific dependencies and add a condition to the ItemGroup to target the specific framework. e.g. `Condition="'$(TargetFramework)' == 'net6.0'"`. 
@@ -122,7 +134,7 @@ This will double the size of your NuGet package as it will contain separate fold
 
 If your package contains an `IFrameComponent` or other files needed to extend the Editor Interface. A `module.config` file and those files will need to be deployed to the `modules/_protected/my.project` folder within the target website.
 
-First will need to tell the .csproj file that we want to copy these files into the `contentFiles` folder of the nuget package.  This is as simple as setting the build output for those files to be `None` and to set the `PackagePath` to be inside of the `contentFiles` folder.
+First you will need to tell the .csproj file that we want to copy these files into the `contentFiles` folder of the NuGet package.  This is as simple as setting the build output for those files to be `None` and to set the `PackagePath` to be inside of the `contentFiles` folder.
 
 ```
 <ItemGroup>
@@ -135,7 +147,7 @@ First will need to tell the .csproj file that we want to copy these files into t
 
 We will then need to create a .targets file that instructs the NuGet package installer how to handle those files.  The example below is taken straight from my own Addons where I am doing the same thing.
 
-First I have to tell the .targets file where the specific files are within the nuget package structure.  The `$(MSBuildThisFileDirectory)` variable in this case is a reference to the directory the .targets file sits in.  As this is in a build folder, I have used the `$(MSBuildThisFileDirectory)` variable in combination with the relative path to my module.config file.
+The `ItemGroup` tells the .targets file where the specific files are within the NuGet package structure.  The `$(MSBuildThisFileDirectory)` variable in this case is a reference to the directory the .targets file sits in.  As this is in a build folder, I have used the `$(MSBuildThisFileDirectory)` variable in combination with the relative path to my module.config file.
 
 The `Target` node is then performing an action that is configured to execute on `BeforeBuild`.  This then performs a `Copy` action that will take my module.config file from the contentFiles folder in the nuget package to the `modules\_protected\Stott.Security.Optimizely` folder within the target website.  This means that when you first install the package, the module.config file and folder will not exist within the protected modules folder.  When you first build the solution they will be copied into this location.
 
@@ -173,7 +185,7 @@ To set your package as an alpha or beta release, you need to set the `version` p
 <Version>2.0.0.2-beta</Version>
 ```
 
-Once you have published the alpha/beta version of your package into nuget.org and confirmed that it installs correctly both locally and inside of a CI/CD pipeline and you have tested your package, you will be ready to submit a live version of your package to Optimizely.
+Once you have published the alpha/beta version of your package into NuGet.org and confirmed that it installs correctly both locally and inside of a CI/CD pipeline and you have tested your package, you will be ready to submit a live version of your package to Optimizely.
 
 Make sure that you have an [Optimizely World](https://world.optimizely.com) account.  You can create a new account by visiting [Optimizely World](https://world.optimizely.com) and following the Register link in the top right corner.  You will use this same account to access the Optimizely NuGet feeds.  It should be noted that Optimizely have two different NuGet feeds:
 
@@ -191,6 +203,7 @@ _Please Note that at the time of writing there was an issue with packages upload
 - Build your package for .NET 6 for maximum compatability
   - Build your package for both .NET 6 & 8 if you have compatability issues between both frameworks.
 - Use a Razor Class Library so you can package your UI and C# code together.
+- Think very carefully about which license you will use for your package.
 - Use a build targets file to put files into specific folders within a consuming application.
 - Test your package installs and works as an alpha/beta on nuget.org before submitting to the Optimizely NuGet feed.
 - Upload your package to [nuget.optimizely.com](https://nuget.optimizely.com) when it is ready.
