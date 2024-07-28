@@ -30,19 +30,91 @@ My recommendation is to constrain your Addon to a single project that is a [Razo
 
 When you create an Addon, you do need to accept that you will be releasing multiple versions, and in some cases that release could be a hotfix that needs a rapid turn around.  You can help yourself greatly by adding a unit test project to your solution and adding tests for all key journeys.  This will provide you with additional confidence when deploying future releases and it will help you recognise and fix bugs before they reach the end user.  As the only developer on two addons, the level of unit test coverage within my addons drastically reduces the amount of manual testing I need to perform for every release.
 
-Section Summary:
-- Do try to keep your AddOn production code to a single project.
-- Do use a Razor Class Library to package all of your UI into a single compiled project.
-- Do use very specific razor file paths and names to prevent collisions with razor file paths in the consuming application.
-- Do create a suite of unit tests for your code.
+## JavaScript and Stylesheets In Secure Systems
 
+When you first build your UI, it can be very tempting to use third party JS and CSS libraries within your AddOn.  In the first iterations of Stott Robots Handler I was referencing JQuery and Bootstrap straight from their CDN providers and then the script to make the page work was contained in an inline script tag.  This may sound like an acceptable approach for a simple UI, but actually this can cause a lot of pain for those who are security minded.
+
+The result of any penetration test will highlight the lack of a Content Security Policy (CSP) as a high risk issue. The CSP is an Allowlist of third party domains and what permissions they have to operate on your website.  If a CSP covers both the visitable UI and the CMS Editor experience, then it must include the origins of your third party scripts.  Lets say you reference a library on jsdelivr, then the CSP for entire site then needs to permit jsdelivr because of one single page.
+
+Instead build and compile your JS and CSS as bundles and package them in your Razor Class Library under the wwwroot folder or install them into the protected modules folder of the consuming website.  Your dependencies will be more optimized and the consuming website will also benefit from being able to use a much more secure Content Security Policy.  If you are going to use an inline script or style tag, make sure you consume Optimizely's `ICspNonceService` and use this to populate the `nonce` attribute of any script or style element within your UI.  
+
+_Please note that at the time of writing, Optimizely does not support the `nonce` attribute for it's Editor or Admin interface, but there is an intention to correct this.  Please do not be the developer that stops this from being adopted further down the line._
+
+## Extending The Menu
+
+If your AddOn has it's own interface, then you will want to expose that interface to your users by creating a class that inherits `IMenuProvider` that is also decorated with `[MenuProvider]` attribute.  Optimizely will automatically identify these classes and use them to extend the menu.
+
+In the following example, I am returning a single `UrlMenuItem` which takes three parameters: the name of the link within the menu, the path within the menu and the MVC controller route for where my interface exists.  I am then extending this to say that it is always available and sorting this to the end of the list of menu items.  I am also defining the authorization policy required to access this menu item.
+
+```
+[MenuProvider]
+public sealed class ExampleMenuProvider : IMenuProvider
+{
+    public IEnumerable<MenuItem> GetMenuItems()
+    {
+        return new UrlMenuItem(
+          "My AddOn",
+          "/global/cms/my.addon",
+          "/my-addon-controller-route/")
+        {
+            IsAvailable = context => true,
+            SortIndex = SortIndex.Last + 1,
+            AuthorizationPolicy = "required.security.policy"
+        };
+    }
+}
+```
+
+If you start the menu path with `global` then your AddOn will become visible within the module selector.  If you start it with `global/cms`, then your AddOn will become visible under AddOns in the left hand menu of the CMS.
+
+![Left Hand Menu in Optimizely CMS](/assets/creating-addons-simple-menu.png)
+
+If you have multiple menu items that you want to present in a hierarchial fashion, then you can simply return multiple UrlMenuItems, making sure to define the paths for the child menu items under their parent. 
+
+```
+[MenuProvider]
+public class ExampleMenuProvider : IMenuProvider
+{
+    public IEnumerable<MenuItem> GetMenuItems()
+    {
+        yield return new UrlMenuItem(
+          "My Addon Parent",
+          "/global/cms/myaddon.menu.example",
+          "/my-addon-controller-route/parent/")
+        {
+            IsAvailable = context => true,
+            SortIndex = SortIndex.Last + 1,
+            AuthorizationPolicy = "required.security.policy"
+        };
+
+        yield return new UrlMenuItem(
+          "My Addon Child One",
+          "/global/cms/myaddon.menu.example/child.one",
+          "/my-addon-controller-route/child-one/")
+        {
+            IsAvailable = context => true,
+            SortIndex = SortIndex.Last + 1,
+            AuthorizationPolicy = "required.security.policy"
+        };
+
+        yield return new UrlMenuItem(
+          "My Addon Child Two",
+          "/global/cms/myaddon.menu.example/child.two",
+          "/my-addon-controller-route/child-two/")
+        {
+            IsAvailable = context => true,
+            SortIndex = SortIndex.Last + 2,
+            AuthorizationPolicy = "required.security.policy"
+        };
+    }
+}
+```
+
+Parent and child menu items will manifest as it's own menu when it opens and this adopts the same style as the administrator interface. Please note that this consumes an additional 120 pixels of horizonal real estate and you may want to override the styles on your pages.  If your interface is built as a single page application, then you can set the child menus to have the same URL as the parent but with anchor tags and toggle UI visibility based on this.
+
+![Left Hand Menu in Optimizely CMS](/assets/creating-addons-parent-child-menu.png)
 
 Notes:
 
-- Razor Class Libraries
-- Why you should compile and ship JS & CSS
 - Handling Issues with wwwroot being omitted
-- Menu Providers
 - Authentication
-- NuGet Parameters
-- Submitting a module
