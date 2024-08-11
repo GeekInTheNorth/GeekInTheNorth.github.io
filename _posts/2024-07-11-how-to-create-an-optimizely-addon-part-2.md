@@ -12,26 +12,26 @@ category:
 
 Published: 11th July 2024
 
-In [Part One](/article/creating-an-optimizely-addon-part-1) of this series, I covered getting started with creating your own AddOn for Optimizely CMS 12. This covered having an idea, solution structure, extending the menu interface and authentication.
+In [Part One](/article/creating-an-optimizely-addon-part-1) of this series, I covered getting started with creating your own AddOn for Optimizely CMS 12. This covered having an idea, solution structure, extending the menu interface and authentication. In Part Two, I will be covering adding an additional editor interface gadget.
 
-In Part Two, I will be covering adding an additional editor interface gadget.
+_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to create a more formal tone._
 
 ## Adding a Gadget to the Editor Interface
 
-Optimizely will search for controllers which are decorated with the `[IFrameComponent]` attribute.  This contains a number of properties which instruct Optimizely on where to use component.  The key properties are:
+Optimizely will identify controllers marked with the [IFrameComponent] attribute, which contains several properties that guide Optimizely on how and where to utilize the component. The primary properties are as follows:
 
 | Property | Usage |
 |----------|-------|
-| Title | This should be the name for your gadget and will be visible in the Gadget selector. |
-| Description | This is a short description for your gadget and will be visible in the Gadget selector. Do try to stick to one sentence. |
-| Categories | This is a suitable category for your gadget. If you are working with content types specifically then this should be "content". |
-| Url | This should match the route for your controller action. |
-| PlugInAreas | This is a path to where your component should be made available within the system. |
-| ReloadOnContextChange | This will cause the UI to reload your Gadget every time you select a different content item within the CMS interface. |
+| Title | The name of the gadget, visible in the Gadget selector. |
+| Description | A brief description of the gadget, also visible in the Gadget selector. It is recommended to keep this to one sentence. |
+| Categories | The appropriate category for the gadget. For content-specific gadgets, this should be set to "content." |
+| Url | The route corresponding to your controller action. |
+| PlugInAreas | The location within the system where the component should be made available. |
+| ReloadOnContextChange | Enables the UI to reload the gadget each time a different content item is selected within the CMS interface. |
 
 ![Gadget Selector in Optimizely CMS 12 Editor Interface](/assets/custom-admin-in-cms-12-4.png)
 
-The following is an example of the bare minimum you will need for your controller.  Note how I include the `[Authorize]` attribute on the controller and the `[HttpGet]` attribute on the action.  This will ensure that the user must be logged in and cannot access your interface with an unexpected HTTP Verb.
+Below is an example of the minimum required setup for your controller. Note the inclusion of the [Authorize] attribute on the controller and the [HttpGet] attribute on the action. These ensure that the user is authenticated and that the interface cannot be accessed using an unexpected HTTP verb.
 
 ```
 [Authorize]
@@ -57,9 +57,9 @@ public sealed class MyAddOnGadgetController : Controller
 }
 ```
 
-When the editor inteface loads your gadget, it will do so with an `id` querystring parameter which contains a versioned content reference in string form.  e.g. `123_456`.  The left hand number is the permenant identity while the right hand side is the specific version of that content item.  You can use this to load the specific content item and use it in the model for your gadget.
+When the editor interface loads your gadget, it will include an id query string parameter containing a versioned content reference in string format (e.g., 123_456). The number on the left represents the permanent identity of the content, while the number on the right denotes the specific version of that content item. This information can be used to load the particular content item and incorporate it into your gadget's model.
 
-In the gadet that I added to [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), I am interested in just pages and I render the security headers for that page as a preview.  I retrieve the specific page with this helpful method that I call in the action attribute and attach the page to my model.
+In the gadget I developed for [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), I focus exclusively on pages, rendering the security headers for the selected page as a preview. I retrieve the specific page using a method that I invoke in the action attribute, subsequently attaching the page to my model.
 
 ```
 private PageData? GetPageData(HttpRequest request)
@@ -82,15 +82,15 @@ private PageData? GetPageData(HttpRequest request)
 
 ## Telling the CMS Editor Interface About Our AddOn
 
-In order to make the Editor Interface accept our AddOn, it will require us to declare our assembly in a module.config file.  If you have no files to package under the protected modules folder, then this should not be required.  However there appears to be validation on application startup that requires this.
+To enable the Editor Interface to recognize our AddOn, it is necessary to declare our assembly in a `module.config` file. Although this step might not be required if there are no files to package under the protected modules folder, it appears that validation during application startup mandates this configuration.
 
-If you are simply adding a gadget for a specific Optimizely CMS build, then you can add your assembly declaration into the module.config file in the root of your website application.  In the context of an AddOn, this should instead be placed in a protected modules folder on a path such as:
+For those simply adding a gadget to a specific Optimizely CMS build, the assembly declaration can be included in the `module.config` file located at the root of your website application. However, in the context of an AddOn, this declaration should be placed within a protected modules folder, using a path such as:
 
 `[MyCmsWebsite]/modules/_protected/[MyAddOn]/module.config`
 
-This has some interesting requirements for generating a NuGet package which I will cover in [Part Four](/article/creating-an-optimizely-addon-part-4) as this has some complexity that needs it's own focus.
+This setup introduces specific considerations when generating a NuGet package, which I will address in [Part Four](/article/creating-an-optimizely-addon-part-4) due to the complexity involved.
 
-The following is an example `module.config`.  Note that I have specified an Authorization Policy as an attribute of the module node, this should match the policy required by your full AddOn.  Also note that the full name of the assembly containing your gadget should be added to the assemblies node.
+Below is an example of a `module.config` file. Note the inclusion of an Authorization Policy as an attribute of the module node; this should correspond to the policy required by your AddOn. Additionally, ensure that the full name of the assembly containing your gadget is listed within the assemblies node.
 
 ```
 <?xml version="1.0" encoding="utf-8" ?>
