@@ -24,7 +24,7 @@ Optimizely will identify controllers marked with the [IFrameComponent] attribute
 |----------|-------|
 | Title | The name of the gadget, visible in the Gadget selector. |
 | Description | A brief description of the gadget, also visible in the Gadget selector. It is recommended to keep this to one sentence. |
-| Categories | The appropriate category for the gadget. For content-specific gadgets, this should be set to "content." |
+| Categories | The appropriate category for the gadget. For content-specific gadgets, this should be set to "content" or "cms" |
 | Url | The route corresponding to your controller action. |
 | PlugInAreas | The location within the system where the component should be made available. |
 | ReloadOnContextChange | Enables the UI to reload the gadget each time a different content item is selected within the CMS interface. |
