@@ -262,11 +262,21 @@ internal sealed class MyService : IMyService
 }
 ```
 
-Note how we don't need to lazy load the repository as the database context is already lazy loaded by the repository itself, however you may choose to lazy load the repository as it is not used if the cache is populated
+Note how we don't need to lazy load the repository as the database context is already lazy loaded by the repository itself, however you may choose to lazy load the repository as it is not used if the cache is populated.
 
-Notes:
+## Security And JavaScript and Stylesheet Files
 
-- Unit Tests - enforcing standards and enabling rapid confident packages
-- Test System - need a CMS test system
-- Performance and Caching - 100 connections limit, not causing system instability etc.
-- Security - packaging your JS and CSS so as to not require external providers. Using nonce attributes etc
+When building a UI for your AddOn, you'll likely have some JavaScript (JS) and stylesheet requirements. Both come with security concerns, particularly in environments where a Content Security Policy (CSP) is in place. To ensure compatibility and maintain security, consider the following guidelines:
+
+First, it's best to use optimized and compiled JS and CSS files that are shipped with your AddOn. This allows the CSP to utilize the `'self'` source, which grants script and style permissions safely.
+
+If you opt for JS and CSS hosted by third parties, there are extra precautions to take. Ensure that your script and link tags include a [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) attribute. This attribute helps the browser block the use of compromised files by verifying that they match a specific checksum.
+
+Additionally, populate the `nonce` attribute with a value provided by Optimizely CMS’s `ICspNonceService` interface. For more details, see Optimizely's [Content Security Policy](https://docs.developers.optimizely.com/content-management-system/docs/content-security-policy) documentation. It's also worth noting that security AddOns, like [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), automatically configure `ICspNonceService` and integrate it into the CSP for you.
+
+Keep in mind that every external resource you use may require the site consuming your AddOn to adjust their CSP and/or CORS settings to accommodate these resources.
+
+Finally, avoid using inline style attributes and JavaScript event handlers. Instead, attach styles and behaviors through classes distributed in your JavaScript files. This practice aligns better with CSP standards and enhances security.
+
+## Summary
+
