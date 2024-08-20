@@ -14,18 +14,20 @@ Published: 11th July 2024
 
 In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an AddOn for Optimizely CMS, from architecture to packaging at as a NuGet package.  In this part I will be covering some best practices that will help you succeed as an AddOn developer.
 
+_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity and to create a more formal tone._
+
 ## Unit Tests
 
-As a solo developer on multiple AddOns, my ability to release regularly is heavily dependent on the number of unit tests I have in my solutions.  [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) has 1531 unit tests that are executed every single time I raise a PR to merge a feature branch into the develop branch.  This coverage gives me confidence that functionality continues to work as expected on every release.
+As a solo developer managing multiple AddOns, my ability to release updates regularly relies heavily on having extensive unit tests. For instance, [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) includes 1,531 unit tests that run whenever a pull request is made to merge a feature branch into the develop branch. This level of coverage ensures that functionality remains consistent across releases.
 
 As well as writing unit tests for business logic, you can also write additional unit tests that validate the security of your controllers.  I would consider adding these tests to be an essential part of ensuring the security of your system as they ensure the following:
 
-- Controller Actions are specifically declared with the allowed verbs.
-  - This ensures endpoints respond only on intended verbs.
-- Controller Actions are explicitly secured with an Authorization attribute or are explicitly declared as insecure with an AllowAnonymous attribute.
-  - This ensures you specifically define the security requirements of each endpoint.
-- Controller Actions are specifically designated with a Route attribute.
-  - This is to avoid conflicts with general routing declared by other modules or the consuming application.
+- Controller actions explicitly allow only the intended HTTP methods, ensuring endpoints respond only to the correct verbs.
+- Controller actions are secured with the Authorization attribute or marked with AllowAnonymous if security isn’t required. This enforces clear security requirements for each endpoint.
+- Controller actions are defined with specific routes, preventing conflicts with other modules or the consuming application’s routing. 
+
+These tests are essential for maintaining the security and reliability of your AddOn.
+
 
 ```
 [TestFixture]
@@ -121,17 +123,15 @@ public static class ControllerStandardsTestCases
 
 ## Test System
 
-If you have followed this series to create an AddOn, you'll note that the sample site for developing the AddOn does not use nuget to consume the AddOn code and instead uses a project reference.  This will allow you to develop efficiently, however it does mean that you are not testing your code in a production-like manor.
+If you have followed this series to create an AddOn, you'll note that the sample site for developing the AddOn does not use nuget to consume the AddOn code and instead uses a project reference.  This will allow you to develop efficiently, however it does mean that you are not testing your code in a production-like manner.
 
 Create a separate repository with it's own Optimizely CMS solution.  Import your AddOn as a NuGet package directly into this solution.  This will allow you to test your AddOn in the same way that another developer will be experiencing your AddOn for the first time.  If you are able to generate a developer cloud license on [EPiServer License Centre](https://license.episerver.com/), then I would recommend you deploy this test system into an Azure WebApp running on Linux with .NET 6.0 or 8.0 so that you can validate your AddOn inside of a deployed environment.
 
 ## Performance and Caching
 
-Optimizely defaults for Azure SQL Server have a limit of ~120 simultaneous database connections which would suggest that an S2 SQL Database is provisioned for a production instance.  They are able to run with smaller scale databases due to a very effective caching policy.  Every content item you read from the database will require data to be retrieved from multiple tables, one of which will contain a row per property per language on your content type.  This data structure gives Optimizely the felxibility to handle any type of content structure. However the effort to load a single content item is a lot of effort for what manifests as a single object in code.  When Optimizely has loaded a content item, it will be placed into the cache to reduce the data load and to improve performance of the solution as a whole.
+Optimizely's default settings for Azure SQL Server typically support around 120 simultaneous database connections, suggesting the use of an S2 SQL Database for production. This configuration, combined with efficient caching, allows smaller databases to perform effectively. Each content item retrieved from the database requires accessing multiple tables, making the process resource-intensive. However, Optimizely mitigates this by caching content items once loaded, enhancing overall performance.
 
-If you are using Microsoft Entity Framework, everytime you create an instance of the DbContext object, a connection to the database will be created.  If you do not handle the number of connections being created, then you can cause server instability as the CMS runs out of available connections.
-
-My recommendation would be to follow Optimizely's example and to heavily use caching.  In order to do this you will need to do the following:
+If you're using Microsoft Entity Framework, be aware that each `DbContext` instance opens a new database connection. Failing to manage these connections can lead to server instability due to connection limits. Therefore, it's advisable to follow Optimizely's approach by extensively using caching. To implement this, consider the following steps:
 
 - Use a Custom Cache Wrapper that consumes Optimizely's `ISynchronizedObjectInstanceCache` and uses it's own master key to allow you to purge your cache effectively.
 - Inject your DbContext as a scoped object to limit the number of instances to 1 per request.
@@ -280,3 +280,20 @@ Finally, avoid using inline style attributes and JavaScript event handlers. Inst
 
 ## Summary
 
+- **Unit Tests:** 
+  - Ensure all key business logic is covered by a test.
+  - Use unit tests to enforce standards such as:
+    - Controller actions have correct HTTP method attributes.
+    - Controllers have secure actions with authorization or explicit anonymous access.
+    - Controllers have defined routes to avoid conflicts.
+
+- **Test System:** 
+  - Test your AddOn in a separate production-like environment.
+
+- **Performance:** 
+  - Use caching to optimize database access.
+  - Implement lazy loading and scoped dependencies.
+
+- **Security:** 
+  - Use compiled JS/CSS.
+  - Implement CSP-compatible practices for external resources. 
