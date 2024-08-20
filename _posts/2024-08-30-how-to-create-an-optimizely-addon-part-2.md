@@ -10,9 +10,9 @@ category:
 
 # Creating an Optimizely CMS Addon - Adding an Editor Interface Gadet
 
-Published: 11th July 2024
+Published: 30th August 2024
 
-In [Part One](/article/creating-an-optimizely-addon-part-1) of this series, I covered getting started with creating your own AddOn for Optimizely CMS 12. This covered having an idea, solution structure, extending the menu interface and authentication. In Part Two, I will be covering adding an additional editor interface gadget.
+In [Part One](/article/creating-an-optimizely-addon-part-1) of this series, I covered getting started with creating your own AddOn for Optimizely CMS 12. This covered having an idea, solution structure, extending the menu interface and authentication. In Part Two, I will be covering adding an additional editor interface gadget. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
 _Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to create a more formal tone._
 
