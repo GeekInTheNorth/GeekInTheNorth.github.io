@@ -32,11 +32,17 @@ To ensure smooth future releases and quick hotfixes, include a unit test project
 
 ## JavaScript and Stylesheets In Secure Systems
 
-When building your UI, it can be tempting to use third-party JS and CSS libraries directly from CDNs. Initially, I did this with JQuery and Bootstrap for Stott Robots Handler, embedding scripts in inline tags. While this might seem convenient, it poses security risks.
+When I initially developed the user interface for the [Stott Robots Handler](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler) AddOn, I utilized externally hosted JQuery and Bootstrap JavaScript (JS) and CSS resources. This approach reduced the complexity of launching my AddOn and enabled a rapid entry to the market. However, I later undertook a comprehensive refactoring of the UI, rebuilding it with React and delivering optimized JS and CSS files directly packaged with the AddOn. This transition ensured that the UI adhered to best architectural and security practices.
 
-Penetration tests will flag the absence of a Content Security Policy (CSP) as a high-risk issue. A CSP is an allowlist of domains and their permissions on your site. If you reference an external library, like one from jsdelivr, the CSP must allow jsdelivr, affecting the entire site.
+When designing a UI for your own AddOn, you will likely encounter similar JavaScript (JS) and stylesheet (CSS) requirements. Both of these elements come with inherent security concerns, particularly in environments governed by a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). A CSP serves as an allowlist of domains and specifies their permissions on your site. To ensure compatibility and maintain robust security, consider the following guidelines:
 
-Instead, compile your JS and CSS into bundles and include them in your Razor Class Library's wwwroot folder or the consuming website's protected modules folder. This approach optimizes dependencies and enhances security by allowing a stricter CSP. If you must use inline scripts or styles, use Optimizely's `ICspNonceService` to add a `nonce` attribute to these elements.
+Ideally, you should build and distribute optimized and compiled JS and CSS files within your AddOn package. This approach enables the CSP to utilize the `'self'` source directive, allowing your scripts and styles to be safely executed and applied.
+
+Avoid using inline style attributes and JavaScript event handlers. Instead, attach styles and behaviors through classes defined within your JS and CSS files. This practice aligns more closely with CSP standards and significantly enhances security. It is important to note that inline styles and JavaScript event attributes cannot be secured using a `nonce`.
+
+Ensure that the `nonce` attribute of all `script` and `style` elements is populated with a value provided by Optimizely CMS’s `ICspNonceService` interface. For further information, refer to Optimizely's [Content Security Policy](https://docs.developers.optimizely.com/content-management-system/docs/content-security-policy) documentation. Additionally, security AddOns, such as [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), automatically configure the `ICspNonceService` and integrate it into the CSP for you.
+
+If you choose to utilize JS and CSS resources hosted by third parties, additional precautions are necessary. Ensure that your script and link tags include a [Subresource Integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) attribute. This attribute enables the browser to verify that the files have not been tampered with by checking them against a specified checksum. Bear in mind that each external resource you employ may require the site consuming your AddOn to adjust its CSP and/or CORS settings to accommodate these resources. Consequently, allowing third-party resources for your AddOn UI could inadvertently permit those resources site-wide.
 
 _Please note that at the time of writing, Optimizely does not support the `nonce` attribute for it's Editor or Admin interface, but there is an intention to correct this.  Please do not be the developer that stops this from being adopted further down the line._
 
@@ -118,7 +124,7 @@ Parent and child menu items will manifest as it's own menu when it opens and thi
 
 If your AddOn UI is intended to be accessible to editors, then you can decorate your controllers with the `[Authorize(Roles = Roles.CmsEditors)]` attribute.  Likewise if you want to make the UI available to CMS Administrators, then you can decorate your controller with `[Authorize(Roles = Roles.CmsAdmins)]`.
 
-Depending on the Domain of your AddOn, you may wish to provide your consumers with the ability to fine tune access to your AddOn. For Stott Robots Handler and Stott Security I wanted to give consumers the ability to grant access to the AddOns to specific users such as an SEO Adminstrator or a Developer without granting that user access to the CMS Administrator interface.  In order to do this, you will want to include the ability to define the authentication policy for your AddOn within your service extension:
+Depending on the Domain of your AddOn, you may wish to provide your consumers with the ability to fine tune access to your AddOn. For [Stott Robots Handler](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler) and [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) I wanted to give consumers the ability to grant access to the AddOns to specific users such as an SEO Adminstrator or a Developer without granting that user access to the CMS Administrator interface.  In order to do this, you will want to include the ability to define the authentication policy for your AddOn within your service extension:
 
 ```
 public static IServiceCollection AddMyAddOn(
@@ -175,6 +181,7 @@ All of your controllers should then instead be decorated with the `[Authorize(Po
 - Do try to contain your AddOn into a single Razor Class Library to make installs and updates easier.
 - Do try to support a stricter Content Security Policy by:
   - Compiling and package your JavaScript and Stylesheets as part of the AddOn.
+  - Attach styles and events using classes referenced by your JavaScript and Stylesheets.
   - Use `ICspNonceService` to add a `nonce` attribute to your script and style elements.
 - Add items into the menu by implementing `IMenuProvider` and decorating it with `[MenuProvider]`
 - Do secure all of your controllers to ensure users have to have access to the CMS Interface.
