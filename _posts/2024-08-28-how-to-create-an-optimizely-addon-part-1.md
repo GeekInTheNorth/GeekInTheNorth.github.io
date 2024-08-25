@@ -22,7 +22,7 @@ The biggest hurdle to getting started with creating an AddOn is having a good id
 
 Your AddOn does not need to be pretty, your end user is a CMS editor or administrator, it needs to be easy to understand and it needs to be functional.
 
-Finally, whatever idea you come up with, you need to be passionate about it as it will consume a lot of your time.  I average roughly a commit per hour, based on this I have spent 140 hours on Stott Robots Handler and 577 hours on Stott Security.  When converted to an average working day, that is 19 and 77 days respectively.  You may also never make a single penny, there are many great AddOns out there that are open source, running on an MIT license without a license fee.
+Finally, whatever idea you come up with, you need to be passionate about it as it will consume a lot of your time.  I average roughly a commit per hour, based on this I have spent 145 hours on Stott Robots Handler and 587 hours on Stott Security.  When converted to an average working day, that is 19 and 78 days respectively.  You may also never make a single penny, there are many great AddOns out there that are open source, running on an MIT license without a license fee.
 
 ## Solution Structure
 
