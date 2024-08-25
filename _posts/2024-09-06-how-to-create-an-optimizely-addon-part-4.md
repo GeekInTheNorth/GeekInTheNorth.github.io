@@ -14,7 +14,7 @@ Published: 6th September 2024
 
 In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an AddOn for Optimizely CMS, from architecture to packaging at as a NuGet package.  In this part I will be covering some best practices that will help you succeed as an AddOn developer. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
-_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity and to create a more formal tone._
+_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity or to create a more formal tone._
 
 ## Unit Tests
 

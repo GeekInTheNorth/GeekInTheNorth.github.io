@@ -14,7 +14,7 @@ Published: 28th August 2024
 
 When Optimizely CMS 12 was launched in the summer of 2021, I created my first AddOn for Optimizely CMS and talked about some of the lessons I learned in my article [Custom Admin Pages in Optimizely 12](/article/custom_admin_pages_in_optimizely_12). Three years on, I have two highly refined Optimizely AddOns and have had to resolve numerous challenges.  In this new series of articles I will be covering how to create an Optimizely AddOn, how to solve the same challenges I have encountered as well as what I consider to be best practices.  You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
-_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity and to create a more formal tone._
+_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity or to create a more formal tone._
 
 ## Having a Great Idea
 
