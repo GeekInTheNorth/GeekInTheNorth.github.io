@@ -8,7 +8,7 @@ category:
   - Optimizely
 ---
 
-# Creating an Optimizely CMS Addon - Adding an Editor Interface Gadet
+# Creating an Optimizely CMS Addon - Adding an Editor Interface Gadget
 
 Published: 30th August 2024
 
@@ -88,7 +88,7 @@ For those simply adding a gadget to a specific Optimizely CMS build, the assembl
 
 `[MyCmsWebsite]/modules/_protected/[MyAddOn]/module.config`
 
-This setup introduces specific considerations when generating a NuGet package, which I will address in [Part Four](/article/creating-an-optimizely-addon-part-4) due to the complexity involved.
+This setup introduces specific considerations when generating a NuGet package, which I will address in [Part Three](/article/creating-an-optimizely-addon-part-3) due to the complexity involved.
 
 Below is an example of a `module.config` file. Note the inclusion of an Authorization Policy as an attribute of the module node; this should correspond to the policy required by your AddOn. Additionally, ensure that the full name of the assembly containing your gadget is listed within the assemblies node.
 
