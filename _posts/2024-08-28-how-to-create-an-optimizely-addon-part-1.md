@@ -36,7 +36,7 @@ When I initially developed the user interface for the [Stott Robots Handler](htt
 
 When designing a UI for your own AddOn, you will likely encounter similar JavaScript (JS) and stylesheet (CSS) requirements. Both of these elements come with inherent security concerns, particularly in environments governed by a [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP). A CSP serves as an allowlist of domains and specifies their permissions on your site. To ensure compatibility and maintain robust security, consider the following guidelines:
 
-Ideally, you should build and distribute optimized and compiled JS and CSS files within your AddOn package. This approach enables the CSP to utilize the `'self'` source directive, allowing your scripts and styles to be safely executed and applied.
+Ideally, you should build and distribute optimized and compiled JS and CSS files within your AddOn package within the `wwwroot` folder of your [Razor Class Library (RCL)](https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-8.0&tabs=visual-studio). This approach enables the CSP to utilize the `'self'` source directive, allowing your scripts and styles to be safely executed and applied.
 
 Avoid using inline style attributes and JavaScript event handlers. Instead, attach styles and behaviors through classes defined within your JS and CSS files. This practice aligns more closely with CSP standards and significantly enhances security. It is important to note that inline styles and JavaScript event attributes cannot be secured using a `nonce`.
 
