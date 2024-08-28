@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Creating an Optimizely AddOn - Adding a Custom Admin Page"
+title: "Creating an Optimizely AddOn - Getting Started"
 description: "How to create an AddOn with it's own UI within Optimizely CMS PAAS Core."
 permalink: "/article/creating-an-optimizely-addon-part-1"
 category:
@@ -8,7 +8,7 @@ category:
   - Optimizely
 ---
 
-# Creating an Optimizely AddOn - Getting Started with a Custom Admin Page
+# Creating an Optimizely AddOn - Getting Started
 
 Published: 28th August 2024
 
