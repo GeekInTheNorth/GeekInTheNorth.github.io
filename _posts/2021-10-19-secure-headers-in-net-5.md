@@ -91,7 +91,7 @@ public static IHostBuilder CreateHostBuilder(string[] args, bool isDevelopment)
 
 ## Alternate Libraries
 
-Now if you don't want to build a custom middleware component and you'd like a simple fluent language to building content security policies, then you can install the NWebsec.AspNetCore.Middleware nuget package.  This provides a collection of middleware and extensions which cover each of the security header requirements.
+Now if you don't want to build a custom middleware component and you'd like a simple fluent language to building content security policies, then you can install the NWebsec.AspNetCore.Middleware NuGet package.  This provides a collection of middleware and extensions which cover each of the security header requirements.
 
 ```
 app.UseXContentTypeOptions();

@@ -16,7 +16,7 @@ UPDATE: The documentation has now been updated and can be found here: https://wo
 
 Optimizely CMS for .NET 5.0 is a very exciting thing.  Recently the .NET Core Preview documentation was archived and some of that documentation was merged into the live developer guides. Optimizely have a huge amount of developer documentation and it's going to take a while for this content to be updated for .NET 5.0.  Sadly the current documentation for Optimizely Search and Navigation is still focused on the .NET 4.x world.
 
-1. Add the EPiServer.Find.CMS nuget package to your .NET 5.0 solution.
+1. Add the EPiServer.Find.CMS NuGet package to your .NET 5.0 solution.
 2. Generate a new Search and Navigation index at https://find.episerver.com/
 3. Configure the index details in appsettings.json
 

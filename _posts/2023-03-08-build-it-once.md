@@ -28,7 +28,7 @@ These are essentially a copy and paste situations and do ultimately save on some
 
 ## The Technology
 
-Optimizely CMS 12 has now been available to the community for 18+ months and as part of the shift to .NET 6+, we have a new development tools available that we can use to componentise our builds.  A personal favourite of mine is the [Razor Class Library](https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-7.0&amp;amp;amp;tabs=visual-studio) (RCL) which I have used now to build two different plugins for Optimizely CMS 12.  A Razor Class Library is a standard class library that can also contain Razor files and static assets within it's own wwwroot folder.  These can in turn be packaged as their own nuget package or dll that contains it's own razor files and static assets that can be added to any other build.
+Optimizely CMS 12 has now been available to the community for 18+ months and as part of the shift to .NET 6+, we have a new development tools available that we can use to componentise our builds.  A personal favourite of mine is the [Razor Class Library](https://learn.microsoft.com/en-us/aspnet/core/razor-pages/ui-class?view=aspnetcore-7.0&amp;amp;amp;tabs=visual-studio) (RCL) which I have used now to build two different plugins for Optimizely CMS 12.  A Razor Class Library is a standard class library that can also contain Razor files and static assets within it's own wwwroot folder.  These can in turn be packaged as their own NuGet package or dll that contains it's own razor files and static assets that can be added to any other build.
 
 The great thing about Razor Class Libraries is that if you do not specify a layout file for your razor files within the library, the layout file from the website consuming the Razor Class Library will be used instead.  And if you provide a Razor file on the same folder structure as that contained within the Razor Class Library, the razor file from the consuming website is used in place of the razor file in the razor class library.  This allows you to optionally replace the render for any given component packaged within the Razor Class Library.
 
@@ -46,8 +46,8 @@ In my [demo build](https://github.com/GeekInTheNorth/opti-north-feb-2023) for th
   - This project could then be expanded to contain additional News features:
     - Releated News Block
     - Front end News Listing component built using the preferred framework of your agency (e.g. React)
-- OptiNorthDeno
-  - This project was the base website for the demo which then referenced OptiNorthDemo.News and OptiNorthDemo.Core as nuget packages.
+- OptiNorthDemo
+  - This project was the base website for the demo which then referenced OptiNorthDemo.News and OptiNorthDemo.Core as NuGet packages.
 
 This solution contains a Razor file on the path of **OptiNorthDemo.News/Views/NewsArticlePage/Index.cshtml** and when I ran the solution the razor file from that path was used to render the article.  When I then added a razor file on the path of **OptiNorthDemo/Views/NewsArticlePage/Index.cshtml**, the razor file from the OptiNorthDemo project was used instead while all of the existing business logic and controller logic from the **OptiNorthDemo.News** project facilitated the program flow.
 
@@ -120,8 +120,8 @@ It is not expected that that this would be achieveable to fulfill for all possib
 ### 1. Who looks after this and how do we stop it going out of date?
 To keep a product or feature up to date, it needs to be allocated a Product Owner, someone who is responsible for the product or feature and ensuring it is not forgotten.  After it's initially been built, keeping the module up to date can either be factored in to the additional needs of a specific client or the needs of keeping packages up to date.
 
-### 2. What if a client leaves and our nuget feed is internal?
-For any given feature, this would require the nuget reference is removed from the website project and the matching version of the project is added to the solution.  This would mean that you should version each "release" of a given feature and ensure that the relevant commit within the repository is correctly tagged with the release version to make this task as easy as possible.
+### 2. What if a client leaves and our NuGet feed is internal?
+For any given feature, this would require the NuGet reference is removed from the website project and the matching version of the project is added to the solution.  This would mean that you should version each "release" of a given feature and ensure that the relevant commit within the repository is correctly tagged with the release version to make this task as easy as possible.
 
 ### 3. What if I need to change the structure of the markup for a specific build?
 This would be a simple case of creating a new razor file on the same path but within the client specific website.
