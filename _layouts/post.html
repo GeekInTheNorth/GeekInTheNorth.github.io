@@ -16,10 +16,10 @@ layout: default
 
 {% if page.relatedArticles %}
 
-<div class="container-fluid bg-light py-3">
+<div class="container-fluid bg-dark py-3 my-4">
   <div class="container">
-    <section class="my-3">
-      <h2 class="mb-3">Related Articles</h2>
+    <section>
+      <h2 class="mb-3 text-light">Related Articles</h2>
       {% for post in site.posts %}
       {% if page.relatedArticles contains post.path %}
       <div class="card mb-3">
