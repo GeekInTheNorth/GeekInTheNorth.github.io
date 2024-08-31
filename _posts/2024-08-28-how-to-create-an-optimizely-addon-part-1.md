@@ -7,7 +7,7 @@ category:
   - Development
   - Optimizely
 relatedArticles:
-  - "/article/creating-an-optimizely-addon-part-2"
+  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
 ---
 
 # Creating an Optimizely AddOn - Getting Started
