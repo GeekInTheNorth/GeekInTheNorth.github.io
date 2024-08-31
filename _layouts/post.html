@@ -2,10 +2,35 @@
 layout: default
 ---
 
-{{ content }}
+<article>
+    {{ content }}
 
-<div>
-    {% for category in page.categories %}
-        <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-primary'>{{ category }}</a>
+    <div>
+        {% for category in page.categories %}
+            <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-primary'>{{ category }}</a>
+        {% endfor %}
+    </div>
+</article>
+
+{% if page.relatedArticles %}
+
+<section>
+    <h2 class="mb-3">Related Articles</h2>
+    {% for post in site.posts %}
+    {% if page.relatedArticles contains post.path %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Published: {{ post.date | date_to_long_string: "ordinal" }}</h6>
+        <p class="card-text">{{ post.description }}</p>
+        <a href="{{ post.url }}" class="btn btn-primary me-2">Read more</a>
+        {% for category in post.categories %}
+          <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-secondary btn-sm me-2'>{{ category }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
     {% endfor %}
-</div>
+</section>
+
+{% endif %}

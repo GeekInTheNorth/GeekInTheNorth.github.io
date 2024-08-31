@@ -6,6 +6,8 @@ permalink: "/article/creating-an-optimizely-addon-part-1"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2024-08-28-how-to-create-an-optimizely-addon-part-2.md"
 ---
 
 # Creating an Optimizely AddOn - Getting Started
