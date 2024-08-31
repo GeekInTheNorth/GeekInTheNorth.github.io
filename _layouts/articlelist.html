@@ -2,7 +2,10 @@
 layout: default
 ---
 
-{{ content }}
+<div class="container main-content">
+    <section>
+        {{ content }}
+    </section>
 
 {% if page.title == "Optimizely" %}
     <section class="my-4">
@@ -20,20 +23,21 @@ layout: default
         </div>
     </section>
 {% endif %}
-<section>
-    {% for post in site.posts %}
-    {% if post.categories contains page.title %}
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Published: {{ post.date | date_to_long_string: "ordinal" }}</h6>
-        <p class="card-text">{{ post.description }}</p>
-        <a href="{{ post.url }}" class="btn btn-primary me-2">Read more</a>
-        {% for category in post.categories %}
-          <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-secondary btn-sm me-2'>{{ category }}</a>
+    <section>
+        {% for post in site.posts %}
+        {% if post.categories contains page.title %}
+        <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Published: {{ post.date | date_to_long_string: "ordinal" }}</h6>
+            <p class="card-text">{{ post.description }}</p>
+            <a href="{{ post.url }}" class="btn btn-primary me-2">Read more</a>
+            {% for category in post.categories %}
+            <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-secondary btn-sm me-2'>{{ category }}</a>
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
         {% endfor %}
-      </div>
-    </div>
-    {% endif %}
-    {% endfor %}
-</section>
+    </section>
+</div>

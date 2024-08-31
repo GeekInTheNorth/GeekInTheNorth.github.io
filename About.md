@@ -1,6 +1,7 @@
 ---
 title: "About"
 permalink: "/about"
+layout: basic
 ---
 
 ## About Stott Code

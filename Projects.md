@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: basic
 title: "Projects"
 description: "Projects worked on by Mark Stott."
 permalink: "/projects"
