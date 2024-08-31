@@ -5,6 +5,9 @@ description: "Why not to use large in-memory collections in a LINQ to Entities q
 permalink: "/article/why_not_to_use_in_memory_collections_in_linq_to_entities"
 category:
   - Development
+relatedArticles:
+  - "_posts/2015-06-03-how-not-use-includes-in-lambda-statements.md"
+  - "_posts/2014-07-24-selecting-parent-and-children-in-linq-to-entities.md"
 ---
 
 # Why not to use In Memory Collections in LINQ to Entities

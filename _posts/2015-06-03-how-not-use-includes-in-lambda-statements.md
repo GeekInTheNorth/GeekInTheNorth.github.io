@@ -5,6 +5,9 @@ description: "Using Lambda Statements in LINQ to Entities is an easy way to incl
 permalink: "/article/faking_communication_with_a_third_party_service"
 category:
   - Development
+relatedArticles:
+  - "_posts/2015-05-25-why-not-to-use-in-memory-collections-in-linq-to-sql.md"
+  - "_posts/2014-07-24-selecting-parent-and-children-in-linq-to-entities.md"
 ---
 
 # How not to use Includes in Lambda Statements

@@ -5,6 +5,9 @@ description: "Selecting Parent and Children in LINQ to Entities."
 permalink: "/article/faking_communication_with_a_third_party_service"
 category:
   - Development
+relatedArticles:
+  - "_posts/2015-06-03-how-not-use-includes-in-lambda-statements.md"
+  - "_posts/2015-05-25-why-not-to-use-in-memory-collections-in-linq-to-sql.md"
 ---
 
 # Selecting Parent and Children in LINQ to Entities
