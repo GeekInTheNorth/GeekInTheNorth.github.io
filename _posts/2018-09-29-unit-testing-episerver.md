@@ -1,20 +1,20 @@
 ---
 layout: post
-title: "Unit Testing EPiServer CMS 11"
-description: "A solution for Unit Testing Custom Criterion for visitor groups in EPiServer CMS 11."
+title: "Unit Testing Optimizely CMS 11"
+description: "A solution for Unit Testing Custom Criterion for visitor groups in Optimizely CMS 11."
 permalink: "/article/unit_testing_episerver"
 category:
   - Development
   - Optimizely
 ---
 
-# Unit Testing EPiServer CMS 11
+# Unit Testing Optimizely CMS 11
 
 Published: 29th September 2018
 
 ## The Requirement
 
-I needed to implement a new visitor group criterion for an EPiServer CMS website. As part of this work I was introducing unit testing into the project and wanted to make sure that all of my new classes were unit tested.
+I needed to implement a new visitor group criterion for an Optimizely CMS website. As part of this work I was introducing unit testing into the project and wanted to make sure that all of my new classes were unit tested.
 
 ## The First Issue
 

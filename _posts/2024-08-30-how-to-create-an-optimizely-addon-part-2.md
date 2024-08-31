@@ -6,6 +6,9 @@ permalink: "/article/creating-an-optimizely-addon-part-2"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-1.md"
+  - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
 # Creating an Optimizely CMS Addon - Adding an Editor Interface Gadget

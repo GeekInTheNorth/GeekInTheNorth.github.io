@@ -8,6 +8,7 @@ category:
   - Optimizely
 relatedArticles:
   - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
+  - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
 # Creating an Optimizely AddOn - Getting Started

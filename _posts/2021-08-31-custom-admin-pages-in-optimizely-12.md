@@ -61,7 +61,7 @@ namespace OptimizelyTwelveTest.Features.CustomAdmin
 }
 ```
 
-The Menu Provider can be used to return a collection of UrlMenuItem and SectionMenuItem objects.  The UrlMenuItem takes three parameters, a display name, a path and a url while the SectionMenuItem only takes a display name and a path.  The path defines where in the standard episerver menu that the link will be rendered.  In the above case, I wanted the menu item to be rendered specifically within the admin section of the CMS.  Both object types expose a method for IsAvailable that can be assigned a function that takes a HttpContext which can be used to customise under what circumstances the menu would be visible to the user.  In the above case I have set this as always being visible.
+The Menu Provider can be used to return a collection of UrlMenuItem and SectionMenuItem objects.  The UrlMenuItem takes three parameters, a display name, a path and a url while the SectionMenuItem only takes a display name and a path.  The path defines where in the standard Optimizely CMS menu that the link will be rendered.  In the above case, I wanted the menu item to be rendered specifically within the admin section of the CMS.  Both object types expose a method for IsAvailable that can be assigned a function that takes a HttpContext which can be used to customise under what circumstances the menu would be visible to the user.  In the above case I have set this as always being visible.
 
 When I navigate to the admin section of the CMS I can now clearly see my menu item:
 
