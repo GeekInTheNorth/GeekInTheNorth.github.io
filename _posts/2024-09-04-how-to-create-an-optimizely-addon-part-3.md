@@ -14,8 +14,6 @@ Published: 4th September 2024
 
 In [Part One](/article/creating-an-optimizely-addon-part-1) and [Part Two](/article/creating-an-optimizely-addon-part-2) of this series; I covered topics from having a great idea, solution structure, extending the menus and adding gadgets to the editor interface.  In this part I will be covering the challenges of creating and submitting your AddOn as a NuGet package into the Optimizely NuGet feed.  You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
-_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity or to create a more formal tone._
-
 ## Defining What to Package
 
 Each project within your solution must be created as a NuGet package if it is deemed to be the primary project or a dependency for the primary project. Consider the following solution as an example:

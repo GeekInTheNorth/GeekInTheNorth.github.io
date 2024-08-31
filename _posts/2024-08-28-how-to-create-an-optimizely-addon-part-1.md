@@ -14,8 +14,6 @@ Published: 28th August 2024
 
 When Optimizely CMS 12 was launched in the summer of 2021, I created my first AddOn for Optimizely CMS and talked about some of the lessons I learned in my article [Custom Admin Pages in Optimizely 12](/article/custom_admin_pages_in_optimizely_12). Three years on, I have two highly refined Optimizely AddOns and have had to resolve numerous challenges.   In this new series of articles I will be covering how to create an Optimizely AddOn, how to solve the same challenges I have encountered as well as what I consider to be best practices. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
-_Please note that all content within this article has been written by myself, however some elements of the copy have been processed with Chat GPT to improve brevity or to create a more formal tone._
-
 ## Having a Great Idea
 
 The biggest hurdle to getting started with creating an AddOn is having a good idea. But here is the secret to having a great idea; it doesn't have to be great and it doesn't have to be original. My first AddOn was a very simple UI for managing robots.txt content within CMS 12 and I already knew a package existed for CMS 11 that had not been updated for a number of years. I've now met Mark Everard (the original AddOn author) a number of times and my AddOn has had nearly 200k downloads.
