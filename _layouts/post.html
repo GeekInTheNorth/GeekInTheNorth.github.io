@@ -14,9 +14,16 @@ layout: default
 
 {% if page.relatedArticles %}
 
+{% for relatedArticle in page.relatedArticles %}
+  <p>{{relatedArticle}}</p>
+{% endfor %}
+
 <section class="my-3">
     <h2 class="mb-3">Related Articles</h2>
     {% for post in site.posts %}
+
+    <p>{{post.path}}</p>
+
     {% if page.relatedArticles contains post.path %}
     <div class="card mb-3">
       <div class="card-body">
