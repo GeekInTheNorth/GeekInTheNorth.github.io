@@ -2,7 +2,7 @@
 layout: post
 title: "How not to use Includes in Lambda Statements"
 description: "Using Lambda Statements in LINQ to Entities is an easy way to include other entities in entity framework 4, but it comes at a cost."
-permalink: "/article/faking_communication_with_a_third_party_service"
+permalink: "/article/how_not_to_use_includes_in_lambda_statements"
 category:
   - Development
 relatedArticles:

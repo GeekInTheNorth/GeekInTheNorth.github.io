@@ -2,7 +2,7 @@
 layout: post
 title: "Selecting Parent and Children in LINQ to Entities"
 description: "Selecting Parent and Children in LINQ to Entities."
-permalink: "/article/faking_communication_with_a_third_party_service"
+permalink: "/article/selecting_parent_and_children_in_linq_to_entities"
 category:
   - Development
 relatedArticles:

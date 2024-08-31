@@ -6,6 +6,8 @@ permalink: "/article/unit_testing_optimizely_dynamic_data_store_2"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2022-05-19-unit-testing-optimizely-dynamic-data-store-1.md"
 ---
 
 # Unit Testing Optimizely CMS 12 Dynamic Data Store - Part 2
