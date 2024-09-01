@@ -5,6 +5,8 @@ description: "The set list from the wedding of Mark and Caroline Stott."
 permalink: "/article/wedding-memories-our-set-list"
 category:
   - "Geek Stories"
+relatedArticles:
+  - "_posts/2015-12-27-wedding-slips.md"
 ---
 
 # Wedding Memories : Our Set List

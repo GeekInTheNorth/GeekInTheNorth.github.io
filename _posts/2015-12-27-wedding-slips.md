@@ -5,6 +5,8 @@ description: "Comment slips from the guests at our wedding."
 permalink: "/article/wedding-memories-comment-slips"
 category:
   - "Geek Stories"
+relatedArticles:
+  - "_posts/2015-12-28-wedding-set-list.md"
 ---
 
 # Wedding Memories : Comment Slips

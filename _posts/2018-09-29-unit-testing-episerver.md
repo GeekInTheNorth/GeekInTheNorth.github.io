@@ -6,6 +6,9 @@ permalink: "/article/unit_testing_episerver"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2022-05-19-unit-testing-optimizely-dynamic-data-store-1.md"
+  - "_posts/2022-05-20-unit-testing-optimizely-dynamic-data-store-2.md"
 ---
 
 # Unit Testing Optimizely CMS 11
