@@ -96,7 +96,7 @@ In the gadget I developed for [Stott Security](https://github.com/GeekInTheNorth
 
 ## Telling the CMS Editor Interface About Our AddOn
 
-To enable the Editor Interface to recognize our AddOn, it is necessary to declare our assembly in a module.config file.  Personnally this doesn't feel like it should be a requirement as all of the information is provided in the `IFrameComponent` attribute, though it appears that a validation during application startup mandates that this configuration file exists.  I suspect this is a requirement tied to much deeper integrations with the UI.  E.g. custom DOJO editor code etc.
+There are two steps to enable the Editor Interface to recognize our AddOn.  The first step is to declare our assembly in a `module.config` file.  Personnally this doesn't feel like it should be a requirement as all of the information is provided in the `IFrameComponent` attribute, though it appears that a validation during application startup mandates that this configuration file exists.  I suspect this is a requirement tied to much deeper integrations with the UI.  E.g. custom DOJO editor code etc.
 
 Below is an example of a `module.config` file. Note the inclusion of an Authorization Policy as an attribute of the module node; this should correspond to the policy required by your AddOn. Additionally, ensure that the full name of the assembly containing your gadget is listed within the assemblies node.
 
@@ -116,6 +116,27 @@ Below is an example of a `module.config` file. Note the inclusion of an Authoriz
 ```
 
 If you are simply adding a gadget to a specific Optimizely CMS build, the assembly declaration can be included in the module.config file located at the root of your website application. However, in the context of an AddOn, this declaration should be placed within a protected modules folder, using a path such as `[MyCmsWebsite]/modules/_protected/[MyAddOn]/module.config`. There are some extra steps required to achieve this when creating a NuGet package and I address these in Part Three of this series which is focused entirely on the NuGet package process.
+
+The second step that is needed to inform the CMS of our AddOn is to ensure that is included within the `ProtectedModuleOptions`. This can be achieved within a service extensions method that you call within your `startup.cs` as follows:
+
+```
+public static class OptimizelyAddOnServiceExtensions
+{
+    public static IServiceCollection AddOptimizelyAddOn(this IServiceCollection services)
+    {
+        services.Configure<ProtectedModuleOptions>(
+            options =>
+            {
+                if (!options.Items.Any(x => string.Equals(x.Name, "MyAddOnAssemblyName", StringComparison.OrdinalIgnoreCase)))
+                {
+                    options.Items.Add(new ModuleDetails { Name = "MyAddOnAssemblyName" });
+                }
+            });
+
+        return services;
+    }
+}
+```
 
 ## Summary
 
