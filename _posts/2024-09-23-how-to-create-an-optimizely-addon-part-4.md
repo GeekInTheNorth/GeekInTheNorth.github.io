@@ -6,11 +6,16 @@ permalink: "/article/creating-an-optimizely-addon-part-4"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2024-09-16-how-to-create-an-optimizely-addon-part-3.md"
+  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
+  - "_posts/2024-08-28-how-to-create-an-optimizely-addon-part-1.md"
+  - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
 # Creating an Optimizely Addon - Best Practices
 
-Published: 6th September 2024
+Published: 23rd September 2024
 
 In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an AddOn for Optimizely CMS, from architecture to packaging at as a NuGet package.  In this part I will be covering some best practices that will help you succeed as an AddOn developer. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 

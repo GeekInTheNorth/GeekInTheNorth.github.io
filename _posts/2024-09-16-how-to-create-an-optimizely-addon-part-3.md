@@ -1,16 +1,20 @@
 ---
 layout: post
 title: "Creating an Optimizely Addon - Packaging for NuGet"
-description: "How to a custom report within Optimizely CMS PAAS Core."
+description: "How to package your AddOn to be distributed by Optimizely's NuGet feed."
 permalink: "/article/creating-an-optimizely-addon-part-3"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
+  - "_posts/2024-08-28-how-to-create-an-optimizely-addon-part-1.md"
+  - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
 # Creating an Optimizely Addon - Packaging for NuGet
 
-Published: 4th September 2024
+Published: 16th September 2024
 
 In [Part One](/article/creating-an-optimizely-addon-part-1) and [Part Two](/article/creating-an-optimizely-addon-part-2) of this series; I covered topics from having a great idea, solution structure, extending the menus and adding gadgets to the editor interface.  In this part I will be covering the challenges of creating and submitting your AddOn as a NuGet package into the Optimizely NuGet feed.  You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
@@ -27,7 +31,7 @@ In this scenario, the administrator interface for the AddOn is separated from it
 
 ## Defining NuGet Properties
 
-If you are using Visual Studio, right click on the project you want to package and select properties to show the project properties screen.  Under the Package section you can define all of the properties for your NuGet package.
+If you are using Visual Studio, right click on the project you want to package and select properties to show the project properties screen. Under the Package section you can define all of the properties for your NuGet package.
 
 ![Project Properties Screen](../assets/creating-addons-project-properties.png)
 
@@ -49,7 +53,7 @@ I would recommend you complete the following:
 | License File | This should reference the license within your repository. Careful consideration should be given to the type of license for your AddOn. Certain licenses may require your users to make their code open source to utilize your package, so think carefully about the permissiveness or restrictiveness of your license. It is noteworthy that some highly popular AddOns employ an MIT or Apache license.<br/><br/>I am utilizing an MIT license due to its permissive nature and lack of warranty. While I do engage with my users and address any issues that are raised, my AddOns are free and are maintained in my free time. |
 | Require License Acceptance | If you tick this, the consumer will have to accept the license as they install the package. If you are using an MIT license, you may want to tick this to encourage the consumer to accept the warranty free nature of your AddOn. |
 
-If you are using Visual Studio Code instead of Visual Studio, then you can edit the .csproj directly and add the package properties directly as XML values at the top of the csproj file.  You can also add these properties into a .nuspec instead, when you package your project, the values from the .csproj and .nuspec are merged into a new .nuspec that is contained in the root of the compiled .npg file.  I personnally prefer to put the NuGet properties directly into the .csproj.
+If you are using Visual Studio Code instead of Visual Studio, then you can edit the .csproj directly and add the package properties directly as XML values at the top of the csproj file. You can also add these properties into a .nuspec instead, when you package your project, the values from the .csproj and .nuspec are merged into a new .nuspec that is contained in the root of the compiled .nupkg file. I personnally prefer to put the NuGet properties directly into the .csproj.
 
 ```
 <Project Sdk="Microsoft.NET.Sdk.Razor">
@@ -77,7 +81,7 @@ If you are using Visual Studio Code instead of Visual Studio, then you can edit 
 
 ## NuGet Package Structure
 
-A NuGet Package is simply a zip file containing a structured set of files.  If you rename a .nupkg to a .zip, you can extract is and explore it's structure.  This will have a structure similar to the following:
+A NuGet Package is simply a zip file containing a structured set of files. If you rename a .nupkg to a .zip, you can extract it and explore it's structure. This will have a structure similar to the following:
 
 - package
   - services
@@ -98,7 +102,7 @@ A NuGet Package is simply a zip file containing a structured set of files.  If y
 - readme.md
 - license.txt
 
-Folders such as build, contentFiles and the target folders under lib will vary depending on your code and deployable files.  The readme.md and license.txt files referenced in your .csproj or .nuspec are copied to the root of the NuGet package.
+Folders such as build, contentFiles and the target folders under lib will vary depending on your code and deployable files. The readme.md and license.txt files referenced in your .csproj or .nuspec are copied to the root of the NuGet package.
 
 ## Packaging for Multiple Frameworks
 
@@ -143,11 +147,11 @@ First you will need to tell the .csproj file that we want to copy these files in
 </ItemGroup>
 ```
 
-We will then need to create a .targets file that instructs the NuGet package installer how to handle those files.  The example below is taken straight from my own Addons where I am doing the same thing.
+You will then need to create a .targets file that instructs the NuGet package installer how to handle those files. The example below is taken straight from my own Addons where I am doing the same thing.
 
-The `ItemGroup` tells the .targets file where the specific files are within the NuGet package structure.  The `$(MSBuildThisFileDirectory)` variable in this case is a reference to the directory the .targets file sits in.  As this is in a build folder, I have used the `$(MSBuildThisFileDirectory)` variable in combination with the relative path to my module.config file.
+The `ItemGroup` tells the .targets file where the specific files are within the NuGet package structure.  The `$(MSBuildThisFileDirectory)` variable in this case is a reference to the directory the .targets file sits in.  As this is in a build folder, I have used the `$(MSBuildThisFileDirectory)` variable in combination with the relative path to my `module.config` file.
 
-The `Target` node is then performing an action that is configured to execute on `BeforeBuild`.  This then performs a `Copy` action that will take my module.config file from the contentFiles folder in the nuget package to the `modules\_protected\Stott.Security.Optimizely` folder within the target website.  This means that when you first install the package, the module.config file and folder will not exist within the protected modules folder.  When you first build the solution they will be copied into this location.
+The `Target` node is then performing an action that is configured to execute on `BeforeBuild`.  This then performs a `Copy` action that will take my `module.config` file from the `contentFiles` folder in the nuget package to the `modules\_protected\Stott.Security.Optimizely` folder within the target website.  This means that when you first install the package, the module.config file and folder will not exist within the protected modules folder.  When you first build the solution they will be copied into this location.
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -162,7 +166,7 @@ The `Target` node is then performing an action that is configured to execute on 
 </Project>
 ```
 
-In order to make sure the .targets file can be executed, we also need to make sure that it is copied into the NuGet package file. This is as simple as setting the build output for the .targets file to be `None` and to set the `PackagePath` to be inside of the `build` folder.
+In order to make sure the `.targets` file can be executed, we also need to make sure that it is copied into the NuGet package file. This is as simple as setting the build output for the `.targets` file to be `None` and to set the `PackagePath` to be inside of the `build` folder.
 
 ```
 <ItemGroup>
@@ -175,26 +179,26 @@ In order to make sure the .targets file can be executed, we also need to make su
 
 ## Submitting Your Package
 
-Before you can submit your AddOn to the Optimizely NuGet package feed you are going to want to test that your package installs successfully in your local environment and within a CI/CD pipeline.  To reduce the turn around time of this testing, you will want to publish your packages as alpha / beta builds into [nuget.org](https://www.nuget.org) first, so do make sure you create an account on nuget.org.
+Before submitting your AddOn to the Optimizely NuGet package feed, it is essential to ensure that your package installs successfully both in your local environment and within a CI/CD pipeline. To expedite this process, consider publishing your package as an alpha or beta build to [nuget.org](https://www.nuget.org) first. After publishing, your package will be indexed and available for retrieval within a few minutes.
 
-To set your package as an alpha or beta release, you need to set the `version` property within your .csproj to have a trailing `-alpha` or `-beta`.  NuGet will automatically recognise this as a pre-release and will typically filter these versions out by default.
+To designate your package as an alpha or beta release, you should modify the `version` property within your `.csproj` file to include a trailing `-alpha` or `-beta`. NuGet will automatically recognize this as a pre-release version and will generally filter these versions out by default. Developers can view these pre-release versions by selecting the option to display pre-release versions within their IDE’s NuGet package tool.
 
 ```
 <Version>2.0.0.2-beta</Version>
 ```
 
-Once you have published the alpha/beta version of your package into NuGet.org and confirmed that it installs correctly both locally and inside of a CI/CD pipeline and you have tested your package, you will be ready to submit a live version of your package to Optimizely.
+Upon publishing the alpha or beta version of your package to [nuget.org](https://www.nuget.org) and confirming its successful installation both locally and in a CI/CD pipeline, you will be prepared to submit the live version of your package to Optimizely.
 
-Make sure that you have an [Optimizely World](https://world.optimizely.com) account.  You can create a new account by visiting [Optimizely World](https://world.optimizely.com) and following the Register link in the top right corner.  You will use this same account to access the Optimizely NuGet feeds.  It should be noted that Optimizely have two different NuGet feeds:
+Ensure that you have an [Optimizely World](https://world.optimizely.com) account. You can create a new account by visiting [Optimizely World](https://world.optimizely.com) and following the registration link located in the top right corner. This account will also provide access to the Optimizely NuGet feeds. Optimizely maintains two NuGet feeds:
 
-- https://nuget.optimizely.com this is a v2 NuGet feed.
-- https://api.nuget.optimizely.com this is a v3 NuGet feed.
+- https://nuget.optimizely.com (v2 NuGet feed)
+- https://api.nuget.optimizely.com (v3 NuGet feed)
 
-Packages uploaded to the v2 NuGet feed are automatically synchronized to the v3 NuGet feed so it is advisable that you typically upload your packages to the v2 NuGet feed.  Once Optimizely have received your package, it will go through an approval process.  This process may take one or more business days to complete.  You can periodically test the nuget feed to see if your package has been accepted.  If you have a hotfix to push out and this turnaround is inhibiting your rollout, you can always push the hotfix up to nuget.org.
+Packages uploaded to the v2 NuGet feed are automatically synchronized to the v3 NuGet feed. Therefore, it is advisable to upload your packages to the v2 NuGet feed. Once Optimizely receives your package, it will undergo an approval process conducted by Optimizely's QA team. During this process, the QA team will verify that your AddOn functions correctly with the CMS. Including test guidance in the readme for your repository can be very beneficial for the QA team. This review process may take one or more business days, and there is currently no feedback mechanism to inform you of the status or outcome of the testing. You may periodically check the NuGet feed to determine if your package has been accepted. Given that Optimizely validates all packages uploaded to their NuGet feed, it is recommended to download AddOn updates directly from Optimizely and distribute your own package in this manner. Should you need to release a hotfix promptly, you may consider uploading it to nuget.org.
 
-I would advise that you upload your package to Nuget.org at least once and not limit yourself to just the Optimizely NuGet feed.  This makes sure that the package name is reserved on nuget.org as well.  You do not want a conflict in package names across the three main feeds to impact your consumers.
+It is advisable to upload your package to nuget.org at least once in addition to the Optimizely NuGet feed. This ensures that the package name is reserved on nuget.org, avoiding potential conflicts in package names across the main feeds that could affect your consumers.
 
-_Please Note that at the time of writing there was an issue with packages uploaded directly to the v3 NuGet not being synchronized back to the v2 NuGet feed.  Until this issue is resolved, the Upload link on the V3 NuGet feed pushes the user back to the v2 NuGet feed.  Optimizely are working to resolve this issue._
+_Please note that as of the time of writing, there was an issue with packages uploaded directly to the v3 NuGet feed not being synchronized back to the v2 NuGet feed. Until this issue is resolved, the Upload link on the v3 NuGet feed redirects users to the v2 NuGet feed. Optimizely is actively working to resolve this issue._
 
 ## Summary
 
