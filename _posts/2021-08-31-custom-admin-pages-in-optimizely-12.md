@@ -6,6 +6,10 @@ permalink: "/article/custom_admin_pages_in_optimizely_12"
 category:
   - Development
   - Optimizely
+relatedArticles:
+  - "_posts/2024-09-16-how-to-create-an-optimizely-addon-part-3.md"
+  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
+  - "_posts/2024-08-28-how-to-create-an-optimizely-addon-part-1.md"
 ---
 
 # Custom Admin Pages in Optimizely 12
