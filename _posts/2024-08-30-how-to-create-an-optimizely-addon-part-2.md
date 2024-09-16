@@ -95,6 +95,32 @@ In the gadget I developed for [Stott Security](https://github.com/GeekInTheNorth
 
 ![Stott Security CMS Editor Gadget](/assets/CmsEditorWidget.png)
 
+## Extending IFrameComponent
+
+When your user logs into the CMS, they will be given your new gadget by default.  Now you can ensure that only specific roles have access to the gadget by setting the `AllowedRoles` property within the `[IFrameComponent]` declaration.  If your AddOn allows the developer to define a custom security policy for accessing your module, you cannot simply specify the roles within the attribute.  For next version of the Stott Security AddOn, I have created a `SecureIFrameComponentAttribute` that inherits the `IFrameComponentAttribute` and dynamically resolves the roles that are allowed access to the Gadget based on that security profile.
+
+```
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class SecureIFrameComponentAttribute : IFrameComponentAttribute
+{
+    public SecureIFrameComponentAttribute() : base()
+    {
+        try
+        {
+            var authorizationOptions = ServiceLocator.Current.GetService(typeof(IOptions<AuthorizationOptions>)) as IOptions<AuthorizationOptions>;
+            var policy = authorizationOptions?.Value?.GetPolicy(CspConstants.AuthorizationPolicy);
+            var roles = policy?.Requirements?.OfType<RolesAuthorizationRequirement>().ToList();
+            var roleNames = roles?.SelectMany(x => x.AllowedRoles).ToList() ?? new List<string> { Roles.WebAdmins, Roles.CmsAdmins, Roles.WebAdmins };
+
+            AllowedRoles = string.Join(',', roleNames);
+        }
+        catch(Exception)
+        {
+        }
+    }
+}
+```
+
 ## Telling the CMS Editor Interface About Our AddOn
 
 There are two steps to enable the Editor Interface to recognize our AddOn.  The first step is to declare our assembly in a `module.config` file.  Personnally this doesn't feel like it should be a requirement as all of the information is provided in the `IFrameComponent` attribute, though it appears that a validation during application startup mandates that this configuration file exists.  I suspect this is a requirement tied to much deeper integrations with the UI.  E.g. custom DOJO editor code etc.
