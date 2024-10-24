@@ -12,19 +12,17 @@ category:
 
 Published: 6th September 2024
 
-In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an AddOn for Optimizely CMS, from architecture to packaging at as a NuGet package.  In this part I will be covering some best practices that will help you succeed as an AddOn developer. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
+In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an AddOn for Optimizely CMS, from architecture to packaging at as a NuGet package. In this part I will be covering some best practices that will help you succeed as an AddOn developer. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
 ## Unit Tests
 
-As a solo developer managing multiple AddOns, my ability to release updates regularly relies heavily on having extensive unit tests. For instance, [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) includes 1,531 unit tests that run whenever a pull request is made to merge a feature branch into the develop branch. This level of coverage ensures that functionality remains consistent across releases.
+As a solo developer managing multiple AddOns, my ability to release updates regularly relies heavily on having extensive unit tests. For instance, [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) includes over 1,500 unit tests that run whenever a pull request is made to merge a feature branch into the develop branch. This level of coverage ensures that functionality remains consistent across releases.
 
-As well as writing unit tests for business logic, you can also write additional unit tests that validate the security of your controllers.  I would consider adding these tests to be an essential part of ensuring the security of your system as they ensure the following:
+As well as writing unit tests for your business logic, you can also write additional unit tests that validate the security of your controllers. I would consider adding these tests to be an essential part of ensuring the security of your system as they ensure the following:
 
 - Controller actions explicitly allow only the intended HTTP methods, ensuring endpoints respond only to the correct verbs.
 - Controller actions are secured with the Authorization attribute or marked with AllowAnonymous if security isn’t required. This enforces clear security requirements for each endpoint.
-- Controller actions are defined with specific routes, preventing conflicts with other modules or the consuming application’s routing. 
-
-These tests are essential for maintaining the security and reliability of your AddOn.
+- Controller actions are defined with specific routes, preventing conflicts with other modules or the consuming application’s routing.
 
 ```
 [TestFixture]
@@ -78,7 +76,7 @@ public sealed class ControllerStandardsTests
 }
 ```
 
-These tests use a Test Case Source method which uses reflection to identify all controllers within your solution.  This means as you add new controllers, you will not forget to secure them.
+These tests use a Test Case Source method which uses reflection to identify all controllers within your solution. This means as you add new controllers, you will not forget to secure them.
 
 ```
 public static class ControllerStandardsTestCases
@@ -120,17 +118,31 @@ public static class ControllerStandardsTestCases
 
 ## Test System
 
-If you have followed this series to create an AddOn, you'll note that the sample site for developing the AddOn does not use nuget to consume the AddOn code and instead uses a project reference.  This will allow you to develop efficiently, however it does mean that you are not testing your code in a production-like manner.
+If you have followed this series to create an AddOn, you'll note that the sample site for developing the AddOn does not use nuget to consume the AddOn code and instead uses a project reference. This will allow you to develop efficiently, however it does mean that you are not testing your code in a production-like manner.
 
-Create a separate repository with it's own Optimizely CMS solution.  Import your AddOn as a NuGet package directly into this solution.  This will allow you to test your AddOn in the same way that another developer will be experiencing your AddOn for the first time.  If you are able to generate a developer cloud license on [EPiServer License Centre](https://license.episerver.com/), then I would recommend you deploy this test system into an Azure WebApp running on Linux with .NET 6.0 or 8.0 so that you can validate your AddOn inside of a deployed environment.
+Create a separate repository with it's own Optimizely CMS solution. Import your AddOn as a NuGet package directly into this solution. This will allow you to test your AddOn in the same way that another developer will be experiencing your AddOn for the first time. If you are able to generate a developer cloud license on [EPiServer License Centre](https://license.episerver.com/), then I would recommend you deploy this test system into an Azure WebApp running on Linux with .NET 6.0 or 8.0 so that you can validate your AddOn inside of a deployed environment.
+
+As part of my go live cycle I perform the following:
+
+- Create a beta version of my nuget package
+- Upload the beta package to nuget.org
+- Update my test system to use the beta package
+- Deploy my test system to Azure
+- Delist my beta version on nuget.org
+- Test my AddOn in my test system
+- Create a production version of my nuget package
+- Upload the production package to nuget.optimizely.com
+- Wait for the package to be approved by Optimizely's QA team
+- Upload the production package to nuget.org
+- Announce the release
 
 ## Performance and Caching
 
-Optimizely's default settings for Azure SQL Server typically support around 120 simultaneous database connections, suggesting the use of an S2 SQL Database for production. This configuration, combined with efficient caching, allows smaller databases to perform effectively. Each content item retrieved from the database requires accessing multiple tables, making the process resource-intensive. However, Optimizely mitigates this by caching content items once loaded, enhancing overall performance.
+Optimizely's default settings for Azure SQL Server typically support around 120 simultaneous database connections, suggesting the use of an S2 SQL Database (or equivelent) for production. This configuration, combined with efficient caching by the Optimizely CMS code allows smaller databases to perform effectively for websites with high traffic.
 
-If you're using Microsoft Entity Framework, be aware that each `DbContext` instance opens a new database connection. Failing to manage these connections can lead to server instability due to connection limits. Therefore, it's advisable to follow Optimizely's approach by extensively using caching. To implement this, consider the following steps:
+If you're using Microsoft Entity Framework, be aware that each `DbContext` instance opens a new database connection. Failing to manage these connections can lead to server instability due to connection limits. Therefore, it's advisable to follow Optimizely's approach by extensively using caching. To implement this, consider the following steps:
 
-- Use a Custom Cache Wrapper that consumes Optimizely's `ISynchronizedObjectInstanceCache` and uses it's own master key to allow you to purge your cache effectively.
+- Use a Custom Cache Wrapper that consumes Optimizely's `ISynchronizedObjectInstanceCache` and uses it's own master key to allow you to purge your cache effectively.
 - Inject your DbContext as a scoped object to limit the number of instances to 1 per request.
 - Lazy Load dependencies that require a Db Context so that they are not instantiated if not consumed.
 - Handle data loading in the following order:
@@ -138,13 +150,12 @@ If you're using Microsoft Entity Framework, be aware that each `DbContext` insta
   - Attempt to retrieve and return data from the database second.
     - Push the data into a cache before returning it.
 
-The following is an example of a cache wrapper that consumes the `ISynchronizedObjectInstanceCache`.
+The following is an example of a cache wrapper that consumes the `ISynchronizedObjectInstanceCache.`
+
 ```
 public sealed class CacheWrapper : ICacheWrapper
 {
     private readonly ISynchronizedObjectInstanceCache _cache;
-
-    private readonly ILogger _logger = LogManager.GetLogger(typeof(CacheWrapper));
 
     private const string MasterKey = "My-OptimizelyAddOn-MasterKey";
 
@@ -173,7 +184,7 @@ public sealed class CacheWrapper : ICacheWrapper
         }
         catch (Exception exception)
         {
-            _logger.Error($"{CspConstants.LogPrefix} Failed to add item to cache with a key of {cacheKey}.", exception);
+            // Add logging here
         }
     }
 
@@ -191,7 +202,7 @@ public sealed class CacheWrapper : ICacheWrapper
         }
         catch (Exception exception)
         {
-            _logger.Error($"{CspConstants.LogPrefix} Failed to remove all items from cache based on the master key.", exception);
+            // Add logging here
         }
     }
 }
