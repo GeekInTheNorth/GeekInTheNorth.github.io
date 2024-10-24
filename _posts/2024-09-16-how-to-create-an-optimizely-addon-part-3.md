@@ -7,8 +7,9 @@ category:
   - Development
   - Optimizely
 relatedArticles:
-  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
   - "_posts/2024-08-28-how-to-create-an-optimizely-addon-part-1.md"
+  - "_posts/2024-08-30-how-to-create-an-optimizely-addon-part-2.md"
+  - "_posts/2024-10-24-how-to-create-an-optimizely-addon-part-4.md"
   - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
