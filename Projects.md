@@ -22,10 +22,20 @@ e.g. Need to add a third party tracker from the CSP? the data analyst of CMS adm
 
 Additional features include:
 
-- Automatic updating of the Content Security Policy based on a centrally controlled whitelist specified by the CMS Administrator.
+- The ability to manage Content Security Policy headers through an easy to use interface:
+  - Content-Security-Policy
+  - Content-Security-Policy-Report-Only
+- Automatic updating of the Content Security Policy based on a centrally controlled allowlist specified by the CMS Administrator.
 - The ability to configure additional sources for the Content Security Policy for an individual content page.
-- CSP Violation Report with the ability to easily whitelist any domain based on it's violation.
-- The ability to manage other security headers such as:
+- Content Security Policy Violation Report with the ability to easily allow any domain based on it's violation.
+- The ability to manage Cross Origin Resource Sharing (CORS) headers through an easy to use interface:
+  - Access-Control-Allow-Origin
+  - Access-Control-Allow-Methods
+  - Access-Control-Allow-Headers
+  - Access-Control-Max-Age
+  - Access-Control-Request-Method
+  - Access-Control-Request-Headers
+- The ability to manage simple security headers through an easy to use interface:
   - Cross-Origin-Embedder-Policy
   - Cross-Origin-Opener-Policy
   - Cross-Origin-Resource-Policy
@@ -35,15 +45,18 @@ Additional features include:
   - X-XSS-Protection
   - X-Frame-Options
 - Complete Audit of all configuration changes.
+- Import / Export of all configuration to allow migration between environments.
+- Features Coming Soon
+  - The ability to manage the Permission-Policy header.
 
 Application Technologies:
 
-- .NET 6.0
+- .NET 6.0 / .NET 8.0
 - MVC
 - Web API
 - Entity Framework
 - Optimizely CMS 12.x.x
-- React JS
+- React
 - Bootstrap
 
 Platform Technologies:
@@ -59,21 +72,46 @@ Application Technologies:
 - .Net 6.0
 - MVC
 - Optimizely CMS 12.x.x
+- React
 - Bootstrap
 
 Platform Technologies:
 - GitHub Actions (CI, PR Quality Gate)
 
 ### Roller Girl Gang Virtual Skate Marathon
+*May 2024 to October 2024*
+
+[Roller Girl Gang](https://www.rollergirlgang.co.uk/) is both a local business and community promoting and teaching Roller Skating in and around Leeds as well as existing as a skate goods store within Leeds known as the Skate Sanctuary. I was approached as I had previously supported their 2023 summer skate challenge.
+
+As part of this, I updated the previously existing code base so that the content could be managed using the Kontent.ai CMS.  I also brought the code base up to date to host on Azure using .NET 8, Azure App Service and Azure Function Apps.
+
+Application Technologies:
+
+- .NET 8.0
+- MVC
+- Web API
+- Entity Framework
+- Microsoft Identities 
+- Microsoft Identities for Strava
+- Bootstrap
+
+Platform Technogies
+- Azure Web Apps
+- Azure Function Apps
+- Azure Storage Container
+- Azure SQL Server
+- GitHub Actions (CI/CD)
+
+### Roller Girl Gang Virtual Skate Marathon
 *May 2023 to October 2023*
 
-[Roller Girl Gang](https://www.rollergirlgang.co.uk/) is both a local business and community promoting and teaching Roller Skating in and around Leeds as well as existing as a skate goods store within the Leeds Corn Exchange. I was approached as they were aware of my previous roller skate challenge statistic site for the ALL IN: Community Roller Derby to help them with their own virtual skate marathon.
+[Roller Girl Gang](https://www.rollergirlgang.co.uk/) is both a local business and community promoting and teaching Roller Skating in and around Leeds as well as existing as a skate goods store within Leeds known as the Skate Sanctuary. I was approached as they were aware of my previous roller skate challenge statistic site for the ALL IN: Community Roller Derby to help them with their own virtual skate marathon.
 
 As part of this, I updated the previously existing code base with new image assets and content and brought the code base up to date to host on Azure using .NET 7, Azure App Service and Azure Function Apps.
 
 Application Technologies:
 
-- .NET 6.0
+- .NET 7.0
 - MVC
 - Web API
 - Entity Framework
@@ -116,7 +154,7 @@ Platform Technogies
 
 ## Professional Projects
 
-The following projects are those in which I acted in a technical leadership position within my professional career spanning 22 years.
+The following projects are those in which I acted in a technical leadership position within my professional career spanning 24 years.
 
 ### Hospitality Website, 26 Agency
 
