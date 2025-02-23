@@ -1,9 +1,6 @@
 ---
 layout: null
-disallowedPages:
-  - "sitemap.xml"
-  - "robots.txt"
-  - "404.md"
+disallowedPages: [ "404.md", "sitemap.xml", "robots.txt" ]
 ---
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {% for page in site.pages %}
@@ -16,7 +13,7 @@ disallowedPages:
         <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
       {% endif %}
       <changefreq>monthly</changefreq>
-      <priority>0.3</priority>
+      <priority>0.4</priority>
     </url>
     {% endunless %}
   {% endfor %}
