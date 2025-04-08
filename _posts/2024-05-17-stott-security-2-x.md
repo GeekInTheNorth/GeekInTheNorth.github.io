@@ -7,6 +7,8 @@ category:
   - Development
   - Optimizely
   - "Stott Security"
+relatedArticles:
+  - "_posts/2025-04-08-stott-security-3-x.md"
 ---
 
 # Stott Security Version 2 So Far
