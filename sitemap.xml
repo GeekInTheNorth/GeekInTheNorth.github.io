@@ -1,10 +1,9 @@
 ---
 layout: null
-disallowedPages: [ "404.md", "404.html", "sitemap.xml", "robots.txt" ]
 ---
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {% for page in site.pages %}
-    {% unless disallowedPages contains page.name or page.url contains "/assets" or page.url contains "/404" %}
+    {% unless page.url contains "/assets" or page.url contains "/404" or page.url contains "/sitemap.xml" %}
     <url>
       <loc>{{ site.url }}{{ page.url | remove: "index.html" }}</loc>
       {% if page.date %}
