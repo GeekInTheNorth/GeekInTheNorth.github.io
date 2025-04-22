@@ -101,5 +101,21 @@ If your solution has been using Stott Security since version 1 then you may find
 
 The **report-uri** directive has been deprecated within the content security policy.  The specification for this endpoint was for it to receive a single CSP Report per request with a content type of `application/csp-report`.  With the introduction of the **report-to** directive, browsers are now meant to send a collection of CSP Reports in an array with a content type of `application/reports+json`.  The intent being to reduce the number of requests being made to any reporting endpoint.
 
-Some browsers appear to have simply started sending their **report-uri** payload to the **report-to** endpoint on a per report basis instead of matching the specification.  The result is a lot of bad requests being returned and a host of reports being lost.  I have updated the **report-to** endpoint so that it can handle both payloads based on their respective content types.
+Some browsers appear to have simply started sending a single report payload to the **report-to** endpoint in a similar fashion to how they were reporting to the **report-uri** endpoint instead of matching the specification.  The result is a lot of bad requests being returned and a host of reports being lost.  I have updated the **report-to** endpoint so that it can handle both payloads based on their respective content types.
 
+As part of reducing the overall size of the Content Security Policy within hotfix 3.0.2, the **report-uri** directive is no longer generated for either internal or external reporting endpoints.  The UI for setting external reporting endpoints has been updated to reflect this.
+
+### Smart Optimization of the Content Security Policy
+
+A recent issue reported by some users revealed that Content Security Policies (CSPs) with over 250 source entries could exceed the 16KB header size limit imposed by Cloudflare. This limit, [documented here](https://developers.cloudflare.com/workers/platform/limits/#response-limits), applies a 16KB limit per unique header name and a 32KB limit across all headers (32KB). When the CSP exceeds this threshold, the browser may time out while loading the page, despite the web server successfully returning the response to Cloudflare, making the issue difficult to diagnose. To ensure broad compatibility, many recommend keeping individual headers below 8KB.
+
+Starting in version 3.0.2 of Stott Security, CSPs are now intelligently split into [multiple CSP Headers](https://content-security-policy.com/examples/multiple-csp-headers/) if their size approaches the 8KB limit. Since browsers enforce the most restrictive policy among multiple CSP headers, these headers are carefully divided based on directive hierarchy and fallback behavior.
+
+If a header grows beyond 12KB, additional logic is applied to consolidate directives as follows:
+
+- `script-src-elem` and `script-src-attr` are merged into `script-src`.
+- `style-src-elem` and `style-src-attr` are merged into `style-src`.
+- `frame-src` and `worker-src` are merged into `child-src`.
+- Any omitted directives falling back to `default-src` are added explicitly, defaulting to `'self'` if needed.
+
+As a final safeguard, if the combined size of all CSP headers approaches the 16KB Cloudflare limit, the CSP will not be generated to avoid unexpected failures.
