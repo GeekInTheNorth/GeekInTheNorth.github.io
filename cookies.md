@@ -30,9 +30,19 @@ By continuing to use this site, you consent to our use of cookies as described i
 
 The following cookies are in use:
 
-| Cookie | Type | Description | Duration |
-|--------|------|-------------|----------|
-| accept_cookies | Essential | Used to remember whether you have made a cookie or not. | 365 Days |
-| accept_personalization | Essential | Used to remember whether you have opt'd in to personalization cookies. | 365 Days |
-| optimizelyEndUserId | Personalization | Used by Optimizely Web Experimentation to ensure consistent use of variations for a website visitor. | 180 Days |
-| optimizelySession | Personalization | Used by Optimizely Web Experimentation to tracking the start of a single browsing session.  Typically contains a date as a number. | 180 Days |
+- accept_cookies
+  - **Type:** Essential
+  - **Usage:** Used to remember whether you have made a cookie or not.
+  - **Duration:** 365 Days
+- accept_personalization
+  - **Type:** Essential
+  - **Usage:** Used to remember whether you have opt'd in to personalization cookies.
+  - **Duration:** 365 Days
+- optimizelyEndUserId
+  - **Type:** Personalization
+  - **Usage:** Used by Optimizely Web Experimentation to ensure consistent use of variations for a website visitor.
+  - **Duration:** 180 Days
+- optimizelySession
+  - **Type:** Personalization
+  - **Usage:** Used by Optimizely Web Experimentation to tracking the start of a single browsing session.  Typically contains a date as a number.
+  - **Duration:** 180 Days
