@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /assets
 
-Sitemap: https://www.stott.pro/sitemap.xml
+Sitemap: https://www.stott.pro/sitemap_index.xml
