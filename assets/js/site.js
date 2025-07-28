@@ -15,6 +15,19 @@ document.addEventListener("DOMContentLoaded", function () {
         document.cookie = `${name}=${value}; ${expires}; path=/`;
     }
 
+    // Helper to check query string
+    function hasOptimizelyEditorParam() {
+        return new URLSearchParams(window.location.search).get('optimizely_editor') === 'true';
+    }
+
+    // Function to inject the Optimizely script
+    function injectOptimizelyScript() {
+        const script = document.createElement("script");
+        script.src = "https://cdn.optimizely.com/js/5709185699020800.js"; // Replace with the actual script URL
+        script.type = "text/javascript";
+        document.head.insertBefore(script, document.head.firstChild);
+    }
+
     // Check if cookie banner has been interacted with
     const cookieBanner = document.querySelector(".cookie-banner");
     const cookieBannerValue = getCookie("accept_cookies");
@@ -28,16 +41,15 @@ document.addEventListener("DOMContentLoaded", function () {
         cookieBanner.classList.add("d-none");
     }
 
-    // Check if the cookie exists and has a value of "1"
-    const cookieValue = getCookie("accept_personalization");
-    if (cookieValue === "1") {
-        // Create a script tag
-        const script = document.createElement("script");
-        script.src = "https://cdn.optimizely.com/js/5709185699020800.js"; // Replace with the actual script URL
-        script.type = "text/javascript";
-
-        // Append the script tag to the head
-        document.head.insertBefore(script, document.head.firstChild);
+    // Render Optimizely script if query param is present
+    if (hasOptimizelyEditorParam()) {
+        injectOptimizelyScript();
+    } else {
+        // Check if the cookie exists and has a value of "1"
+        const cookieValue = getCookie("accept_personalization");
+        if (cookieValue === "1") {
+            injectOptimizelyScript();
+        }
     }
 
     // Add event listener to the CTA button
