@@ -6,7 +6,7 @@ permalink: "/article/list/optimizely"
 category: "Optimizely"
 ---
 
-# Optimizely
+# Optimizely Articles
 
 Showing all articles about developing for Optimizely
 
