@@ -59,3 +59,9 @@ code{
   color: var(--bs-purple) !important;
   font-weight: bold;
 }
+
+pre {
+  border-left: 4px solid darkslategray;
+  background-color: whitesmoke;
+  padding: 0.8em; 
+}
