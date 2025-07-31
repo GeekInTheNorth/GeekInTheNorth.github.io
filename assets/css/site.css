@@ -48,3 +48,9 @@ h1 + p {
   font-style: italic;
   margin-top: 0;
 }
+
+blockquote {
+  border-left: 4px solid gold;
+  background-color: lightgoldenrodyellow;
+  padding: 0.8em;
+}

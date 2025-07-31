@@ -15,11 +15,13 @@ relatedArticles:
 
 Published 1st August 2025
 
-As the Stott Security module is getting more widely used across multiple Optimizely CMS solutions, I am starting to see a wider variety of content security policies that have been surprising. 
+As the Stott Security module continues to gain traction across a growing number of Optimizely CMS solutions, I’ve encountered a broader and often more complex range of Content Security Policies (CSPs). Earlier this year, two separate clients reported that their websites were not responding as intended. After investigation, the root cause wasn’t the application server, it was **Cloudflare silently dropping the response** due to excessive header size.
 
-This year I have had two queries from consumers where they encountered issues with the website not responding.  After some investigation, I was able to determine that this issue was actually caused by Cloudflare's restrictions on response headers that are [documented here](https://developers.cloudflare.com/workers/platform/limits/#response-limits).  Cloudflare will drop any response where the combined response headers exceed 32kb or where the combined header size for a unique header name exceeds 16kb. When triaging the issue, the logs showed that the webserver had successfully served the response. Meanwhile in the browser the user was left with a pending web response.  In these cases I was able to review the Content Security Policy for each client, both of which had over 220-250 sources.  In both cases I was able to optimize their CSP and reduce the overall size by 30% to 50%.
+In both cases, the CSP contained over 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the CSP size by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to simplify your policy, helping you avoid silent failures and stay within browser and CDN limits.
 
-In this article I will cover gotchas and techniques to reduce bloating within your content security policy based on these experiences.
+> 💡 **Cloudflare Header Limits**  
+> "Cloudflare will drop any HTTP response where the combined headers exceed 32KB or a single header exceeds 16KB."  
+> — [Cloudflare Docs](https://developers.cloudflare.com/fundamentals/reference/http-header-limits/)
 
 ## How To Simplify Your CSP
 
@@ -42,24 +44,30 @@ Please note that the same technique can be used for `style-src`, `style-src-elem
 
 ### 2. Keep `default-src` simple
 
-The `default-src` directive is meant to be the primary fallback for most directives.  If a specific directive has not been specified, then this will used instead.  My recommendation is to keep `default-src`  as simple as possible, either denying access by default or limiting it to just your own domain.
+The `default-src` directive serves as a fallback for most other CSP directives. If a directive like `script-src` or `img-src` isn't explicitly defined, the browser will fall back to whatever you've set in `default-src`. To reduce complexity and prevent overly permissive defaults, it's best to keep `default-src` as tight as possible. Ideally restricted to your own domain or even disabled altogether.
 
-- `default-src 'self';` : this will ensure that only the current domain is allowed to perform actions against itself where a more specific directive is absent.
-- `default-src 'none';` : this will deny permissions where a more specific directive is not defined.
-- `default-src 'self' https://*.mydomain.com;` : this will ensure that only the current domain (or it's subdomains) are allowed to perform actions on the site in the absence of a more specific directive.
+Here are three practical options:
+
+- `default-src 'none';` Blocks all resources unless explicitly allowed by another directive. This is the most restrictive and secure default.
+- `default-src 'self';` Allows only resources from the current domain. This is a common and safe choice for many sites.
+- `default-src 'self' https://*.mydomain.com;` Slightly more permissive—this allows resources from your domain and all subdomains. Be cautious: this could include dev, test, or legacy subdomains unless you scope them intentionally.
+
+>💡**Tip:** If you're already specifying individual directives like `script-src`, `style-src`, and `img-src`, you may not need a permissive `default-src` at all. In that case, consider using `'none'` to avoid accidentally allowing fallback behaviors you didn’t intend.
 
 ### 3. Keep `base-uri` simple
 
-The `<base>` element defines the domain to be used for all relative links on the page.  The purpose of the `base-uri` directive is to restrict which domains can be used in this element.  Without this being included in your Content Security Policy, a malicious actor could overwrite the `<base>` element and direct your user's traffic to their own domain instead.
+The `<base>` HTML element defines the base URL for all relative links on a page. The `base-uri` directive in your Content Security Policy restricts which domains are allowed to be set in this element.
 
-Given how limited this is, this directive should be limited to either of the following options:
+Without this restriction, a malicious actor could modify the `<base>` element to redirect your users’ traffic to an attacker-controlled domain. For example, an attacker could inject a `<base href="https://malicious.site/">` tag, causing all relative links on your page to resolve to the malicious site. This can lead to phishing attacks, misleading users into submitting sensitive information or downloading harmful content.
+
+Because this directive serves a very specific purpose, it’s best to keep it narrowly scoped, typically to one of the following:
 
 ```csp
 base-uri 'self';
 
 or
 
-base-uri 'self' https://*.mydomain.com;.
+base-uri 'self' https://*.mydomain.com;
 ```
 
 ### 4. Keep `frame-ancestors` simple
@@ -68,9 +76,7 @@ The purpose of `frame-ancestors` is to restrict which websites can host your CMS
 
 ```csp
 frame-ancestors 'self';
-
 or
-
 frame-ancestors 'self'; https://*.mydomain.com;
 ```
 
@@ -96,22 +102,16 @@ In a CSP, these two forms are functionally identical. The trailing slash has **n
 script-src 'self' https://www.example.com
 ```
 
-**Note:** If you're using a CSP source that includes a **path**, then the trailing slash *does* matter and it will limit resources to just those immediately below the path.
-For example:
-
-- `https://example.com/js/` matches `/js/app.js`
-- `https://example.com/js` matches only `/js`
+>💡 **Tip:** If you're using a CSP source that includes a **path**, then the trailing slash *does* matter and it will limit resources to just those immediately below the path:
+> - `https://example.com/js/` matches `/js/app.js`
+> - `https://example.com/js` matches only `/js`
 
 ### 6. Check if wildcard subdomains already cover more specific domains
 
-In the example CSPs that I reviewed, I noted that there were multiple instances of redundant wildcard entries across closely related domains. For example, I came across policies that included:
+In the reported examples, I found multiple instances of redundant wildcard entries for closely related domains. These examples included:
 
 ```csp
-script-src https://*.consentmanager.net https://*.delivery.consentmanager.net
-
-or
-
-script-src https://*.fls.doubleclick.net https://*.g.doubleclick.net https://*.doubleclick.net
+script-src https://*.consentmanager.net https://*.delivery.consentmanager.net https://*.fls.doubleclick.net https://*.g.doubleclick.net https://*.doubleclick.net
 ```
 
 When using a wildcard source like `https://*.example.com`, it's important to understand how wildcards behave:
@@ -119,20 +119,14 @@ When using a wildcard source like `https://*.example.com`, it's important to und
 - `https://*.example.com` matches any number of subdomain levels, such as `cdn.sub.example.com`
 - It does **not** match the apex domain itself (i.e. `https://example.com`)
 
-This means broader wildcard entries may already cover the more specific ones — and keeping both adds unnecessary bloat.
+Knowing this, we can simplify the content security policy to:
 
-#### Before and After
+```csp
+script-src https://*.consentmanager.net https://*.doubleclick.net;
+```
+>💡 **Tip:** Always verify that the broader wildcard covers all required sources and doesn't introduce unwanted access. If the root domain (e.g. `https://doubleclick.net`) is needed, it must still be listed separately. It is not included in a wildcard like `*.doubleclick.net`.
 
-| Previous Entries | Optimized Entry |
-|-|-|
-| `https://*.consentmanager.net`<br>`https://*.delivery.consentmanager.net` | `https://*.consentmanager.net` |
-| `http://*.fls.doubleclick.net`<br>`https://*.g.doubleclick.net`<br>`https://*.doubleclick.net` | `https://*.doubleclick.net`    |
-
-In these examples, I reviewed which domains were actually used by the site and selected the most permissive wildcard that safely covered them.
-
-**Note:** Always verify that the broader wildcard covers all required sources and doesn't introduce unwanted access. If the root domain (e.g. `https://doubleclick.net`) is needed, it must still be listed separately — it is not included in a wildcard like `*.doubleclick.net`.
-
-### 7. Be Cautious with `https:` in Source Directives
+### 7. Be cautious with `https:` in source directives
 
 On large, multinational CMS platforms (especially those where editors frequently embed third-party content like donation forms, interactive widgets, or 360° views) Content Security Policies can become hard to maintain. In these cases, it's tempting to use a broad directive like:
 
@@ -152,23 +146,27 @@ script-src 'self' https: https://example.com;  // Redundant and risky
 
 ### 8. Audit Your Content Security Policy
 
-Optimizely have previous stated that most websites go through an average lifespan of 5 years between rebuilds or rebrands.  Over the lifespan of the website, many different tools will have been injected into the site by tools such as Google Tag Manager.  You will have had to update your Content Security Policy to allow these third party tools to work on your brand site.
+Optimizely have previously noted that most websites go an average of five years between rebuilds or rebrands. Over that time, it's common for third-party tools to be added and removed—often through platforms like Google Tag Manager (GTM). Each time a tool is introduced, it typically requires updates to your Content Security Policy to allow scripts, iframes, or connections from new domains.
 
-Did you stop using a specific user engagement measurement tool that was injected by GTM? Did you remember to remove it from your Content Security Policy?
+But what happens when you stop using one of those tools?
 
-Stott Security has an Import / Export feature which will allow you to export all of your security headers as well as a built in reporting function that can help you in identifying defunct sources in your Content Security Policy.
+It's easy to forget to remove those permissions from your CSP. Over time, this results in bloated, outdated, and potentially less secure policies.
 
-1. Go to the Stott Security Interface
-2. On the Tools page, export your current configuration
-3. On the CSP Settings Page, turn on "Use Report Only Mode" and "Use Internal Reporting Endpoints"
-4. Start removing sources you think may be defunct
-5. Check the CSP Violations page to see if a violation is raised for this source.
+The **Stott Security** module includes features that make auditing easier:
 
-If you're not comfortable with your changes, you can go back into the Tools menu and reimport your original configuration.  If you're happy with your changes, then you can deactivate "Use Report Only Mode" and "Use Internal Reporting Endpoints".
+1. Navigate to the **Stott Security Interface**
+2. On the **Tools** page, export your current security configuration
+3. On the **CSP Settings** page:
+   * Enable **"Use Report-Only Mode"**
+   * Enable **"Use Internal Reporting Endpoints"**
+4. Begin removing CSP sources you believe may no longer be in use
+5. Monitor the **CSP Violations** page to confirm whether any legitimate content breaks
 
-### 9. Use Page Specific Extensions of the Source List
+If any issues arise, you can simply re-import your saved configuration from the Tools page. Once you're confident that your updated policy is safe, turn off **"Use Report-Only Mode"** and **"Use Internal Reporting Endpoints"** to enforce the streamlined policy.
 
-Stott Security has long supported the ability to extend the sources for a Content Security Policy for a specific page.  Lets say you do have a website with lots of embedded content and most of this is fairly unique.  You can end up bloating your CSP just trying to keep up with the number of embeds.  This can be undesirabe because you will end up allowing a domain to act on **all** of your website when it is only required on a single page.
+### 9. Use page specific extensions of the source list
+
+Stott Security has long supported the ability to extend the sources for a Content Security Policy for a specific page.  Lets say you do have a website with lots of embedded content and most of this is fairly unique.  You can end up bloating your CSP just trying to keep up with the number of embeds.  This can be undesirable because you will end up allowing a domain to act on **all** of your website when it is only required on a single page.
 
 To implement this, your development team or agency partner can implement the `IContentSecurityPolicyPage` interface either as a CMS editable property or by using code you implement yourself as follows:
 
@@ -216,9 +214,7 @@ In order to simplify your CSP and keep it below the recommend 8KB or Cloudflare'
 - Simplify Directive Use
   - Use just `script-src` instead of `script-src`, `script-src-elem` and `script-src-attr`
   - Use just `style-src` instead of `style-src`, `style-src-elem` and `style-src-attr`
-- Keep `default-src` simple by restricting it just to `'self'`
-- Keep `base-uri` simple by restricting it just to `'self'`
-- Keep `frame-ancestors` simple by restricting it just to `'self'`
+- Keep `default-src`, `base-uri` and `frame-ancestors` simple by restricting them just to `'self'`
 - Avoid duplicate entries such as `https://www.example.com` and `https://www.example.com/`
 - Avoid using less specific wildcards (`https://*.one.example.com`) if there is already a more permissive wildcard (`https://*.example.com`).
 - Consider the use of `https:` very carefully as it allows **all** domains.
