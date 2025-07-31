@@ -50,8 +50,8 @@ h1 + p {
 }
 
 blockquote {
-  border-left: 4px solid gold;
-  background-color: lightgoldenrodyellow;
+  border-left: 4px solid gold !important;
+  background-color: lightgoldenrodyellow !important;
   padding: 0.8em;
 }
 
@@ -61,7 +61,7 @@ code{
 }
 
 pre {
-  border-left: 4px solid darkslategray;
-  background-color: whitesmoke;
+  border-left: 4px solid darkslategray !important;
+  background-color: whitesmoke !important;
   padding: 0.8em; 
 }
