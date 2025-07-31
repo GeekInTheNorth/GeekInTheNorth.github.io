@@ -49,7 +49,7 @@ blockquote {
 }
 
 code{
-  color: var(--bs-indigo) !important;
+  color: darkblue !important;
 }
 
 pre {
