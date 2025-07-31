@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Response Header Limits and Content Security Policies"
-description: "Issues with response header size limits and how to optimize a larger content security policy."
-permalink: "/article/response-header-limits-and-csps"
+title: "Optimizing Content Security Policies to Stay Within HTTP Header Limits"
+description: "Discover how to audit, reduce, and optimize Content Security Policies. Helping you stay within browser and CDN header size limits."
+permalink: "/article/optimize-your-csp"
 category:
   - Development
   - Optimizely
@@ -11,7 +11,7 @@ relatedArticles:
   - "_posts/2025-04-08-stott-security-3-x.md"
 ---
 
-# Response Header Limits and Content Security Policies
+# Optimizing Content Security Policies to Stay Within HTTP Header Limits
 
 Published 1st August 2025
 
