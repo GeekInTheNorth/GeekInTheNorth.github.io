@@ -1,12 +1,5 @@
 body { padding-top: 70px; }
 
-pre.highlight {
-  background: black;
-  color: white;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
 div.main-content img {
   max-width: 100%;
 }
@@ -56,12 +49,11 @@ blockquote {
 }
 
 code{
-  color: var(--bs-purple) !important;
-  font-weight: bold;
+  color: var(--bs-indigo) !important;
 }
 
 pre {
   border-left: 4px solid darkslategray !important;
   background-color: whitesmoke !important;
-  padding: 0.8em; 
+  padding: 1em; 
 }
