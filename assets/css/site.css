@@ -54,3 +54,8 @@ blockquote {
   background-color: lightgoldenrodyellow;
   padding: 0.8em;
 }
+
+code{
+  color: var(--bs-purple) !important;
+  font-weight: bold;
+}
