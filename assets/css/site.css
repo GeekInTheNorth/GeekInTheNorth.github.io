@@ -57,3 +57,7 @@ pre {
   background-color: whitesmoke !important;
   padding: 1em; 
 }
+
+h2, h3, h4 {
+  margin-top: 1em;
+}
