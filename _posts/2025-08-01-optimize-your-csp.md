@@ -17,7 +17,7 @@ Published 1st August 2025
 
 As the Stott Security module continues to gain traction across a growing number of Optimizely CMS solutions, I’ve encountered a broader and often more complex range of Content Security Policies (CSPs). Earlier this year, two separate clients reported that their websites were not responding as intended. After investigation, the root cause wasn’t the application server, it was **Cloudflare silently dropping the response** due to excessive header size.
 
-In both cases, the CSP contained over 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the CSP size by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to simplify your policy, helping you avoid silent failures and stay within browser and CDN limits.
+In both cases, the Content Security Policy (CSP) contained over 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the size of the by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to simplify your policy, helping you avoid silent failures and stay within browser and CDN limits.
 
 > 💡 **Cloudflare Header Limits**  
 > "Cloudflare will drop any HTTP response where the combined headers exceed 32KB or a single header exceeds 16KB."  
@@ -44,7 +44,7 @@ Please note that the same technique can be used for `style-src`, `style-src-elem
 
 ### 2. Keep `default-src` simple
 
-The `default-src` directive serves as a fallback for most other CSP directives. If a directive like `script-src` or `img-src` isn't explicitly defined, the browser will fall back to whatever you've set in `default-src`. To reduce complexity and prevent overly permissive defaults, it's best to keep `default-src` as tight as possible. Ideally restricted to your own domain or even disabled altogether.
+The `default-src` directive serves as a fallback for most other Content Security Policy directives. If a directive like `script-src` or `img-src` isn't explicitly defined, the browser will fall back to whatever you've set in `default-src`. To reduce complexity and prevent overly permissive defaults, it's best to keep `default-src` as tight as possible. Ideally restricted to your own domain or even disabled altogether.
 
 Here are three practical options:
 
@@ -86,15 +86,15 @@ If you are using Optimizely Web Experimentation then you will also want to allow
 frame-ancestors 'self'; https://*.mydomain.com https://*.optimizely.com;
 ```
 
-### 5. Avoid duplicate entries in your CSP
+### 5. Avoid duplicate entries
 
-In the example CSPs that I reviewed, I noted that there were multiple instances of the same domain being added twice.  Both with a trailing slash and without it like so:
+In the Content Security Policies that I reviewed, I noted that there were multiple instances of the same domain being added twice.  Both with and without a trailing slash like so:
 
 ```csp
 script-src 'self' https://www.example.com https://www.example.com/
 ```
 
-In a CSP, these two forms are functionally identical. The trailing slash has **no effect** when the source is just a host (i.e. no path). Browsers treat both as allowing all content from the origin `https://www.example.com`.
+In a Content Security Policy, these two forms are functionally identical. The trailing slash has **no effect** when the source is just a host (i.e. no path). Browsers treat both as allowing all content from the origin `https://www.example.com`.
 
 **Simplify your policy** by removing duplicates and keeping only one clean version:
 
@@ -150,9 +150,9 @@ Optimizely have previously noted that most websites go an average of five years 
 
 But what happens when you stop using one of those tools?
 
-It's easy to forget to remove those permissions from your CSP. Over time, this results in bloated, outdated, and potentially less secure policies.
+It's easy to forget to remove those permissions from your Content Security Policy. Over time, this results in bloated, outdated, and potentially less secure policies.
 
-The **Stott Security** module includes features that make auditing easier:
+The [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) module includes features that make auditing easier:
 
 1. Navigate to the **Stott Security Interface**
 2. On the **Tools** page, export your current security configuration
@@ -194,9 +194,9 @@ When this page is served, the sources and directives specified here are merged i
 
 ## Changes to Stott Security for Optimizely CMS 12
 
-In order to prevent other cusumers of Stott Security from encountering the same issue with header size limits, I decided that I would add some safety nets for the generated Content Security Policy that would respect Cloudflare's hard 16KB limit. When researching header size limits in general, I observed that the most common recommendation was to keep your headers below 8KB per header to ensure broad compatability. 
+In order to prevent other cusumers of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) from encountering the same issue with header size limits, I decided that I would add some safety nets for the generated Content Security Policy that would respect Cloudflare's hard 16KB limit. When researching header size limits in general, I observed that the most common recommendation was to keep your headers below 8KB per header to ensure broad compatability. 
 
-Starting in version 3.0.2 of Stott Security, CSPs are now intelligently split into [multiple CSP Headers](https://content-security-policy.com/examples/multiple-csp-headers/) if their size approaches the 8KB limit. Since browsers enforce the most restrictive policy among multiple CSP headers, these headers are carefully divided based on directive hierarchy and fallback behavior.
+Starting in version 3.0.2 of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), CSPs are now intelligently split into [multiple CSP Headers](https://content-security-policy.com/examples/multiple-csp-headers/) if their size approaches the 8KB limit. Since browsers enforce the most restrictive policy among multiple CSP headers, these headers are carefully divided based on directive hierarchy and fallback behavior.
 
 If a header grows beyond 12KB, additional logic is applied to consolidate directives as follows:
 
@@ -209,7 +209,7 @@ As a final safeguard, if the combined size of all CSP headers approaches the 16K
 
 ## Summary
 
-In order to simplify your CSP and keep it below the recommend 8KB or Cloudflare's hard 16KB limit consider the following:
+In order to simplify your Content Security Policy and keep it below the recommend 8KB or Cloudflare's hard 16KB limit consider the following:
 
 - Simplify Directive Use
   - Use just `script-src` instead of `script-src`, `script-src-elem` and `script-src-attr`
@@ -219,5 +219,5 @@ In order to simplify your CSP and keep it below the recommend 8KB or Cloudflare'
 - Avoid using less specific wildcards (`https://*.one.example.com`) if there is already a more permissive wildcard (`https://*.example.com`).
 - Consider the use of `https:` very carefully as it allows **all** domains.
 - Audit your Content Security Policy and remove permissions for scripts you are no longer using.
-- Consider using the page specific extension of the Content Security Policy feature that is part of Stott Security
-- Consider updating to the latest version of Stott Security today in order to benefit from automatic CSP simplification and to protect your servers from bloated content security policies.
+- Consider using the page specific extension of the Content Security Policy feature that is part of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely)
+- Consider updating to the latest version of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) today in order to benefit from automatic CSP simplification and to protect your servers from bloated content security policies.
