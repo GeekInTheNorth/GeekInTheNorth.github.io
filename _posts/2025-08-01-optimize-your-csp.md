@@ -17,17 +17,15 @@ Published 1st August 2025
 
 As the Stott Security module continues to gain traction across a growing number of Optimizely CMS solutions, I’ve encountered a broader and often more complex range of Content Security Policies (CSPs). Earlier this year, two separate clients reported that their websites were not responding as intended. After investigation, the root cause wasn’t the application server, it was **Cloudflare silently dropping the response** due to excessive header size.
 
-In both cases, the Content Security Policy (CSP) contained over 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the size of the by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to simplify your policy, helping you avoid silent failures and stay within browser and CDN limits.
+In both cases, the Content Security Policy (CSP) contained between 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the size of the CSP by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to shrink the size of your Content Security Policy, helping you avoid silent failures and stay within browser and CDN limits.
 
 > 💡 **Cloudflare Header Limits**  
 > "Cloudflare will drop any HTTP response where the combined headers exceed 32KB or a single header exceeds 16KB."  
 > — [Cloudflare Docs](https://developers.cloudflare.com/fundamentals/reference/http-header-limits/)
 
-## How To Simplify Your CSP
+## 1. Simplify the directives being used
 
-### 1. Simplify the directives being used
-
-In CSP3, the ability to split `script-src` into `script-src-elem` and `script-src-attr` was added.  This was intended to give more control over what could be used in a `<script>` element vs what could be used in a JavaScript attribute on an element.  There was a period of time where if you wanted to use `script-src-elem` and `script-src-attr` you still had to produce `script-src` to support devices and browsers that were not yet CSP 3 compliant.  CSP 3 support is now very broad so you can omit `script-src`.  If you still have a lot of sources and there is an overlap of sources for `script-src-elem` and `script-src-attr` then you could switch back to using `script-src` instead.
+In CSP 3, the ability to split `script-src` into `script-src-elem` and `script-src-attr` was added.  This was intended to give more control over what could be used in a `<script>` element vs what could be used in a JavaScript attribute on an element.  There was a period of time where if you wanted to use `script-src-elem` and `script-src-attr` you still had to produce `script-src` to support devices and browsers that were not yet CSP 3 compliant.  CSP 3 support is now very broad so you can omit `script-src`.  If you still have a lot of sources and there is an overlap of sources for `script-src-elem` and `script-src-attr` then you could switch back to using `script-src` instead.
 
 **Larger and very specific:**
 ```csp
@@ -40,9 +38,9 @@ script-src-attr 'self' https://www.example.com https://www.attr-only.com;
 script-src 'self' 'nonce-r4nd0m' https://www.example.com https://www.elem-only.com https://www.attr-only.com;
 ```
 
-Please note that the same technique can be used for `style-src`, `style-src-elem` and `style-src-attr`.
+> 💡 **Please note** that the same technique can be used for `style-src`, `style-src-elem` and `style-src-attr`.
 
-### 2. Keep `default-src` simple
+## 2. Keep default-src simple
 
 The `default-src` directive serves as a fallback for most other Content Security Policy directives. If a directive like `script-src` or `img-src` isn't explicitly defined, the browser will fall back to whatever you've set in `default-src`. To reduce complexity and prevent overly permissive defaults, it's best to keep `default-src` as tight as possible. Ideally restricted to your own domain or even disabled altogether.
 
@@ -54,7 +52,7 @@ Here are three practical options:
 
 >💡**Tip:** If you're already specifying individual directives like `script-src`, `style-src`, and `img-src`, you may not need a permissive `default-src` at all. In that case, consider using `'none'` to avoid accidentally allowing fallback behaviors you didn’t intend.
 
-### 3. Keep `base-uri` simple
+## 3. Keep base-uri simple
 
 The `<base>` HTML element defines the base URL for all relative links on a page. The `base-uri` directive in your Content Security Policy restricts which domains are allowed to be set in this element.
 
@@ -70,7 +68,7 @@ or
 base-uri 'self' https://*.mydomain.com;
 ```
 
-### 4. Keep `frame-ancestors` simple
+## 4. Keep frame-ancestors simple
 
 The purpose of `frame-ancestors` is to restrict which websites can host your CMS site in an iframe.  For most Optimizely websites, this should be limited to allowing only the website to frame itself:
 
@@ -86,7 +84,7 @@ If you are using Optimizely Web Experimentation then you will also want to allow
 frame-ancestors 'self'; https://*.mydomain.com https://*.optimizely.com;
 ```
 
-### 5. Avoid duplicate entries
+## 5. Avoid duplicate entries
 
 In the Content Security Policies that I reviewed, I noted that there were multiple instances of the same domain being added twice.  Both with and without a trailing slash like so:
 
@@ -106,7 +104,7 @@ script-src 'self' https://www.example.com
 > - `https://example.com/js/` matches `/js/app.js`
 > - `https://example.com/js` matches only `/js`
 
-### 6. Check if wildcard subdomains already cover more specific domains
+## 6. Check if wildcard subdomains already cover more specific domains
 
 In the reported examples, I found multiple instances of redundant wildcard entries for closely related domains. These examples included:
 
@@ -126,7 +124,7 @@ script-src https://*.consentmanager.net https://*.doubleclick.net;
 ```
 >💡 **Tip:** Always verify that the broader wildcard covers all required sources and doesn't introduce unwanted access. If the root domain (e.g. `https://doubleclick.net`) is needed, it must still be listed separately. It is not included in a wildcard like `*.doubleclick.net`.
 
-### 7. Be cautious with `https:` in source directives
+## 7. Be cautious with https: in source directives
 
 On large, multinational CMS platforms (especially those where editors frequently embed third-party content like donation forms, interactive widgets, or 360° views) Content Security Policies can become hard to maintain. In these cases, it's tempting to use a broad directive like:
 
@@ -144,7 +142,7 @@ script-src 'self' https: https://example.com;  // Redundant and risky
 
 **Recommendation:** While `https:` might seem like a helpful shortcut, it's generally better to define a specific **allowlist** of trusted domains. Avoid `https:` as a standalone source and instead use fully qualified entries like `https://trustedpartner.com` to maintain control and minimize your exposure to third-party threats.
 
-### 8. Audit Your Content Security Policy
+## 8. Audit Your Content Security Policy
 
 Optimizely have previously noted that most websites go an average of five years between rebuilds or rebrands. Over that time, it's common for third-party tools to be added and removed—often through platforms like Google Tag Manager (GTM). Each time a tool is introduced, it typically requires updates to your Content Security Policy to allow scripts, iframes, or connections from new domains.
 
@@ -164,9 +162,9 @@ The [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely
 
 If any issues arise, you can simply re-import your saved configuration from the Tools page. Once you're confident that your updated policy is safe, turn off **"Use Report-Only Mode"** and **"Use Internal Reporting Endpoints"** to enforce the streamlined policy.
 
-### 9. Use page specific extensions of the source list
+## 9. Use page specific extensions of the source list
 
-Stott Security has long supported the ability to extend the sources for a Content Security Policy for a specific page.  Lets say you do have a website with lots of embedded content and most of this is fairly unique.  You can end up bloating your CSP just trying to keep up with the number of embeds.  This can be undesirable because you will end up allowing a domain to act on **all** of your website when it is only required on a single page.
+[Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) has long supported the ability to extend the sources for a Content Security Policy for a specific page.  Lets say you do have a website with lots of embedded content and most of this is fairly unique.  You can end up bloating your CSP just trying to keep up with the number of embeds.  This can be undesirable because you will end up allowing a domain to act on **all** of your website when it is only required on a single page.
 
 To implement this, your development team or agency partner can implement the `IContentSecurityPolicyPage` interface either as a CMS editable property or by using code you implement yourself as follows:
 
