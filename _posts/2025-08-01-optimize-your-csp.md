@@ -19,9 +19,8 @@ As the Stott Security module continues to gain traction across a growing number 
 
 In both cases, the Content Security Policy (CSP) contained between 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the size of the CSP by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to shrink the size of your Content Security Policy, helping you avoid silent failures and stay within browser and CDN limits.
 
-> 💡 **Cloudflare Header Limits**  
-> "Cloudflare will drop any HTTP response where the combined headers exceed 32KB or a single header exceeds 16KB."  
-> — [Cloudflare Docs](https://developers.cloudflare.com/fundamentals/reference/http-header-limits/)
+> **Please note** Cloudflare will drop any HTTP response where the combined headers exceed 32KB or a single header exceeds 16KB.  
+> — [Cloudflare Docs](https://developers.cloudflare.com/workers/platform/limits/#request-limits)
 
 ## 1. Simplify the directives being used
 
@@ -38,7 +37,7 @@ script-src-attr 'self' https://www.example.com https://www.attr-only.com;
 script-src 'self' 'nonce-r4nd0m' https://www.example.com https://www.elem-only.com https://www.attr-only.com;
 ```
 
-> 💡 **Please note** that the same technique can be used for `style-src`, `style-src-elem` and `style-src-attr`.
+> 💡 **Tip:** the same technique can be used for `style-src`, `style-src-elem` and `style-src-attr`.
 
 ## 2. Keep default-src simple
 
