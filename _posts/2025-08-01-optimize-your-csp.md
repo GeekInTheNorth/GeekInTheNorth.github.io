@@ -13,7 +13,7 @@ relatedArticles:
 
 # Optimizing Content Security Policies to Stay Within HTTP Header Limits
 
-Published 1st August 2025
+Published 1st August 2025<br/>Edited 5th August 2025
 
 As the Stott Security module continues to gain traction across a growing number of Optimizely CMS solutions, I’ve encountered a broader and often more complex range of Content Security Policies (CSPs). Earlier this year, two separate clients reported that their websites were not responding as intended. After investigation, the root cause wasn’t the application server, it was **Cloudflare silently dropping the response** due to excessive header size.
 
@@ -123,7 +123,7 @@ script-src https://*.consentmanager.net https://*.doubleclick.net;
 ```
 >💡 **Tip:** Always verify that the broader wildcard covers all required sources and doesn't introduce unwanted access. If the root domain (e.g. `https://doubleclick.net`) is needed, it must still be listed separately. It is not included in a wildcard like `*.doubleclick.net`.
 
-## 7. Be cautious with https: in source directives
+## 7. Be cautious with https: and wss: wildcard protocols in source directives
 
 On large, multinational CMS platforms (especially those where editors frequently embed third-party content like donation forms, interactive widgets, or 360° views) Content Security Policies can become hard to maintain. In these cases, it's tempting to use a broad directive like:
 
@@ -133,13 +133,13 @@ frame-src 'self' https:;
 
 This allows any content to be iframed as long as it's served over HTTPS, which can be a **pragmatic short-term solution** when content sources are constantly changing and difficult to manage. However, this convenience comes with serious trade-offs.
 
-Using `https:` effectively tells the browser to allow **any** secure domain and not just trusted partners. That means explicitly listing a domain like `https://example.com` is redundant, and worse, it also implicitly permits `https://malicious.site` or any other HTTPS-based domain to load scripts or frames on your site:
+Using `https:` effectively tells the browser to allow **any** secure domain and not just trusted partners. That means explicitly listing a domain like `https://example.com` is redundant, and worse, it also implicitly permits `https://malicious.site` or any other HTTPS-based domain to load scripts or frames on your site.  The same behaviour exists for `wss:` and `http:` protocols as well. So do be cautious when using them, or avoid them entirely:
 
 ```csp
 script-src 'self' https: https://example.com;  // Redundant and risky
 ```
 
-**Recommendation:** While `https:` might seem like a helpful shortcut, it's generally better to define a specific **allowlist** of trusted domains. Avoid `https:` as a standalone source and instead use fully qualified entries like `https://trustedpartner.com` to maintain control and minimize your exposure to third-party threats.
+**Recommendation:** While `https:` might seem like a helpful shortcut, it's generally better to define a specific **allowlist** of trusted domains. Avoid `https:`  and `wss:` as protocol only sources and instead use fully qualified entries like `https://trustedpartner.com` to maintain control and minimize your exposure to third-party threats.
 
 ## 8. Audit Your Content Security Policy
 
@@ -214,7 +214,7 @@ In order to simplify your Content Security Policy and keep it below the recommen
 - Keep `default-src`, `base-uri` and `frame-ancestors` simple by restricting them just to `'self'`
 - Avoid duplicate entries such as `https://www.example.com` and `https://www.example.com/`
 - Avoid using less specific wildcards (`https://*.one.example.com`) if there is already a more permissive wildcard (`https://*.example.com`).
-- Consider the use of `https:` very carefully as it allows **all** domains.
+- Consider the use of the `https:` and `wss:` protocol wildcards very carefully as it allows **all** domains, not just those you specify.
 - Audit your Content Security Policy and remove permissions for scripts you are no longer using.
 - Consider using the page specific extension of the Content Security Policy feature that is part of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely)
 - Consider updating to the latest version of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) today in order to benefit from automatic CSP simplification and to protect your servers from bloated content security policies.
