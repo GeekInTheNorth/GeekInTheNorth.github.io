@@ -1,6 +1,7 @@
 ---
 layout: articlelist
 title: "Stott Security"
+description: "Articles around the Stott Security Add-On for Optimizely CMS 12."
 permalink: "/article/list/stott-security"
 category: "Stott Security"
 ---
