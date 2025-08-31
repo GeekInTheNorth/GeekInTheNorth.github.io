@@ -14,13 +14,13 @@ Published 31st August 2025
 
 ## The Problem
 
-I was working on a CMS 11 client who wanted to introduce two new third party content sources.  These would be synchronized into new specific page types that they would then surface alongside content written directly within the CMS on their listing pages.  Their listing page has the ability to select a subset of content types which will be allowed within the results of the current listng page.  This functionality allows them to use the same Listing Page type to act as a Case Studies listing page or a News Article listing page.
+I was working with a CMS 11 client who wanted to introduce two new third party content sources.  These would be synchronized into new specific page types that they would then surface alongside content written directly within the CMS on their listing pages.  Their listing page has the ability to select a subset of content types which will be allowed within the results of the current listng page.  This functionality allows them to use the same Listing Page type to act as a Case Studies listing page or a News Article listing page.
 
-Different parts of the business would be sponsoring each new integration and there was a cross over in terms of related content types and functionality they would be referenced on.  Rather than getting into regular merge conflicts with different branches implementing changes on the same objects I decided to adopt a feature flagging approach.
+Different parts of the business would be sponsoring each new integration and there was an overlap in terms of related content types and functionality they would be referenced on.  Rather than getting into regular merge conflicts with different branches implementing changes on the same objects I decided to adopt a feature flagging approach.
 
 ## The Solution
 
-The first thing I needed was a static object with a static method that could be accessed anywhere with minimal fuss.  As this was a CMS 11 solution which is built on .NET Framework, I chose to put my flags directly into the AppSettings of the web.config file and access them through the ConfigurationManager.
+The first requirement was a static object with a method that could be accessed globally with minimal overhead. As this was a CMS 11 solution built on .NET Framework, I placed the flags in the AppSettings section of the `web.config` file and accessed them through the `ConfigurationManager`.
 
 ```c#
 public static class FeatureFlagProvider
@@ -42,7 +42,7 @@ public static class FeatureFlagProvider
 }
 ```
 
-Both integrations had options that were configurable on a Site Settings content type and introduced new properties and options on the Listing Page content type.  This meant that I needed to conditionally hide properties based on a feature flag.  To make this possible, I created a attribute that inherited from the `[ScaffoldColumn(bool)]` attribute:
+The solution includes a Site Settings content type that holds global content and settings for the site. Both integrations introduced options on the Site Settings content type and added properties to the Listing Page content type. These properties needed to be conditionally hidden based on feature flags. To achieve this, I created a custom attribute inheriting from [ScaffoldColumn]:
 
 ```c#
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
@@ -54,37 +54,54 @@ public class FeatureFlaggedColumnAttribute : ScaffoldColumnAttribute
 }
 ```
 
-The `ScaffoldColumn` attribute only takes one parameter, a boolean that reflects whether the property should be visible to content editors.  My `FeatureFlaggedColumn` takes a single string and then uses the `FeatureFlagProvider` to covert a feature flag name into a boolean value representing the active state of the feature; this is immediately passed into the `base(bool)` constructor of the `ScaffoldColumn` attribute. Implementing this for a single property on a content type is then as simple as follows:
+The `ScaffoldColumn` attribute accepts a single boolean indicating whether a property should be visible in the editor UI. My `FeatureFlaggedColumn` attribute instead accepts a string and converts it into a boolean using the `FeatureFlagProvider` which is passed into the base constructor.
+Applying this to a property on a content type looks like this:
 
 ```c#
 [FeatureFlaggedColumn(FeatureFlagProvider.FeatureOne)]
 public virtual ContentReference FeatureOneProperty { get; set; }
 ```
 
-My listing page had a multi-select field allowing the content editor to choose from a subset of page types to include in the results.  I needed to hide the content types that supported the new integrations on higher environments, but I did not want to hide the field itself.  The same static `FeatureFlagProvider` was then used directly within the selection factory for that property:
+The Listing Page also had a multi-select field allowing editors to select one or more content types to filter Search & Navigation results. I needed to hide the new page types in the selection factory for this field without removing the field itself. The same `FeatureFlagProvider` was used inside the selection factory:
 
 ```c#
 public class ContentTypesSelectionFactory : ISelectionFactory
 {
     public IEnumerable<ISelectItem> GetSelections(ExtendedMetadata metadata)
     {
-        yield return new SelectItem { Text = "Existing Page Type One", Value = typeof(ExistingPageOne).FullName };
-        yield return new SelectItem { Text = "Existing Page Type Two", Value = typeof(ExistingPageTwo).FullName };
+        yield return new SelectItem 
+        { 
+            Text = "Existing Page Type One", 
+            Value = typeof(ExistingPageOne).FullName 
+        };
+        yield return new SelectItem 
+        { 
+            Text = "Existing Page Type Two", 
+            Value = typeof(ExistingPageTwo).FullName 
+        };
 
         if (FeatureFlagProvider.IsFeatureFlagActive(FeatureFlagProvider.FeatureOne))
         {
-            yield return new SelectItem { Text = "Feature One Page ", Value = typeof(FeatureOnePage).FullName };
+            yield return new SelectItem 
+            { 
+                Text = "Feature One Page", 
+                Value = typeof(FeatureOnePage).FullName 
+            };
         }
 
         if (FeatureFlagProvider.IsFeatureFlagActive(FeatureFlagProvider.FeatureTwo))
         {
-            yield return new SelectItem { Text = "Feature Two Page", Value = typeof(FeatureTwoPage).FullName };
+            yield return new SelectItem 
+            { 
+                Text = "Feature Two Page", 
+                Value = typeof(FeatureTwoPage).FullName 
+            };
         }
     }
 }
 ```
 
-Finally I needed to prevent the new scheduled jobs for the new integrations from running in higher environments where the feature would be turned off.  Again the same FeatureFlagProvider was checked and if the feature was disabled, the scheduled job would immediately exit.
+Finally I needed to prevent the new scheduled jobs for the new integrations from running in higher environments where the feature would be turned off.  Again the same `FeatureFlagProvider` was checked and if the feature was disabled, the scheduled job would immediately exit.
 
 ```c#
 [ScheduledPlugIn(DisplayName = "[Feature One] Content Sync", ...)]
@@ -111,23 +128,27 @@ public class FeatureOneSyncScheduledJob : ScheduledJobBase
 
 ## The Outcome
 
-As a result of this simple feature flagging approach, we were able to release our three features separately with the incomplete feature functionality turned off across multiple releases to production like so: 
+By using `web.config` transforms for higher environments, I was able to then turn features on or off at an environment level. As a result of this simple feature flagging approach, we were able to release our three features separately with features turned on or off across multiple releases to production like so: 
 
 - Release One
-  - Feature One is released
-  - Feature Two compiles but is hidden behind a feature flag
-  - Feature Three is not started
+  - Feature One was feature complete and enabled on **Integration** and **Preproduction**.
+  - Feature Two was incomplete and enabled on **Integration** only.
+  - Feature Three was not yet started.
 - Release Two
-  - Feature Two compiles but is hidden behind a feature flag
-  - Feature Three is released
+  - Feature One was released to all environments.
+  - Feature Two was incomplete and enabled on **Integration** only.
+  - Feature Three was not yet started.
 - Release Three
-  - Feature Two is released
+  - Feature Two was feature complete and enabled on **Integration** and **Preproduction**.
+  - Feature Three was released to all environments.
+- Release Four
+  - Feature Two was released to all environments.
 
 ## What About CMS 12?
 
-There are more options to consider when it comes to CMS 12 and my approach would likely be different for a CMS 12 solution.  The first thing I would consider is the use of Microsoft's .NET Feature Management package and extending it's usage in the same way.  This package comes with built in support for feature flagging on Routing, Filters and Action Attributes.  There is also support for feature filters to activate a feature flag with a given set of constraints and the SDK is open source.
+There are more options to consider when it comes to CMS 12 and my approach would likely be different for a CMS 12 solution.  The first thing I would consider is the use of Microsoft's .NET Feature Management package and extending it's usage in the same way.  This package comes with built in support for feature flagging on Routing, Filters and Action Attributes.  There is also support for feature filters to activate a feature flag with a given set of constraints and the SDK is open source. In this specific case, the only functionality I would have used was the ability to check whether a feature flag was enabled.
 
-Another option to consider is whether your client is an Optimizely Feature Experimentation customer.  With Optimizely Feature Experimentation, your client is able to perform experimentations anywhere within the technical stack, though experimenting on the server side does require a development partnership.  With Feature Experimentation the customer could choose when to enable or disable specific feature flags without an actual deployment needing to take place. There is a C# SDK to support this which is also open source.
+Another option to consider is whether your client is an Optimizely Feature Experimentation customer.  With Feature Experimentation, your client is able to perform experimentations anywhere within the technical stack, however experimenting on the server side does require a development partnership.  With Feature Experimentation the customer could choose when to enable or disable specific feature flags without an actual deployment needing to take place. There is a C# SDK to support this which is also open source.
 
 - [Microsoft Learn | .NET Feature Management](https://learn.microsoft.com/en-us/azure/azure-app-configuration/feature-management-dotnet-reference)
 - [GitHub | .NET Feature Management](https://github.com/microsoft/FeatureManagement-Dotnet)
