@@ -10,7 +10,7 @@ category:
 
 # Simple Feature Flags In Optimizely CMS
 
-Published 15th August 2025
+Published 31st August 2025
 
 ## The Problem
 
@@ -20,7 +20,7 @@ Different parts of the business would be sponsoring each new integration and the
 
 ## The Solution
 
-The first thing I needed was a static object with a static method that could be accessed anywhere with minimal fuss.  As this was a CMS 11 solution which is built on .NET Framework, I chose to put my flags directly into the AppSettings of the web.config file.
+The first thing I needed was a static object with a static method that could be accessed anywhere with minimal fuss.  As this was a CMS 11 solution which is built on .NET Framework, I chose to put my flags directly into the AppSettings of the web.config file and access them through the ConfigurationManager.
 
 ```c#
 public static class FeatureFlagProvider
@@ -42,9 +42,7 @@ public static class FeatureFlagProvider
 }
 ```
 
-!TODO : Add a CMS 12 version
-
-Both integrations had options that were configurable on a Site Settings content type and introduced new properties and options on the Listing Page content type.  This meant that I needed to conditionally hide properties based on a feature flag.  To make this possible, I created a attribute that inherited from the `[ScaffoldColumn(false)]` attribute:
+Both integrations had options that were configurable on a Site Settings content type and introduced new properties and options on the Listing Page content type.  This meant that I needed to conditionally hide properties based on a feature flag.  To make this possible, I created a attribute that inherited from the `[ScaffoldColumn(bool)]` attribute:
 
 ```c#
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
@@ -56,7 +54,7 @@ public class FeatureFlaggedColumnAttribute : ScaffoldColumnAttribute
 }
 ```
 
-The `ScaffoldColumn` attribute only takes one parameter, a boolean.  This allowed me to provide the name of the feature flag in the constructor of the `FeatureFlaggedColumn` attribute and then to convert it into a bool in the `base(...)` method using my new `FeatureFlagProvider`.  Implementing this for a single property on a content type is then as simple as follows:
+The `ScaffoldColumn` attribute only takes one parameter, a boolean that reflects whether the property should be visible to content editors.  My `FeatureFlaggedColumn` takes a single string and then uses the `FeatureFlagProvider` to covert a feature flag name into a boolean value representing the active state of the feature; this is immediately passed into the `base(bool)` constructor of the `ScaffoldColumn` attribute. Implementing this for a single property on a content type is then as simple as follows:
 
 ```c#
 [FeatureFlaggedColumn(FeatureFlagProvider.FeatureOne)]
@@ -110,3 +108,29 @@ public class FeatureOneSyncScheduledJob : ScheduledJobBase
     }
 }
 ```
+
+## The Outcome
+
+As a result of this simple feature flagging approach, we were able to release our three features separately with the incomplete feature functionality turned off across multiple releases to production like so: 
+
+- Release One
+  - Feature One is released
+  - Feature Two compiles but is hidden behind a feature flag
+  - Feature Three is not started
+- Release Two
+  - Feature Two compiles but is hidden behind a feature flag
+  - Feature Three is released
+- Release Three
+  - Feature Two is released
+
+## What About CMS 12?
+
+There are more options to consider when it comes to CMS 12 and my approach would likely be different for a CMS 12 solution.  The first thing I would consider is the use of Microsoft's .NET Feature Management package and extending it's usage in the same way.  This package comes with built in support for feature flagging on Routing, Filters and Action Attributes.  There is also support for feature filters to activate a feature flag with a given set of constraints and the SDK is open source.
+
+Another option to consider is whether your client is an Optimizely Feature Experimentation customer.  With Optimizely Feature Experimentation, your client is able to perform experimentations anywhere within the technical stack, though experimenting on the server side does require a development partnership.  With Feature Experimentation the customer could choose when to enable or disable specific feature flags without an actual deployment needing to take place. There is a C# SDK to support this which is also open source.
+
+- [Microsoft Learn | .NET Feature Management](https://learn.microsoft.com/en-us/azure/azure-app-configuration/feature-management-dotnet-reference)
+- [GitHub | .NET Feature Management](https://github.com/microsoft/FeatureManagement-Dotnet)
+- [Optimizely | Feature Experimentation](https://www.optimizely.com/products/feature-experimentation/)
+- [GitHub | Optimizely Feature Experimentation C# SDK](https://github.com/optimizely/csharp-sdk)
+- [Optimizely Developer Documentation | Feature Experimentation C# Example](https://docs.developers.optimizely.com/feature-experimentation/docs/example-usage-csharp)
