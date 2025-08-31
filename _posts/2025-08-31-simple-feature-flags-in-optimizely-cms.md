@@ -42,7 +42,7 @@ public static class FeatureFlagProvider
 }
 ```
 
-The solution includes a Site Settings content type that holds global content and settings for the site. Both integrations introduced options on the Site Settings content type and added properties to the Listing Page content type. These properties needed to be conditionally hidden based on feature flags. To achieve this, I created a custom attribute inheriting from [ScaffoldColumn]:
+The solution includes a Site Settings content type that holds global content and settings for the site. Both integrations introduced options on the Site Settings content type and added properties to the Listing Page content type. These properties needed to be conditionally hidden based on feature flags. To achieve this, I created a custom attribute inheriting from `ScaffoldColumn`:
 
 ```c#
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
@@ -150,8 +150,8 @@ There are more options to consider when it comes to CMS 12 and my approach would
 
 Another option to consider is whether your client is an Optimizely Feature Experimentation customer.  With Feature Experimentation, your client is able to perform experimentations anywhere within the technical stack, however experimenting on the server side does require a development partnership.  With Feature Experimentation the customer could choose when to enable or disable specific feature flags without an actual deployment needing to take place. There is a C# SDK to support this which is also open source.
 
-- [Microsoft Learn | .NET Feature Management](https://learn.microsoft.com/en-us/azure/azure-app-configuration/feature-management-dotnet-reference)
-- [GitHub | .NET Feature Management](https://github.com/microsoft/FeatureManagement-Dotnet)
-- [Optimizely | Feature Experimentation](https://www.optimizely.com/products/feature-experimentation/)
-- [GitHub | Optimizely Feature Experimentation C# SDK](https://github.com/optimizely/csharp-sdk)
-- [Optimizely Developer Documentation | Feature Experimentation C# Example](https://docs.developers.optimizely.com/feature-experimentation/docs/example-usage-csharp)
+- [Microsoft Learn - .NET Feature Management](https://learn.microsoft.com/en-us/azure/azure-app-configuration/feature-management-dotnet-reference)
+- [GitHub - .NET Feature Management](https://github.com/microsoft/FeatureManagement-Dotnet)
+- [Optimizely - Feature Experimentation](https://www.optimizely.com/products/feature-experimentation/)
+- [GitHub - Optimizely Feature Experimentation C# SDK](https://github.com/optimizely/csharp-sdk)
+- [Optimizely Developer Documentation - Feature Experimentation C# Example](https://docs.developers.optimizely.com/feature-experimentation/docs/example-usage-csharp)
