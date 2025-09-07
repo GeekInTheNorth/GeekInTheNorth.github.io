@@ -12,7 +12,28 @@ category:
 
 Published 9th September 2025
 
+This summer, the Netcel Development team and I took part in Optimizely's Opal Hackathon.  The challenge from Optimizely was to extend Opal's abilities by creating tools that would wrap actual business flows allowing Opal to focus on inputs and outputs in a conversational context.  Our initial submissions was to develop event management tooling that would integrate with Optimizely SAAS Content Management System, Optimizely Content Management Platform and Eventbrite.
+
+We developed these tools using the C# SDK provided by Optimizely.  This SDK required us to create static classes and methods that performed the tool actions while the SDK itself managed the rooting for the tools and provided the discovery endpoint in it's entirety. After delivering a number of tools for our hackathon I reflected back on the SDK and how it was achieving our goals.  As the routing was managed by the SDK, it really limited our ability create our own controllers or to consider other hosting options such as Azure Functions.  As the owner and maintainer of two Optimizely Add-Ons I started to think about how this could work with PAAS CMS AddOns.
+
+I concluded that if I wanted to add Opal tools to my Add-Ons that I would have to consider not using the SDK at all for the following reasons:
+
+- Avoids conflict with CMS Implementations that have tools as part of their delivery.
+- Avoids conflict with other CMS Add-Ons that also attempted to use the SDK
+- The Discover and Tool endpoints remain in the same part of the routing structure as the rest of my add-on.
+
+## Opal Tool Requirements
+
+All that Opal effectively needs is a discovery endpoint that returns a specific JSON structure and a list of endpoints that accept a specific JSON structure and return any structure in return.
+
+## Discovery Endpoint
+
+The discovery endpoint JSON must contain a functions array which contains an entry for each tool.  Each tool must specify a name, description, an array of parameters, an endpoint relative to the discovery endpoint and a desired HTTP method.
+
+**GET: /discovery**
 ```json
+
+
 {
     "functions": [
         {
@@ -33,10 +54,15 @@ Published 9th September 2025
 }
 ```
 
+> 💡 **Tip:** the discovery endpoint must be accessible anonymously.
+
+### Tool Endpoint
+
+**POST: /tools/tool-name**
 ```json
 {
     "parameters": {
-        "hostName": ""
+        "parameterName": "parameter value"
     }
 }
 ```
