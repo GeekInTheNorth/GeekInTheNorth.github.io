@@ -20,7 +20,7 @@ I concluded that if I wanted to add Opal tools to my Add-Ons that I would have t
 
 - Avoids conflict with CMS Implementations that have tools as part of their delivery.
 - Avoids conflict with other CMS Add-Ons that also attempted to use the SDK
-- The Discover and Tool endpoints remain in the same part of the routing structure as the rest of my add-on.
+- The Discover and Tool endpoints remain in the same routing structure as the rest of my add-on.
 
 ## Opal Tool Requirements
 
@@ -28,11 +28,10 @@ All that Opal effectively needs is a discovery endpoint that returns a specific 
 
 ## Discovery Endpoint
 
-The discovery endpoint JSON must contain a functions array which contains an entry for each tool.  Each tool must specify a name, description, an array of parameters, an endpoint relative to the discovery endpoint and a desired HTTP method.
+The discovery endpoint JSON must contain a functions array which contains an entry for each tool.  Each tool must specify a name, description, an array of parameters, an endpoint relative to the discovery endpoint, a desired HTTP method and an optional array of auth_requirements.
 
 **GET: /discovery**
 ```json
-
 
 {
     "functions": [
@@ -48,24 +47,43 @@ The discovery endpoint JSON must contain a functions array which contains an ent
                 }
             ],
             "endpoint": "/tools/get-robot-txt-configurations/",
-            "http_method": "POST"
+            "http_method": "POST",
+            "auth_requirements": [
+                {
+                    "provider": "OptiID",
+                    "scope_bundle": "tasks",
+                    "required": true
+                }
+            ]
         }
     ]
 }
 ```
 
-> 💡 **Tip:** the discovery endpoint must be accessible anonymously.
+> 💡 **Tip:** Opal will not include the Authorization header when making a request to the discovery endpoint, so make sure your implementation is accessible anonymously.
 
 ### Tool Endpoint
+
+A tool endpoint must accept a specific JSON structure.  This includes an object called "parameters" which will contain the parameters on which your tool will operate on.  If the tool has a specified authentication requirement defined in the discovery endpoint, then this will be passed in as the optional auth object.
 
 **POST: /tools/tool-name**
 ```json
 {
     "parameters": {
         "parameterName": "parameter value"
+    },
+    "auth": {
+        "provider": "",
+        "Credentials": [
+            "key": "value"
+        ]
     }
 }
 ```
+
+## Implementing Opal Tools
+
+Implementing the discovery endpoint itself is a simple solution.  I created a set of classes to represent the desired data structure and returned an entry for each API I was providing.
 
 ```C#
 [HttpGet]
@@ -73,7 +91,6 @@ The discovery endpoint JSON must contain a functions array which contains an ent
 [Route("/stott.robotshandler/opal/discovery/")]
 public IActionResult Discovery()
 {
-    var authorizationLevel = HttpContext.Items[RobotsConstants.OpalAuthorizationLevelKey] as OpalAuthorizationLevel? ?? OpalAuthorizationLevel.None;
     var model = new FunctionsRoot { Functions = new List<Function>() };
 
     model.Functions.Add(new Function
