@@ -12,7 +12,7 @@ layout: default
   <h2 class="h3 fw-semibold text-dark mb-4">Certifications &amp; Achievements</h2>
   <div class="row">
     <div class="col-12 col-sm-6 col-lg-4 my-3">
-      <div class="card h-100 text-center shadow-sm border-1">
+      <div class="card h-100 text-center bg-light shadow-sm border-1">
         <div class="card-body p-4">
           <div class="mb-3">
             <a href="https://www.credly.com/badges/0b406a82-1eae-42bd-83be-2a8bf5e5681c/public_url" target="_blank">
@@ -26,7 +26,7 @@ layout: default
       </div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4 my-3">
-      <div class="card h-100 text-center shadow-sm border-1">
+      <div class="card h-100 text-center bg-light shadow-sm border-1">
         <div class="card-body p-4">
           <div class="mb-3">
             <a href="https://www.credly.com/badges/d2da2126-b2ce-4808-aae9-d8cb414793cb/public_url" target="_blank">
@@ -39,7 +39,7 @@ layout: default
       </div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4 my-3">
-      <div class="card h-100 text-center shadow-sm border-1">
+      <div class="card h-100 text-center bg-light shadow-sm border-1">
         <div class="card-body p-4">
           <div class="mb-3">
             <a href="https://www.credly.com/badges/276e5459-7abb-41dd-8696-106c5a9f355a/public_url" target="_blank">
@@ -52,7 +52,7 @@ layout: default
       </div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4 my-3">
-      <div class="card h-100 text-center shadow-sm border-1">
+      <div class="card h-100 text-center bg-light shadow-sm border-1">
         <div class="card-body p-4">
           <div class="mb-3">
             <a href="https://www.credly.com/badges/70fdd279-b43d-4b00-8494-6a46cbfeae65/public_url" target="_blank">
@@ -64,7 +64,7 @@ layout: default
       </div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4 my-3">
-      <div class="card h-100 text-center shadow-sm border-1">
+      <div class="card h-100 text-center bg-light shadow-sm border-1">
         <div class="card-body p-4">
           <div class="mb-3">
             <a href="https://www.credly.com/badges/f7d726c0-5c0d-46c8-9f94-b11d47122a3d/public_url" target="_blank">
@@ -86,8 +86,8 @@ layout: default
 {% for post in site.posts %}
     {% if post.categories contains page.title %}
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-1">
-                <div class="card-header bg-white border-0 pb-0">
+            <div class="card h-100 shadow-sm bg-light border-1">
+                <div class="card-header bg-light border-0 pb-0">
                     <h3 class="h5 card-title text-dark mb-2" style="cursor: pointer;">{{ post.title }}</h3>
                     <div class="d-flex align-items-center gap-2 text-muted small mb-3">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -107,7 +107,7 @@ layout: default
                         {% endfor %}
                     </div>    
                 </div>
-                <div class="card-footer border-0 bg-white">
+                <div class="card-footer border-0 bg-light">
                     <a href="{{ post.url }}" class="btn btn-primary me-2 w-100">Read Article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" class="text-muted"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
                 </div>
             </div>
