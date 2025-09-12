@@ -101,12 +101,14 @@ layout: default
                 </div>
                 <div class="card-body pt-0">
                     <p class="card-text text-muted small">{{ post.description }}</p>
+                    <div>
+                        {% for category in post.categories %}
+                            <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='badge text-bg-secondary text-decoration-none me-2'>{{ category }}</a>
+                        {% endfor %}
+                    </div>    
                 </div>
                 <div class="card-footer border-0 bg-white">
-                    <a href="{{ post.url }}" class="btn btn-primary me-2 w-100">Read more</a>
-                    {% for category in post.categories %}
-                        <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='badge text-bg-secondary text-decoration-none me-2'>{{ category }}</a>
-                    {% endfor %}
+                    <a href="{{ post.url }}" class="btn btn-primary me-2 w-100">Read Article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" class="text-muted"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
                 </div>
             </div>
         </div>
