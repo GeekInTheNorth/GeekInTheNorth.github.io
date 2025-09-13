@@ -48,6 +48,7 @@ layout: default
 
 <section>
     <h2>Latest Posts</h2>
+    <div class="row">
     {% for post in site.posts limit:6 %}
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card h-100 shadow-sm bg-light border-1">
@@ -77,5 +78,6 @@ layout: default
             </div>
         </div>
     {% endfor %}
+    </div>
 </section>
 </div>
