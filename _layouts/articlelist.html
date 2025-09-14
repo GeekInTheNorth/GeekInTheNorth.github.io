@@ -90,12 +90,7 @@ layout: default
                 <div class="card-header bg-light border-0 pb-0">
                     <h3 class="h5 card-title text-dark mb-2" style="cursor: pointer;">{{ post.title }}</h3>
                     <div class="d-flex align-items-center gap-2 text-muted small mb-3">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
+                        <i class="fa-solid fa-calendar"></i>
                         <span>Published: {{ post.date | date_to_long_string: "ordinal" }}</span>
                     </div>
                 </div>
@@ -108,7 +103,7 @@ layout: default
                     </div>    
                 </div>
                 <div class="card-footer border-0 bg-light">
-                    <a href="{{ post.url }}" class="btn btn-primary me-2 w-100">Read Article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" class="text-muted"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a>
+                    <a href="{{ post.url }}" class="btn btn-primary me-2 w-100">Read Article<i class="fa-solid fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
