@@ -11,10 +11,6 @@ relatedArticles:
   - "_posts/2024-05-17-stott-security-2-x.md"
 ---
 
-# Stott Security Version 3
-
-<i class="fa-solid fa-calendar me-2"></i>Published 8th April 2025
-
 April 2025 marks a new milestone for the Stott Security AddOn with the release of version 3.  This release has been developed over several months owing to a significant new feature among other quality of life changes.
 
 To see the shorter release notes and join the discussion, head over to the releases page on [Github - Stott Security v3.0.0](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/278)

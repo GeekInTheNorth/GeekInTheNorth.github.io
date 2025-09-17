@@ -6,10 +6,6 @@ permalink: "/article/first-ceroc-freestyle-as-a-dj"
 category: "Geek Stories"
 ---
 
-# My First Ceroc Freestyle DJ Gig
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 11th November 2023
-
 Recently my local Ceroc franchise ([Ceroc Yorkshire](https://www.facebook.com/CerocYorkshire)) expanded to include new venues and to add more freestyle nights.  As a result they started looking for new DJs.  I expressed an interest in learning how to DJ, but I wasn't comfortable committing to a regular weekly slot.  The reason being that I have a demanding regular job and didn't want to turn my hobby into a second job.
 
 My first freestyle night as a DJ was a 70s theme night at my regular venue ([Ceroc Yorkshire at the Tadcaster Riley-Smith Hall](https://www.facebook.com/groups/300424136820710)). To date I had DJ'd for two Ceroc class nights at the [Ceroc Yorkshire St. Chads](https://www.facebook.com/groups/358893437550145) venue, but a class night is very different to a freestyle. To prepare for this I dropped into CEX in Leeds and started looking for pre-loved 70s compilation CDs, Caroline managed to find 2 such 1 disk compilations for me, both priced at £1 each.  We then dropped by HMV and took advantage of their deals on compilation albums and picked up another 3 disk 70s compilation and a mixed pop 3 disk compilation.  It took a long time to add all this music to iTunes and then to listen to every track to assess them for whether they would be dancable. Still feeling like I had some gaps, I started looking through our own previously purchased albums and added those to iTunes as well. Finally I cherry picked some songs I know I like to dance to and purchased them directly from iTunes.  As a result I was able to add a lot of tracks to my Ceroc playlists. 

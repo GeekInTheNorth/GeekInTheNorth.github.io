@@ -11,10 +11,6 @@ relatedArticles:
   - "_posts/2018-09-29-unit-testing-episerver.md"
 ---
 
-# Unit Testing Optimizely CMS 12 Dynamic Data Store - Part 1
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 19th May 2022
-
 ## Background
 
 Optimizely CMS 12 comes with built in support for custom data that is not a content type.  This comes in the form of the Dynamic Data Store (DDS) which is a component that offers an API and infrastructure for CRUD operations of both compile time data types (.NET Objects) and runtime data types (property bags) within shared tables contained in the CMS database.

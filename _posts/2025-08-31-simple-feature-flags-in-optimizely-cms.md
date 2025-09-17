@@ -8,10 +8,6 @@ category:
   - Optimizely
 ---
 
-# Simple Feature Flags In Optimizely CMS
-
-<i class="fa-solid fa-calendar me-2"></i>Published 31st August 2025
-
 ## The Problem
 
 I was working with a CMS 11 client who wanted to introduce two new third party content sources.  These would be synchronized into new specific page types that they would then surface alongside content written directly within the CMS on their listing pages.  Their listing page has the ability to select a subset of content types which will be allowed within the results of the current listng page.  This functionality allows them to use the same Listing Page type to act as a Case Studies listing page or a News Article listing page.

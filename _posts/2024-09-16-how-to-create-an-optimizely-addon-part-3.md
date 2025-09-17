@@ -13,10 +13,6 @@ relatedArticles:
   - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
-# Creating an Optimizely Addon - Packaging for NuGet
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 16th September 2024
-
 In [Part One](/article/creating-an-optimizely-addon-part-1) and [Part Two](/article/creating-an-optimizely-addon-part-2) of this series; I covered topics from having a great idea, solution structure, extending the menus and adding gadgets to the editor interface.  In this part I will be covering the challenges of creating and submitting your AddOn as a NuGet package into the Optimizely NuGet feed.  You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
 ## Defining What to Package

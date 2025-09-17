@@ -13,10 +13,6 @@ relatedArticles:
   - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
-# Creating an Optimizely CMS Addon - Adding an Editor Interface Gadget
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 30th August 2024
-
 In [Part One](/article/creating-an-optimizely-addon-part-1) of this series, I covered getting started with creating your own AddOn for Optimizely CMS 12. This covered what I consider to be an ideal solution structure, best practices for your JavaScript and Styles, extending the menu interface and authentication. In Part Two, I will be covering adding an additional editor interface gadget. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
 ## Adding a Gadget to the Editor Interface

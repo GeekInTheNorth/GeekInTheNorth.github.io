@@ -36,12 +36,6 @@ img.credly-badge {
   color: #000000;
 }
 
-h1 + p {
-  color: #333333;
-  font-style: italic;
-  margin-top: 0;
-}
-
 blockquote {
   border-left: 4px solid gold !important;
   background-color: lightgoldenrodyellow !important;

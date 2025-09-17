@@ -11,10 +11,6 @@ relatedArticles:
   - "_posts/2018-09-29-unit-testing-episerver.md"
 ---
 
-# Unit Testing Optimizely CMS 12 Dynamic Data Store - Part 2
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 20th May 2022
-
 ## Background
 
 In the previous article of this series, [Unit Testing Optimizely CMS 12 Dynamic Data Store - Part 1](/article/unit_testing_optimizely_dynamic_data_store_1), an introduction was given to what the Dynamic Data Store is, and an approach was given for unit testing by mocking the `DynamicDataStore` object.

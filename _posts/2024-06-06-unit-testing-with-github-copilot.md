@@ -7,10 +7,6 @@ category:
   - Development
 ---
 
-# Unit Testing With GitHub Copilot
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 6th June 2024
-
 I recently signed up for GitHub Copilot to explore the integration of AI in software development. My primary experience with AI in coding has been through ChatGPT, which has largely been disappointing and does not live up to the hype. Over 80% of the coding assistance I've received from ChatGPT has been incorrect or outdated. Additionally, attempts to clarify or provide further instructions often resulted in the same incorrect answers. When using ChatGPT to rephrase article content, about 50% of the outcomes altered the context so significantly that the meaning was entirely different.  Given these experiences, my expectations for GitHub Copilot are quite low.
 
 The code I wanted to unit test was this handy extension method inside of a `SiteDefinitionExtensions` class that I had created for my Optimizely Robots AddOn:

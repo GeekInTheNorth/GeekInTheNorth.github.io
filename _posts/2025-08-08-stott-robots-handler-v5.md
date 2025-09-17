@@ -9,10 +9,6 @@ category:
   - "Stott Robots Handler"
 ---
 
-# LLMS.txt support comes to Stott Robots Handler v5
-
-<i class="fa-solid fa-calendar me-2"></i>Published 8th August 2025
-
 ## So you've heard of **llms.txt**?
 
 If you’ve been keeping an eye on developments in AI and search, you may have heard of **llms.txt** files. The **llms.txt** file is a simple, human-readable document designed to help **Large Language Models (LLMs)** better understand the content and context of your website.  It is intended to be a new standard in terms of **Generative Engine Optimization (GEO)** and its fair to say it is early days.  You can see a list of early adopters here: [https://llmstxt.site/](https://llmstxt.site/)

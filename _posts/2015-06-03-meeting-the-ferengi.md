@@ -7,10 +7,6 @@ category:
   - "Geek Stories"
 ---
 
-# Meeting The Ferengi
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 3rd June 2015
-
 Star Trek has long been on of my geek passions and it was something that I shared with my mother from the beginnings of Star Trek The Next Generation. Of all the Star Trek series, I enjoyed Deep Space Nine the most as I felt that it brought a little more humanity to the series. However of all the characters in the series, it was the Ferengi family that I liked the most. So when I went to the Sheffield Film and Comic Convention in August 2014 and got to meet Armin Shimerman, I had perhaps the best geek day ever, as you can see from my idiotic smile:
 
 ![Mark Stott & Armin Shimerman.](/assets/armin-and-me.jpg)

@@ -8,10 +8,6 @@ category:
   - Optimizely
 ---
 
-# A Robots.Txt Handler for Optimizely CMS 12
-
-<i class="fa-solid fa-calendar me-2"></i>Published: 15th December 2021
-
 ## Stott.Optimizely.RobotsHandler v1.0.1 Released
 
 [Stott.Optimizely.RobotsHandler](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler) is a new robots.txt handler for Optimizely CMS 12 that fully supports multi-site builds with potentially different robots.txt content to be delivered by site. This package is inspired by work previously delivered with [POSSIBLE.RobotsTxtHandler](https://github.com/made-to-engage/MadeToEngage.RobotsTxtHandler) which was built for CMS 11.  [Stott.Optimizely.RobotsHandler](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler) has been built from the ground up initially as a learning exercise building on lessons learned in my previous post: [Extending The Admin Interface in Optimizely CMS 12](/article/custom_admin_pages_in_optimizely_12).
