@@ -10,7 +10,7 @@ category:
 
 # Opticon London 2022
 
-Published: 9th November 2022
+<i class="fa-solid fa-calendar me-2"></i>Published: 9th November 2022
 
 ## About Opticon London 2022
 

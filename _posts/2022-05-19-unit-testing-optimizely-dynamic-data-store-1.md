@@ -13,7 +13,7 @@ relatedArticles:
 
 # Unit Testing Optimizely CMS 12 Dynamic Data Store - Part 1
 
-Published: 19th May 2022
+<i class="fa-solid fa-calendar me-2"></i>Published: 19th May 2022
 
 ## Background
 

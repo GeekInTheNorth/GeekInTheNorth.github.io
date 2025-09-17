@@ -11,7 +11,7 @@ category:
 
 # LLMS.txt support comes to Stott Robots Handler v5
 
-Published 8th August 2025
+<i class="fa-solid fa-calendar me-2"></i>Published 8th August 2025
 
 ## So you've heard of **llms.txt**?
 

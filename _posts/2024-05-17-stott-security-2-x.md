@@ -13,7 +13,7 @@ relatedArticles:
 
 # Stott Security Version 2 So Far
 
-Published: 17th May 2024
+<i class="fa-solid fa-calendar me-2"></i>Published: 17th May 2024
 
 In December 2023, I unveiled the initial version of Stott Security version 2. Although I typically announce each version I release, these announcements have often been concise, lacking in-depth explanations. Let's delve into that now.
 

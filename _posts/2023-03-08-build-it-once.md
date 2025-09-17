@@ -10,7 +10,7 @@ category:
 
 # Build it Once (A proposal for CMS 12 builds)
 
-Published: 8th March 2023
+<i class="fa-solid fa-calendar me-2"></i>Published: 8th March 2023
 
 ## Introduction
 

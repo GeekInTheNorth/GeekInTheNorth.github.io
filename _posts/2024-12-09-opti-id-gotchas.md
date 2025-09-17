@@ -10,7 +10,7 @@ category:
 
 # Opti ID with Secure Cookies And Third Party AddOns
 
-Published: 9th December 2024
+<i class="fa-solid fa-calendar me-2"></i>Published: 9th December 2024
 
 Opti ID has revolutionised access to the Optimizely One suite and is now the preferred authentication method on all PAAS CMS websites that I build.  However there are a couple of gotchas that always need to be taken care, outlined below are the solutions to both.
 

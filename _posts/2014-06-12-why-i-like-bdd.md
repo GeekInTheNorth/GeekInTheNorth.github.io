@@ -9,7 +9,7 @@ category:
 
 # Why I Like BDD
 
-Published: 12th June 2014
+<i class="fa-solid fa-calendar me-2"></i>Published: 12th June 2014
 
 Behaviour Driven Development (BDD) was developed by Dan North and it is a evolution from Test Driven Development (TDD). It is a means of specifying how software will work that uses Ubiquitous Language that is familiar to Developers, Business Analysts and Product Owners. A lot of people have written a lot about what BDD is all about, in this blog I want to talk about why I like BDD and why I think you should use it. To help you get some background, here are a few nice links:
 

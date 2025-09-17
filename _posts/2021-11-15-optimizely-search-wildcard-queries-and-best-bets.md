@@ -10,7 +10,7 @@ category:
 
 # Optimizely Search Wildcard Queries and Best Bets
 
-Published: 15th November 2021
+<i class="fa-solid fa-calendar me-2"></i>Published: 15th November 2021
 
 In a recent client build, I have been tasked with updating their search to use wild card searches.  I had read a number of posts pointing to the same solution as detailed by Joel Abrahamsson's 2012 blog post, [Wildcard Queries with Episerver Find](http://joelabrahamsson.com/wildcard-queries-with-episerver-find/) and Drew Null's post [Episerver Find Wildcard Queries and Best Bets](https://world.optimizely.com/blogs/drew-null/dates/2018/4/find-wildcardquery-and-best-bets---a-workaround/). These solutions included building an extension method that built a bool query wrapping a wild card query. This included complications in how to get best bets to work with wildcards.
 

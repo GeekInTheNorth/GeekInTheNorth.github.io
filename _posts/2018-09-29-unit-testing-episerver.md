@@ -13,7 +13,7 @@ relatedArticles:
 
 # Unit Testing Optimizely CMS 11
 
-Published: 29th September 2018
+<i class="fa-solid fa-calendar me-2"></i>Published: 29th September 2018
 
 ## The Requirement
 

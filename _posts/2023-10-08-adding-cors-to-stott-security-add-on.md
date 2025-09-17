@@ -10,7 +10,7 @@ category:
 
 # Adding CORS Management to Optimizely CMS 12
 
-Published: 8th October 2023
+<i class="fa-solid fa-calendar me-2"></i>Published: 8th October 2023
 
 In December 2021, I started working on a new add-on for Optimizely CMS 12.  This add-on introduced a new way to manage the Content Security Policy within the CMS that was designed to be more accessible to non-technical people.  This Add-on allowed the CMS Administrator to define on an origin-by-origin basis what origin was allowed to do what action with the website with every change being fully audited. This Add-on is now live on a number of Optimizely CMS websites and has gone through a number of penetration tests.
 

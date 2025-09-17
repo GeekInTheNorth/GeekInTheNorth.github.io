@@ -14,7 +14,7 @@ relatedArticles:
 
 # Custom Admin Pages in Optimizely 12
 
-Published: 31st August 2021
+<i class="fa-solid fa-calendar me-2"></i>Published: 31st August 2021
 
 In Optimizely CMS 11, developers could extend functionality with the Admin mode of the CMS by decorating standard MVC Controllers with the GuiPlugIn attribute.  The pages would then be rended within an iFrame to preserve the admin menus.  With the Optimizely CMS 12 .NET 5.0 preview, the GuiPlugIn attribute has been removed. According to the Breaking Changes in CMS 12 article, developers are instead advised to implement a Menu Provider instead.  Extending the Admin mode of the CMS turned out to be relatively simple using this paradigmn.
 

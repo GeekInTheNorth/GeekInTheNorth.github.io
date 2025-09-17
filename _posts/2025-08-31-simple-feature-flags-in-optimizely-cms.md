@@ -10,7 +10,7 @@ category:
 
 # Simple Feature Flags In Optimizely CMS
 
-Published 31st August 2025
+<i class="fa-solid fa-calendar me-2"></i>Published 31st August 2025
 
 ## The Problem
 

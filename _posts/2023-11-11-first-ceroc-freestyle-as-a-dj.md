@@ -8,7 +8,7 @@ category: "Geek Stories"
 
 # My First Ceroc Freestyle DJ Gig
 
-Published: 11th November 2023
+<i class="fa-solid fa-calendar me-2"></i>Published: 11th November 2023
 
 Recently my local Ceroc franchise ([Ceroc Yorkshire](https://www.facebook.com/CerocYorkshire)) expanded to include new venues and to add more freestyle nights.  As a result they started looking for new DJs.  I expressed an interest in learning how to DJ, but I wasn't comfortable committing to a regular weekly slot.  The reason being that I have a demanding regular job and didn't want to turn my hobby into a second job.
 

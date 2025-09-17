@@ -9,7 +9,7 @@ category:
 
 # Boosting Exact Matches in Elastic Search
 
-Published: 31st August 2018
+<i class="fa-solid fa-calendar me-2"></i>Published: 31st August 2018
 
 ## The Problem
 

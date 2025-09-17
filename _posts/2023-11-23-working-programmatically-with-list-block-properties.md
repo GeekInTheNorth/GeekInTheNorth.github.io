@@ -10,7 +10,7 @@ category:
 
 # Working Programmatically With List Block Properties
 
-Published: 23rd November 2023
+<i class="fa-solid fa-calendar me-2"></i>Published: 23rd November 2023
 
 Recently I encountered some issues with a third party plugin with the latest version of Optimizely CMS 12.  As the Go Live clock was ticking down fast for a client, we couldn't afford to wait for a fix to the third party plugin and I re-modelled the content to use a block list property instead.  Unfortunatley there were a significant number of instances of the content type that needed to be remodelled so it was decided that we would have to migrate the client's content for them rather than have the client bear the burden.
 

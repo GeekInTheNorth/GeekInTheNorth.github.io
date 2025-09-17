@@ -10,7 +10,7 @@ category:
 
 # A Robots.Txt Handler for Optimizely CMS 12
 
-Published: 15th December 2021
+<i class="fa-solid fa-calendar me-2"></i>Published: 15th December 2021
 
 ## Stott.Optimizely.RobotsHandler v1.0.1 Released
 

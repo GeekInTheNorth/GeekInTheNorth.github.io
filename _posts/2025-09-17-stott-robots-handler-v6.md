@@ -11,7 +11,7 @@ category:
 
 # Opal Tools Support Comes to Stott Robots Handler v6
 
-<i class="fa-solid fa-calendar"></i>Published 17th September 2025
+<i class="fa-solid fa-calendar me-2"></i>Published 17th September 2025
 
 During August, the Netcel team and I took part in the Optimizely Opal Hackathon.  The challenge for this hackathon was to generate tools that extend Opal's abilities within the Optimizely Platform.  As a late second entry for our team, I put forward a proposal to add Opal Tools support to an Optimizely AddOn.  This work sparked something bigger, and today I'm excited to share that Opal Tools functionality and improved headless support has made it's way into a production-ready release of Stott Robots Handler v6.
 

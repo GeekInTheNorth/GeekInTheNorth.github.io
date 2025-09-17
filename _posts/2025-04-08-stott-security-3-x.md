@@ -13,7 +13,7 @@ relatedArticles:
 
 # Stott Security Version 3
 
-Published 8th April 2025
+<i class="fa-solid fa-calendar me-2"></i>Published 8th April 2025
 
 April 2025 marks a new milestone for the Stott Security AddOn with the release of version 3.  This release has been developed over several months owing to a significant new feature among other quality of life changes.
 

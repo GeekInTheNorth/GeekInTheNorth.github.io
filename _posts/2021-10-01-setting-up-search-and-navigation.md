@@ -10,7 +10,7 @@ category:
 
 # Setting Up Search & Navigation in .NET 5.0
 
-Published: 1st October 2021
+<i class="fa-solid fa-calendar me-2"></i>Published: 1st October 2021
 
 UPDATE: The documentation has now been updated and can be found here: https://world.optimizely.com/documentation/developer-guides/search-navigation/getting-started/creating-your-project/
 

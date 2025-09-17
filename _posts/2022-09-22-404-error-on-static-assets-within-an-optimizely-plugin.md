@@ -10,7 +10,7 @@ category:
 
 # 404 Error on Static Assets Within an Optimizely Plugin
 
-Published: 22nd September 2022
+<i class="fa-solid fa-calendar me-2"></i>Published: 22nd September 2022
 
 ## Background
 

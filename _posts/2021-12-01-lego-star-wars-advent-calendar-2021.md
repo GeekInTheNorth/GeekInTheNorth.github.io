@@ -9,7 +9,7 @@ category:
 
 # Lego Star Wars Advent Calendar 2021
 
-Published: December 2021
+<i class="fa-solid fa-calendar me-2"></i>Published: December 2021
 
 Every year I pick up a copy of the Star Wars Lego Advent Calendar.  This year I plan to update this post on a day by day basis with each new micro build along with a little background information on each one.  This years edition of this advent calendar is based on the very popular Mandalorian tv series on Disney+.
 

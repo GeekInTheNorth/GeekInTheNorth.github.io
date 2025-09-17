@@ -10,7 +10,7 @@ category:
 
 # Extending Geta Optimizely Sitemaps to Include Image Sitemaps
 
-Published: 31st July 2023
+<i class="fa-solid fa-calendar me-2"></i>Published: 31st July 2023
 
 ## The Requirement
 
