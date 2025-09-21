@@ -83,7 +83,6 @@ Understanding this information you will then follow the execution steps below.
 
 - **Action**: Using the information collated in Step 1. Create markdown content as per the following example structure:
 
-// Backticks go here
 # Title
 
 > Optional description goes here
@@ -101,7 +100,6 @@ Optional details go here
 - [Link title](https://link_url) : Optional link details
 - [Link title](https://link_url): Optional link details
 - [Link title](https://link_url): Optional link details
-// Backticks go here
 
 ### Step 3 : Review
 
