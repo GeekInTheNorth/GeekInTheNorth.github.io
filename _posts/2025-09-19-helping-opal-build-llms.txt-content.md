@@ -63,7 +63,7 @@ In the following instructions, I have split the execution into three main steps:
 
 Here is my example instructions content:
 
-``````
+```
 # Overview
 
 When a user asks you to create an llms.txt file for a website.  You will enter an analysis mode for a provided website.  You will review the root page of the website and understand the business title for the website and generate a synopsis and collate a set of links found on that page.
@@ -83,7 +83,7 @@ Understanding this information you will then follow the execution steps below.
 
 - **Action**: Using the information collated in Step 1. Create markdown content as per the following example structure:
 
-```
+\`\`\`
 # Title
 
 > Optional description goes here
@@ -101,14 +101,14 @@ Optional details go here
 - [Link title](https://link_url) : Optional link details
 - [Link title](https://link_url): Optional link details
 - [Link title](https://link_url): Optional link details
-```
+\`\`\`
 
 ### Step 3 : Review
 
 - **Action**: Show the generated llms.txt content to the user
 - **Prompt**: Ask the user whether they will like to save the llms.txt content and which hostName they want to save it for
 - **Action**: Save the content using the savellmstxtconfigurations tool
-``````
+```
 
 Before I created these instructions, when I asked Opal to generate an **llms.txt** file, it would typically provide me with a content not too dissimilar to **robots.txt** style content.  Using these instructions I was able to get Opal to scan my personal website and generate a starting **llms.txt**.
 
