@@ -85,7 +85,7 @@ Understanding this information you will then follow the execution steps below.
 
 # Title
 
-> Optional description goes here
+&gt; Optional description goes here
 
 Optional details go here
 
@@ -115,7 +115,7 @@ _Note that I have trimmed down this generated output for brevity:_
 ```
 # Title: Mark Stott, Solutions Architect, Optimizely MVP
 
-> This website is the personal blog and portfolio of Mark Stott, a Software Solution Architect and Optimizely MVP. It highlights his professional experience, specializations, and recent technical articles.
+&gt; This website is the personal blog and portfolio of Mark Stott, a Software Solution Architect and Optimizely MVP. It highlights his professional experience, specializations, and recent technical articles.
 
 ## Mark Stott: Software Solution Architect & OMVP
 
