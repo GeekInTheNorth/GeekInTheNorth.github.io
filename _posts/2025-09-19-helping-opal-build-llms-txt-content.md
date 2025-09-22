@@ -2,7 +2,7 @@
 layout: post
 title: "Helping Opal Build LLMS.TXT Content"
 description: "Using Instructions to help Optimizely Opal generate llms.txt content."
-permalink: "/article/helping-opal-build-llms.txt-content"
+permalink: "/article/helping-opal-build-llms-txt-content"
 category:
   - Development
   - Optimizely
@@ -64,7 +64,48 @@ In the following instructions, I have split the execution into three main steps:
 Here is my example instructions content:
 
 ```
+# Overview
 
+When a user asks you to create an llms.txt file for a website.  You will enter an analysis mode for a provided website.  You will review the root page of the website and understand the business title for the website and generate a synopsis and collate a set of links found on that page.
+
+Understanding this information you will then follow the execution steps below.
+
+## Execution Steps
+
+### Step 1 : Analysis
+- **Prompt**: Request a home page URL for analysis
+- **Action**: Review the content on the page and understand the following information:
+  - A title for the website
+  - A synopsis for the purpose of the website.
+  - A collection of links ordered by section
+
+### Step 2 : Generation
+
+- **Action**: Using the information collated in Step 1. Create markdown content as per the following example structure:
+
+# Title
+
+&gt; Optional description goes here
+
+Optional details go here
+
+## Section name
+
+- [Link title](https://link_url): Optional link details
+- [Link title](https://link_url): Optional link details
+- [Link title](https://link_url): Optional link details
+
+## Optional
+
+- [Link title](https://link_url) : Optional link details
+- [Link title](https://link_url): Optional link details
+- [Link title](https://link_url): Optional link details
+
+### Step 3 : Review
+
+- **Action**: Show the generated llms.txt content to the user
+- **Prompt**: Ask the user whether they will like to save the llms.txt content and which hostName they want to save it for
+- **Action**: Save the content using the savellmstxtconfigurations tool
 ```
 
 Before I created these instructions, when I asked Opal to generate an **llms.txt** file, it would typically provide me with a content not too dissimilar to **robots.txt** style content.  Using these instructions I was able to get Opal to scan my personal website and generate a starting **llms.txt**.
@@ -72,7 +113,27 @@ Before I created these instructions, when I asked Opal to generate an **llms.txt
 _Note that I have trimmed down this generated output for brevity:_
 
 ```
+# Title: Mark Stott, Solutions Architect, Optimizely MVP
 
+&gt; This website is the personal blog and portfolio of Mark Stott, a Software Solution Architect and Optimizely MVP. It highlights his professional experience, specializations, and recent technical articles.
+
+## Mark Stott: Software Solution Architect & OMVP
+
+- [GitHub](https://github.com/GeekInTheNorth/)
+- [LinkedIn](https://www.linkedin.com/in/mark-antony-stott/)
+
+## Latest Posts
+
+- [Opal Tools Support Comes to Stott Robots Handler v6](https://www.stott.pro/article/stott-robots-handler-v6): Published: 17th September 2025, Description: Stott Robots Handler for Optimizely CMS 12 has been released with added support for Opal Tools. Categories: Development, Optimizely, Stott Robots Handler
+- [Simple Feature Flags In Optimizely CMS](https://www.stott.pro/article/simple-feature-flags-in-optimizely-cms): Published: 31st August 2025, Description: A simple approach to feature flagging within Optimizely CMS. Categories: Development, Optimizely
+- [LLMS.txt support comes to Stott Robots Handler v5](https://www.stott.pro/article/stott-robots-handler-v5): Published: 8th August 2025, Description: Stott Robots Handler for Optimizely CMS 12 has been released with added support for llms.txt files. Categories: Development, Optimizely, Stott Robots Handler
+- [Optimizing Content Security Policies to Stay Within HTTP Header Limits](https://www.stott.pro/article/optimize-your-csp): Published: 1st August 2025, Description: Discover how to audit, reduce, and optimize Content Security Policies. Helping you stay within browser and CDN header size limits. Categories: Development, Optimizely, Stott Security
+- [Stott Security Version 3](https://www.stott.pro/article/stott-security-3): Published: 8th April 2025, Description: A summary of all new functionality and changes that have been introduced to the Stott Security module so far. Categories: Development, Optimizely, Stott Security
+
+## Article Categories
+
+- [Optimizely](https://www.stott.pro/article/list/optimizely)
+- [Development](https://www.stott.pro/article/list/development)
 ```
 
 ## In Summary
