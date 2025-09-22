@@ -63,7 +63,7 @@ In the following instructions, I have split the execution into three main steps:
 
 Here is my example instructions content:
 
-```
+```markdown
 # Overview
 
 When a user asks you to create an llms.txt file for a website.  You will enter an analysis mode for a provided website.  You will review the root page of the website and understand the business title for the website and generate a synopsis and collate a set of links found on that page.
@@ -112,7 +112,7 @@ Before I created these instructions, when I asked Opal to generate an **llms.txt
 
 _Note that I have trimmed down this generated output for brevity:_
 
-```
+```markdown
 # Title: Mark Stott, Solutions Architect, Optimizely MVP
 
 > This website is the personal blog and portfolio of Mark Stott, a Software Solution Architect and Optimizely MVP. It highlights his professional experience, specializations, and recent technical articles.
