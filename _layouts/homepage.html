@@ -54,7 +54,7 @@ layout: default
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card h-100 shadow-sm bg-light border-1">
                 <div class="card-header bg-light border-0 pb-0">
-                    <h3 class="h5 card-title text-dark mb-2" style="cursor: pointer;">{{ post.title }}</h3>
+                    <h3 class="h5 card-title text-dark mb-2">{{ post.title }}</h3>
                     <div class="d-flex align-items-center gap-2 text-muted small mb-3">
                         <i class="fa-solid fa-calendar"></i>
                         <span>Published: {{ post.date | date_to_long_string: "ordinal" }}</span>
@@ -64,7 +64,7 @@ layout: default
                     <p class="card-text text-muted small">{{ post.description }}</p>
                     <div>
                         {% for category in post.categories %}
-                            <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='badge text-bg-secondary text-decoration-none me-2'>{{ category }}</a>
+                            <span class='badge text-bg-secondary me-2'>{{ category }}</span>
                         {% endfor %}
                     </div>    
                 </div>
@@ -83,6 +83,12 @@ layout: default
         </div>
         <div class="col-12 col-md-6 col-xl-4">
             <a href="/article/list/development" class="btn btn-outline-primary me-2 w-100">Development<i class="fa-solid fa-arrow-right ms-2"></i></a>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+            <a href="/article/list/stott-robots-handler" class="btn btn-outline-primary me-2 w-100">Stott Robots Handler<i class="fa-solid fa-arrow-right ms-2"></i></a>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+            <a href="/article/list/stott-security" class="btn btn-outline-primary me-2 w-100">Stott Security<i class="fa-solid fa-arrow-right ms-2"></i></a>
         </div>
     </section>
 </div>

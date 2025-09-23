@@ -42,7 +42,7 @@ layout: default
                 <div class="col-12 col-md-6 col-xl-4">
                     <div class="card h-100 shadow-sm bg-light border-1">
                         <div class="card-header bg-light border-0 pb-0">
-                            <h3 class="h5 card-title text-dark mb-2" style="cursor: pointer;">{{ post.title }}</h3>
+                            <h3 class="h5 card-title text-dark mb-2">{{ post.title }}</h3>
                             <div class="d-flex align-items-center gap-2 text-muted small mb-3">
                                 <i class="fa-solid fa-calendar"></i>
                                 <span>Published: {{ post.date | date_to_long_string: "ordinal" }}</span>
@@ -52,7 +52,7 @@ layout: default
                             <p class="card-text text-muted small">{{ post.description }}</p>
                             <div>
                                 {% for category in post.categories %}
-                                    <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='badge text-bg-secondary text-decoration-none me-2'>{{ category }}</a>
+                                    <span class='badge text-bg-secondary me-2'>{{ category }}</span>
                                 {% endfor %}
                             </div>    
                         </div>
