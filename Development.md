@@ -1,10 +1,7 @@
 ---
 layout: articlelist
 title: "Development"
+description: "Articles about technical deep dives and development solutions."
 permalink: "/article/list/development"
 category: "Development"
 ---
-
-# Development
-
-Showing all articles about development

@@ -8,10 +8,6 @@ category:
   - Optimizely
 ---
 
-# Adding Block Specific JavaScript and CSS to the body and head of the page
-
-Published: 2nd October 2023
-
 A common requirement for CMS implementations includes the ability to embed third party content into a website as if it formed part of the website itself.  Sometimes this takes the form of a full page embed like a campaign page and in other cases this can be smaller artefacts within an embed block placed between differing blocks within the flow of a page.  Often these embeds come with additional JavaScript and Stylesheet content, which in turn can lead to a Content Security Policy being opened up for an entire site for a single embed on a single page.
 
 The following block provides three separate properties:

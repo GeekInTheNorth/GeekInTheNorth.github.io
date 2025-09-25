@@ -8,10 +8,6 @@ category:
   - Optimizely
 ---
 
-# Extending Geta Optimizely Sitemaps to Include Image Sitemaps
-
-Published: 31st July 2023
-
 ## The Requirement
 
 One of our Optimizely CMS 12 clients has a media heavy site and part of our SEO brief was to include an Image XML Sitemap to improve visibility of media to search engines such as google.  For all of our CMS 12 builds, we like to use the Geta Optimizely Sitemaps plugin as this puts a lot of power into the hands of content editors and SEO specialists.  Unfortunately for this particular client, the plugin does not handle image sitemaps.

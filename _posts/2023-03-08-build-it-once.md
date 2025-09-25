@@ -8,10 +8,6 @@ category:
   - Optimizely
 ---
 
-# Build it Once (A proposal for CMS 12 builds)
-
-Published: 8th March 2023
-
 ## Introduction
 
 The following is based on a 30 minute presentation performed by myself at Optimizely North in Manchester on the 1st March 2023.  Some of this content is based on question and answer sections performed on the day as well as observing builds that I have contributed to that have origins both internal and external to the agency that I am currently with. It should be noted that this is the proposition of an approach to help reduce the duplication of effort and to allow developers to focus on what is truely unique to a client.

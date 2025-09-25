@@ -7,10 +7,6 @@ category:
   - Development
 ---
 
-# Failing to Identify the Minimum Viable Product
-
-Published: 21st May 2014
-
 Before writing this, I had a look at what other people defined as Minimum Viable Product, in some cases the example is provided as being so minimal that a product doesn't actually do anything other than record the users interaction with the product.  Further reading showed that it meant different things to different people.  The products I work with are not viable unless they perform the key calculations, so I find this definition to be the one that makes the most sense to me (please note the original article has now gone).
 
 > A Minimum Viable Product is the smallest thing you can build that delivers customer value (and as a bonus captures some of that value back).

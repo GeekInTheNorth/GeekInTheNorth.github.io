@@ -8,10 +8,6 @@ category:
   - Security
 ---
 
-# Secure Headers in .NET 5.0
-
-Published: 19th October 2021
-
 I have been building .NET 5.0 websites for personal projects as well as reviewing the move from .NET 4.8 to .NET 5.0 by Optimizely and seeing the evolution of the CMS solution.  In any website build it is best practice to remove any headers that your website may produce which expose the underlying technology stack and version.  This is known as information leakage and provides malicious actors with information that allows them to understand the security flaws in the hosting technologies utilized by your website.  It is also best practice to provide headers which instruct the user's browser as to how your website can use third parties and be used by third parties in order to offer the best protection for the user.
 
 .NET 5.0 and .NET Core 3.1 follow a common pattern in how you build websites.  Web.config is meant to be a thing of the past with configuration of the site moving to appsettings.json and code.  A good place to add security headers to your requests is to create a security header middleware:

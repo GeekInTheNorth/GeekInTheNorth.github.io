@@ -11,10 +11,6 @@ relatedArticles:
   - "_posts/2025-04-08-stott-security-3-x.md"
 ---
 
-# Optimizing Content Security Policies to Stay Within HTTP Header Limits
-
-Published 1st August 2025<br/>Edited 5th August 2025
-
 As the Stott Security module continues to gain traction across a growing number of Optimizely CMS solutions, I’ve encountered a broader and often more complex range of Content Security Policies (CSPs). Earlier this year, two separate clients reported that their websites were not responding as intended. After investigation, the root cause wasn’t the application server, it was **Cloudflare silently dropping the response** due to excessive header size.
 
 In both cases, the Content Security Policy (CSP) contained between 220–250 domain entries. After reviewing and optimizing their policies, I was able to resolve the issue by reducing the size of the CSP by 30–50%. In this article, I’ll share common CSP pitfalls and practical techniques to shrink the size of your Content Security Policy, helping you avoid silent failures and stay within browser and CDN limits.

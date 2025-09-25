@@ -8,10 +8,6 @@ category:
   - Development
 ---
 
-# Setting Up Search & Navigation in .NET 5.0
-
-Published: 1st October 2021
-
 UPDATE: The documentation has now been updated and can be found here: https://world.optimizely.com/documentation/developer-guides/search-navigation/getting-started/creating-your-project/
 
 Optimizely CMS for .NET 5.0 is a very exciting thing.  Recently the .NET Core Preview documentation was archived and some of that documentation was merged into the live developer guides. Optimizely have a huge amount of developer documentation and it's going to take a while for this content to be updated for .NET 5.0.  Sadly the current documentation for Optimizely Search and Navigation is still focused on the .NET 4.x world.

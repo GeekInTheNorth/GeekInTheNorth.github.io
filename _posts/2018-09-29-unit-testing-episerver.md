@@ -11,10 +11,6 @@ relatedArticles:
   - "_posts/2022-05-20-unit-testing-optimizely-dynamic-data-store-2.md"
 ---
 
-# Unit Testing Optimizely CMS 11
-
-Published: 29th September 2018
-
 ## The Requirement
 
 I needed to implement a new visitor group criterion for an Optimizely CMS website. As part of this work I was introducing unit testing into the project and wanted to make sure that all of my new classes were unit tested.
