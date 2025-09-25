@@ -83,7 +83,7 @@ A tool endpoint must accept a specific JSON structure.  This includes an object 
 
 ## Implementing Opal Tools
 
-Implementing the discovery endpoint itself is a simple solution.  I created a set of classes to represent the desired data structure and returned an entry for each API I was providing.
+Implementing the discovery endpoint itself is a simple solution.  I created a set of classes to represent the desired data structure and returned an entry for each API I was providing.  I decorated the controller action with the HttpGet and AllowAnonymous attributes to ensure that the endpoint was publically accessible for GET requests only.
 
 ```C#
 [HttpGet]
@@ -117,6 +117,8 @@ public IActionResult Discovery()
 }
 ```
 
+As I was aiming to support multiple endpoints with the same model structure, I used generics to create a wrapping object using the specific content model required by my API.  This would then be added as a parameter for my endpoint methods with the FromBody attribute to ensure the model was pulled from the request body.
+
 ```C#
 public class ToolRequest<TModel> where TModel : class
 {
@@ -128,6 +130,8 @@ public class GetRobotTextConfigurationsQuery
     public string HostName { get; set; }
 }
 ```
+
+When Opal resolves the URL for your tool, it resolves the path as being relative to the provided discovery endpoint.  If you provide the URL to Opal with a trailing slash such as **https://www.example.com/some-path/discovery/** then the end point URL provided in the discovery data will be appended to the end of the discovery url.  If you omit the trailing slash, then the endpoint URL then replaces **/discover**.  To account for users potentially registering the discovery endpoint both with and without a trailing slash, I have added two route attributes to my controller action to cater for both types of URL Opal will generate.
 
 ```C#
 [HttpPost]
@@ -159,14 +163,7 @@ public IActionResult GetRobotTxtConfigurations([FromBody]ToolRequest<GetRobotTex
 }
 ```
 
-```C#
-public enum OpalAuthorizationLevel
-{
-    None = 0,
-    Read = 1,
-    Write = 2
-}
-```
+When you register your tools in Opal, you have the option to provide a bearer token that will be sent in an Authorization header.  You may have noticed that my contoller action also has an **OpalAuthorization** attribute.  This is a custom attribute that checks for the presence of an Authorization header with a bearer token.  When you reg
 
 ```C#
 public sealed class OpalAuthorizationAttribute : Attribute, IActionFilter
@@ -181,8 +178,6 @@ public sealed class OpalAuthorizationAttribute : Attribute, IActionFilter
     public void OnActionExecuting(ActionExecutingContext context)
     {
         var authorizationLevel = GetAuthorization(context.HttpContext.Request);
-        context.HttpContext.Items[RobotsConstants.OpalAuthorizationLevelKey] = authorizationLevel;
-
         if (authorizationLevel < AuthorizationLevel)
         {
             context.Result = new ContentResult
