@@ -64,20 +64,37 @@ The discovery endpoint JSON must contain a functions array which contains an ent
 
 ### Tool Endpoint
 
-A tool endpoint must accept a specific JSON structure.  This includes an object called "parameters" which will contain the parameters on which your tool will operate on.  If the tool has a specified authentication requirement defined in the discovery endpoint, then this will be passed in as the optional auth object.
+A tool endpoint must accept a specific JSON structure containing the following properties:
+
+- **parameters**: this will be a json object that has properties matching the defined tool parameters
+- **auth**: this is an optional object and will only be provided if the tool has been specified as authentication requirements
+
+Additional data items are also as **environment** and **chat_metadata** but these are not essential for the operation of your tool, but could be useful in tracing operations.  In the following example, a tool has been declared as having Opti Id as an authentication requirement. 
 
 **POST: /tools/tool-name**
 ```json
 {
-    "parameters": {
-        "parameterName": "parameter value"
-    },
-    "auth": {
-        "provider": "",
-        "Credentials": [
-            "key": "value"
-        ]
-    }
+	"parameters": {
+		"parameterName": "parameter value"
+	},
+	"auth": {
+		"provider": "OptiID",
+		"credentials": {
+			"token_type": "Bearer",
+			"access_token": "...",
+			"org_sso_id": null,
+			"user_id": "...",
+			"instance_id": "...",
+			"customer_id": "...",
+			"product_sku": "OPAL"
+		}
+	},
+	"environment": {
+		"execution_mode": "interactive"
+	},
+	"chat_metadata": {
+		"thread_id": "e597710c-2d10-4f07-9817-6fad9f2b748d"
+	}
 }
 ```
 
@@ -119,15 +136,38 @@ public IActionResult Discovery()
 
 As I was aiming to support multiple endpoints with the same model structure, I used generics to create a wrapping object using the specific content model required by my API.  This would then be added as a parameter for my endpoint methods with the FromBody attribute to ensure the model was pulled from the request body.
 
-```C#
+```csharp
 public class ToolRequest<TModel> where TModel : class
 {
+    [JsonPropertyName("parameters")]
     public TModel Parameters { get; set; }
 }
 
 public class GetRobotTextConfigurationsQuery
 {
     public string HostName { get; set; }
+}
+```
+
+If your tool needs to have authentication passed into it, then you can extend this wrapping object to contain the authentication data like so:
+
+```csharp
+public class AuthenticatedToolRequest<TModel> where TModel : class
+{
+    [JsonPropertyName("parameters")]
+    public TModel Parameters { get; set; }
+
+    [JsonPropertyName("auth")]
+    public AuthData Auth { get; set; }
+}
+
+public class AuthData
+{
+    [JsonPropertyName("provider")]
+    public string Provider { get; set; } = string.Empty;
+
+    [JsonPropertyName("credentials")]
+    public Dictionary<string, object> Credentials { get; set; } = new Dictionary<string, object>();
 }
 ```
 
