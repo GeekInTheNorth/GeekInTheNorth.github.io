@@ -2,7 +2,7 @@
 layout: post
 title: "Raising and Retrieving Custom Events in Application Insights"
 description: "How to use Custom Events in Application Insights to track search term usage and report it to the UI."
-permalink: "/article/simple-feature-flags-in-optimizely-cms"
+permalink: "/article/using-custom-events-in-application-insights"
 category:
   - Development
 ---
