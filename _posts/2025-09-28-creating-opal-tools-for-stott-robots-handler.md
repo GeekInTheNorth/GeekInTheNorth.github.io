@@ -12,10 +12,6 @@ relatedArticles:
   - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"
 ---
 
-# Creating Opal Tools For Stott Robots Handler
-
-Published 28th September 2025
-
 This summer, the Netcel Development team and I took part in Optimizely's Opal Hackathon.  The challenge from Optimizely was to extend Opal's abilities by creating tools that would wrap actual business flows allowing Opal to focus on inputs and outputs in a conversational context.  Our initial submission was to develop event management tooling that would integrate with Optimizely SAAS Content Management System, Optimizely Content Management Platform and Eventbrite.
 
 Optimizely has created SDKs in C#, JavaScript and Python to accelerate the process of developing Opal Tools, we opted to use the C# SDK due to language familiarity. This SDK required us to create static classes and methods that performed the tool actions while the SDK itself managed the routing for the tools and provided the discovery endpoint in its entirety. After delivering several tools for the hackathon I reflected on the SDK and how it was achieving our goals.  As the routing was managed by the SDK, it really limited our ability to create our own controllers or to consider other hosting options such as Azure Functions.  As the owner and maintainer of two Optimizely Add-ons I started to think about how this could work with PaaS CMS Add-ons.
