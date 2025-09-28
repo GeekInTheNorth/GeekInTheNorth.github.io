@@ -2,10 +2,14 @@
 layout: post
 title: "Creating Opal Tools for Stott Robots Handler"
 description: "An approach to creating Optimizely Opal Tools without using the SDKs."
-permalink: "/article/creating-opal-tools"
+permalink: "/article/creating-opal-tools-for-stott-robots-handler"
 category:
   - Development
   - Optimizely
+  - "Stott Robots Handler"
+relatedArticles:
+  - "_posts/2025-09-17-stott-robots-handler-v6.md"
+  - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"
 ---
 
 # Creating Opal Tools For Stott Robots Handler
