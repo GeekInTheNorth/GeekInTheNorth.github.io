@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Creating an Optimizely Addon - Best Practices"
-description: "Best practices for creating an Optimizely CMS AddOn."
+title: "Creating an Optimizely Add-on - Best Practices"
+description: "Best practices for creating an Optimizely CMS Add-on."
 permalink: "/article/creating-an-optimizely-addon-part-4"
 category:
   - Development
@@ -13,11 +13,11 @@ relatedArticles:
   - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
-In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an AddOn for Optimizely CMS, from architecture to packaging at as a NuGet package. In this part I will be covering some best practices that will help you succeed as an AddOn developer. You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
+In [Part One](/article/creating-an-optimizely-addon-part-1), [Part Two](/article/creating-an-optimizely-addon-part-2) and [Part Three](/article/creating-an-optimizely-addon-part-3), I have outlined the steps required to create an Add-on for Optimizely CMS, from architecture to packaging at as a NuGet package. In this part I will be covering some best practices that will help you succeed as an Add-on developer. You can view examples from across this series within the this [Optimizely Add-on Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
 ## Unit Tests
 
-As a solo developer managing multiple AddOns, my ability to release updates regularly relies heavily on having extensive unit tests. For instance, [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) includes over 1,500 unit tests that run whenever a pull request is made to merge a feature branch into the develop branch. This level of coverage ensures that functionality remains consistent across releases.
+As a solo developer managing multiple Add-ons, my ability to release updates regularly relies heavily on having extensive unit tests. For instance, [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) includes over 1,500 unit tests that run whenever a pull request is made to merge a feature branch into the develop branch. This level of coverage ensures that functionality remains consistent across releases.
 
 As well as writing unit tests for your business logic, you can also write additional unit tests that validate the security of your controllers. I would consider adding these tests to be an essential part of ensuring the security of your system as they ensure the following:
 
@@ -119,9 +119,9 @@ public static class ControllerStandardsTestCases
 
 ## Test System
 
-If you have followed this series to create an AddOn, you'll note that the sample site for developing the AddOn does not use nuget to consume the AddOn code and instead uses a project reference. This will allow you to develop efficiently, however it does mean that you are not testing your code in a production-like manner.
+If you have followed this series to create an Add-on, you'll note that the sample site for developing the Add-on does not use nuget to consume the Add-on code and instead uses a project reference. This will allow you to develop efficiently, however it does mean that you are not testing your code in a production-like manner.
 
-Create a separate repository with it's own Optimizely CMS solution. Import your AddOn as a NuGet package directly into this solution. This will allow you to test your AddOn in the same way that another developer will be experiencing your AddOn for the first time. If you are able to generate a developer cloud license on [EPiServer License Centre](https://license.episerver.com/), then I would recommend you deploy this test system into an Azure WebApp running on Linux with .NET 6.0 or 8.0 so that you can validate your AddOn inside of a deployed environment.
+Create a separate repository with it's own Optimizely CMS solution. Import your Add-on as a NuGet package directly into this solution. This will allow you to test your Add-on in the same way that another developer will be experiencing your Add-on for the first time. If you are able to generate a developer cloud license on [EPiServer License Centre](https://license.episerver.com/), then I would recommend you deploy this test system into an Azure WebApp running on Linux with .NET 6.0 or 8.0 so that you can validate your Add-on inside of a deployed environment.
 
 As part of my go live cycle I perform the following:
 
@@ -130,7 +130,7 @@ As part of my go live cycle I perform the following:
 - Update my test system to use the beta package
 - Deploy my test system to Azure
 - Delist my beta version on nuget.org
-- Test my AddOn in my test system
+- Test my Add-on in my test system
 - Create a production version of my nuget package
 - Upload the production package to nuget.optimizely.com
 - Wait for the package to be approved by Optimizely's QA team
@@ -280,6 +280,6 @@ Note how we don't need to lazy load the repository as the database context is al
   - Controller actions have correct HTTP method attributes.
   - Controllers have secure actions with authorization or explicit anonymous access.
   - Controllers have defined routes to avoid conflicts.
-- Test your AddOn in a separate production-like environment.
+- Test your Add-on in a separate production-like environment.
 - Use caching to optimize database access.
 - Implement lazy loading and scoped dependencies.

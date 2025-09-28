@@ -11,7 +11,7 @@ relatedArticles:
   - "_posts/2024-05-17-stott-security-2-x.md"
 ---
 
-April 2025 marks a new milestone for the Stott Security AddOn with the release of version 3.  This release has been developed over several months owing to a significant new feature among other quality of life changes.
+April 2025 marks a new milestone for the Stott Security Add-on with the release of version 3.  This release has been developed over several months owing to a significant new feature among other quality of life changes.
 
 To see the shorter release notes and join the discussion, head over to the releases page on [Github - Stott Security v3.0.0](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/discussions/278)
 
@@ -78,7 +78,7 @@ In version 2, I introduced a CMS Editor gadget that displayed the HTTP headers g
 However, over time it became clear that this approach had several drawbacks:
 
 - The gadget was read-only and appeared automatically for all CMS administrators, even if the page-specific CSP feature wasn't in use. In most cases, this meant the gadget was visible but offered little to no value.
-- Some developers experienced installation issues with the AddOn. Specifically, in projects where the `.csproj` excluded the `modules\_protected` folder; often done to avoid conflicts with other third-party AddOns that add files to the solution multiple times. This resulted in the Stott Security `module.config` being be removed and not re-added. This in turn causes an error during the start up of the solution that could only be resovled by manually adding the into source control and project.
+- Some developers experienced installation issues with the Add-on. Specifically, in projects where the `.csproj` excluded the `modules\_protected` folder; often done to avoid conflicts with other third-party Add-ons that add files to the solution multiple times. This resulted in the Stott Security `module.config` being be removed and not re-added. This in turn causes an error during the start up of the solution that could only be resovled by manually adding the into source control and project.
 
 Given the minimal benefit provided by the gadget and the friction it caused in certain build pipelines, I’ve decided to remove it entirely in version 3.
 

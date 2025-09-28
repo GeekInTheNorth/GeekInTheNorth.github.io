@@ -37,7 +37,7 @@ Please note that when content is served on the `/llms.txt` path, the response wi
 
 ## Getting Started
 
-Stott Robots Handler v5 is available for Optimizely PAAS CMS 12 on nuget.optimizely.com and on nuget.org.  You can see the full installation instructions and package information over on github page, including how to configure the addon for use with Opti Id.
+Stott Robots Handler v5 is available for Optimizely PAAS CMS 12 on nuget.optimizely.com and on nuget.org.  You can see the full installation instructions and package information over on github page, including how to configure the add-on for use with Opti Id.
 
 Getting started can be as simple as: 
 

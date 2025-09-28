@@ -9,9 +9,10 @@ category:
   - "Stott Robots Handler"
 relatedArticles:
   - "_posts/2025-09-17-stott-robots-handler-v6.md"
+  - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
 ---
 
-In my previous blog, [Opal Tools Support Comes to Stott Robots Handler v6](/article/stott-robots-handler-v6), I shared the news about new Opal Tools being built directly into the Stott Robots Handler AddOn for Optimizely PAAS CMS 12.  In practice Opal handles generating and modifying **robots.txt** content effectively using these tools.  However, it currently lacks the ability to structure or generate an valid **llms.txt** file. This is where instructions can help you achieve success.
+In my previous blog, [Opal Tools Support Comes to Stott Robots Handler v6](/article/stott-robots-handler-v6), I shared the news about new Opal Tools being built directly into the Stott Robots Handler Add-on for Optimizely PAAS CMS 12.  In practice Opal handles generating and modifying **robots.txt** content effectively using these tools.  However, it currently lacks the ability to structure or generate an valid **llms.txt** file. This is where instructions can help you achieve success.
 
 ## What Are Instructions?
 

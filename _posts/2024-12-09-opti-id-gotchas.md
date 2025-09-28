@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Opti ID with Secure Cookies And Third Party AddOns"
-description: "How to make sure your cookies and third party addons are properly secured when using Opti ID."
+title: "Opti ID with Secure Cookies And Third Party Add-ons"
+description: "How to make sure your cookies and third party add-ons are properly secured when using Opti ID."
 permalink: "/article/opti-id-gotchas"
 category:
   - Development
@@ -49,18 +49,18 @@ public static IApplicationBuilder UseSecureCookies(this IApplicationBuilder app)
 }
 ```
 
-## Configuring AddOns To Use Opti ID
+## Configuring Add-ons To Use Opti ID
 
-In Optimizely CMS 11, dependency setup relied upon **Initialisation Modules**.  In CMS 12 and .NET core, all of this is now handled in **Startup.cs**. Some commonly used AddOns include a service extension that is intended to be consumed within a startup.cs. Some go as far as to provide a custom authorization policy so that you can customise access to the AddOn to specific roles rather than granting full admin access to the CMS for users who just need that functionality. Here are a few AddOns and the roles that you might want to use:
+In Optimizely CMS 11, dependency setup relied upon **Initialisation Modules**.  In CMS 12 and .NET core, all of this is now handled in **Startup.cs**. Some commonly used Add-ons include a service extension that is intended to be consumed within a startup.cs. Some go as far as to provide a custom authorization policy so that you can customise access to the Add-on to specific roles rather than granting full admin access to the CMS for users who just need that functionality. Here are a few Add-ons and the roles that you might want to use:
 
 - Stott Security - CmsAdmins, SecurityAdmins, DataAnalytics
 - Stott Robots Handlers - CmsAdmins, SeoAdmins
 - Geta NotFound Handler - CmsAdmins, SeoAdmins
 - Geta Sitemaps - CmsAdmins, SeoAdmins
 
-Here is the challenge: These modules will not allow you to access them when using Opti Id unless you specify the **Opti ID SchemeName** in the authorizarion policy for each AddOn.
+Here is the challenge: These modules will not allow you to access them when using Opti Id unless you specify the **Opti ID SchemeName** in the authorizarion policy for each Add-on.
 
-Take this configuration for the **Stott Security AddOn** as an example; this AddOn allows you to segment the data for the AddOn into a separate database and it allows you to define an authorization policy.  In this scenario it is a simple matter of making sure the Opti ID Scheme Name is added to the policy:
+Take this configuration for the **Stott Security Add-on** as an example; this Add-on allows you to segment the data for the Add-on into a separate database and it allows you to define an authorization policy.  In this scenario it is a simple matter of making sure the Opti ID Scheme Name is added to the policy:
 
 ```
 public static IServiceCollection AddSecurityAddOn(this IServiceCollection services)

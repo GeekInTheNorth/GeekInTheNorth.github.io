@@ -38,7 +38,7 @@ The Optimizely Community also continues to grow...
 - 800+ Digital Agencies developing Optimizely solutions.
 - 40,000 Optimizely developers.
 - 87 Optimizely Most Valuable Professionals
-- 300+ AddOns created by software houses and the community
+- 300+ Add-ons created by software houses and the community
 
 By moving to .NET 6 and Linux based Azure Web Apps for CMS 12 and Commerce 14, Optimizely is now enabling those agencies to bring the performance improvements and a reduced carbon footprint to the entire DXP platform.  To make this journey easier, the PAAS Portal now contains a Project Migration tool that allows developers to manage the migration of a .NET 4.x CMS 11 solution to a .NET 6 CMS 12 without the intervention of Optimizely themselves.
 
