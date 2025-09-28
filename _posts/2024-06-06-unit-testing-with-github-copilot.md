@@ -9,7 +9,7 @@ category:
 
 I recently signed up for GitHub Copilot to explore the integration of AI in software development. My primary experience with AI in coding has been through ChatGPT, which has largely been disappointing and does not live up to the hype. Over 80% of the coding assistance I've received from ChatGPT has been incorrect or outdated. Additionally, attempts to clarify or provide further instructions often resulted in the same incorrect answers. When using ChatGPT to rephrase article content, about 50% of the outcomes altered the context so significantly that the meaning was entirely different.  Given these experiences, my expectations for GitHub Copilot are quite low.
 
-The code I wanted to unit test was this handy extension method inside of a `SiteDefinitionExtensions` class that I had created for my Optimizely Robots AddOn:
+The code I wanted to unit test was this handy extension method inside of a `SiteDefinitionExtensions` class that I had created for my Optimizely Robots Add-on:
 
 ```
 public static IEnumerable<KeyValuePair<string, string>> ToHostSummaries(this IList<HostDefinition> hostDefinitions)

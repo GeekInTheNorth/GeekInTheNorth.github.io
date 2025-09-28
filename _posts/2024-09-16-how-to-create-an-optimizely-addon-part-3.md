@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Creating an Optimizely Addon - Packaging for NuGet"
-description: "How to package your AddOn to be distributed by Optimizely's NuGet feed."
+title: "Creating an Optimizely Add-on - Packaging for NuGet"
+description: "How to package your Add-on to be distributed by Optimizely's NuGet feed."
 permalink: "/article/creating-an-optimizely-addon-part-3"
 category:
   - Development
@@ -13,7 +13,7 @@ relatedArticles:
   - "_posts/2021-08-31-custom-admin-pages-in-optimizely-12.md"
 ---
 
-In [Part One](/article/creating-an-optimizely-addon-part-1) and [Part Two](/article/creating-an-optimizely-addon-part-2) of this series; I covered topics from having a great idea, solution structure, extending the menus and adding gadgets to the editor interface.  In this part I will be covering the challenges of creating and submitting your AddOn as a NuGet package into the Optimizely NuGet feed.  You can view examples from across this series within the this [Optimizely AddOn Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
+In [Part One](/article/creating-an-optimizely-addon-part-1) and [Part Two](/article/creating-an-optimizely-addon-part-2) of this series; I covered topics from having a great idea, solution structure, extending the menus and adding gadgets to the editor interface.  In this part I will be covering the challenges of creating and submitting your Add-on as a NuGet package into the Optimizely NuGet feed.  You can view examples from across this series within the this [Optimizely Add-on Template](https://github.com/GeekInTheNorth/OptimizelyAddOnTemplate) that I have been creating.
 
 ## Defining What to Package
 
@@ -24,7 +24,7 @@ Each project within your solution must be created as a NuGet package if it is de
   - MyAddOn.Core.csproj
   - MyAddOn.Test.csproj
 
-In this scenario, the administrator interface for the AddOn is separated from its core shared functionality. This design enables a consuming site to incorporate MyAddOn.Admin into their Optimizely website project and to reference MyAddOn.Core within any project in their solution structure. Consequently, MyAddOn.Admin has a direct dependency on MyAddOn.Core. To publish MyAddOn.Admin as a NuGet package, MyAddOn.Core must also be published as a NuGet package. It should be noted that MyAddOn.Admin only requires MyAddOn.Core as a project dependency during development; this dependency will be converted into a package dependency during the packaging process.
+In this scenario, the administrator interface for the Add-on is separated from its core shared functionality. This design enables a consuming site to incorporate MyAddOn.Admin into their Optimizely website project and to reference MyAddOn.Core within any project in their solution structure. Consequently, MyAddOn.Admin has a direct dependency on MyAddOn.Core. To publish MyAddOn.Admin as a NuGet package, MyAddOn.Core must also be published as a NuGet package. It should be noted that MyAddOn.Admin only requires MyAddOn.Core as a project dependency during development; this dependency will be converted into a package dependency during the packaging process.
 
 ## Defining NuGet Properties
 
@@ -40,15 +40,15 @@ I would recommend you complete the following:
 | Title | Visual Studio describes this as the name of the package used in UI displays such as Package Manager, but this largely does not get used. |
 | Package Version | This should be a semantic version number with three or four parts and an optional alpha or beta tag. For Example:<br/>1.0.0<br/>1.0.0.0<br/>0.1.1-alpha<br/>0.2.2.0-beta |
 | Authors | This should contain the names of all of the package owners. |
-| Company | This should contain the name of the business that is behind creating the Addon.  If this is individually owned, then seting this to `$(Authors)` will mirror the value from the Authors property. |
-| Description | This should be a short description about your Addon, this will be visible within the NuGet package feed and within the Plugin Manager screen within Optimizely CMS. |
+| Company | This should contain the name of the business that is behind creating the Add-on.  If this is individually owned, then seting this to `$(Authors)` will mirror the value from the Authors property. |
+| Description | This should be a short description about your Add-on, this will be visible within the NuGet package feed and within the Plugin Manager screen within Optimizely CMS. |
 | Copyright | This should contain the name of the owner and the year. You get copyright protection automatically when creating software and you do not have to apply or pay a fee.  There isn’t a register of copyright works in the UK.  There are however organisations which will provide extra protection for a fee for validating your copyright.  You can read more about copyright here: [How copyright protects your work](https://www.gov.uk/copyright). It is however worth you performing your own research into the matter within the country you live in. |
-| Project Url | This should point either to the repository for your Addon or an appropriate project page.  Developers will use this to find out more about your Addon or to report issues that may need resolving. |
+| Project Url | This should point either to the repository for your Add-on or an appropriate project page.  Developers will use this to find out more about your Add-on or to report issues that may need resolving. |
 | Readme | I have set this to the readme.md for my repositories, this will be visible to developers within the NuGet platform. |
-| Repository Url | This should point to the repository for your Addon, assuming that your Addon is Open Source. |
+| Repository Url | This should point to the repository for your Add-on, assuming that your Add-on is Open Source. |
 | Tags | This is a delimited set of tags that make your package easier to find within the NuGet feeds. |
-| License File | This should reference the license within your repository. Careful consideration should be given to the type of license for your AddOn. Certain licenses may require your users to make their code open source to utilize your package, so think carefully about the permissiveness or restrictiveness of your license. It is noteworthy that some highly popular AddOns employ an MIT or Apache license.<br/><br/>I am utilizing an MIT license due to its permissive nature and lack of warranty. While I do engage with my users and address any issues that are raised, my AddOns are free and are maintained in my free time. |
-| Require License Acceptance | If you tick this, the consumer will have to accept the license as they install the package. If you are using an MIT license, you may want to tick this to encourage the consumer to accept the warranty free nature of your AddOn. |
+| License File | This should reference the license within your repository. Careful consideration should be given to the type of license for your Add-on. Certain licenses may require your users to make their code open source to utilize your package, so think carefully about the permissiveness or restrictiveness of your license. It is noteworthy that some highly popular Add-ons employ an MIT or Apache license.<br/><br/>I am utilizing an MIT license due to its permissive nature and lack of warranty. While I do engage with my users and address any issues that are raised, my Add-ons are free and are maintained in my free time. |
+| Require License Acceptance | If you tick this, the consumer will have to accept the license as they install the package. If you are using an MIT license, you may want to tick this to encourage the consumer to accept the warranty free nature of your Add-on. |
 
 If you are using Visual Studio Code instead of Visual Studio, then you can edit the .csproj directly and add the package properties directly as XML values at the top of the csproj file. You can also add these properties into a .nuspec instead, when you package your project, the values from the .csproj and .nuspec are merged into a new .nuspec that is contained in the root of the compiled .nupkg file. I personnally prefer to put the NuGet properties directly into the .csproj.
 
@@ -103,7 +103,7 @@ Folders such as build, contentFiles and the target folders under lib will vary d
 
 ## Packaging for Multiple Frameworks
 
-.NET Core is backwards compatible, meaning that if you build your package for .NET 6, it can be installed into .NET 6, 7, and 8. For most AddOns, compiling directly for .NET 6 ensures maximum compatibility.
+.NET Core is backwards compatible, meaning that if you build your package for .NET 6, it can be installed into .NET 6, 7, and 8. For most Add-ons, compiling directly for .NET 6 ensures maximum compatibility.
 
 However, there may be instances where you need to compile your application in multiple framework versions. For example, if you are using Entity Framework and Migrations, there is a breaking change between .NET 6 and .NET 8. Fortunately, no code changes are required, but you will need to set your dependencies separately for .NET 6 and .NET 8. To accomplish this, you must make two modifications.
 
@@ -144,7 +144,7 @@ First you will need to tell the .csproj file that we want to copy these files in
 </ItemGroup>
 ```
 
-You will then need to create a .targets file that instructs the NuGet package installer how to handle those files. The example below is taken straight from my own Addons where I am doing the same thing.
+You will then need to create a .targets file that instructs the NuGet package installer how to handle those files. The example below is taken straight from my own Add-ons where I am doing the same thing.
 
 The `ItemGroup` tells the .targets file where the specific files are within the NuGet package structure.  The `$(MSBuildThisFileDirectory)` variable in this case is a reference to the directory the .targets file sits in.  As this is in a build folder, I have used the `$(MSBuildThisFileDirectory)` variable in combination with the relative path to my `module.config` file.
 
@@ -176,7 +176,7 @@ In order to make sure the `.targets` file can be executed, we also need to make 
 
 ## Submitting Your Package
 
-Before submitting your AddOn to the Optimizely NuGet package feed, it is essential to ensure that your package installs successfully both in your local environment and within a CI/CD pipeline. To expedite this process, consider publishing your package as an alpha or beta build to [nuget.org](https://www.nuget.org) first. After publishing, your package will be indexed and available for retrieval within a few minutes.
+Before submitting your Add-on to the Optimizely NuGet package feed, it is essential to ensure that your package installs successfully both in your local environment and within a CI/CD pipeline. To expedite this process, consider publishing your package as an alpha or beta build to [nuget.org](https://www.nuget.org) first. After publishing, your package will be indexed and available for retrieval within a few minutes.
 
 To designate your package as an alpha or beta release, you should modify the `version` property within your `.csproj` file to include a trailing `-alpha` or `-beta`. NuGet will automatically recognize this as a pre-release version and will generally filter these versions out by default. Developers can view these pre-release versions by selecting the option to display pre-release versions within their IDE’s NuGet package tool.
 
@@ -191,7 +191,7 @@ Ensure that you have an [Optimizely World](https://world.optimizely.com) account
 - https://nuget.optimizely.com (v2 NuGet feed)
 - https://api.nuget.optimizely.com (v3 NuGet feed)
 
-Packages uploaded to the v2 NuGet feed are automatically synchronized to the v3 NuGet feed. Therefore, it is advisable to upload your packages to the v2 NuGet feed. Once Optimizely receives your package, it will undergo an approval process conducted by Optimizely's QA team. During this process, the QA team will verify that your AddOn functions correctly with the CMS. Including test guidance in the readme for your repository can be very beneficial for the QA team. This review process may take one or more business days, and there is currently no feedback mechanism to inform you of the status or outcome of the testing. You may periodically check the NuGet feed to determine if your package has been accepted. Given that Optimizely validates all packages uploaded to their NuGet feed, it is recommended to download AddOn updates directly from Optimizely and distribute your own package in this manner. Should you need to release a hotfix promptly, you may consider uploading it to nuget.org.
+Packages uploaded to the v2 NuGet feed are automatically synchronized to the v3 NuGet feed. Therefore, it is advisable to upload your packages to the v2 NuGet feed. Once Optimizely receives your package, it will undergo an approval process conducted by Optimizely's QA team. During this process, the QA team will verify that your Add-on functions correctly with the CMS. Including test guidance in the readme for your repository can be very beneficial for the QA team. This review process may take one or more business days, and there is currently no feedback mechanism to inform you of the status or outcome of the testing. You may periodically check the NuGet feed to determine if your package has been accepted. Given that Optimizely validates all packages uploaded to their NuGet feed, it is recommended to download Add-on updates directly from Optimizely and distribute your own package in this manner. Should you need to release a hotfix promptly, you may consider uploading it to nuget.org.
 
 It is advisable to upload your package to nuget.org at least once in addition to the Optimizely NuGet feed. This ensures that the package name is reserved on nuget.org, avoiding potential conflicts in package names across the main feeds that could affect your consumers.
 

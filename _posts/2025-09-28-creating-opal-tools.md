@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Creating Opal Tools For Stott Robots Handler"
+title: "Creating Opal Tools for Stott Robots Handler"
 description: "An approach to creating Optimizely Opal Tools without using the SDKs."
 permalink: "/article/creating-opal-tools"
 category:
@@ -14,14 +14,14 @@ Published 28th September 2025
 
 This summer, the Netcel Development team and I took part in Optimizely's Opal Hackathon.  The challenge from Optimizely was to extend Opal's abilities by creating tools that would wrap actual business flows allowing Opal to focus on inputs and outputs in a conversational context.  Our initial submission was to develop event management tooling that would integrate with Optimizely SAAS Content Management System, Optimizely Content Management Platform and Eventbrite.
 
-We developed these tools using the C# SDK provided by Optimizely.  This SDK required us to create static classes and methods that performed the tool actions while the SDK itself managed the routing for the tools and provided the discovery endpoint in its entirety. After delivering several tools for the hackathon I reflected on the SDK and how it was achieving our goals.  As the routing was managed by the SDK, it really limited our ability to create our own controllers or to consider other hosting options such as Azure Functions.  As the owner and maintainer of two Optimizely Add-ons I started to think about how this could work with PaaS CMS Add-ons.
+Optimizely has created SDKs for creating Opal Tools in C#, JavaScript and Python to accelerate the process of developing tools, we opted to use the C# SDK due to language familiarity. This SDK required us to create static classes and methods that performed the tool actions while the SDK itself managed the routing for the tools and provided the discovery endpoint in its entirety. After delivering several tools for the hackathon I reflected on the SDK and how it was achieving our goals.  As the routing was managed by the SDK, it really limited our ability to create our own controllers or to consider other hosting options such as Azure Functions.  As the owner and maintainer of two Optimizely Add-ons I started to think about how this could work with PaaS CMS Add-ons.
 
 I concluded that if I wanted to add Opal tools to my Add-ons that I would have to consider not using the SDK at all for the following reasons:
 
-- Avoids conflict with CMS Implementations that have tools as part of their delivery.
-- Avoids conflict with other CMS Add-ons that also attempted to use the SDK.
-- The Discovery and Tool endpoints remain in the same routing structure as the rest of my add-on.
-- Ability to apply custom bearer token validation and controller responses.
+- To avoid conflict with CMS Implementations that have tools as part of their delivery.
+- To avoid conflict with other CMS Add-ons that also attempted to use the SDK.
+- To keep Discovery and Tool endpoints in the same routing structure as the rest of my add-on.
+- To apply custom bearer token validation and controller responses.
 
 ## Opal Tool Requirements
 
@@ -30,7 +30,7 @@ There are essentially two flavours of endpoint; the discovery api which tells Op
 
 ### Discovery Endpoint
 
-The discovery endpoint must return a JSON object containing an array of functions.  Each function in this array describes a tool. Each entry must specify a name, description, an array of parameters, an endpoint relative to the discovery endpoint, a desired HTTP method and an optional array of auth_requirements.  The description is especially important here as it will help Opal understand the scope and intent of your tool, getting this right is essential.
+The discovery endpoint must return a JSON object containing an array of functions.  Each function in this array describes a tool as below. Each entry must specify a name, description, endpoint, an array of parameters and a desired HTTP method.  The description is especially important here as it will help Opal understand the scope and intent of your tool, getting this right is essential.
 
 - **name**: This is the name of your tool and should be all one word and unique.
 - **description**: This description will help Opal understand the intent for your tool, it's important that this is meaningful.
@@ -82,12 +82,12 @@ The discovery endpoint must return a JSON object containing an array of function
 The API endpoint for a tool must be relative to the discovery endpoint, i.e. it must exist beneath the discovery endpoint.  If we assume that the discovery endpoint responds on `https://www.example.com/path-one/discovery`, and a tool has an endpoint of `/tools/tool-one` then Opal will send the request to `https://www.example.com/path-one/tools/tool-one`.  It should be noted that if you register the  with a trailing slash like `https://www.example.com/path-one/discovery/`, then Opal will send the request to `https://www.example.com/path-one/discovery/tools/tool-one` instead.  Because of this, you may want to check on any redirect rules within your solution that force trailing slashes etc.
 
 - **parameters**: This will be a JSON object that has properties matching the defined tool parameters.
-  - **parameterOne**: This is just an example parameter, your own parameters defined in the discovery endpoint will appear here.
+  - **parameterOne**: This is just an example parameter; your own parameters defined in the discovery endpoint will appear here.
 - **auth**: This is an optional object and will only be provided if the tool has been specified as requiring a specific authentication.
   - **provider**: This will be the name of the authentication provider.
   - **credentials**: These are the specific authentication details.
 
-Additional data items are also included as **environment** and **chat_metadata**, but these are not essential for the operation of your tool, but could be useful in tracing operations.  In the following example, a tool has been declared as having OptiId as an authentication requirement. 
+Additional data items are also included as **environment** and **chat_metadata**, but these are not essential for the operation of your tool and could be useful in tracing operations.  In the following example, a tool has been declared as having OptiId as an authentication requirement. 
 
 **POST: /tools/tool-name**
 ```json
@@ -118,7 +118,7 @@ Additional data items are also included as **environment** and **chat_metadata**
 
 ## Implementing Opal Tools
 
-Implementing the discovery endpoint itself is a simple.  The C# SDK for example uses reflection and understands the attributes you decorate on your tools.  As I'm not using an SDK in this scenario I could either ship a JSON object with my code, or in this case create the classes that achieve the same outcome.  I opted to create the DTO objects that would be serialized into the desired JSON structure.  I decorated the controller action with the HttpGet and AllowAnonymous attributes to ensure that the endpoint was publicly accessible for GET requests only.
+Implementing the discovery endpoint itself is a simple.  The C# SDK for example uses reflection and understands the attributes you decorate on your tools.  As I'm not using an SDK in this scenario I could either ship a JSON object with my code, or in this case create the classes that achieve the same outcome.  I opted to create the DTO objects that would be serialized into the desired JSON structure.  I decorated the controller action with the `HttpGet` and `AllowAnonymous` attributes to ensure that the endpoint was publicly accessible for GET requests only.
 
 ```C#
 [HttpGet]
@@ -152,7 +152,7 @@ public IActionResult Discovery()
 }
 ```
 
-As I was aiming to support multiple endpoints with the same model structure, I used generics to create a wrapping object using the specific content model required by my API.  This would then be added as a parameter for my endpoint methods with the `FromBody` attribute to ensure the model was pulled from the request body.  Note that it is worth specifying the JsonPropertyNames as you cannot guarantee the serialization options of your hosting solution.
+As I was aiming to support multiple endpoints with the same model structure, I used generics to create a wrapping object using the specific content model required by my API.  This would then be added as a parameter for my endpoint methods with the `FromBody` attribute to ensure the model was pulled from the request body.  Note that it is worth specifying the `JsonPropertyName` attributes as you cannot guarantee the serialization options of the hosting solution.
 
 ```csharp
 public class ToolRequest<TModel> where TModel : class
@@ -231,7 +231,7 @@ public IActionResult GetRobotTxtConfigurations([FromBody] ToolRequest<GetConfigu
 }
 ```
 
-You may have noticed that my controller action also has an **OpalAuthorization** attribute. When you register your tools in Opal with the discovery endpoint, you have the option to provide a bearer token that will be sent in an Authorization header.   This is a custom attribute that checks for the presence of an Authorization header with a bearer token and checks it against a user defined bearer token within my AddOn.  In my AddOn I allow the user to define multiple bearer tokens with different read/write permissions like so:
+You may have noticed that my controller action also has an **OpalAuthorization** attribute. When you register your tools in Opal with the discovery endpoint, you have the option to provide a bearer token that will be sent in an Authorization header.   This is a custom attribute that checks for the presence of an Authorization header with a bearer token and checks it against a user defined bearer token within my Add-on.  In my Add-on I allow the user to define multiple bearer tokens with different read/write permissions like so:
 
 ![A screenshot of the create new token modal](/assets/robots-handler-opal-tools-2.png)
 

@@ -11,7 +11,7 @@ relatedArticles:
   - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"
 ---
 
-During August, the Netcel team and I took part in the Optimizely Opal Hackathon.  The challenge for this hackathon was to generate tools that extend Opal's abilities within the Optimizely Platform.  As a late second entry for our team, I put forward a proposal to add Opal Tools support to an Optimizely AddOn.  This work sparked something bigger, and today I'm excited to share that Opal Tools functionality and improved headless support has made it's way into a production-ready release of Stott Robots Handler v6.
+During August, the Netcel team and I took part in the Optimizely Opal Hackathon.  The challenge for this hackathon was to generate tools that extend Opal's abilities within the Optimizely Platform.  As a late second entry for our team, I put forward a proposal to add Opal Tools support to an Optimizely Add-on.  This work sparked something bigger, and today I'm excited to share that Opal Tools functionality and improved headless support has made it's way into a production-ready release of Stott Robots Handler v6.
 
 This update makes it easy to manage your robots.txt and llms.txt content through Opal with secure token management.
 
@@ -74,7 +74,7 @@ One thing to note: the discovery endpoint itself doesn’t send a token. This me
 
 ## Getting Started
 
-Stott Robots Handler v6 is available for **Optimizely PAAS CMS 12** on both nuget.optimizely.com and on nuget.org.  You can see the full installation instructions and package information over on the [github page](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler), including how to configure the addon for use with Opti Id.
+Stott Robots Handler v6 is available for **Optimizely PAAS CMS 12** on both nuget.optimizely.com and on nuget.org.  You can see the full installation instructions and package information over on the [github page](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler), including how to configure the add-on for use with Opti Id.
 
 Getting started can be as simple as: 
 
