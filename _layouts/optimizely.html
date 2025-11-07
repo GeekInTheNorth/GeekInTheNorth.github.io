@@ -55,7 +55,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-second-cert d-none d-sm-block">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -68,7 +68,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-third-cert d-none d-lg-block">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -81,7 +81,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-other-cert d-none">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -94,7 +94,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-other-cert d-none">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -107,7 +107,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-other-cert d-none">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -120,7 +120,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-other-cert d-none">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -133,7 +133,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-other-cert d-none">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -145,7 +145,7 @@ layout: default
                 </div>
             </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 my-3">
+            <div class="col-12 col-sm-6 col-lg-4 my-3 js-other-cert d-none">
             <div class="card h-100 text-center bg-light shadow-sm border-1">
                 <div class="card-body p-4">
                 <div class="mb-3">
@@ -158,6 +158,14 @@ layout: default
                 </div>
             </div>
             </div>
+        </div>
+        
+        <!-- Toggle Button -->
+        <div class="text-center">
+            <button class="btn btn-outline-primary" id="toggleCertifications">
+                <span class="d-block" id="certToggleText">Show More Certifications</span>
+                <i class="fas fa-chevron-down fs-4" id="certToggleIcon"></i>
+            </button>
         </div>
     </section>
     <section>
@@ -192,3 +200,6 @@ layout: default
     </div>
     </section>
 </div>
+
+<!-- Include certifications toggle functionality -->
+<script src="/assets/js/certifications.js"></script>
