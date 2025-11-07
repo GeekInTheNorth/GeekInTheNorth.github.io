@@ -15,25 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Toggle the responsive certifications for smaller screens
-        const secondCerts = document.querySelectorAll(".js-second-cert");
-        secondCerts.forEach(cert => {
-            if (isHidden) {
-                cert.classList.remove("d-sm-block");
-            } else {
-                cert.classList.add("d-sm-block");
-            }
-        });
-
-        const thirdCerts = document.querySelectorAll(".js-third-cert");
-        thirdCerts.forEach(cert => {
-            if (isHidden) {
-                cert.classList.remove("d-lg-block");
-            } else {
-                cert.classList.add("d-lg-block");
-            }
-        });
-
         // Toggle the icon between up and down chevrons
         if (isHidden) {
             // Showing more - change to up arrow
