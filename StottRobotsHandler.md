@@ -4,8 +4,8 @@ title: "Stott Robots Handler"
 description: "Content relating to the Stott Robots Handler Add-on for Optimizely CMS 12."
 permalink: "/article/list/stott-robots-handler"
 category: "Stott Robots Handler"
-nugetdownloads: "235,000+"
-optidownloads: "119,000+"
+nugetdownloads: "261,000+"
+optidownloads: "130,000+"
 currentversion: "6.0.0"
 ---
 
