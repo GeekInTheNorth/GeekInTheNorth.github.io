@@ -6,6 +6,7 @@ permalink: "/article/a_robots_txt_handler_for_optimizely_cms_12"
 category:
   - Development
   - Optimizely
+  - "Stott Robots Handler"
 ---
 
 ## Stott.Optimizely.RobotsHandler v1.0.1 Released
