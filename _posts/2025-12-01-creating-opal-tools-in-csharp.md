@@ -151,3 +151,39 @@ Executing the tool endpoint should produce the following response:
 ```
 
 You’ll notice that the tool endpoint uses an **Authorization** header, while the discovery endpoint does not. This is because the discovery endpoint must allow anonymous access. Tool endpoints, however, may require a **bearer token**. Note that this token must be static and shared by all tools within the same application, as it’s provided during the tool registration process within Opal.
+
+Because the SDK controls the mapping of tool endpoints, you cannot apply individual **[Authorize]** attributes to them. If you want to require bearer-token authentication then you’ll need to implement custom middleware. That middleware should intercept requests whose path begins with **/tools/** and validate that a bearer token is present (and valid) before allowing the request to proceed:
+
+```C#
+public sealed class ToolAuthenticationMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public ToolAuthenticationMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        // Check if the request is for a tool endpoint
+        if (context.Request.Path.StartsWithSegments("/tools"))
+        {
+            // Validate that the Authorization header is present and valid...
+            if (!context.Request.Headers.TryGetValue("Authorization", out var authHeader) || !IsValidToken(authHeader))
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                await context.Response.WriteAsync("Unauthorized");
+                return;
+            }
+        }
+
+        await _next(context);
+    }
+
+    private bool IsValidToken(string authHeader)
+    {
+        // Validate the bearer token value here...
+    }
+}
+```
