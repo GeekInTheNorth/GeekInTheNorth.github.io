@@ -10,11 +10,11 @@ relatedArticles:
   - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
 ---
 
-Opal is Optimizely’s marketing AI, deeply integrated across the Optimizely One platform. What transforms Opal from a conversational assistant into a true content-orchestration engine is its use of Opal Tools. These tools are APIs that allow Opal to perform functional tasks that would otherwise fall outside the AI’s native capabilities. Optimizely currently provides SDKs in three languages for building Opal Tools: C#, JavaScript, and Python.
+Over the last few months, my colleagues at Netcel and I have partaken in two different challenge events organised by Optimizely and centered around Opal.  Opal is Optimizely’s agentic marketing AI, deeply integrated across the Optimizely One platform. What transforms Opal from a conversational assistant into a true content-orchestration engine is its use of Agents, Workflows and Opal Tools. Opal tools are APIs that allow Opal to perform functional tasks that would otherwise fall outside the AI’s native capabilities. Throughout August, our teams were looking at building Opal Tools as part of the Optimizely Opal Hackathon.  Throughout November we took part in the Opal Innovation Challenge which saw us leveraging new capabilities using Opal Tools, Specialized Agents, Instructions and Workflows.
 
-For C#, Optimizely offers two separate SDKs: **OptimizelyOpal.OpalToolsSDK** and **Optimizely.Opal.Tools**. At the time of writing, the documentation and training materials primarily reference **OptimizelyOpal.OpalToolsSDK**, which only reached version 0.1.0 in May 2025. In contrast, **Optimizely.Opal.Tools** appears to be receiving more active development, with version 0.4.0 being released in September 2025.
+Optimizely currently provides SDKs in three languages for building Opal Tools: C#, JavaScript, and Python.  For C#, Optimizely offers two separate SDKs: **OptimizelyOpal.OpalToolsSDK** and **Optimizely.Opal.Tools**. At the time of writing, the documentation and training materials primarily reference **OptimizelyOpal.OpalToolsSDK**, which only reached version 0.1.0 in May 2025. In contrast, **Optimizely.Opal.Tools** appears to be receiving more active development, with version 0.4.0 being released in September 2025.
 
-Both C# SDKs can deliver Opal tools, but there are some differences:
+Both C# SDKs can deliver Opal tools, we used **OptimizelyOpal.OpalToolsSDK** as part of the Hackathon and **Optimizely.Opal.Tools** as part of the innovation challenge.  There are some differences in terms of capabilities for both SDKs which are as follows:
 
 | Feature | OptimizelyOpal.OpalToolsSDK | Optimizely.Opal.Tools |
 |:-|:-:|:-:|
@@ -187,3 +187,11 @@ public sealed class ToolAuthenticationMiddleware
     }
 }
 ```
+
+### Adding Authentication to a Tool
+
+notes :
+
+- only supports OptiId at this point in time, unknown providers will prevent a tool being added.
+- Show data style coming from the API
+- Islands ... WTH is happening with those?
