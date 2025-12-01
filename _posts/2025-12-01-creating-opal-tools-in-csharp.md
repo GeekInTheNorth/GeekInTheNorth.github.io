@@ -32,7 +32,7 @@ This guide assumes you are familiar with C# and creating basic web applications.
 
 ### Creating a Tool
 
-In this example, we’ll create a simple "Hello World" tool. Every Opal Tool **must** have a parameters class, which can contain zero or more properties. Start by creating a new class with a single property named FirstName. If you decorate the property with the [Required] attribute, Opal will know that this parameter must always be provided. You should also add a [Description] attribute to help Opal understand the purpose of the property. Clear descriptions improve Opal’s ability to supply correct values.
+In this example, we’ll create a simple "Hello World" tool. Every Opal Tool **must** have a parameters class, which can contain zero or more properties. Start by creating a new class with a single property named FirstName. If you decorate the property with the **[Required]** attribute, Opal will know that this parameter must always be provided. You should also add a **[Description]** attribute to help Opal understand the purpose of the property. Clear descriptions improve Opal’s ability to supply correct values.
 
 ```C#
 public class HelloWorldParameters
@@ -43,7 +43,7 @@ public class HelloWorldParameters
 }
 ```
 
-Next, create a class that serves as the entry point for your tool. Add a public method that returns either an **object** or **Task\<object\>** if your code can run asynchronously. Decorate the method with the **[OpalTool]** attribute to declare the tool’s name (using snake_case or kebab-case), and the **[Description]** attribute to explain when and how Opal should use it. Whatever you return must be serializable to JSON.
+Next, create a class that serves as the entry point for your tool. Add a public method that returns either an **object** or **Task\<object\>** if your code can run asynchronously. Decorate the method with the **[OpalTool]** attribute to declare the tool’s name (using snake_case or kebab-case) and the **[Description]** attribute to explain when and how Opal should use it. Whatever you return must be serializable to JSON.
 
 ```C#
 public class HelloWorldTools(IHelloWorldService service)
@@ -86,7 +86,7 @@ app.Run();
 
 Because Opal Tools are invoked by Opal itself, the only way to test them locally is through API testing tools such as **Postman** or **HTTP** files. HTTP files allow you to version-control your test requests and run them directly from your IDE.
 
-- In VS Code, install the [REST Client extension by Huachao Mao](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
+- In VS Code, install the [REST Client extension by Huachao Mao](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) to enable this functionality.
 - In Visual Studio, you’ll need version 17.14.19 or later, which offers proper HTTP-file support, including authorization headers.
 
 Here is an example HTTP file for testing both the discovery endpoint and the tool endpoint. Your IDE will render a "Send Request" link above each request:
@@ -248,7 +248,7 @@ When inspecting the discovery endpoint for this tool, you’ll notice that the *
 }
 ```
 
-When Opal executes this tool, it sends the request body (shown below) to your endpoint. Notice that **parameters.EmailAddress** is automatically populated by Opal based on the **[description]** attribute applied to the **AuthenticationTestParameters.EmailAddress** property: _"The email address of the current Opal user making this request."_. This really highlights the ability for Opal to infer, supply, and validate contextual user data without intervention from the user or the tool.  It can also give you a means to feed back to the user asynchronously using email.
+When Opal executes this tool, it sends the request body (shown below) to your endpoint.  Notice that we decorated **AuthenticationTestParameters.EmailAddress** with a **[Description]** attribute of _"The email address of the current Opal user making this request."_.  Opal understands this description and will populate **parameters.EmailAddress** automatically based on the current user without any intervention being needed.  This really highlights the ability for Opal to infer, supply, and validate contextual user data without intervention from the user or the tool.  It can also give you a means to feed back to the user asynchronously using email.
 
 ```JSON
 {
