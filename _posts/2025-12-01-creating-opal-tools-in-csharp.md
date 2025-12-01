@@ -111,7 +111,7 @@ Authorization: Bearer {{token}}
 
 {
   "parameters": {
-    "FirstName": "Bob"
+    "FirstName": "Mark"
   }
 }
 
@@ -146,7 +146,7 @@ Executing the tool endpoint should produce the following response:
 
 ```JSON
 {
-  "message": "Hello Bob"
+  "message": "Hello Mark"
 }
 ```
 
@@ -190,8 +190,93 @@ public sealed class ToolAuthenticationMiddleware
 
 ### Adding Authentication to a Tool
 
-notes :
+The bearer token discussed earlier is used solely to secure communication between Opal and your tool’s endpoint. It does not represent the identity of the Opal user. However, there are scenarios where your tool needs to operate in the context of the authenticated user who initiated the request. To support this, Optimizely Opal can pass user authentication data to Opal Tools.
 
-- only supports OptiId at this point in time, unknown providers will prevent a tool being added.
-- Show data style coming from the API
-- Islands ... WTH is happening with those?
+At the time of writing, the only supported authentication provider is "OptiId". If your discovery endpoint includes a tool that references an unsupported provider, Opal will fail to process the discovery response. During initial tool registration, Opal provides feedback indicating that the provider is unsupported. However, if the tool has already been registered and you are syncing updates, Opal will return a success response but silently skip the update; something that can be quite misleading.
+
+Let’s create a new tool that requires user authentication. To do this, you must apply the **[OpalAuthorization]** attribute to the method, specifying the provider ("OptiId"), the scope bundle, and whether authentication is mandatory. The method signature should include both a custom parameters object (as in earlier examples) and an instance of **OpalToolContext**, which contains the user’s authentication data and additional request context.
+
+```C#
+[OpalTool("test-auth")]
+[Description("A tool to test auth")]
+[OpalAuthorization("OptiId", "cms", true)]
+public object TestAuthorization(AuthenticationTestParameters parameters, OpalToolContext context)
+{
+    return new
+    {
+        Provider = context?.AuthorizationData?.Provider,
+        Details = context?.AuthorizationData?.Credentials,
+        EmailAddress = parameters?.EmailAddress
+    };
+}
+
+public class AuthenticationTestParameters
+{
+    [Description("The email address of the current opal user making this request.")]
+    [Required]
+    public string EmailAddress { get; set; } = string.Empty;
+}
+```
+
+When inspecting the discovery endpoint for this tool, you’ll notice that the **auth_requirements** property is an array. This is intentional as Optimizely intends for Opal to support multiple authentication schemes for a single tool. If you want a tool to accept more than one provider, simply apply multiple **[OpalAuthorization]** attributes to the method.
+
+```JSON
+{
+  "functions": [
+    {
+      "name": "test-auth",
+      "description": "A tool to test auth",
+      "parameters": [
+        {
+          "name": "EmailAddress",
+          "type": "string",
+          "description": "The email address of the current opal user making this request.",
+          "required": true
+        }
+      ],
+      "endpoint": "/tools/test-auth",
+      "auth_requirements": [
+        {
+          "provider": "OptiId",
+          "scope_bundle": "cms",
+          "required": true
+        }
+      ],
+      "http_method": "POST"
+    }
+  ]
+}
+```
+
+When Opal executes this tool, it sends the request body (shown below) to your endpoint. Notice that **parameters.EmailAddress** is automatically populated by Opal based on the **[description]** attribute applied to the **AuthenticationTestParameters.EmailAddress** property: _"The email address of the current Opal user making this request."_. This really highlights the ability for Opal to infer, supply, and validate contextual user data without intervention from the user or the tool.  It can also give you a means to feed back to the user asynchronously using email.
+
+```JSON
+{
+  "parameters": {
+    "EmailAddress": "jo.bloggs@example.com"
+  },
+  "auth": {
+    "provider": "OptiID",
+    "credentials": {
+      "token_type": "Bearer",
+      "access_token": "<access-token-1446-chars>",
+      "org_sso_id": "<id>",
+      "cfg_client_id": "",
+      "user_id": "<guid-no-hyphens>",
+      "instance_id": "<guid-no-hyphens>",
+      "customer_id": "<guid-no-hyphens>",
+      "product_sku": "OPAL"
+    }
+  },
+  "environment": {
+    "execution_mode": "interactive"
+  },
+  "chat_metadata": {
+    "thread_id": "<guid>"
+  }
+}
+```
+
+## Summary
+
+In this article, we explored how to build Opal Tools with the **Optimizely.Opal.Tools** SDK, define parameters, handle authentication, and secure tool endpoints. You should now have a clear understanding of how Opal discovers, registers, and executes tools, as well as how user and bearer authentication data flow into your tool methods. With these fundamentals, you’re ready to create secure, functional tools that extend Opal’s capabilities.
