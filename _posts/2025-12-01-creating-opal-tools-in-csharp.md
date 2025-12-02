@@ -26,7 +26,7 @@ Both C# SDKs can deliver Opal tools, we used **OptimizelyOpal.OpalToolsSDK** as 
 
 While there isn't a lot between them and both are pre-version 1.x, **Optimizely.Opal.Tools** is the stronger and more flexible offering.
 
-## Getting Started With Building Opal Tools
+## Getting Started
 
 This guide assumes you are familiar with C# and creating basic web applications. In your IDE of choice, create a new C# Web API project and install the [Optimizely.Opal.Tools](https://www.nuget.org/packages/Optimizely.Opal.Tools/) nuget package
 
@@ -43,7 +43,7 @@ public class HelloWorldParameters
 }
 ```
 
-Next, create a class that serves as the entry point for your tool. Add a public method that returns either an **object** or **Task\<object\>** if your code can run asynchronously. Decorate the method with the **[OpalTool]** attribute to declare the tool’s name (using snake_case or kebab-case) and the **[Description]** attribute to explain when and how Opal should use it. Whatever you return must be serializable to JSON.
+Next, create a class that serves as the entry point for your tool. Add a public method that returns either an **object** or **Task\<object\>** if your code can run asynchronously. Decorate the method with the **[OpalTool]** attribute to declare the tool’s name (using snake_case or kebab-case). Decorate the method with the **[Description]** attribute to explain when and how Opal should use it. Whatever you return must be serializable to JSON.
 
 ```C#
 public class HelloWorldTools(IHelloWorldService service)
@@ -84,10 +84,10 @@ app.Run();
 
 ### Testing Your Tools
 
-Because Opal Tools are invoked by Opal itself, the only way to test them locally is through API testing tools such as **Postman** or **HTTP** files. HTTP files allow you to version-control your test requests and run them directly from your IDE.
+Because Opal Tools are invoked by Opal itself, the only way to test them locally is through API testing tools such as **Postman** or **HTTP** files. HTTP files allow you to version-control your test requests and run them directly from your IDE.  Requirements for using HTTP files are:
 
-- In VS Code, install the [REST Client extension by Huachao Mao](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) to enable this functionality.
-- In Visual Studio, you’ll need version 17.14.19 or later, which offers proper HTTP-file support, including authorization headers.
+- **Visual Studio**: install version 17.14.19 or later (earlier versions offer no or only partial support).
+- **Visual Studio Code**: install the [REST Client extension by Huachao Mao](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
 
 Here is an example HTTP file for testing both the discovery endpoint and the tool endpoint. Your IDE will render a "Send Request" link above each request:
 
@@ -150,7 +150,7 @@ Executing the tool endpoint should produce the following response:
 }
 ```
 
-You’ll notice that the tool endpoint uses an **Authorization** header, while the discovery endpoint does not. This is because the discovery endpoint must allow anonymous access. Tool endpoints, however, may require a **bearer token**. Note that this token must be static and shared by all tools within the same application, as it’s provided during the tool registration process within Opal.
+You’ll notice from the HTTP file example that the tool endpoint uses an **Authorization** header while the discovery endpoint does not. This is because the discovery endpoint must allow anonymous access. Tool endpoints can optionally require a **bearer token**. Note that this token must be static and shared by all tools within the same application. This is because you can only provide a single static value when registering your tools application in Opal.
 
 Because the SDK controls the mapping of tool endpoints, you cannot apply individual **[Authorize]** attributes to them. If you want to require bearer-token authentication then you’ll need to implement custom middleware. That middleware should intercept requests whose path begins with **/tools/** and validate that a bearer token is present (and valid) before allowing the request to proceed:
 
@@ -190,11 +190,11 @@ public sealed class ToolAuthenticationMiddleware
 
 ### Adding Authentication to a Tool
 
-The bearer token discussed earlier is used solely to secure communication between Opal and your tool’s endpoint. It does not represent the identity of the Opal user. However, there are scenarios where your tool needs to operate in the context of the authenticated user who initiated the request. To support this, Optimizely Opal can pass user authentication data to Opal Tools.
+The bearer token discussed earlier is used solely to secure communication between Opal and your tool’s endpoint. It does not represent the identity of the Opal user. There may be scenarios where your tool needs to operate in the context of the authenticated user who initiated the request. To support this, Optimizely Opal can pass user authentication data to Opal Tools.
 
-At the time of writing, the only supported authentication provider is "OptiId". If your discovery endpoint includes a tool that references an unsupported provider, Opal will fail to process the discovery response. During initial tool registration, Opal provides feedback indicating that the provider is unsupported. However, if the tool has already been registered and you are syncing updates, Opal will return a success response but silently skip the update; something that can be quite misleading.
+At the time of writing, the only supported authentication provider is "OptiId". If your discovery endpoint includes a tool that references an unsupported provider, Opal will fail to process the discovery response. During initial tool registration, Opal provides feedback indicating that the provider is unsupported. If the tool has already been registered and you are syncing updates, Opal will return a success response but silently skip the update; something that can be quite misleading.
 
-Let’s create a new tool that requires user authentication. To do this, you must apply the **[OpalAuthorization]** attribute to the method, specifying the provider ("OptiId"), the scope bundle, and whether authentication is mandatory. The method signature should include both a custom parameters object (as in earlier examples) and an instance of **OpalToolContext**, which contains the user’s authentication data and additional request context.
+Let’s create a new tool that requires user authentication. To do this, you must apply the **[OpalAuthorization]** attribute to the method, specifying the provider ("OptiId"), the scope and whether authentication is mandatory. The method signature should include both a custom parameters object (like the previous example) and an instance of **OpalToolContext**, which contains the user’s authentication data and additional request context.
 
 ```C#
 [OpalTool("test-auth")]
