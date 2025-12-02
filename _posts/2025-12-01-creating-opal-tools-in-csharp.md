@@ -280,3 +280,11 @@ When Opal executes this tool, it sends the request body (shown below) to your en
 ## Summary
 
 In this article, we explored how to build Opal Tools with the **Optimizely.Opal.Tools** SDK, define parameters, handle authentication, and secure tool endpoints. You should now have a clear understanding of how Opal discovers, registers, and executes tools, as well as how user and bearer authentication data flow into your tool methods. With these fundamentals, you’re ready to create secure, functional tools that extend Opal’s capabilities.
+
+Key Points:
+- Choose **Optimizely.Opal.Tools** over **OptimizelyOpal.OpalToolsSDK** - The newer SDK is more mature and feature rich.
+- All Opal Tool methods **require** a parameters class - If your tool takes no parameters, you must define an empty parameters class.
+- Good descriptions are critical for Opal's understanding - Use **[Description]** attributes effectively to get the best results.
+- Discovery endpoints must allow anonymous access, tool endpoints should be secured with a bearer token.
+- Use **[OpalAuthorization]** and **OpalToolContext** for Opal Tools which require an authorized user context.
+- Use **HTTP** files for local testing of your discovery and tool endpoints.
