@@ -67,3 +67,7 @@ h2, h3, h4 {
 #toggleIcon {
   transition: transform 0.3s ease;
 }
+
+th > span {
+  display: inline-block;
+}

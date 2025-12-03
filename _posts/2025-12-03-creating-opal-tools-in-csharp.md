@@ -16,7 +16,7 @@ Optimizely currently provides SDKs in three languages for building Opal Tools: C
 
 Both C# SDKs can deliver Opal tools, we used **OptimizelyOpal.OpalToolsSDK** as part of the Hackathon and **Optimizely.Opal.Tools** as part of the innovation challenge.  There are some differences in terms of capabilities for both SDKs which are as follows:
 
-| Feature | OptimizelyOpal.OpalToolsSDK | Optimizely.Opal.Tools |
+| Feature | <span>OptimizelyOpal.</span><span>OpalToolsSDK</span> | <span>Optimizely.</span><span>Opal.</span><span>Tools</span> |
 |:-|:-:|:-:|
 | Discovery API | &#x2714; | &#x2714; |
 | Tools API | &#x2714; | &#x2714; |
