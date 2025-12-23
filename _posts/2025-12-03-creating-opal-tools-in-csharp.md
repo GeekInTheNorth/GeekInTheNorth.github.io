@@ -7,6 +7,7 @@ category:
   - Development
   - Optimizely
 relatedArticles:
+  - "_posts/2025-12-22-triggering-opal-workflows-on-publish.md"
   - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
 ---
 
