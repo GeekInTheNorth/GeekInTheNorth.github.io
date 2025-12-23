@@ -9,7 +9,6 @@ category:
 relatedArticles:
 - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
 - "_posts/2025-12-03-creating-opal-tools-in-csharp.md"
-useMermaid: true
 ---
 
 Over the course of November, my colleagues at Netcel and I took part in Optimizely's Opal Innovation Challenge.  We were tasked to be inventive and to discover new ways in which we could use Opal with emphasis on Specialized Agents, Workflows and Tools.  If you are unaware of what these features are, my colleague [Graham Carr](https://www.linkedin.com/in/carrgraham/) has written a great introduction blog entitled [A day in the life of an Optimizely OMVP - Optimizely Opal: Specialized Agents, Workflows, and Tools Explained](https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optimizely-opal-specialized-agents-workflows-and-tools-explained/).
