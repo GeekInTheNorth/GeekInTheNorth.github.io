@@ -161,7 +161,7 @@ public async Task<List<Uri>> GetContentUris(string id, string locale)
     stringBuilder.AppendLine("  _Page(");
     stringBuilder.AppendLine("    orderBy: { _modified: DESC }");
     stringBuilder.AppendLine("    where: {");
-    stringBuilder.AppendLine($"      _metadata: {{ key: {{ eq: \"{{id}}\" }}, locale: {{ eq: \"{{locale}}\" }} }}");
+    stringBuilder.AppendLine($"      _metadata: {%raw%}{{ key: {{ eq: \"{id}\" }}, locale: {{ eq: \"{locale}\" }} }}{%endraw%}");
     stringBuilder.AppendLine("    }");
     stringBuilder.AppendLine("  ) {");
     stringBuilder.AppendLine("    items {");
