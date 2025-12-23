@@ -19,19 +19,7 @@ In this technical blog, I'm going to focus on how we can leverage publish events
 
 ## Proposed Flow
 
-```mermaid
-  sequenceDiagram
-    participant A as CMS
-    participant B as Graph
-    participant C as Middleware
-    participant D as Opal
-
-    A ->> B: Content Published
-    B ->> C: Graph Webhook
-    C ->> B: Get Content Metadata Query
-    B --) C: Get Content Metadata Response
-    C ->> D: Opal Workflow Webhook
-```
+![Sequence diagram for the CMS to Opal Workflow integration](/assets/cms-to-opal-sequence-diagram.png)
 
 ## Creating the Workflow in Opal
 
