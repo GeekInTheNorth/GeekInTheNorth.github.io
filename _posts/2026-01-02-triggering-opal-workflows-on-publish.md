@@ -11,23 +11,27 @@ relatedArticles:
 - "_posts/2025-12-03-creating-opal-tools-in-csharp.md"
 ---
 
-Over the course of November, my colleagues at Netcel and I took part in Optimizely's Opal Innovation Challenge.  We were tasked to be inventive and to discover new ways in which we could use Opal with emphasis on Specialized Agents, Workflows and Tools.  If you are unaware of what these features are, my colleague [Graham Carr](https://www.linkedin.com/in/carrgraham/) has written a great introduction blog entitled [A day in the life of an Optimizely OMVP - Optimizely Opal: Specialized Agents, Workflows, and Tools Explained](https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optimizely-opal-specialized-agents-workflows-and-tools-explained/).
+Over the course of November, my colleagues at Netcel and I took part in Optimizely's Opal Innovation Challenge.  We were tasked to be inventive and to discover new ways in which we could use Opal with emphasis on Specialized Agents, Workflows and Tools.  If you are unaware of what these features are, my colleague <a href="https://www.linkedin.com/in/carrgraham/" target="_blank">Graham Carr</a> has written a great introduction blog entitled <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optimizely-opal-specialized-agents-workflows-and-tools-explained/" target="_blank">A day in the life of an Optimizely OMVP - Optimizely Opal: Specialized Agents, Workflows, and Tools Explained</a>.
 
 In this technical blog, I'm going to focus on how we can leverage publish events to trigger workflows within Opal.  The traditional method of doing this would be to leverage content events in **C#** by registering handlers for the **IContentEvents** interface.  This approach has the downside of only being applicable for **PaaS** solutions.  In this blog I will be showing you how to achieve the same goal using webhooks in **Content Graph** which has the advantage of being applicable to both **SaaS** and **PaaS** CMS.
 
->💡**Tip:** Optimizely is moving away from **Search & Navigation** to **Content Graph** for improved flexibility, stability and performance. Use add-ons such as [OptiGraphExtensions](https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optigraphextensions-v2.0-enhanced-search-control-with-language-support-synonym-slots-and-stop-words) to manage your synonyms in **Content Graph**.
+>💡**Tip:** Optimizely is moving away from **Search & Navigation** to **Content Graph** for improved flexibility, stability and performance. Use add-ons such as <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optigraphextensions-v2.0-enhanced-search-control-with-language-support-synonym-slots-and-stop-words" target="_blank">OptiGraphExtensions</a> to manage your synonyms in **Content Graph**.
 
 ## Proposed Flow
 
+Optimizely Content Graph has webhook functionality that will allow you subscribe to indexing events.  If you're developing headless solutions with Content Graph you should already be familiar with this functionality.  For this solution the data journey will be as follows:
+
+- User publishes a page or experience in the CMS
+- The content changes are indexed into Content Graph
+- Content Graph will send a notification to an Integration API using webhooks
+- The Integration API will retrieve additional information from Content Graph
+- The Integration API will package the data up and send it to a webhook endpoint in Optimizely Opal
+
 ![Sequence diagram for the CMS to Opal Workflow integration](/assets/cms-to-opal-sequence-diagram.png)
-
-## Creating the Workflow in Opal
-
-
 
 ## Creating Webhooks In Content Graph
 
-Testing Webhook responses can be a challenge, especially if you are unsure what real data is going to look like.  This is where tools such as [**WebHook**Cool](https://webhook.cool/) come in.  This particular website provides you with a temporary end point that you can point your webhook so that you can examine your data before implementing an endpoint.  
+Testing Webhook responses can be a challenge, especially if you are unsure what real data is going to look like.  This is where tools such as <a href="https://webhook.cool/" target="_blank"><strong>WebHook</strong>Cool</a> come in.  This particular website provides you with a temporary end point that you can point your webhook so that you can examine your data before implementing an endpoint.  
 
 > 🔒 **Security Warning:** Third party tools like WebHookCool can be useful for testing APIs, however you should **never** use them with a production environment or anything that might contain PII data.
 
@@ -274,10 +278,13 @@ public async Task PostAsync<TRequest>(string url, TRequest requestBody)
 }
 ```
 
-2025-12-22-triggering-opal-workflows-on-publish.md
+## Creating the Workflow in Opal
+
+A workflow in Optimizely Opal is a collection of one or more specialized agents that can perform a set of actions either as a direct result of a chat prompt or independently from the chat prompt based on triggers.  One of these triggers is a Webhook trigger.  
 
 
 ## References
 
-- [Optimizely Developer Documentation - Content Graph - Manage Webhooks](https://docs.developers.optimizely.com/platform-optimizely/docs/manage-webhooks)
-- [WebhookCool](https://webhook.cool/)
+- <a href="https://docs.developers.optimizely.com/platform-optimizely/docs/manage-webhooks">Optimizely Developer Documentation - Content Graph - Manage Webhooks</a>
+- <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optimizely-opal-specialized-agents-workflows-and-tools-explained/" target="_blank">A day in the life of an Optimizely OMVP - Optimizely Opal: Specialized Agents, Workflows, and Tools Explained</a>.
+- <a href="https://webhook.cool/" target="_blank"><strong>WebHook</strong>Cool</a>

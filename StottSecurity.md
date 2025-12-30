@@ -4,7 +4,7 @@ title: "Stott Security"
 description: "Content relating to the Stott Security Add-On for Optimizely CMS 12."
 permalink: "/article/list/stott-security"
 category: "Stott Security"
-nugetdownloads: "69,500+"
+nugetdownloads: "71,800+"
 optidownloads: "34,000+"
 currentversion: "3.2.1"
 ---
