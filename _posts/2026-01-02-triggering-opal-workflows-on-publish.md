@@ -17,9 +17,9 @@ In this technical blog, I'm going to focus on how we can leverage publish events
 
 >💡**Tip:** Optimizely is moving away from **Search & Navigation** to **Content Graph** for improved flexibility, stability and performance. Use add-ons such as <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optigraphextensions-v2.0-enhanced-search-control-with-language-support-synonym-slots-and-stop-words" target="_blank">OptiGraphExtensions</a> to manage your synonyms in **Content Graph**.
 
-## Proposed Flow
+## Solution Flow
 
-Optimizely Content Graph has webhook functionality that will allow you subscribe to indexing events.  If you're developing headless solutions with Content Graph you should already be familiar with this functionality.  For this solution the data journey will be as follows:
+Optimizely Content Graph has webhook functionality that will allow you to subscribe to indexing events.  If you're developing headless solutions with Content Graph you should already be familiar with this functionality.  For this solution the data journey will be as follows:
 
 - User publishes a page or experience in the CMS
 - The content changes are indexed into Content Graph
@@ -29,37 +29,21 @@ Optimizely Content Graph has webhook functionality that will allow you subscribe
 
 ![Sequence diagram for the CMS to Opal Workflow integration](/assets/cms-to-opal-sequence-diagram.png)
 
-## Creating the Workflow in Opal
+You might ask why there is an Integration API included here? This is because Content Graph webhooks intentionally provide minimal payloads, which keeps them fast and reliable but requires enrichment downstream.
 
-A workflow in Optimizely Opal is a collection of one or more specialized agents that can perform a set of actions either as a direct result of a chat prompt or independently from the chat prompt based on triggers.  One of these triggers is a Webhook trigger.  In order to create a new Opal Workflow you will need to do the following:
+## Testing Webhooks in Third Party Systems
 
-- Login to Opal at <a href="https://opal.optimizely.com/" target="_blank">https://opal.optimizely.com/</a>
-- Click on Agents in the left hand menu
-- Click on the "Add Agent" drop down CTA
-- Click on "Workflow Agent"
-- Enter a name and unique id for the agent
-- Click on "Edit Workflow"
+Testing Webhook responses can be a challenge, especially if you are unsure what real data is going to look like.  This is where tools such as <a href="https://webhook.cool/" target="_blank"><strong>Webhook</strong>Cool</a> come in.  This particular website provides you with a temporary end point that you can point your webhook at so that you can examine your data before implementing an endpoint.  I've found this particular tool to be very helpful during the prototyping phases.
 
-At this point you should have the workflow editor screen showing, this is a drag and drop interface that allows you to add triggers, logic gates and agents and to link them together.
-
-![](/assets/opal-workflow-webhook.png)
-
-In this example I have created a new workflow tigger and set the payload so that it knows to expect a simple json object containing a URL.  I have also given the workflow a chat trigger and a chain of two specialized agents.  When you save your workflow trigger for the first time, the Webhook URL is automatically generated using the following format:
-
-```
-https://webhook.opal.optimizely.com/webhooks/<instance-id>/<webhook-trigger-id>
-https://webhook.opal.optimizely.com/webhooks/abcdef0123456789abcdef0123456789/abcdef01-2345-6789-abcd-ef0123456789
-```
-
-This Webhook URL is what will be referenced by our Integration API.
+> 🔒 **Security Warning:** Third party tools like WebhookCool can be useful for testing APIs, however you should **never** use them with a production environment or anything that might contain PII data.
 
 ## Creating Webhooks In Content Graph
 
-Testing Webhook responses can be a challenge, especially if you are unsure what real data is going to look like.  This is where tools such as <a href="https://webhook.cool/" target="_blank"><strong>WebHook</strong>Cool</a> come in.  This particular website provides you with a temporary end point that you can point your webhook so that you can examine your data before implementing an endpoint.  
+A webhook can be registered with Content Graph using a POST request.  This POST request will require authorization using Basic or HMAC Authentication. In this example I am registering the webhook using Basic Authentication with the following key pieces of information:
 
-> 🔒 **Security Warning:** Third party tools like WebHookCool can be useful for testing APIs, however you should **never** use them with a production environment or anything that might contain PII data.
-
-We are going to start off by registering our WebHookCool endpoint as a webhook in Content Graph with a simple POST request.  Here I've set the topic to be "doc.updated" which tells Content Graph we are only interested in single document update events.  We are also going to set our filters so that we are only interested in published content items:
+- The **request** contains the URL and method for the webhook.
+- The **topic** is set to be "doc.updated", this tells Content Graph we are only interested in single document update events.
+- The **filter** is set to filter content to published items only.
 
 ```JSON
 POST https://cg.optimizely.com/api/webhooks
@@ -304,10 +288,42 @@ public async Task PostAsync<TRequest>(string url, TRequest requestBody)
 }
 ```
 
-## Putting It All Together
+The result of this integration API is that content update actions for non-pages will be ignored and Opal will only recieve an instruction to run a workflow for publicly accessible pages with a provided URL in a simple payload: 
+
+```JSON
+{ 
+  "url": "https://www.example.com/insights/"
+}
+```
+
+## Creating the Workflow in Opal
+
+A workflow in Optimizely Opal is a collection of one or more specialized agents that can perform a set of actions either as a direct result of a chat prompt or independently from the chat prompt based on triggers.  One of these triggers is a Webhook trigger.  In order to create a new Opal Workflow you will need to do the following:
+
+- Login to Opal at <a href="https://opal.optimizely.com/" target="_blank">https://opal.optimizely.com/</a>
+- Click on Agents in the left hand menu
+- Click on the "Add Agent" drop down CTA
+- Click on "Workflow Agent"
+- Enter a name and unique id for the agent
+- Click on "Edit Workflow"
+
+At this point you should have the workflow editor screen showing, this is a drag and drop interface that allows you to add triggers, logic gates and agents and to link them together.
+
+![A screenshot of the workflow editor interface](/assets/opal-workflow-webhook.png)
+
+In this example I have created a new workflow trigger and set the payload so that it knows to expect a simple JSON object containing a URL.  I have also given the workflow a chat trigger and a chain of two specialized agents.  When you save your workflow trigger for the first time, the Webhook URL is automatically generated using the following format:
+
+```
+https://webhook.opal.optimizely.com/webhooks/<instance-id>/<webhook-trigger-id>
+https://webhook.opal.optimizely.com/webhooks/abcdef0123456789abcdef0123456789/abcdef01-2345-6789-abcd-ef0123456789
+```
+
+This Webhook URL is what will be referenced by our Integration API.
+
+## Bringing it all together
 
 ## References
 
 - <a href="https://docs.developers.optimizely.com/platform-optimizely/docs/manage-webhooks">Optimizely Developer Documentation - Content Graph - Manage Webhooks</a>
 - <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optimizely-opal-specialized-agents-workflows-and-tools-explained/" target="_blank">A day in the life of an Optimizely OMVP - Optimizely Opal: Specialized Agents, Workflows, and Tools Explained</a>.
-- <a href="https://webhook.cool/" target="_blank"><strong>WebHook</strong>Cool</a>
+- <a href="https://webhook.cool/" target="_blank"><strong>Webhook</strong>Cool</a>
