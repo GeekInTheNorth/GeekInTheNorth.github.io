@@ -29,6 +29,30 @@ Optimizely Content Graph has webhook functionality that will allow you subscribe
 
 ![Sequence diagram for the CMS to Opal Workflow integration](/assets/cms-to-opal-sequence-diagram.png)
 
+## Creating the Workflow in Opal
+
+A workflow in Optimizely Opal is a collection of one or more specialized agents that can perform a set of actions either as a direct result of a chat prompt or independently from the chat prompt based on triggers.  One of these triggers is a Webhook trigger.  In order to create a new Opal Workflow you will need to do the following:
+
+- Login to Opal at <a href="https://opal.optimizely.com/" target="_blank">https://opal.optimizely.com/</a>
+- Click on Agents in the left hand menu
+- Click on the "Add Agent" drop down CTA
+- Click on "Workflow Agent"
+- Enter a name and unique id for the agent
+- Click on "Edit Workflow"
+
+At this point you should have the workflow editor screen showing, this is a drag and drop interface that allows you to add triggers, logic gates and agents and to link them together.
+
+![](/assets/opal-workflow-webhook.png)
+
+In this example I have created a new workflow tigger and set the payload so that it knows to expect a simple json object containing a URL.  I have also given the workflow a chat trigger and a chain of two specialized agents.  When you save your workflow trigger for the first time, the Webhook URL is automatically generated using the following format:
+
+```
+https://webhook.opal.optimizely.com/webhooks/<instance-id>/<webhook-trigger-id>
+https://webhook.opal.optimizely.com/webhooks/abcdef0123456789abcdef0123456789/abcdef01-2345-6789-abcd-ef0123456789
+```
+
+This Webhook URL is what will be referenced by our Integration API.
+
 ## Creating Webhooks In Content Graph
 
 Testing Webhook responses can be a challenge, especially if you are unsure what real data is going to look like.  This is where tools such as <a href="https://webhook.cool/" target="_blank"><strong>WebHook</strong>Cool</a> come in.  This particular website provides you with a temporary end point that you can point your webhook so that you can examine your data before implementing an endpoint.  
@@ -72,7 +96,9 @@ When you update the content item in Content Graph you will get one or more webho
 }
 ```
 
-Out of the box this isn't terribly helpful for Opal as this doesn't contain any information about the updated page beyond the docId which is a unique identifier within graph for the content item.  If you wanted to pass something more useful to Opal, like a URL, then you will need a middleman end point to handle this.
+Out of the box this isn't ready for consumption for Opal as this doesn't contain any information about the updated page beyond the docId which is a unique identifier within graph for the content item.  If you wanted to pass something more useful to Opal, like a URL, then you will need an Integration API end point to handle this.
+
+## Creating an Integration API
 
 > 🔒 **Please Note:** identifiers in these examples have been swapped out with a randomly generated id to aid visualization and should not reflect any specific system.
 
@@ -278,10 +304,7 @@ public async Task PostAsync<TRequest>(string url, TRequest requestBody)
 }
 ```
 
-## Creating the Workflow in Opal
-
-A workflow in Optimizely Opal is a collection of one or more specialized agents that can perform a set of actions either as a direct result of a chat prompt or independently from the chat prompt based on triggers.  One of these triggers is a Webhook trigger.  
-
+## Putting It All Together
 
 ## References
 

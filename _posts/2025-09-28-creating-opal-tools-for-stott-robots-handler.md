@@ -11,7 +11,7 @@ relatedArticles:
   - "_posts/2025-09-17-stott-robots-handler-v6.md"
   - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"
   - "_posts/2025-12-03-creating-opal-tools-in-csharp.md"
-  - "_posts/2025-12-22-triggering-opal-workflows-on-publish.md"
+  - "_posts/2026-01-02-triggering-opal-workflows-on-publish.md"
 ---
 
 This summer, the Netcel Development team and I took part in Optimizely's Opal Hackathon.  The challenge from Optimizely was to extend Opal's abilities by creating tools that would wrap actual business flows allowing Opal to focus on inputs and outputs in a conversational context.  Our initial submission was to develop event management tooling that would integrate with Optimizely SAAS Content Management System, Optimizely Content Management Platform and Eventbrite.
