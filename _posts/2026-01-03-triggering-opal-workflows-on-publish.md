@@ -13,7 +13,7 @@ relatedArticles:
 
 Over the course of November, my colleagues at Netcel and I took part in Optimizely's Opal Innovation Challenge.  We were tasked to be inventive and to discover new ways in which we could use Opal with emphasis on Specialized Agents, Workflows and Tools.  If you are unaware of what these features are, my colleague <a href="https://www.linkedin.com/in/carrgraham/" target="_blank">Graham Carr</a> has written a great introduction blog entitled <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optimizely-opal-specialized-agents-workflows-and-tools-explained/" target="_blank">A day in the life of an Optimizely OMVP - Optimizely Opal: Specialized Agents, Workflows, and Tools Explained</a>.
 
-In this technical blog, I'm going to focus on how we can leverage publish events to trigger workflows within Opal.  The traditional method of doing this would be to leverage content events in **C#** by registering handlers for the **IContentEvents** interface.  This approach has the downside of only being applicable for **PaaS** solutions.  In this blog I will be showing you how to achieve the same goal using webhooks in **Content Graph** which has the advantage of being applicable to both **SaaS** and **PaaS** CMS.
+In this technical blog, I'm going to focus on how we can leverage publish events to trigger workflows within Opal.  The traditional method of doing this would be to leverage content events in **C#** by registering handlers for the **IContentEvents** interface.  This approach has the downside of only being applicable for **PaaS** solutions.  I will be showing you how to achieve the same goal using webhooks in **Content Graph** which has the advantage of being applicable to both **SaaS** and **PaaS** CMS without relying on CMS hosted event handlers.
 
 >💡**Tip:** Optimizely is moving away from **Search & Navigation** to **Content Graph** for improved flexibility, stability and performance. Use add-ons such as <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optigraphextensions-v2.0-enhanced-search-control-with-language-support-synonym-slots-and-stop-words" target="_blank">OptiGraphExtensions</a> to manage your synonyms in **Content Graph**.
 
@@ -82,7 +82,9 @@ When you update the content item in Content Graph you will get one or more webho
 
 Out of the box this isn't ready for consumption for Opal as this doesn't contain any information about the updated page beyond the docId which is a unique identifier within graph for the content item.  If you wanted to pass something more useful to Opal, like a URL, then you will need an Integration API end point to handle this.
 
-## Creating an Integration API
+>💡**Tip:** Please note that webhooks are registered per CMS and Content Graph environment, typically these are Integration, Preproduction and Production. However, there is only one Opal instance and you may not want events raised during QA or UAT to burn through your Opal credits.
+
+## Creating The Integration API
 
 > 🔒 **Please Note:** identifiers in these examples have been swapped out with a randomly generated id to aid visualization and should not reflect any specific system.
 
@@ -301,8 +303,8 @@ The result of this integration API is that content update actions for non-pages 
 A workflow in Optimizely Opal is a collection of one or more specialized agents that can perform a set of actions either as a direct result of a chat prompt or independently from the chat prompt based on triggers.  One of these triggers is a Webhook trigger.  In order to create a new Opal Workflow you will need to do the following:
 
 - Login to Opal at <a href="https://opal.optimizely.com/" target="_blank">https://opal.optimizely.com/</a>
-- Click on Agents in the left hand menu
-- Click on the "Add Agent" drop down CTA
+- Click on Agents in the left-hand menu
+- Click on the "Add Agent" drop-down CTA
 - Click on "Workflow Agent"
 - Enter a name and unique id for the agent
 - Click on "Edit Workflow"
@@ -320,7 +322,26 @@ https://webhook.opal.optimizely.com/webhooks/abcdef0123456789abcdef0123456789/ab
 
 This Webhook URL is what will be referenced by our Integration API.
 
-## Bringing it all together
+## End to End
+
+Now we have all the components needed to bring the solution flow together by performing the following:
+
+- Creating the Opal Workflow Webhook.
+- Deploying the Integration API and configuring environment variables:
+  - Content Graph Single Key: For public content graph consumption and retrieval of page meta data.
+  - Opal Workflow Url: So that the Integration API can send payloads to the Opal Workflow
+- Register the Content Graph Webhook: So that content update events are sent to the Integration API
+
+This approach allows content publishing in Optimizely CMS to automatically trigger AI-driven workflows in Optimizely Opal, regardless of whether the CMS is hosted on SaaS or PaaS. Content Graph provides lightweight publish events, the Integration API enriches those events with a public URL, and Opal executes a workflow using a simple, stable webhook payload.
+
+Within Opal, you can then configure the workflow to orchestrate a chain of specialized agents, each focused on a specific responsibility. Because agents receive only a URL, they remain decoupled from CMS internals and can evolve independently over time.
+
+Typical agents in this workflow might include:
+- Automated GEO Recommendations – analysing content structure and semantics to improve visibility in AI-driven search and generative experiences.
+- Automated SEO Assessment – evaluating headings, metadata, internal linking, and page structure to surface actionable optimisation insights.
+- Automated Brand Assessment – checking tone, messaging, and consistency against brand guidelines at publish time.
+
+By combining these agents into a single workflow, teams can receive immediate, automated feedback on published content, reducing manual review effort while keeping the integration scalable, flexible, and CMS-agnostic.
 
 ## References
 
