@@ -290,7 +290,9 @@ public async Task PostAsync<TRequest>(string url, TRequest requestBody)
 }
 ```
 
-The result of this integration API is that content update actions for non-pages will be ignored and Opal will only recieve an instruction to run a workflow for publicly accessible pages with a provided URL in a simple payload: 
+Keen observers may note that the controller is configured to accept both **text/plain** and **application/json** payloads. In practice, Content Graph webhooks can deliver requests with a **text/plain** MIME type, while tools such as HTTP files or Postman typically send payloads as **application/json**. Since standard C# model binding does not run for requests with a **text/plain** content type, the request body is read and deserialized manually within the controller.
+
+The end result of this integration API is that content update actions for non-pages will be ignored and Opal will only recieve an instruction to run a workflow for publicly accessible pages with a provided URL in a simple payload: 
 
 ```JSON
 { 
@@ -342,6 +344,23 @@ Typical agents in this workflow might include:
 - Automated Brand Assessment – checking tone, messaging, and consistency against brand guidelines at publish time.
 
 By combining these agents into a single workflow, teams can receive immediate, automated feedback on published content, reducing manual review effort while keeping the integration scalable, flexible, and CMS-agnostic.
+
+### Other Considerations
+
+When building integrations like this, it’s important to consider security and resilience from the outset. As part of this solution, you should consider the following best practices:
+
+- Protect the Integration API
+  - Register the Content Graph webhook with an API key passed via the query string and validate it in the Integration API.
+  - This helps prevent unauthorised requests if the endpoint URL is discovered.
+- Secure the Opal Workflow webhook
+  - Configure the authorization parameters on the Opal Workflow webhook trigger.
+  - Ensure the Integration API includes the required authorization details when invoking the workflow.
+  - This prevents third-party actors from triggering workflows if the webhook URL is exposed.
+- Harden the Integration API
+  - Implement structured logging to support monitoring and diagnostics.
+  - Add robust error handling and validation.
+  - Use retry mechanisms to handle transient failures when calling external services.
+  - Apply brute-force and rate-limiting protections to reduce abuse risk.
 
 ## References
 
