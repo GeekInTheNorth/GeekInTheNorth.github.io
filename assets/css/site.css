@@ -71,3 +71,7 @@ h2, h3, h4 {
 th > span {
   display: inline-block;
 }
+
+.author-section {
+  border-left: 4px solid #0d6efd !important;
+}
