@@ -17,7 +17,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
 <h2 class="h3 fw-semibold text-dark mb-4">Key Features</h2>
 <div class="accordion" id="keyFeaturesAccordion">
   <div class="accordion-item">
-    <h2 class="accordion-header" id="cspHeading">
+    <h2 class="accordion-header mt-0" id="cspHeading">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cspAccordion" aria-expanded="true" aria-controls="cspAccordion">
         🛡️ <strong>Content Security Policy</strong>
       </button>
@@ -36,7 +36,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="ppHeading">
+    <h2 class="accordion-header mt-0" id="ppHeading">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ppAccordion" aria-expanded="false" aria-controls="ppAccordion">
         🔐 <strong>Permission Policy</strong>
       </button>
@@ -51,7 +51,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="corsHeader">
+    <h2 class="accordion-header mt-0" id="corsHeader">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#corsAccordion" aria-expanded="false" aria-controls="corsAccordion">🌐 <strong>Cross Origin Resource Sharing (CORS)</strong></button>
     </h2>
     <div id="corsAccordion" class="accordion-collapse collapse" aria-labelledby="corsHeader" data-bs-parent="#keyFeaturesAccordion">
@@ -65,7 +65,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="rhHeading">
+    <h2 class="accordion-header mt-0" id="rhHeading">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rhAccordion" aria-expanded="true" aria-controls="rhAccordion">📋 <strong>Response Headers</strong></button>
     </h2>
     <div id="rhAccordion" class="accordion-collapse collapse" aria-labelledby="rhHeading" data-bs-parent="#keyFeaturesAccordion">
@@ -89,7 +89,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="stHeader">
+    <h2 class="accordion-header mt-0" id="stHeader">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#stAccordion" aria-expanded="false" aria-controls="stAccordion">📄 <strong>Security.txt</strong></button>
     </h2>
     <div id="stAccordion" class="accordion-collapse collapse" aria-labelledby="stHeader" data-bs-parent="#keyFeaturesAccordion">
@@ -103,7 +103,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="afHeading">
+    <h2 class="accordion-header mt-0" id="afHeading">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#afAccordion" aria-expanded="false" aria-controls="#afAccordion">✨ <strong>Additional Features</strong></button>
     </h2>
     <div id="afAccordion" class="accordion-collapse collapse" aria-labelledby="afHeading" data-bs-parent="#keyFeaturesAccordion">
