@@ -18,11 +18,11 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
 <div class="accordion" id="keyFeaturesAccordion">
   <div class="accordion-item">
     <h2 class="accordion-header mt-0" id="cspHeading">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#cspAccordion" aria-expanded="true" aria-controls="cspAccordion">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cspAccordion" aria-expanded="true" aria-controls="cspAccordion">
         🛡️ <strong>Content Security Policy</strong>
       </button>
     </h2>
-    <div id="cspAccordion" class="accordion-collapse collapse show" aria-labelledby="cspHeading" data-bs-parent="#keyFeaturesAccordion">
+    <div id="cspAccordion" class="accordion-collapse collapse" aria-labelledby="cspHeading" data-bs-parent="#keyFeaturesAccordion">
       <div class="accordion-body">
         <ul>
           <li><strong>User Friendly Interface:</strong> Manage individual domains and what permissions you grant them on a domain by domain basis.</li>
