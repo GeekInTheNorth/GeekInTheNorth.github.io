@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Stott Security Version 3"
-description: "A summary of all new functionality and changes that have been introduced to the Stott Security module so far."
+description: "A summary of all new functionality and changes that have been introduced to the Stott Security v3 add-on for CMS 12."
 permalink: "/article/stott-security-3"
 category:
   - Development
@@ -9,6 +9,7 @@ category:
   - "Stott Security"
 relatedArticles:
   - "_posts/2024-05-17-stott-security-2-x.md"
+  - "_posts/2026-01-16-stott-security-4.md"
 ---
 
 April 2025 marks a new milestone for the Stott Security Add-on with the release of version 3.  This release has been developed over several months owing to a significant new feature among other quality of life changes.
