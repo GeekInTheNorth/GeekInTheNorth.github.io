@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Stott Security Version 4"
-description: "A summary of all new functionality and changes that have been introduced to the Stott Security v4 add-on for CMS 12."
+description: "A summary of all new and updated functionality changes that have been introduced in version 4 of the Stott Security add-on for Optimizely CMS 12."
 permalink: "/article/stott-security-4"
 category:
   - Development
