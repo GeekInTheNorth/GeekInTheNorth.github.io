@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Stott Security Version 2 So Far"
-description: "A summary of all new functionality and changes that have been introduced to the Stott Security module so far."
+title: "Stott Security Version 2"
+description: "A summary of all new functionality and changes that have been introduced to the Stott Security v2 add-on for CMS 12."
 permalink: "/article/stott-security-2-x"
 category:
   - Development
@@ -9,6 +9,7 @@ category:
   - "Stott Security"
 relatedArticles:
   - "_posts/2025-04-08-stott-security-3-x.md"
+  - "_posts/2026-01-16-stott-security-4.md"
 ---
 
 In December 2023, I unveiled the initial version of Stott Security version 2. Although I typically announce each version I release, these announcements have often been concise, lacking in-depth explanations. Let's delve into that now.
