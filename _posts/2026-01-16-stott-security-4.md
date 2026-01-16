@@ -12,7 +12,7 @@ relatedArticles:
   - "_posts/2026-01-16-stott-security-4.md"
 ---
 
-January 2026 marks the release of Stott Security v4, a significant update to the leading web security add-on for Optimizely CMS 12, with more than 108,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.
+January 2026 marks the release of Stott Security v4, a significant update to the popular web security add-on for Optimizely CMS 12, with more than 109,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.
 
 - Features
   - Manage security.txt files
