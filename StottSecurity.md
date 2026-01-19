@@ -6,7 +6,7 @@ permalink: "/article/list/stott-security"
 category: "Stott Security"
 nugetdownloads: "73,500+"
 optidownloads: "35,500+"
-currentversion: "3.2.1"
+currentversion: "4.0.0"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
 ---
 
