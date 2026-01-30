@@ -199,8 +199,8 @@ _Please note that as of the time of writing, there was an issue with packages up
 
 ## Summary
 
-- Build your package for .NET 6 for maximum compatability
-  - Build your package for both .NET 6 & 8 if you have compatability issues between both frameworks.
+- Build your package for .NET 6 for maximum compatibility
+  - Build your package for both .NET 6 & 8 if you have compatibility issues between both frameworks.
 - Use a Razor Class Library so you can package your UI and C# code together.
 - Think very carefully about which license you will use for your package.
 - Use a build targets file to put files into specific folders within a consuming application.
