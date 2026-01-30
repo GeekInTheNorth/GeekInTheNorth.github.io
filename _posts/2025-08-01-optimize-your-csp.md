@@ -187,7 +187,7 @@ When this page is served, the sources and directives specified here are merged i
 
 ## Changes to Stott Security for Optimizely CMS 12
 
-In order to prevent other cusumers of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) from encountering the same issue with header size limits, I decided that I would add some safety nets for the generated Content Security Policy that would respect Cloudflare's hard 16KB limit. When researching header size limits in general, I observed that the most common recommendation was to keep your headers below 8KB per header to ensure broad compatability. 
+In order to prevent other cusumers of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) from encountering the same issue with header size limits, I decided that I would add some safety nets for the generated Content Security Policy that would respect Cloudflare's hard 16KB limit. When researching header size limits in general, I observed that the most common recommendation was to keep your headers below 8KB per header to ensure broad compatibility. 
 
 Starting in version 3.0.2 of [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), CSPs are now intelligently split into [multiple CSP Headers](https://content-security-policy.com/examples/multiple-csp-headers/) if their size approaches the 8KB limit. Since browsers enforce the most restrictive policy among multiple CSP headers, these headers are carefully divided based on directive hierarchy and fallback behavior.
 
