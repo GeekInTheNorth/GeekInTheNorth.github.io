@@ -1,6 +1,6 @@
 # theme: jekyll-theme-architect
-# plugins:
-#   - jekyll-feed
+plugins:
+  - jekyll-feed
 title: Mark Stott
 description: Welcome to my technical blog
 author: Mark Stott
