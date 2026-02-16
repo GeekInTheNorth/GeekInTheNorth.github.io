@@ -5,10 +5,6 @@ description: "Cookie Policy for www.stott.pro."
 permalink: "/cookie-policy"
 ---
 
-# Cookie Policy
-
-Updated: 7th May 2025
-
 This website uses cookies to enhance your browsing experience. Cookies are small text files stored on your device that help us provide personalized content and remember your preferences.
 
 ## What Cookies We Use

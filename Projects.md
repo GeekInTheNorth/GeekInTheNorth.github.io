@@ -5,8 +5,6 @@ description: "Projects worked on by Mark Stott."
 permalink: "/projects"
 ---
 
-# Projects
-
 ## Personal Projects
 
 The following projects have been developed in isolation by myself outside of my professional role.
