@@ -2,7 +2,7 @@
 layout: post
 title: "Working With Applications in Optimizely CMS 13"
 description: "A short dive into changes from working with Sites to working with Applications in CMS 13."
-permalink: "/article/stott-security-4"
+permalink: "/article/working-with-applications-in-cms13"
 category:
   - Development
   - Optimizely
