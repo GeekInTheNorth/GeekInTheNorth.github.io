@@ -32,11 +32,46 @@ Users can add new headers with any valid header name structure and define a valu
 - **Remove**: This will remove the header from the response.
 - **Disabled**: No action will be performed for this header.
 
+![Custom Headers Interface](/assets/StottSecurityCustomHeaders.png)
+
 For traditional / in-process websites, the order of your middlewares will impact the success rate for removal of headers. Also headers added after the response has been served will not be affected, this means headers added by CloudFlare for example will not be removed.
 
-For Headless users, only headers which have an **Add** behaviour will be available in the current headers API.  I am aiming to create a second version of the headers API to present the data in a different structure in the next release.  At this point the responsibility to remove the headers will take place in the head.
+For Headless users, the Header Listing API has been updated so that all configured headers now have an "isRemoval" property that highlights if the header should be removed or not.
 
-![Custom Headers Interface](/assets/StottSecurityCustomHeaders.png)
+Url Examples:
+- /stott.security.optimizely/api/compiled-headers/list/
+- /stott.security.optimizely/api/compiled-headers/list/?pageId=123
+
+Example Response:
+```
+[
+    {
+        "key": "a-custom-header",
+        "value": "a-value",
+        "isRemoval": false
+    },
+    {
+        "key": "Content-Security-Policy",
+        "value": "default-src \u0027self\u0027;...", // Full CSP will be included
+        "isRemoval": false
+    },
+    {
+        "key": "server",
+        "value": "",
+        "isRemoval": true
+    },
+    {
+        "key": "X-Content-Type-Options",
+        "value": "nosniff",
+        "isRemoval": false
+    },
+    {
+        "key": "X-Xss-Protection",
+        "value": "0",
+        "isRemoval": false
+    }
+]
+```
 
 > ⚠️ Migration warning: Any configuration on the old Response Headers interface will need to be recreated.
 
