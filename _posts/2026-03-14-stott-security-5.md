@@ -13,7 +13,7 @@ relatedArticles:
   - "_posts/2026-01-16-stott-security-4.md"
 ---
 
-March 2026 marks the release of Stott Security v5, a significant update to the popular web security add-on for Optimizely CMS 12+, with more than 109,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.
+March 2026 marks the release of Stott Security v5, a significant update to the popular web security add-on for Optimizely CMS 12+, with more than 115,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.
 
 - Custom Header Management
 - Audit Record Clean Up
@@ -38,12 +38,12 @@ For traditional / in-process websites, the order of your middlewares will impact
 
 For Headless users, the Header Listing API has been updated so that all configured headers now have an "isRemoval" property that highlights if the header should be removed or not.
 
-Url Examples:
+**Headless API Examples:**
 - /stott.security.optimizely/api/compiled-headers/list/
 - /stott.security.optimizely/api/compiled-headers/list/?pageId=123
 
-Example Response:
-```
+**Example Response:**
+```JSON
 [
     {
         "key": "a-custom-header",
@@ -75,7 +75,7 @@ Example Response:
 
 > ⚠️ Migration warning: Any configuration on the old Response Headers interface will need to be recreated.
 
-Response Headers that were previously managed through the old interface will need to be reconfigured.  They will appear with a Disabled behaviour and the edit modal will presemt the same friendly options that were available in the previous UI.
+Response Headers that were previously managed through the old interface will need to be reconfigured.  They will appear with a Disabled behaviour and the edit modal will present the same friendly options that were available in the previous UI.
 
 ## Audit Record Clean Up
 
@@ -99,7 +99,7 @@ authorization =>
 
 ## Audit Record Search
 
-Filtering of audit records has always been present within the system, however it was limited to simple filters for user, operation, record and date range.  Looking for very specific changes was a time consuming exercise.  This changes adds a text filter which will be used to find matches within the following fields:
+Filtering of audit records has always been present within the system, however it was limited to simple filters for user, operation, record and date range.  Looking for very specific changes was a time consuming exercise.  This change adds a text filter which will be used to find matches within the following fields:
 
 - Indicator
   - Source for Content Security Policy Sources
@@ -122,6 +122,6 @@ The ability to import and export settings was introduced back in version 2.6.0 b
 
 ## Summary
 
-Stott Security is a free, open-source add-on for Optimizely CMS 12+, designed from the ground up to be accessible to both technical and non-technical users, with built-in audit functionality to provide clear accountability. The add-on supports both PaaS-based traditional headed sites and headless solutions.
+Stott Security is a free, open-source add-on for Optimizely CMS 12+, designed from the ground up to be accessible to both technical and non-technical users, with built-in audit functionality to provide clear accountability. The add-on supports both PaaS-based traditional headed and headless solutions.
 
-Version 5 delivers a major update featuring a rebuilt **Response Headers** functionality with enhanced support for custom headers; enhanced **Audit Management** with configurable retention periods and new free-text search, and a more granular **Settings Import** tool that allows selective configuration.
+Version 5 delivers a major update featuring a rebuilt **Response Headers** functionality with enhanced support for custom headers; enhanced **Audit Management** with configurable retention periods and new free-text audit search, and a more granular **Settings Import** tool that allows selective configuration.
