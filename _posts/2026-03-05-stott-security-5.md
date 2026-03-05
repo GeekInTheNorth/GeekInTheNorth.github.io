@@ -34,7 +34,7 @@ Users can add new headers with any valid header name structure and define a valu
 
 ![Custom Headers Interface](/assets/StottSecurityCustomHeaders.png)
 
-For traditional / in-process websites, the order of your middlewares will impact the success rate for removal of headers. Also headers added after the response has been served will not be affected, this means headers added by CloudFlare for example will not be removed.
+For traditional / in-process websites, the order of your middlewares and the point in time where the header is added will impact the success rate for removal of headers. The server header for example is not present in the Response object while middlewares are processed and as such will not be impacted. Also headers added after the response has been served will not be affected, this means headers added by CloudFlare for example will not be removed.
 
 For Headless users, the Header Listing API has been updated so that all configured headers now have an "isRemoval" property that highlights if the header should be removed or not.
 
