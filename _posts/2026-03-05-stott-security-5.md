@@ -73,9 +73,7 @@ For Headless users, the Header Listing API has been updated so that all configur
 ]
 ```
 
-> ⚠️ Migration warning: Any configuration on the old Response Headers interface will need to be recreated.
-
-Response Headers that were previously managed through the old interface will need to be reconfigured.  They will appear with a Disabled behaviour and the edit modal will present the same friendly options that were available in the previous UI.
+> ⚠️ **Migration warning:** Any configuration on the old Response Headers interface will need to be recreated. Response Headers that were previously managed through the old interface will appear as Disabled and the edit modal will present the same friendly options that were available in the previous UI.
 
 ## Audit Record Clean Up
 
