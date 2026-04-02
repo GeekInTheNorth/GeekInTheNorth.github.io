@@ -14,16 +14,16 @@ As part of my preparation of Stott Security and Stott Robots Handler for PaaS CM
 
 ## Accessing Site / Application Definitions
 
-With CMS 13 taking the lead from SaaS and thinking about more composable architectures, there is a shift from thinking about "sites" and instead thinking about "applications".  There is also a shift to having two different application configurations.  There is the traditional "in-process" CMS application which is represented by the `Website` class, and there is the Headless application which is represented by the `RemoteWebsite` class.  These two applications both inherit the `Application` class.
+With CMS 13 taking the lead from SaaS and thinking about more composable architectures, there is a shift from thinking about "sites" and instead thinking about "applications".  There is also a shift to having two different application configurations.  There is the traditional "in-process" CMS application which is represented by the `InProcessWebsite` class, and there is the Headless application which is represented by the `Website` class.  These two applications both inherit the `Application` class.
 
 The existing `ISiteDefinitionRepository` is now deprecated, but functions for now and only returns in-process applications.  In order to access both application types you need to use the new interface of `IApplicationRepository`.  This new repository exposes the following methods for listing applications:
 
 ```C#
 // In-process applications
-var data = await applicationRepository.ListAsync<Website>();
+var data = await applicationRepository.ListAsync<InProcessWebsite>();
 
 // Headless applications
-var data = await applicationRepository.ListAsync<RemoteWebsite>();
+var data = await applicationRepository.ListAsync<Website>();
 
 // All applications
 var data = await applicationRepository.ListAsync();

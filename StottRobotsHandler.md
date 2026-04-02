@@ -1,12 +1,12 @@
 ---
 layout: optiaddons
 title: "Stott Robots Handler"
-description: "Content relating to the Stott Robots Handler Add-on for Optimizely CMS 12."
+description: "Content relating to the Stott Robots Handler Add-on for Optimizely CMS 12 & 13."
 permalink: "/article/list/stott-robots-handler"
 category: "Stott Robots Handler"
-nugetdownloads: "306,000+"
-optidownloads: "140,000+"
-currentversion: "6.0.1"
+nugetdownloads: "319,000+"
+optidownloads: "147,000+"
+currentversion: "7.0.0"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler"
 ---
 
