@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Opal Tools Support Comes to Stott Robots Handler v7"
-description: "Stott Robots Handler v7 for Optimizely CMS 13 has been released with added support for Opal Tools."
+title: "Stott Robots Handler v7 for Optimizely CMS 13"
+description: "Stott Robots Handler v7 for Optimizely CMS 13 has been released, with functionality updated to support the new Application based architecture."
 permalink: "/article/stott-robots-handler-v7"
 category:
   - Development
