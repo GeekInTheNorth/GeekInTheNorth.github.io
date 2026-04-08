@@ -1,12 +1,12 @@
 ---
 layout: optiaddons
 title: "Stott Security"
-description: "Content relating to the Stott Security Add-On for Optimizely CMS 12, the leading security header manager."
+description: "Content relating to the Stott Security Add-On for Optimizely CMS 12 and 13, the leading security header manager."
 permalink: "/article/list/stott-security"
 category: "Stott Security"
 nugetdownloads: "84,000+"
 optidownloads: "39,000+"
-currentversion: "5.0.0"
+currentversion: "7.0.0"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
 ---
 
