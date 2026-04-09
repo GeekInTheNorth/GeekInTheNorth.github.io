@@ -40,14 +40,16 @@ In this model, the sources for the Content Security Policy are applied across fo
 
 - **Global (All Applications)**: Sources configured here define the minimum standard applied everywhere, ensuring unsafe patterns are blocked and trusted sources are consistently enforced.
 - **Application**: Sources defined here are applied to all hosts within the specific application.
-- **Host**: Sources defined here apply to a specific website domain.  It's at this level that the most specific configuration should be made.  If you configure a specific **Edit** host, then you can have separate Content Security Polcies for both the front-end and the CMS.
-- **Page**: Sources can be defined at this level by making Content Pages that inherit from IContentSecurityPolicyPage.  This allows editors to include an iFrame on a specific page without opening the entire site for that domain.
+- **Host**: Sources defined here apply to a specific website domain.  It's at this level that the most specific configuration should be made.  If you configure a specific **Edit** host, then you can have separate Content Security Policies for both the front-end and the CMS.
+- **Page**: Sources can be defined at this level by designing Content Pages and Experiences that implement IContentSecurityPolicyPage.  This allows editors to include an iFrame on a specific page without opening the entire site for that domain.
 
-So how would this work in practice? In my primary test instance I configured three separate applications, with each application having a **Primary** host and an **Edit** host.  For my **Edit** host I added all of the additional permissions required by the CMS backend, such as 'unsafe-inline' and https://*.optimizely.com. For my **Primary** host, I added required functionality such as nonce attributes.  The end result was a much more consise and secure Content Security Policy tailored to specific journeys.
+So how would this work in practice? In my primary test instance I configured three separate applications, with each application having a **Primary** host and an **Edit** host.  For my Global level, I implemented the 'self' source across most directives. For my **Edit** host I added all of the additional permissions required by the CMS backend, such as 'unsafe-inline' and https://*.optimizely.com. For my **Primary** host, I added required functionality such as nonce attributes.  The end result was a much more consise and secure Content Security Policy tailored to specific journeys.
 
 ### Permissions Policy and Response Headers
 
 Permissions Policy and Response Headers follow a simpler model. These are configured at Global, Application, or Host level using an override approach where more specific levels replace broader ones. A configuration at Application level replaces the configuration at a Global level; a configuration at Host level replaces any configuration at the Application and Global configurations.
+
+![Example of the Response Headers being overridden for a specific appication](/assets/stott-security-7d.png)
 
 ### Cross Origin Resource Sharing
 
