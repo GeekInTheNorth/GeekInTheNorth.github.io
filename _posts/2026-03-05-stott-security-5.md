@@ -11,6 +11,7 @@ relatedArticles:
   - "_posts/2024-05-17-stott-security-2-x.md"
   - "_posts/2025-04-08-stott-security-3-x.md"
   - "_posts/2026-01-16-stott-security-4.md"
+  - "_posts/2026-04-09-stott-security-7.md"
 ---
 
 March 2026 marks the release of Stott Security v5, a significant update to the popular web security add-on for Optimizely CMS 12+, with more than 115,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.
@@ -34,7 +35,7 @@ Users can add new headers with any valid header name structure and define a valu
 
 ![Custom Headers Interface](/assets/StottSecurityCustomHeaders.png)
 
-For traditional / in-process websites, the order of your middlewares will impact the success rate for removal of headers. Also headers added after the response has been served will not be affected, this means headers added by CloudFlare for example will not be removed.
+For traditional / in-process websites, the order of your middlewares and the point in time where the header is added will impact the success rate for removal of headers. The server header for example is not present in the Response object while middlewares are processed and as such will not be impacted. Also headers added after the response has been served will not be affected, this means headers added by CloudFlare for example will not be removed.
 
 For Headless users, the Header Listing API has been updated so that all configured headers now have an "isRemoval" property that highlights if the header should be removed or not.
 
@@ -73,9 +74,16 @@ For Headless users, the Header Listing API has been updated so that all configur
 ]
 ```
 
-> ⚠️ Migration warning: Any configuration on the old Response Headers interface will need to be recreated.
+⚠️ **Migration warning:** Any configuration on the old Response Headers interface will need to be recreated. Response Headers that were previously managed through the old interface will appear as Disabled and the edit modal will present the same friendly options that were available in the previous UI.  The headers that need re-configuring are limited to:
 
-Response Headers that were previously managed through the old interface will need to be reconfigured.  They will appear with a Disabled behaviour and the edit modal will present the same friendly options that were available in the previous UI.
+- Cross-Origin-Embedder-Policy
+- Cross-Origin-Opener-Policy
+- Cross-Origin-Resource-Policy
+- X-Content-Type-Options
+- X-XSS-Protection
+- X-Frame-Options
+- Referrer-Policy
+- Strict-Transport-Security (HSTS)
 
 ## Audit Record Clean Up
 

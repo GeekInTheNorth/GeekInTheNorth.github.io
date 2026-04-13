@@ -1,12 +1,12 @@
 ---
 layout: optiaddons
 title: "Stott Security"
-description: "Content relating to the Stott Security Add-On for Optimizely CMS 12, the leading security header manager."
+description: "Content relating to the Stott Security Add-On for Optimizely CMS 12 and 13, the leading security header manager."
 permalink: "/article/list/stott-security"
 category: "Stott Security"
-nugetdownloads: "79,500+"
-optidownloads: "36,000+"
-currentversion: "4.0.1"
+nugetdownloads: "84,000+"
+optidownloads: "39,000+"
+currentversion: "7.0.0"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
 ---
 
@@ -70,7 +70,7 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
       <div class="accordion-body">
         <ul>
           <li><strong>User Friendly Interface:</strong> Manage all of your classic response headers in a nice easy to manage interface.</li>
-          <li><strong>Supported Headers:</strong>
+          <li><strong>Specialized Security Headers:</strong>
             <ul>
               <li><code class="language-plaintext highlighter-rouge">Cross-Origin-Embedder-Policy</code></li>
               <li><code class="language-plaintext highlighter-rouge">Cross-Origin-Opener-Policy</code></li>
@@ -81,6 +81,9 @@ gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
               <li><code class="language-plaintext highlighter-rouge">Referrer-Policy</code></li>
               <li><code class="language-plaintext highlighter-rouge">Strict-Transport-Security</code> (HSTS)</li>
             </ul>
+          </li>
+          <li><strong>Custom Headers:</strong>
+            <ul><li>Supports adding or removing of any configured header name.</li></ul>
           </li>
         </ul>
       </div>
