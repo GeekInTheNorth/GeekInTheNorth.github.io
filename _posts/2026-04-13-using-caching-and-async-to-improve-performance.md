@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using Caching and Async to Improve Performance"
-description: "A deep dive into improving the performance of features using Optimizely Search & Navigation by implementing async and caching."
+description: "A deep dive into improving the performance of features by implementing async and caching."
 permalink: "/article/using-caching-and-async-to-improve-performance"
 category:
   - Development
@@ -10,9 +10,11 @@ promoImage: "/assets/async-and-caching-performance-promo.png"
 promoImageAlt: "An illustration of the performance improvements based on caching and asynchronous coding."
 ---
 
-Almost every CMS served website has some concept of dynamic content resolution.  A means to serve up related or latest content links while minimising the burden on the content editors. This style of functionality is commonly delivered through functionality such as Search & Navigation, Content Graph, Algolia or some other indexing functionality.  Another common use of dynamic content resolution are mega menus where the structure is based on the IA of the site and uses some form of recursive logic.  For an **In-Process** or **Traditional CMS**, these can have a significant impact on the server response time for a page.  The server response time is the time between the server receiving a request and delivering it's response, disregarding any transmission time between the server and the client.
+Almost every CMS served website has some concept of dynamic content resolution.  A means to serve up related or latest content links while minimising the burden on the content editors. This style of functionality is commonly delivered through functionality such as Search & Navigation, Content Graph, Algolia or some other indexing functionality.  Another common use of dynamic content resolution are mega menus where the structure is based on the IA of the site and uses some form of recursive logic.  For an **In-Process** or **Traditional CMS**, these can have a significant impact on the server response time for a page.
 
-In the following sections I'm going to be talking about improving performance with a case study that includes Optimizely CMS 12 and Search & Navigation.  The lessons can be easily translated to other indexes and uses.  In this particular case study, the site in question received 450,000 requests a day and was encountering issues with Thread Pool Starvation being reported every week and an average server response time of 1.52s.  Following these changes, the average server response time dropped to 0.044s, a 98% reduction!
+> 📖**Note:** The server response time is the time between the server receiving a request and delivering it's response, disregarding any transmission time between the server and the client.
+
+In the following sections I'm going to be talking about techniques I have used in practice on a high traffic website that was observed to be having performance issues such as Thread Pool Starvation.
 
 ## What is Thread Pool Starvation?
 
@@ -83,14 +85,13 @@ The important point is that async isn't just about swapping one method for anoth
 
 Once asynchronous code removes unnecessary thread blocking, the next step is reducing how often you need to do the work in the first place.  That's where caching comes in.
 
-In the case of a listing block, building the model can involve multiple operations, querying an index, resolving content references, applying enrichment such as category information, and shaping the final view model. Even when each individual operation is relatively fast, the combined cost adds up quickly under load. By caching the final model, you avoid repeating all of that work on every request.
+In the case of a listing block, building the model can involve multiple operations, querying an index, resolving content references, applying enrichment such as category information, and shaping the final view model.  While Search & Navigation code includes a level of caching already, the default duration is short and the cache only affects the results of the query and not the actions you perform on that data. Even when each individual operation is relatively fast, the combined cost adds up quickly under load. By caching the final model, you avoid repeating all of that work on every request.
 
-This has two key benefits:
+The following code is an evolution of the previous example of a listing block, but this time following a standard pattern for adding caching into View Components which can be described as such:
 
-- Fewer operations per request: instead of multiple lookups and transformations, you perform one fast cache read
-- Reduced dependency on the index: avoiding repeated calls to the index removes round trips and frees it up for unique queries
-
-At scale, this dramatically reduces both response times and system load.
+1. Attempt to retrieve the data from the cache
+2. Build model if it does not exist in the cache
+3. Render the model
 
 ```C#
 public class ListingBlockComponent(
@@ -133,7 +134,7 @@ public class ListingBlockComponent(
 }
 ```
 
-> 💡**Top Tip**: Short cache key names can result in faster cache lookups, but make sure you maintain the right level of uniqueness for your own usage.
+> 💡**Top Tip:** Short cache key names can result in faster cache lookups, but make sure you maintain the right level of uniqueness for your own usage.
 
 ## Why Asynchronous Code and Caching work well together
 
@@ -144,12 +145,15 @@ This approach is effective because it combines both strategies:
 
 The result is a dramatic reduction in both thread usage and external calls, exactly what you need to avoid thread pool starvation and improve response times under load.
 
-In my case study, caching wasn't just applied in one place, it was introduced across several high-impact components that were rebuilt on every request.  These included:
+In my scenario, caching wasn't just applied in one place, it was introduced across several high-impact components that were rebuilt on every request.  These included:
 
-- A mega menu driven by content hierarchy.
+- A mega menu driven by content hierarchy
+- Listing and Search pages
 - Listing Blocks (as described above)
 
-The mega menu was the biggest offender. Each request triggered a large number of content lookups as the hierarchy was recursively resolved using IContent Loader. By caching the final menu model, those lookups were eliminated—reducing the number of operations by 500+ per request.
+The mega menu was the biggest offender. Each request triggered a large number of content lookups as the hierarchy was recursively resolved using IContentLoader. By caching the final menu model, those lookups were eliminated, reducing the number of cache and data operations by 500+ per request.
+
+For the Listing and Search pages, the controllers were updated to use asynchronous controllers and to use the asynchronous Search and Navigation queries.
 
 For listing blocks, caching removed repeated calls to the index and avoided rebuilding the model entirely. This ensured that common queries like "latest articles" were served instantly without hitting the index.
 
@@ -159,6 +163,4 @@ Across the solution this resulted in
 - Fewer external calls
 - Less work per request
 
-And ultimately, far less pressure on the thread pool.
-
-![promo 1](/assets/async-and-caching-performance-promo.png)
+And ultimately eliminating the Thread Pool Starvation issue and improving the average server response time by over 95%.
