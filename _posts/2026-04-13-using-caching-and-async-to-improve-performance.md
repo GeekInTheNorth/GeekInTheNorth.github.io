@@ -6,6 +6,8 @@ permalink: "/article/using-caching-and-async-to-improve-performance"
 category:
   - Development
   - Optimizely
+promoImage: "/assets/async-and-caching-performance-promo.png"
+promoImageAlt: "An illustration of the performance improvements based on caching and asynchronous coding."
 ---
 
 Almost every CMS served website has some concept of dynamic content resolution.  A means to serve up related or latest content links while minimising the burden on the content editors. This style of functionality is commonly delivered through functionality such as Search & Navigation, Content Graph, Algolia or some other indexing functionality.  Another common use of dynamic content resolution are mega menus where the structure is based on the IA of the site and uses some form of recursive logic.  For an **In-Process** or **Traditional CMS**, these can have a significant impact on the server response time for a page.  The server response time is the time between the server receiving a request and delivering it's response, disregarding any transmission time between the server and the client.
@@ -160,4 +162,3 @@ Across the solution this resulted in
 And ultimately, far less pressure on the thread pool.
 
 ![promo 1](/assets/async-and-caching-performance-promo.png)
-![promo 2](/assets/async-and-caching-performance-promo-2.png)
