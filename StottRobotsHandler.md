@@ -5,7 +5,7 @@ description: "Content relating to the Stott Robots Handler Add-on for Optimizely
 permalink: "/article/list/stott-robots-handler"
 category: "Stott Robots Handler"
 nugetdownloads: "321,000+"
-optidownloads: "149,000+"
+optidownloads: "150,000+"
 currentversion: "7.0.0"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler"
 ---

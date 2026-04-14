@@ -5,7 +5,7 @@ description: "Content relating to the Stott Security Add-On for Optimizely CMS 1
 permalink: "/article/list/stott-security"
 category: "Stott Security"
 nugetdownloads: "84,000+"
-optidownloads: "39,000+"
+optidownloads: "40,000+"
 currentversion: "7.0.0"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
 ---
