@@ -155,12 +155,8 @@ The mega menu was the biggest offender. Each request triggered a large number of
 
 For the Listing and Search pages, the controllers were updated to use asynchronous controllers and to use the asynchronous Search and Navigation queries.
 
-For listing blocks, caching removed repeated calls to the index and avoided rebuilding the model entirely. This ensured that common queries like "latest articles" were served instantly without hitting the index.
+For listing blocks, caching removed repeated calls to the index and avoided rebuilding the model entirely. This ensured that common queries like "latest articles" were served near instantly while remaining unique to the page and language.
 
-Across the solution this resulted in
+## The Result
 
-- Fewer content lookups
-- Fewer external calls
-- Less work per request
-
-And ultimately eliminating the Thread Pool Starvation issue and improving the average server response time by over 95%.
+The combined use of caching and asynchronous coding resulted in a significant reduction in content lookups, index calls and less work per request. The Thread Pool Starvation issue was entirely eliminated and the average server response time for content pages was reduced to 0.045s per page over a 7 day period.  Ultimately leading to a more stable environment that performed better with no loss of functionality.
