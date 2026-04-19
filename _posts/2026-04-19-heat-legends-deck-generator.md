@@ -9,10 +9,6 @@ extraCss: "/assets/css/heat-legends-generator.css"
 extraJs: "/assets/js/heat-legends-generator.js"
 ---
 
-Before Component
-
 {% raw %}
 <div id="heat-legends-root"></div>
 {% endraw %}
-
-After Component
