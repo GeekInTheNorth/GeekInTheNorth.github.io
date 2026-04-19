@@ -10,5 +10,5 @@ extraJs: "/assets/js/heat-legends-generator.js"
 ---
 
 {% raw %}
-<div id="heat-legends-root"></div>
+<div id="heat-legends-root" class="my-4"></div>
 {% endraw %}
