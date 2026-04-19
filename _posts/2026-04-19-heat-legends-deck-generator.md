@@ -5,8 +5,7 @@ description: "A Legends Deck generator that supports Heat Pedal To The Metal and
 permalink: "/article/heat-legends-deck-generator"
 extraCss: "/assets/css/heat-legends-generator.css"
 extraJs: "/assets/js/heat-legends-generator.js"
-category:
-  - Gaming
+category: Gaming
 ---
 
 Before Component
