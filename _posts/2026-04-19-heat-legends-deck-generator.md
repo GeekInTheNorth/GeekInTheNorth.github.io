@@ -5,6 +5,7 @@ description: "A Legends Deck generator that supports Heat Pedal To The Metal and
 permalink: "/article/heat-legends-deck-generator"
 category: 
   - Gaming
+image: "https://www.stott.pro/assets/heat-pedal-to-the-metal.png"
 promoImage: "/assets/heat-pedal-to-the-metal.png"
 promoImageAlt: "Box Artwork for the Heat, Pedal To The Metal board game."
 extraCss: "/assets/css/heat-legends-generator.css"
