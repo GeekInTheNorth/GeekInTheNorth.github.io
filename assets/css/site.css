@@ -39,7 +39,12 @@ img.credly-badge {
 blockquote {
   border-left: 4px solid gold !important;
   background-color: lightgoldenrodyellow !important;
-  padding: 0.8em;
+  padding: 0.8rem;
+  margin: 2rem;
+}
+
+blockquote p:last-of-type {
+  margin-bottom: 0;
 }
 
 code{
@@ -49,11 +54,11 @@ code{
 pre {
   border-left: 4px solid darkslategray !important;
   background-color: whitesmoke !important;
-  padding: 1em; 
+  padding: 1rem; 
 }
 
 h2, h3, h4 {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 .heroBanner {
@@ -66,6 +71,11 @@ h2, h3, h4 {
 
 #toggleIcon {
   transition: transform 0.3s ease;
+}
+
+table td,
+table th {
+  padding: 0.5rem;
 }
 
 th > span {
