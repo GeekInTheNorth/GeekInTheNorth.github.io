@@ -155,32 +155,32 @@ With the add-on registered and (ideally) a separate Edit host configured, you're
 4. Toggle **Use Report Only Mode** on.  This is critical: it tells the browser to report violations rather than block content, so you can shake out problems without breaking the site.
 5. Optionally enable **Use Internal Reporting Endpoints** so violations land on the **CSP Violations** screen for review.
 6. Move to the **CSP Sources** tab. The set below is the recommended starting point for the **Global** context as they will be needed everywhere.
+    
+    | Source | Directives to add | Why it's needed on the Global level |
+    |-|-|-|
+    | `'self'` | default-src, child-src, connect-src, font-src, frame-src, img-src, script-src, script-src-elem, style-src, style-src-elem | Same-origin baseline |
+    | `https://*.optimizely.com` | script-src, script-src-elem, style-src, style-src-elem, connect-src, font-src | Optimizely-hosted assets used by the CMS editor and other Optimizely One products. |
 
-| Source | Directives to add | Why it's needed on the Global level |
-|-|-|-|
-| `'self'` | default-src, child-src, connect-src, font-src, frame-src, img-src, script-src, script-src-elem, style-src, style-src-elem | Same-origin baseline |
-| `https://*.optimizely.com` | script-src, script-src-elem, style-src, style-src-elem, connect-src, font-src | Optimizely-hosted assets used by the CMS editor and other Optimizely One products. |
-
-> Both Edit and Primary **Host** contexts inherit from **Application** and then **Global** in that order. Sources defined at a higher level don't need to be re-added at a **Host** level.
-
+    > Both Edit and Primary **Host** contexts inherit from **Application** and then **Global** in that order. Sources defined at a higher level don't need to be re-added at a **Host** level.
+    
 7. The following sources are required to keep the **Optimizely CMS editor** working, and they are **not** a recommendation for your public-facing pages.  Add them at the **Edit-host** context level.
-
-| Source | Directives to add | Why it's needed on the Edit host |
-|---|---|---|
-| `'unsafe-inline'` | script-src, script-src-elem, style-src, style-src-elem | CMS editor uses inline scripts and styles |
-| `'unsafe-eval'` | script-src, script-src-elem | CMS editor uses eval |
-| `data:` | img-src | CMS editor uses data-URI images |
-| `https://*.cloudfront.net/graphik/` | font-src | CMS editor font (Graphik) |
-| `https://*.cloudfront.net/lato/` | font-src | CMS editor font (Lato) |
+    
+    | Source | Directives to add | Why it's needed on the Edit host |
+    |---|---|---|
+    | `'unsafe-inline'` | script-src, script-src-elem, style-src, style-src-elem | CMS editor uses inline scripts and styles |
+    | `'unsafe-eval'` | script-src, script-src-elem | CMS editor uses eval |
+    | `data:` | img-src | CMS editor uses data-URI images |
+    | `https://*.cloudfront.net/graphik/` | font-src | CMS editor font (Graphik) |
+    | `https://*.cloudfront.net/lato/` | font-src | CMS editor font (Lato) |
 
 8. For the **Primary** (front-end) host, start from a much tighter baseline.  The minimum sources to configure are:
-
-| Source | Directives to add | Why it's needed on the Primary host |
-|-|-|-|
-| `'nonce-random'`| script-src, script-src-elem, style-src, style-src-elem | Enables nonce-based execution of script and style elements rendered by your front-end. |
-
-> **Note**: The nonce and use of 'self' at the **Global** level for most directives will ensure your site has a strong secure starting point. This pair gives you a strict, modern CSP where only your own assets and explicitly nonced inline blocks execute.
-
+    
+    | Source | Directives to add | Why it's needed on the Primary host |
+    |-|-|-|
+    | `'nonce-random'`| script-src, script-src-elem, style-src, style-src-elem | Enables nonce-based execution of script and style elements rendered by your front-end. |
+    
+    > **Note**: The nonce and use of 'self' at the **Global** level for most directives will ensure your site has a strong secure starting point. This pair gives you a strict, modern CSP where only your own assets and explicitly nonced inline blocks execute.
+    
 9. Click **Add Source** for each third-party domain you legitimately need and tick only the directives that apply.
 10. Browse the site as both an editor and a visitor.  Watch the **CSP Violations** tab for anything legitimate getting blocked, and add sources as needed.
 11. Once the violations list is clean, return to **CSP Settings** and turn **Use Report Only Mode** off to start enforcing the policy.
