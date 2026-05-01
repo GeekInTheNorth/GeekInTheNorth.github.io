@@ -159,8 +159,6 @@ That's a small piece of orchestration that, in a traditional integration, you'd 
 
 The DJ portal endpoints used by the GPT are public read endpoints, so there's no API key in this iteration.  If I were exposing anything that mutated state (such as actually submitting a music request rather than just listing them), I'd switch the action to use an API key or OAuth and lock the corresponding endpoint down on the server side.  The Custom GPT configuration supports both authentication styles straightforwardly; what it can't do is excuse you from getting your authentication model right at the API layer.
 
-Privacy was the other consideration.  Music requests in the API include a `userId` and a `userName`, and the GPT has access to both.  The `userId` is a short lived `GUID` as there are no user accounts.  The `userName` is **only** ever visible in the DJ Admin interface which requires an authenticated user. In all other usecases, the API itself obfuscates the user name before returning data or returns a value of "You" if you are the original requestor.  Regardless, I made it explicit in the instructions that user IDs must never be returned in a response and that user names are fine to show.  The same rule covers internal request IDs unless they're specifically needed.  This is the sort of thing you absolutely want pinned down up front.
-
 ## Publishing The Custom GPT
 
 Once the GPT is configured, the next decision is who gets to use it.  On a personal ChatGPT account there are three sharing levels, each with different trade-offs:
@@ -177,7 +175,7 @@ Building a Custom GPT is a refreshingly direct way to put a chat front end on an
 
 A few takeaways from the build worth carrying into any future GPT:
 
-- **Treat ChatGPT as a thinking partner during drafting.**  It volunteered useful guardrails I might have only thought of after the fact — filtering cancelled events, hiding internal IDs, capping result counts, adding DJ insight rather than reading API data verbatim.
+- **Treat ChatGPT as a thinking partner during drafting.**  It volunteered useful guardrails I might have only thought of after the fact; such as filtering cancelled events, hiding internal IDs, capping result counts, adding DJ insight rather than reading API data verbatim.
 - **Keep the instructions and schema as separate documents.**  Versioning them alongside the rest of the site repository and pasting clean copies into the Configure screen made iteration far less stressful than editing live.
 - **Operation summaries and parameter descriptions do most of the work for Actions.**  A little extra time on those is the difference between the GPT confidently picking the right operation and hesitating or asking the user a clarifying question.
 - **Pin down privacy and what-not-to-expose rules from day one.**  It's far easier than walking the model back later.
