@@ -28,6 +28,8 @@ The DJ portal does two things that map cleanly to a chat experience:
 
 Both are very natural things to ask a chatbot.  *"Where are you playing next?"*, *"Do you have anything by Caro Emerald?"*, *"What's been requested for the Tadcaster freestyle?"* are all questions a dancer would otherwise have to navigate through several pages to answer.  It's also a nicely contained domain.  Only three of the four public endpoints were involved, which keeps the surface area manageable for a first GPT.
 
+![An example of the Custom GPT in action](/assets/dj-custom-gpt-example.png)
+
 ## Building It Through Conversation
 
 There are two ways to put a Custom GPT together.  OpenAI offers a dedicated **GPT Builder** which has both a form based approach and a chat experience: a build agent walks you through who the GPT is for, how it should behave, and what tools it should have, updating the configuration fields for you as you talk.
@@ -129,6 +131,8 @@ The schema itself is a fairly standard OpenAPI document.  The bits that matter m
 }
 ```
 
+> 💾 **Note:** The full schema can be seen here: <a href="https://github.com/GeekInTheNorth/DjPortal/blob/main/GPT/Schema.json" rel="nofollow" target="_blank">schema.json</a>
+
 The interesting wrinkle here is that `listMusicRequests` requires an `eventId` that the user is very unlikely to know off the top of their head.  In the instructions I taught the GPT to chain the calls: when someone names an event by venue or date, look it up via `listEvents` first, match it, and then use the returned `id` for the request lookup.  Once that pattern was written down, the GPT did it correctly without further prompting.
 
 ```markdown
@@ -147,7 +151,7 @@ The DJ portal endpoints used by the GPT are public read endpoints, so there's no
 
 Privacy was the other consideration.  Music requests in the API include a `userId` and a `userName`, and the GPT has access to both.  The `userId` is a short lived `GUID` as there are no user accounts.  The `userName` is **only** ever visible in the DJ Admin interface which requires an authenticated user. In all other usecases, the API itself obfuscates the user name before returning data or returns a value of "You" if you are the original requestor.  Regardless, I made it explicit in the instructions that user IDs must never be returned in a response and that user names are fine to show.  The same rule covers internal request IDs unless they're specifically needed.  This is the sort of thing you absolutely want pinned down up front.
 
-## Publishing The GPT
+## Publishing The Custom GPT
 
 Once the GPT is configured, the next decision is who gets to use it.  On a personal ChatGPT account there are three sharing levels, each with different trade-offs:
 
