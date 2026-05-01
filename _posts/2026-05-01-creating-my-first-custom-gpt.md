@@ -70,6 +70,16 @@ That last one is a recurring theme.  Left alone, an LLM happily returns everythi
 
 If you'd rather not maintain the instructions and schema as separate documents, GPT Builder is a perfectly reasonable starting point.  You can always switch to the Configure tab afterwards and edit by hand.
 
+## The Configure Screen
+
+The Configure screen is where the GPT actually comes together.  The left half is a form covering the name, description, instructions, conversation starters, knowledge files, capabilities and Actions.  The right half is a live preview of the GPT, fully functional and calling your real Actions, but only visible to you.
+
+![The Custom GPT Configuration screen](/assets/dj-custom-gpt-creation.png)
+
+The preview pane is very useful when making small and frequent changes to the Custom GPT.  Every change to the instructions and every tweak to the OpenAPI schema was immediately testable in the chat panel without saving, sharing or publishing anything.  Add a new rule, ask a question that should exercise it, and the effect is visible straight away.
+
+This change-test-refine loop happens entirely in private.  The GPT doesn't go anywhere until you explicitly choose a sharing level, which makes the Configure screen a genuinely safe place to experiment.
+
 ## Defining The Behaviour
 
 The instructions are where most of the personality and the guardrails live.  Mine ended up as a structured Markdown document covering core behaviour, per-tool rules, DJ-specific knowledge, how to handle vague requests, and a short example of the desired response style.  A few extracts give the flavour:
