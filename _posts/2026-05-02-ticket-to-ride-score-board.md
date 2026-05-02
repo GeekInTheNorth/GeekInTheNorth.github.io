@@ -2,7 +2,7 @@
 layout: post
 title: "Ticket to Ride : Scoreboard"
 description: "A scoreboard that supports scoring calculations that are compatible with both the Classic and Europe versions of Ticket to Ride as well as the Legenday Asia expansion"
-permalink: "/article/heat-legends-deck-generator"
+permalink: "/article/ticket-to-ride-scoreboard"
 category: 
   - Gaming
   - "Geek Stories"
