@@ -11,6 +11,8 @@ promoImage: "/assets/heat-pedal-to-the-metal.png"
 promoImageAlt: "Box Artwork for the Heat, Pedal To The Metal board game."
 extraCss: "/assets/css/heat-legends-generator.css"
 extraJs: "/assets/js/heat-legends-generator.js"
+relatedArticles:
+  - "_posts/2026-05-02-ticket-to-ride-score-board.md"
 ---
 
 ## The Board Game
