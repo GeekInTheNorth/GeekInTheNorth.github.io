@@ -13,26 +13,35 @@ relatedArticles:
   - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
 ---
 
-A Custom GPT is essentially a configured version of ChatGPT with its own persona, instructions and a small set of tools (called **Actions**) that it can call out to.  You don't need to write any backend code to host the GPT itself; you describe the behaviour you want, point it at any APIs you'd like it to use, and OpenAI does the rest.  It's a very low ceremony way to put a conversational front end on top of an existing service, which made it a tempting fit for a side project I've been wanting to dress up for a while.
+A Custom GPT is essentially a configured version of ChatGPT with its own persona, instructions and a small set of tools (called **Actions**) that it can call out to.  You don't need to write any code to host the GPT itself; you describe the behaviour you want, point it at any APIs you'd like it to use, and OpenAI does the rest. It's a very low ceremony way to put a conversational front end on top of an existing service, which made it a tempting fit for a side project I've been wanting to dress up for a while.
+
+There are a few requirements to get started:
+- A Chat GPT account with a subscription at **Plus** tier or higher.
+- A collection of APIs to be consumed.
+- A JSON representation of your APIs.
+- A set of instructions in markdown format to guide behaviour.
 
 For my first attempt I picked something deliberately small but real: my own DJ portal at [dj.stott.pro](https://dj.stott.pro).  The site already exposes upcoming events and music requests via a JSON API, so the goal was to wrap those endpoints in a friendly DJ persona and see how far I could get without writing a single line of new server-side code.
 
-> 💡**Note**: In order to create and publish Custom GPTs you must have a Chat GPT account that is on the Plus tier.
-
 ## Why The DJ Portal
 
-The DJ portal does two things that map cleanly to a chat experience:
+My DJ Portal is an Azure Static WebApp using an Azure AI Search service as the data store.  The pages are compiled based on data within the Events index and are then deployed alongside several Azure functions written in C#. The DJ portal does two things that map cleanly to a chat experience:
 
-- It lists my upcoming Ceroc and modern jive events with dates, venues and times.
+- It lists my upcoming Ceroc dance events with dates, venues and times.
 - It lets dancers search a track library and submit music requests for a specific event.
 
-Both are very natural things to ask a chatbot.  *"Where are you playing next?"*, *"Do you have anything by Caro Emerald?"*, *"What's been requested for the Tadcaster freestyle?"* are all questions a dancer would otherwise have to navigate through several pages to answer.  It's also a nicely contained domain.  Only three of the four public endpoints were involved, which keeps the surface area manageable for a first GPT.
+Both are very natural things to ask a chatbot.  *"Where are you playing next?"*, *"Do you have anything by Caro Emerald?"*, *"What's been requested for the Tadcaster freestyle?"* are all questions a dancer would otherwise have to navigate through multiple pages or actions to answer.  It's also a nicely contained domain.  Only three of the four public endpoints were involved, which keeps the surface area manageable for a first GPT.
 
 ![An example of the Custom GPT in action](/assets/dj-custom-gpt-example.png)
 
 ## Building It Through Conversation
 
 There are two ways to put a Custom GPT together.  OpenAI offers a dedicated **GPT Builder** which has both a form based approach and a chat experience: a build agent walks you through who the GPT is for, how it should behave, and what tools it should have, updating the configuration fields for you as you talk.
+
+<figure class="figure">
+  <img src="https://www.stott.pro/assets/dj-custom-gpt-chat.png" class="figure-img img-fluid rounded" alt="The chat interface of the GPT Builder">
+  <figcaption class="figure-caption text-end"><em>Please note that this image has been generated after I published my GPT so I can share the Chat interface.</em></figcaption>
+</figure>
 
 I personnally chose to start in a regular ChatGPT conversation to *draft* the instructions and the OpenAPI schema iteratively, then created the Custom GPT itself through the standard **Create a GPT → Configure** screen by pasting the instructions into the Instructions field and the schema into the Actions section.  This worked well for me for a few reasons:
 
@@ -67,8 +76,6 @@ Items that ChatGPT considered without prompting included:
 - Limiting the number of results shown so a reply doesn't turn into a list dump.
 
 That last one is a recurring theme.  Left alone, an LLM happily returns everything an API gives it.  A few sentences of "show no more than three to five tracks" or "highlight one or two events" makes the difference between a useful assistant and a wall of text.
-
-If you'd rather not maintain the instructions and schema as separate documents, GPT Builder is a perfectly reasonable starting point.  You can always switch to the Configure tab afterwards and edit by hand.
 
 ## The Configure Screen
 
@@ -115,7 +122,7 @@ A few patterns I would repeat for any future Custom GPT:
 
 Actions are the bridge between the GPT and a real API.  You provide an OpenAPI 3.1 schema describing the endpoints, parameters and response shapes, and the GPT figures out when to call which operation based on the user's intent and the operation summaries.
 
-For the DJ portal I described three operations:
+For the DJ portal I described three operations and provided the response data examples and ChatGPT built the OpenAPI schema itself:
 
 - `listEvents` to retrieve upcoming events.
 - `searchTracks` for the track library.
@@ -168,6 +175,12 @@ Once the GPT is configured, the next decision is who gets to use it.  On a perso
 - **GPT Store (Public).**  The GPT is listed in OpenAI's public GPT Store, where any ChatGPT user can find and use it.  Publishing here requires a verified builder profile, and any Actions you've configured must point to a valid **Privacy Policy URL**.  Public GPTs also need to comply with OpenAI's content and use-case policies.
 
 For the DJ portal GPT I went with **Anyone with the link**.  It lets me put it in front of a handful of friends and see how the behaviour holds up under real questions, without the extra commitment (or the verified builder profile and Privacy Policy URLs) that listing in the GPT Store would require.
+
+## Understanding The Actions Being Called
+
+When you converse with the Custom GPT and it makes requests using your Actions, the chat will show an expandable component which makes it clear what data has been sent to and received from the API.  This helps a lot with transparency of data transfer.  In the following example you can see that it sent a query of "galantis" and the API returned several suggestions back.  The instructions in the Custom GPT take this data and then present it back to the user.
+
+![](/assets/dj-custom-gpt-example2.png)
 
 ## Closing Thoughts
 
