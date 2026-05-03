@@ -5,8 +5,8 @@ description: "I built a new Custom GPT for my DJ website entirely through conver
 permalink: "/article/creating-my-first-custom-gpt"
 category:
   - Development
-image: "https://www.stott.pro/assets/dj-custom-gpt.png"
-promoImage: "/assets/dj-custom-gpt.png"
+image: "https://www.stott.pro/assets/dj-custom-gpt.jpg"
+promoImage: "/assets/dj-custom-gpt.jpg"
 promoImageAlt: "An infographic for the article."
 relatedArticles:
   - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"

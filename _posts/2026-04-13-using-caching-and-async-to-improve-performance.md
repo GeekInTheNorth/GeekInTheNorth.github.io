@@ -6,8 +6,8 @@ permalink: "/article/using-caching-and-async-to-improve-performance"
 category:
   - Development
   - Optimizely
-image: "https://www.stott.pro/assets/async-and-caching-performance-promo.png"
-promoImage: "/assets/async-and-caching-performance-promo.png"
+image: "https://www.stott.pro/assets/async-and-caching-performance-promo.jpg"
+promoImage: "/assets/async-and-caching-performance-promo.jpg"
 promoImageAlt: "An illustration of the performance improvements based on caching and asynchronous coding."
 ---
 

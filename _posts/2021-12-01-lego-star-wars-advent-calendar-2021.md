@@ -5,11 +5,12 @@ description: "A day by day opening of the Lego Star Wars Advent Calendar 2021."
 permalink: "/article/lego_star_wars_advent_calendar_2021"
 category:
   - "Geek Stories"
+image: "https://www.stott.pro/assets/lego-star-wars-advent-2021-cover.jpg"
+promoImage: "/assets/lego-star-wars-advent-2021-cover.jpg"
+promoImageAlt: "Lego Star Wars Advent Calendar 2021 Box"
 ---
 
 Every year I pick up a copy of the Star Wars Lego Advent Calendar.  This year I plan to update this post on a day by day basis with each new micro build along with a little background information on each one.  This years edition of this advent calendar is based on the very popular Mandalorian tv series on Disney+.
-
-![Lego Star Wars Advent Calendar 2021 Box](/assets/lego-star-wars-advent-2021-cover.jpg)
 
 ## Day 1: Razor Crest
 
