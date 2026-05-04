@@ -1,0 +1,20 @@
+<div class="card shadow bg-light border-1">
+    <div class="card-header bg-light border-0 pb-0">
+        <h3 class="h5 card-title text-dark mb-2">{{ include.article.title }}</h3>
+        <div class="d-flex align-items-center gap-2 text-muted small mb-3">
+            <i class="fa-solid fa-calendar"></i>
+            <span>Published: {{ include.article.date | date_to_long_string: "ordinal" }}</span>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <p class="card-text text-muted small">{{ include.article.description }}</p>
+        <div>
+            {% for category in include.article.categories %}
+                <span class='badge text-bg-secondary me-2'>{{ category }}</span>
+            {% endfor %}
+        </div>    
+    </div>
+    <div class="card-footer border-0 bg-light">
+        <a href="{{ include.article.url }}" class="btn btn-primary me-2 w-100">Read Article<i class="fa-solid fa-arrow-right ms-2"></i></a>
+    </div>
+</div>
