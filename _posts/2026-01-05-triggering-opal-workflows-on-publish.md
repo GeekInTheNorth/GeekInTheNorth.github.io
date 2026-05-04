@@ -6,6 +6,7 @@ permalink: "/article/triggering-opal-workflows-on-publish"
 category:
   - Development
   - Optimizely
+  - AI
 relatedArticles:
 - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
 - "_posts/2025-12-03-creating-opal-tools-in-csharp.md"

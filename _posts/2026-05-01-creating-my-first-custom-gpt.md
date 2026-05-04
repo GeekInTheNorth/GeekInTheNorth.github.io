@@ -5,6 +5,7 @@ description: "I built a new Custom GPT for my DJ website entirely through conver
 permalink: "/article/creating-my-first-custom-gpt"
 category:
   - Development
+  - AI
 image: "https://www.stott.pro/assets/dj-custom-gpt.jpg"
 promoImage: "/assets/dj-custom-gpt.jpg"
 promoImageAlt: "An infographic for the article."

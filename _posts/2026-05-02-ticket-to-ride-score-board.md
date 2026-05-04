@@ -6,6 +6,7 @@ permalink: "/article/ticket-to-ride-scoreboard"
 category: 
   - Gaming
   - "Geek Stories"
+  - AI
 image: "https://www.stott.pro/assets/ticket-to-ride.png"
 promoImage: "/assets/ticket-to-ride.png"
 promoImageAlt: "Box Artwork for the Ticket to Ride Europe board game."
