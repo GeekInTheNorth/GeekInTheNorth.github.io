@@ -69,7 +69,6 @@ layout: default
 </div>
 
 {% if page.relatedArticles %}
-
 <div class="container-fluid bg-dark py-3 my-4">
   <section class="container">
     <h2 class="mb-3 text-light">Related Articles</h2>
@@ -82,5 +81,15 @@ layout: default
     </div>
   </section>
 </div>
-
+{% else %}
+<div class="container-fluid bg-dark py-3 my-4">
+  <section class="container">
+    <h2 class="mb-3 text-light">Recent Articles</h2>
+    <div class="row g-4">
+    {% for post in site.posts limit:3 %}
+      {% include promo.html article = post %}
+    {% endfor %}
+    </div>
+  </section>
+</div>
 {% endif %}
