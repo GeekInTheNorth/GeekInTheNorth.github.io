@@ -1,0 +1,16 @@
+<div class="col-12 col-sm-6 col-lg-4 my-3">
+    <div class="card h-100 text-center bg-light shadow-sm border-1 {{ include.classes }}">
+        <div class="card-body p-4">
+            <div class="mb-3">
+                <a href="{{ include.url }}" target="_blank">
+                    <img alt="{{ include.imageAlt }}" loading="lazy" width="150" height="150" decoding="async" class="img-fluid" src="{{ include.image }}">
+                </a>
+            </div>
+            <h3 class="h6 fw-semibold text-dark mb-1">{{ include.title }}</h3>
+            {% if include.subtitle %}
+            <p class="small text-muted mb-2">{{ include.subtitle }}</p>
+            {% endif %}
+            <span class="badge bg-secondary">{{ include.badge }}</span>
+        </div>
+    </div>
+</div>
