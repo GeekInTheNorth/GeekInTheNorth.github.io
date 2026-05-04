@@ -6,7 +6,6 @@ permalink: "/article/creating-opal-tools-in-csharp"
 category:
   - Development
   - Optimizely
-  - AI
 relatedArticles:
   - "_posts/2026-01-02-triggering-opal-workflows-on-publish.md"
   - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"

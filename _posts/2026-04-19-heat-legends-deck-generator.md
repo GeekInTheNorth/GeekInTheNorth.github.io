@@ -6,7 +6,6 @@ permalink: "/article/heat-legends-deck-generator"
 category: 
   - Gaming
   - "Geek Stories"
-  - AI
 image: "https://www.stott.pro/assets/heat-pedal-to-the-metal.jpg"
 promoImage: "/assets/heat-pedal-to-the-metal.jpg"
 promoImageAlt: "Box Artwork for the Heat, Pedal To The Metal board game."

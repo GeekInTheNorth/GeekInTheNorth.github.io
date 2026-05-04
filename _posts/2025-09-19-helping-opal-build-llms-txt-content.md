@@ -7,7 +7,6 @@ category:
   - Development
   - Optimizely
   - "Stott Robots Handler"
-  - AI
 relatedArticles:
   - "_posts/2025-09-17-stott-robots-handler-v6.md"
   - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
