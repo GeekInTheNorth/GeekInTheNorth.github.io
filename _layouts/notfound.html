@@ -24,8 +24,10 @@ layout: default
 
 <section>
     <h2>Latest Posts</h2>
+    <div class="row g-4">
     {% for post in site.posts limit:6 %}
         {% include promo.html article = post %}
     {% endfor %}
+    </div>
 </section>
 </div>
