@@ -65,14 +65,14 @@ layout: default
         </div>
       </div>
       {% if page.relatedArticles %}
-        <h2 class="mb-3 text-light">Related Articles</h2>
+        <h2 class="my-3">Related Articles</h2>
         {% for post in site.posts %}
           {% if page.relatedArticles contains post.path %}
             {% include relatedpromo.html article = post %}
           {% endif %}
         {% endfor %}
       {% else %}
-        <h2 class="mb-3 text-light">Recent Articles</h2>
+        <h2 class="my-3">Recent Articles</h2>
         {% for post in site.posts limit:3 %}
           {% include relatedpromo.html article = post %}
         {% endfor %}
