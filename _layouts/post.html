@@ -38,8 +38,8 @@ layout: default
 
 {% endif %}
 
-<div class="container main-content mt-5">
-  <article>
+<div class="container-lg main-content mt-5">
+  <article class="px-md-3 px-lg-5">
       {{ content }}
 
       <div>
@@ -69,8 +69,8 @@ layout: default
 </div>
 
 {% if page.relatedArticles %}
-<div class="container-fluid bg-dark py-3 my-4">
-  <section class="container">
+<div class="container-fluid bg-dark py-3 px-0 my-4">
+  <section class="container-lg">
     <h2 class="mb-3 text-light">Related Articles</h2>
     <div class="row g-4">
     {% for post in site.posts %}
