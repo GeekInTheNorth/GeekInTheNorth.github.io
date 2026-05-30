@@ -38,6 +38,12 @@ layout: default
 
 {% endif %}
 
+{% if page.categories contains "Stott Security" %}
+    {% include stottsecurity.html %}
+{% elsif page.categories contains "Stott Robots Handler" %}
+    {% include stottrobotshandler.html %}
+{% endif %}
+
 <div class="container-lg main-content mt-5">
   <article class="px-md-3 px-lg-5">
       {{ content }}

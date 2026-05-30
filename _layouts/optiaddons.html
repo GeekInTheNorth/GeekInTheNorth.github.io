@@ -16,24 +16,11 @@ layout: default
         </div>
     </div>
 </section>
-<section class="py-4 bg-white border-bottom">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-12 col-md-4 mb-3 mb-md-0">
-                <div class="h3 fw-bold text-dark mb-1">{{ page.nugetdownloads }}</div>
-                <div class="text-muted">Downloads on nuget.org</div>
-            </div>
-            <div class="col-12 col-md-4 mb-3 mb-md-0">
-                <div class="h3 fw-bold text-dark mb-1">{{ page.optidownloads }}</div>
-                <div class="text-muted">Downloads on nuget.optimizely.com</div>
-            </div>
-            <div class="col-12 col-md-4 mb-3 mb-md-0">
-                <div class="h3 fw-bold text-dark mb-1">{{ page.currentversion }}</div>
-                <div class="text-muted">Current Version</div>
-            </div>
-        </div>
-    </div>
-</section>
+{% if page.category == "Stott Security" %}
+    {% include stottsecurity.html %}
+{% elsif page.category == "Stott Robots Handler" %}
+    {% include stottrobotshandler.html %}
+{% endif %}
 <div class="container">
     <section class="my-4">
         {{ content }}
