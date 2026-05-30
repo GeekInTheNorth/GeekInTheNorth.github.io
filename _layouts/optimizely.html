@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign devPosts = site.categories[page.category] %}
+
 <section class="bg-dark text-white heroBanner">
     <div class="container">
         <div class="row align-items-center py-5">
@@ -21,7 +23,7 @@ layout: default
     <div class="container">
         <div class="row text-center">
             <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <div class="h3 fw-bold text-dark mb-1">36+</div>
+                <div class="h3 fw-bold text-dark mb-1">{{ devPosts | size }}</div>
                 <div class="text-muted">Optimizely Articles</div>
             </div>
             <div class="col-12 col-sm-6 col-lg-3 my-2">
@@ -47,10 +49,8 @@ layout: default
     <section>
     <h2 class="h3 fw-semibold text-dark mb-4">Articles</h2>
     <div class="row g-4">
-    {% for post in site.posts %}
-        {% if post.categories contains page.title %}
-            {% include promo.html article = post %}
-        {% endif %}
+    {% for post in devPosts %}
+        {% include promo.html article = post %}
     {% endfor %}
     </div>
     </section>

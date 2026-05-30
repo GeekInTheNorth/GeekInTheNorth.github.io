@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign devPosts = site.categories[page.category] %}
+
 {% if page.promoImage %}
 <section class="bg-dark text-white heroBanner">
     <div class="container">
@@ -50,10 +52,8 @@ layout: default
     <section>
         <h2 class="h3 fw-semibold text-dark mb-4">Articles</h2>
         <div class="row g-4">
-        {% for post in site.posts %}
-            {% if post.categories contains page.title %}
-                {% include promo.html article = post %}
-            {% endif %}
+        {% for post in devPosts %}
+            {% include promo.html article = post %}
         {% endfor %}
         </div>
     </section>
