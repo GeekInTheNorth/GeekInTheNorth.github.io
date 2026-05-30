@@ -46,7 +46,7 @@ layout: default
 
 <div class="container-lg main-content mt-5">
   <article class="px-md-3 px-lg-5">
-      {{ content }}
+      {{ content | replace: '<img ', '<img loading="lazy" '  }}
 
       <div>
           {% for category in page.categories %}
