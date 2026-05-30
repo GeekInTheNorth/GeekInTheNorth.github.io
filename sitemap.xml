@@ -3,7 +3,7 @@ layout: null
 ---
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {% for page in site.pages %}
-    {% unless page.url contains "/assets" or page.url contains "/404" or page.url contains "/sitemap.xml" %}
+    {% unless page.url contains "/assets" or page.url contains "/404" or page.url contains "/sitemap.xml" or page.url contains ".json" %}
     <url>
       <loc>{{ site.url }}{{ page.url | remove: "index.html" }}</loc>
       {% if page.date %}
