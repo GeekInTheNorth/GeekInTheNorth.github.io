@@ -8,6 +8,9 @@ nugetdownloads: "91,000+"
 optidownloads: "43,000+"
 currentversion: "7.0.1"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
+image: "https://www.stott.pro/assets/stott-security-7a.png"
+promoImage: "/assets/stott-security-7a.png"
+promoImageAlt: "A screen capture of the Stott Security interface."
 ---
 
 [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) is an Add-on for [Optimizely](https://www.optimizely.com/) CMS that allows a CMS Administrator to manage security headers that are used to protect the CMS website without requiring a code deployment.  This Add-on is free to use and is covered by an [MIT License](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/blob/main/LICENSE.txt).  If you wish to support the ongoing development of this Add-on, then please feel free to [buy me a coffee](https://www.buymeacoffee.com/markstott).
