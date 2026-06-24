@@ -18,6 +18,23 @@ promoImageAlt: "A screen capture of the Stott Security interface."
 <h2 class="h3 fw-semibold text-dark mb-4">Key Features</h2>
 <div class="accordion" id="keyFeaturesAccordion">
   <div class="accordion-item">
+    <h2 class="accordion-header mt-0" id="scopeHeading">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scopeAccordion" aria-expanded="false" aria-controls="scopeAccordion">
+        🧭 <strong>Global, Application &amp; Host Configuration</strong>
+      </button>
+    </h2>
+    <div id="scopeAccordion" class="accordion-collapse collapse" aria-labelledby="scopeHeading" data-bs-parent="#keyFeaturesAccordion">
+      <div class="accordion-body">
+        <ul>
+          <li><strong>Multiple Contexts:</strong> Configure headers globally, by application (site in CMS 12) and by individual host, using the built-in context switcher.</li>
+          <li><strong>Layered Content Security Policy:</strong> CSP sources merge across four levels — Global, Application, Host and Page — so you can enforce strong defaults while refining policies for specific journeys.</li>
+          <li><strong>Override Model:</strong> Permissions Policy and Response Headers use an override approach where more specific levels replace broader ones.</li>
+          <li><strong>Separate Front-End &amp; CMS Policies:</strong> Apply tight, nonce-based policies to your delivery hosts while granting the CMS editor host the permissions it needs.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
     <h2 class="accordion-header mt-0" id="cspHeading">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cspAccordion" aria-expanded="true" aria-controls="cspAccordion">
         🛡️ <strong>Content Security Policy</strong>
@@ -32,6 +49,7 @@ promoImageAlt: "A screen capture of the Stott Security interface."
           <li><strong>Violation Handling:</strong> Add blocked domains straight into your CSP straight from the violation report screen</li>
           <li><strong>Agency Allow List:</strong> Automatically update your Content Security Policies across multiple instances based on a centrally managed allow list.</li>
           <li><strong>Supports Nonce:</strong> Supports nonce attributes on script and style tags. Automatically applied for traditional CMS pages, must be applied in UI code for Headless solutions.</li>
+          <li><strong>Layered by Scope:</strong> Define sources globally and refine them by application, host and page, merged into a single policy for the page being served.</li>
         </ul>
       </div>
     </div>
@@ -47,6 +65,7 @@ promoImageAlt: "A screen capture of the Stott Security interface."
         <ul>
           <li><strong>User Friendly Interface:</strong> Manage individual directives in an easy-to-use interface.</li>
           <li><strong>Searchable:</strong> Search by domain or filter by permission to fully understand what permissions have been granted.</li>
+          <li><strong>Scoped Configuration:</strong> Configure globally and override at application or host level.</li>
         </ul>
       </div>
     </div>
@@ -73,6 +92,7 @@ promoImageAlt: "A screen capture of the Stott Security interface."
       <div class="accordion-body">
         <ul>
           <li><strong>User Friendly Interface:</strong> Manage all of your classic response headers in a nice easy to manage interface.</li>
+          <li><strong>Scoped Configuration:</strong> Configure globally and override at application or host level.</li>
           <li><strong>Specialized Security Headers:</strong>
             <ul>
               <li><code class="language-plaintext highlighter-rouge">Cross-Origin-Embedder-Policy</code></li>
@@ -98,10 +118,9 @@ promoImageAlt: "A screen capture of the Stott Security interface."
     </h2>
     <div id="stAccordion" class="accordion-collapse collapse" aria-labelledby="stHeader" data-bs-parent="#keyFeaturesAccordion">
       <div class="accordion-body">
-        <p><strong>Coming in version 4!</strong></p>
         <ul>
           <li><strong>User Friendly Interface:</strong> Manage your security.txt files in an easy to interface that is familiar to users of Stott Robots Handler.</li>
-          <li><strong>Multi-Domain / Host Support:</strong> Write a single security.txt file for your entire CMS, or create them by site or even specific host.</li>
+          <li><strong>Multi-Domain / Host Support:</strong> Write a single security.txt file for your entire CMS, or create them by application (site in CMS 12) or even specific host.</li>
         </ul>
       </div>
     </div>
