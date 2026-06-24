@@ -58,3 +58,15 @@ services.UseRobotsHandler();
 // Add this to your _ViewImports.cshtml if you are running traditional
 @addTagHelper *, Stott.Optimizely.RobotsHandler
 ```
+
+## Hotfix 7.0.1
+
+As of 24<sup>th</sup> June 2026, version 7.0.1 is now available on both [nuget.org](https://www.nuget.org/packages/Stott.Optimizely.RobotsHandler) and [nuget.optimizely.com](https://nuget.optimizely.com/packages/stott.optimizely.robotshandler/7.0.1).  This hotfix includes:
+
+- Correcting the Content-Type header to include UTF-8 for both robots.txt and llms.txt.
+- Minor Cosmetic fixes:
+  - Title bar is now visible again.
+  - Containers no longer clash with Optimizely CMS built in styles resulting in excess padding.
+- Removed the "All Applications" option from the "Add new..." modals for both robots.txt and llms.txt content.
+  - Validation already prevented users from saving a configuration without having selected a specific configuration.
+- Playwright tests now add confidence for future releases.
