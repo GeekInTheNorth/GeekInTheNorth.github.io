@@ -11,6 +11,7 @@ relatedArticles:
   - "_posts/2024-05-17-stott-security-2-x.md"
   - "_posts/2026-01-16-stott-security-4.md"
   - "_posts/2026-03-05-stott-security-5.md"
+  - "_posts/2026-05-17-stott-security-6.md"
   - "_posts/2026-04-09-stott-security-7.md"
 ---
 

@@ -12,6 +12,7 @@ relatedArticles:
   - "_posts/2025-04-08-stott-security-3-x.md"
   - "_posts/2026-01-16-stott-security-4.md"
   - "_posts/2026-03-05-stott-security-5.md"
+  - "_posts/2026-05-17-stott-security-6.md"
 ---
 
 Stott Security version 7 is now available for **Optimizely PaaS CMS 13**, introducing support for configuring security headers by both **application** and **host**. This aligns the add-on more closely with how Optimizely CMS structures content and delivery, enabling far more precise and maintainable security policies.

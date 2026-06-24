@@ -59,7 +59,7 @@ services.UseRobotsHandler();
 @addTagHelper *, Stott.Optimizely.RobotsHandler
 ```
 
-## Hotfix 7.0.1
+## Release 7.0.1
 
 As of 24<sup>th</sup> June 2026, version 7.0.1 is now available on both [nuget.org](https://www.nuget.org/packages/Stott.Optimizely.RobotsHandler) and [nuget.optimizely.com](https://nuget.optimizely.com/packages/stott.optimizely.robotshandler/7.0.1).  This hotfix includes:
 
