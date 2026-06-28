@@ -9,8 +9,8 @@ category:
 image: "https://www.stott.pro/assets/ticket-to-ride.png"
 promoImage: "/assets/ticket-to-ride.png"
 promoImageAlt: "Box Artwork for the Ticket to Ride Europe board game."
-extraCss: "/assets/css/ticket-to-ride.css"
-extraJs: "/assets/js/ticket-to-ride.js"
+extraCss: "/assets/css/ticket-to-ride.css?v=2"
+extraJs: "/assets/js/ticket-to-ride.js?v=2"
 relatedArticles:
   - "_posts/2026-04-19-heat-legends-deck-generator.md"
 ---
@@ -66,3 +66,7 @@ Claude looked at the subfolder for my previous component that I built ([Heat, Pe
 - **Reset Functions:** The train routes and tickets were responding nicely to quick taps, but removing or correcting was a little fiddly. Adding a reset button made this a little easier to use.
 
 Overall, putting this together took just over an hour, 1 specification and 18 rounds of iterative instructions all within the Claude Code interface to build this component.  It was a fun challenge and it shows how quickly you can build simple solutions within AI.
+
+## Updates
+
+- 28<sup>th</sup> June 2026 - Added 9 length route scoring based on Ticket To Ride : Nordic Countries

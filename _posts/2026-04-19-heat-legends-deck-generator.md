@@ -9,8 +9,8 @@ category:
 image: "https://www.stott.pro/assets/heat-pedal-to-the-metal.jpg"
 promoImage: "/assets/heat-pedal-to-the-metal.jpg"
 promoImageAlt: "Box Artwork for the Heat, Pedal To The Metal board game."
-extraCss: "/assets/css/heat-legends-generator.css"
-extraJs: "/assets/js/heat-legends-generator.js"
+extraCss: "/assets/css/heat-legends-generator.css?v=2"
+extraJs: "/assets/js/heat-legends-generator.js?v=2"
 relatedArticles:
   - "_posts/2026-05-02-ticket-to-ride-score-board.md"
 ---
