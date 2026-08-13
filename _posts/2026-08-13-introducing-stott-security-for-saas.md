@@ -17,6 +17,8 @@ relatedArticles:
   - "_posts/2026-04-09-stott-security-7.md"
 ---
 
+## Introduction
+
 [Stott Security](/article/getting-started-with-stott-security) has been helping developers and editors manage Content Security Policies and security headers on **Optimizely PaaS CMS** for several years. Today I am pleased to share an early access release of **Stott Security for Optimizely SaaS CMS**: a complete rebuild designed for Optimizely's composable platform, built on the **Optimizely Connect Platform (OCP)** and rendered inside the CMS using **CMS UI Extensions**.
 
 ## A Complete Rebuild
