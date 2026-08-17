@@ -7,6 +7,7 @@ category: "Stott Robots Handler"
 nugetdownloads: "339,000+"
 optidownloads: "159,000+"
 currentversion: "7.0.0"
+gitRepositoryLabel: "PaaS Repository"
 gitRepository: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler"
 ---
 
