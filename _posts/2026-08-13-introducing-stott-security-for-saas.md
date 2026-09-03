@@ -21,6 +21,8 @@ relatedArticles:
 
 [Stott Security](/article/getting-started-with-stott-security) has been helping developers and editors manage Content Security Policies and security headers on **Optimizely PaaS CMS** for several years. Today I am pleased to share an early access release of **Stott Security for Optimizely SaaS CMS**: a complete rebuild designed for Optimizely's composable platform, built on the **Optimizely Connect Platform (OCP)** and rendered inside the CMS using **CMS UI Extensions**.
 
+> **Please note:** Since this announcement was made, additional functionality to support Permissions Policy was delivered on the 21st August 2026
+
 ## A Complete Rebuild
 
 Optimizely SaaS CMS does not give you a web server to install a NuGet package into, so the add-on model that has served the PaaS version so well simply does not exist there. Instead, extensions are built as apps on the Optimizely Connect Platform and surface their interfaces inside the CMS using CMS UI Extensions. Stott Security for SaaS is exactly that: an OCP app that adds a full-page security console to your CMS and serves your compiled headers to your site's front end from a public endpoint.
@@ -68,7 +70,7 @@ A complete rebuild on a much simpler data store means this is not a feature-for-
 | Per-page CSP sources | ✔ | ✘ | No current plans |
 | Standard & custom response headers | ✔ | ✔ | - |
 | CORS settings | ✔ | ✘ | No current plans |
-| Permissions Policy | ✔ | ✘ | Planned |
+| Permissions Policy | ✔ | ✔ | Delivered 21/08/2026 |
 | Security.txt files | ✔ | ✘ | No current plans |
 | Global / Application / Host contexts | ✔ | Global only | Planned |
 | Header preview | ✔ | ✔ | - |
