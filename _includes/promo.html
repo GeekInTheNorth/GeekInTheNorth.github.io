@@ -16,7 +16,11 @@
             </div>    
         </div>
         <div class="card-footer border-0 bg-light">
-            <a href="{{ include.article.url }}" class="btn btn-primary me-2 w-100">Read Article<i class="fa-solid fa-arrow-right ms-2"></i></a>
+            {% if include.article.externalUrl %}
+                <a href="{{ include.article.externalUrl }}" target="_blank" rel="noopener" class="btn btn-primary me-2 w-100">Read on {{ include.article.externalSource | default: "external site" }}<i class="fa-solid fa-arrow-up-right-from-square ms-2"></i></a>
+            {% else %}
+                <a href="{{ include.article.url }}" class="btn btn-primary me-2 w-100">Read Article<i class="fa-solid fa-arrow-right ms-2"></i></a>
+            {% endif %}
         </div>
     </div>
 </div>
