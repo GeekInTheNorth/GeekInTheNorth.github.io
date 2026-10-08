@@ -1,0 +1,54 @@
+# Content for the /links page (Links.md + _layouts/links.html).
+# Order in this file is the order shown on the page.
+
+profile:
+  name: "Mark Stott"
+  avatar: "/assets/mark_stott_lock_down_small.jpg"
+  tagline: "Solutions Architect at Netcel & Platinum Optimizely MVP"
+  bio: "Sharing insights on tech, security and automation in the Optimizely CMS space. Ceroc dancer and DJ."
+
+socials:
+  - title: "GitHub"
+    url: "https://github.com/GeekInTheNorth/"
+    icon: "fa-brands fa-github"
+  - title: "LinkedIn"
+    url: "https://www.linkedin.com/in/mark-antony-stott/"
+    icon: "fa-brands fa-linkedin"
+  - title: "Instagram"
+    url: "https://www.instagram.com/geekinthenorth/"
+    icon: "fa-brands fa-instagram"
+  - title: "Threads"
+    url: "https://www.threads.net/@GeekInTheNorth"
+    icon: "fa-brands fa-square-threads"
+  - title: "X (Twitter)"
+    url: "https://twitter.com/GeekInTheNorth"
+    icon: "fa-brands fa-x-twitter"
+
+links:
+  - title: "Technical Blog"
+    description: "Articles on Optimizely, .NET development and more"
+    url: "/"
+    icon: "fa-solid fa-pen-nib"
+  - title: "Stott Security for Optimizely CMS"
+    description: "Manage CSP, CORS and security headers from the CMS"
+    url: "/article/list/stott-security"
+    icon: "fa-solid fa-shield-halved"
+  - title: "Stott Robots Handler for Optimizely CMS"
+    description: "Manage robots.txt, llms.txt and robots headers"
+    url: "/article/list/stott-robots-handler"
+    icon: "fa-solid fa-robot"
+  - title: "Optimizely World Profile"
+    description: "My blog posts on the Optimizely developer community"
+    url: "https://world.optimizely.com/blogs/mark-stott"
+    icon: "fa-solid fa-globe"
+  - title: "GitHub Profile"
+    description: "Open source add-ons and side projects"
+    url: "https://github.com/GeekInTheNorth"
+    icon: "fa-brands fa-github"
+  - title: "Buy me a coffee"
+    description: "Support the development of my open source add-ons"
+    url: "https://www.buymeacoffee.com/markstott"
+    icon: "fa-solid fa-mug-hot"
+
+# Number of most recent articles to show automatically. Set to 0 to hide the section.
+latestArticles: 3

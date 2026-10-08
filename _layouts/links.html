@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="/assets/js/links.js?v=1"></script>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/; font-src 'self' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self';">
+  <meta name="theme-color" content="#0f172a">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="/assets/css/links.css?v=1" rel="stylesheet">
+  {% seo %}
+</head>
+
+{% assign profile = site.data.links.profile %}
+<body>
+  <div class="lk-toolbar">
+    <button type="button" class="lk-icon-button js-theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <i class="fa-solid fa-moon lk-theme-dark" aria-hidden="true"></i>
+      <i class="fa-solid fa-sun lk-theme-light" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="lk-icon-button js-share" aria-label="Share this page" title="Share this page" data-share-title="{{ profile.name }}" data-share-url="{{ page.url | absolute_url }}">
+      <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <main class="lk-page">
+    <header class="lk-profile">
+      <img class="lk-avatar" src="{{ profile.avatar }}" alt="{{ profile.name }}" width="112" height="112">
+      <h1 class="lk-name">{{ profile.name }}</h1>
+      <p class="lk-tagline">{{ profile.tagline }}</p>
+      <p class="lk-bio">{{ profile.bio }}</p>
+
+      <ul class="lk-socials">
+        {% for social in site.data.links.socials %}
+        <li>
+          <a href="{{ social.url }}" target="_blank" rel="noopener me" aria-label="{{ social.title }}" title="{{ social.title }}">
+            <i class="{{ social.icon }}" aria-hidden="true"></i>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </header>
+
+    <ul class="lk-links">
+      {% for link in site.data.links.links %}
+      {% assign isExternal = link.url | slice: 0, 4 %}
+      <li>
+        <a class="lk-link" href="{{ link.url }}"{% if isExternal == "http" %} target="_blank" rel="noopener"{% endif %}>
+          <span class="lk-link-icon"><i class="{{ link.icon }}" aria-hidden="true"></i></span>
+          <span class="lk-link-text">
+            <span class="lk-link-title">{{ link.title }}</span>
+            {% if link.description %}<span class="lk-link-description">{{ link.description }}</span>{% endif %}
+          </span>
+          <i class="fa-solid {% if isExternal == "http" %}fa-arrow-up-right-from-square{% else %}fa-arrow-right{% endif %} lk-link-arrow" aria-hidden="true"></i>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% assign latestCount = site.data.links.latestArticles | default: 0 %}
+    {% if latestCount > 0 %}
+    <section class="lk-latest" aria-labelledby="latest-heading">
+      <h2 id="latest-heading" class="lk-section-title">Latest articles</h2>
+      <ul class="lk-articles">
+        {% assign shown = 0 %}
+        {% for post in site.posts %}
+          {% if shown >= latestCount %}{% break %}{% endif %}
+          {% if post.published == false %}{% continue %}{% endif %}
+          {% assign shown = shown | plus: 1 %}
+        <li>
+          {% if post.externalUrl %}
+          <a class="lk-article" href="{{ post.externalUrl }}" target="_blank" rel="noopener">
+          {% else %}
+          <a class="lk-article" href="{{ post.url }}">
+          {% endif %}
+            <span class="lk-article-title">{{ post.title }}</span>
+            <span class="lk-article-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d/%m/%Y" }}</time>
+              {% if post.externalUrl %} · on {{ post.externalSource | default: "external site" }}{% endif %}
+            </span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <footer class="lk-footer">
+      <a href="/">www.stott.pro</a>
+      <span aria-hidden="true">·</span>
+      <a href="/cookie-policy">Cookie Policy</a>
+    </footer>
+  </main>
+
+  <div class="lk-toast js-toast" role="status" aria-live="polite"></div>
+</body>
+
+</html>
