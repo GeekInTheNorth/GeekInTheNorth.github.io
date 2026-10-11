@@ -176,12 +176,19 @@ functions:
 
 A CMS UI Extension uses three Optimizely packages, plus a design system for the UI:
 
-| Package | Used By | Purpose |
-|---|---|---|
-| [@zaiusinc/app-sdk](https://www.npmjs.com/package/@zaiusinc/app-sdk) | Backend | The OCP App SDK.  Provides `App.Function` and `App.Response` for your functions, `Lifecycle` for install and settings form hooks, `storage` for the Settings, Secrets, Key Value and Shared Key Value stores, `functions` for resolving your public endpoints and `logger`.  It also provides `defineConfig` for `ocp-app.config.mjs`. |
-| [@optimizely/ocp-cms-ui-extensions-sdk](https://www.npmjs.com/package/@optimizely/ocp-cms-ui-extensions-sdk) | Build and Backend | A plugin for the OCP App SDK that adds support for `ui_extensions` within your `app.yml`.  It is used by `ocp app validate` and by the OCP runtime when your app starts, and exposes constants such as the supported injection points for your build tooling.  This is never imported into your frontend code. |
-| [@optimizely/cms-extensibility-sdk](https://www.npmjs.com/package/@optimizely/cms-extensibility-sdk) | Frontend | The SDK for the CMS side of your extension.  Provides `register()` and the `ExtensionContext` used to talk to the CMS and your backend.  Requires React 18 or later. |
-| [@optiaxiom/react](https://optimizely-axiom.github.io/optiaxiom/) | Frontend | The React implementation of Optimizely's Axiom design system, which helps your extension look and feel like part of the CMS. |
+- **[@zaiusinc/app-sdk](https://www.npmjs.com/package/@zaiusinc/app-sdk)** (Backend): The OCP App SDK, which provides:
+  - `App.Function` and `App.Response` for your functions.
+  - `Lifecycle` for install and settings form hooks.
+  - `storage` for the Settings, Secrets, Key Value and Shared Key Value stores.
+  - `functions` for resolving your public endpoints.
+  - `logger` for logging.
+  - `defineConfig` for `ocp-app.config.mjs`.
+- **[@optimizely/ocp-cms-ui-extensions-sdk](https://www.npmjs.com/package/@optimizely/ocp-cms-ui-extensions-sdk)** (Build and Backend): A plugin for the OCP App SDK that adds support for `ui_extensions` within your `app.yml`.
+  - It is used by `ocp app validate` and by the OCP runtime when your app starts.
+  - It exposes constants such as the supported injection points for your build tooling.
+  - It is never imported into your frontend code.
+- **[@optimizely/cms-extensibility-sdk](https://www.npmjs.com/package/@optimizely/cms-extensibility-sdk)** (Frontend): The SDK for the CMS side of your extension.  Provides `register()` and the `ExtensionContext` used to talk to the CMS and your backend.
+- **[@optiaxiom/react](https://optimizely-axiom.github.io/optiaxiom/)** (Frontend): The React implementation of Optimizely's Axiom design system, which helps your extension look and feel like part of the CMS.
 
 The plugin must be registered within `ocp-app.config.mjs`, otherwise your `ui_extensions` declarations will not be recognised and `ocp app validate` will fail:
 
