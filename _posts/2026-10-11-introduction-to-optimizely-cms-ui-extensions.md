@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "An Introduction to Optimizely OCP CMS UI Extensions"
-description: "An introduction to building OCP CMS UI Extensions for Optimizely SaaS CMS"
+title: "Building UI Extensions for Optimizely SaaS CMS"
+description: "Extending Optimizely SaaS CMS the way add-ons extend PaaS. A practical guide to building OCP CMS UI Extensions."
 permalink: "/article/introduction-to-optimizely-cms-ui-extensions"
 category:
   - Development
@@ -17,7 +17,7 @@ relatedArticles:
 
 Developers have been using add-ons to extend the functionality of Optimizely PaaS CMS for years.  These have been built using C# and deployed as NuGet packages. Where you have control of the code for the CMS, this is the optimum approach for seamless integration.  As Optimizely SaaS CMS becomes a more common approach for composable architecture, the way we extend the CMS has had to change.
 
-A CMS UI Extension is an application built in **node** and **JavaScript** that is deployed into the Optimizely Connect Platform (OCP).  From there, your app can be installed into any SaaS CMS that is within your organisation. There are currently three ways that your CMS UI Extension can manifest within your SaaS CMS:
+A CMS UI Extension is an application built in **Node.js** and **JavaScript** that is deployed into the Optimizely Connect Platform (OCP).  From there, your app can be installed into any SaaS CMS that is within your organisation. There are currently three ways that your CMS UI Extension can manifest within your SaaS CMS:
 
 - **Sidebar**: Appears within the CMS editor interface within a panel mounted to the right-hand side of the screen.
 - **View**: Mounts a standalone full-width page that is accessed via the Extensions option in the left-hand menu.
@@ -25,9 +25,9 @@ A CMS UI Extension is an application built in **node** and **JavaScript** that i
 
 ## Setting Up Your Environment
 
-In order to develop applications for OCP, you must be an Optimizely Partner or Customer and you must have Developer access to an OCP environment.  If you have access to OCP already, you may still need to raise a ticket with Optimizely Support to gain access as a Developer.
+To build apps for OCP, you need to be an Optimizely Partner or Customer with Developer access to an OCP environment.  Having access to OCP does not automatically make you a Developer, so you may need to raise a ticket with Optimizely Support to request it.
 
-Once you have access to the Developer Portal in OCP, you can generate an API key which you will use with the OCP CLI.  You should save this within a credentials file on your device as `~/.ocp/credentials.json` and then install the OCP CLI:
+Once you have access to the OCP Developer Portal, generate an API key for the OCP CLI.  Save the key to a credentials file at `~/.ocp/credentials.json` and then install the CLI:
 
 Windows:
 ```Powershell
@@ -63,7 +63,7 @@ ocp accounts whoami
 
 Before you get started with building your application you should look at installing the [Optimizely OCP Skills](https://github.com/optimizely/ocp-skills/) for your AI coding assistant.  Whether you clone these into your own repo or install them as a plugin is going to be your own decision.  It does come with 4 skills, 2 of which are migration skills. If you are new to OCP app development, you can focus on the **ocp-app-development** and **ocp-local-testing** skills.
 
-Optimizely have also created a sample OCP CMS UI Extension called [Unsplash Viewer](https://github.com/optimizely/unsplash-viewer-cms-ui-extension-ocp-app) that has both a `sidebar` panel and a full-page `view`.  It is worth looking at this sample repository to see how the two entry points are configured and to understand the general architecture of a CMS UI Extension.
+Optimizely have also created a sample OCP CMS UI Extension called [Unsplash Viewer](https://github.com/optimizely/unsplash-viewer-cms-ui-extension-ocp-app) that has both a **sidebar** panel and a full-page **view**.  It is worth looking at this sample repository to see how the two entry points are configured and to understand the general architecture of a CMS UI Extension.
 
 ## Thinking About Data
 
@@ -172,6 +172,28 @@ functions:
   - **entry_point**: This is the name of your entry point.
   - **accepts**: If you set this to `cms_ui_extension`, then it means the endpoint has no public URL and can only be accessed by the frontend using the `invokeFunction()` method.  Omit this if you want to provide a public endpoint.
 
+### SDKs
+
+A CMS UI Extension uses three Optimizely packages, plus a design system for the UI:
+
+| Package | Used By | Purpose |
+|---|---|---|
+| [@zaiusinc/app-sdk](https://www.npmjs.com/package/@zaiusinc/app-sdk) | Backend | The OCP App SDK.  Provides `App.Function`, `App.Response`, `storage`, `functions` and `logger`, along with `defineConfig` for `ocp-app.config.mjs`. |
+| [@optimizely/ocp-cms-ui-extensions-sdk](https://www.npmjs.com/package/@optimizely/ocp-cms-ui-extensions-sdk) | Build | A build plugin that teaches OCP about `ui_extensions` and `accepts: cms_ui_extension`.  This is never imported into your frontend code. |
+| [@optimizely/cms-extensibility-sdk](https://www.npmjs.com/package/@optimizely/cms-extensibility-sdk) | Frontend | Provides `register()` and the `ExtensionContext` used to talk to the CMS and your backend. |
+| [@optiaxiom/react](https://optimizely-axiom.github.io/optiaxiom/) | Frontend | Optimizely Axiom, the React design system used by the CMS itself. |
+
+The build plugin must be registered within `ocp-app.config.mjs`, otherwise `ocp app validate` will reject your `ui_extensions` and `accepts` declarations:
+
+```JavaScript
+import { defineConfig } from '@zaiusinc/app-sdk';
+import { cmsUiExtensions } from '@optimizely/ocp-cms-ui-extensions-sdk';
+
+export default defineConfig({
+  plugins: [cmsUiExtensions()]
+});
+```
+
 ### Backend
 
 Each function declared within the `functions` section of your `app.yml` has a matching entry file within `src/backend/functions/`.  The `entry_point` must match the name of the exported class, and that class must extend `App.Function` from the `@zaiusinc/app-sdk` package and implement a `perform()` method that returns an `App.Response`.  One thing to watch out for is that the status code is the **first** argument for `App.Response`, which is the opposite of the standard web `Response` object.
@@ -258,13 +280,24 @@ A few design decisions are worth highlighting here:
 - The response includes a `cacheSeconds` value to encourage the consuming website to cache the response.  Without this, every page request on the head would result in a request to OCP.
 - Having nothing published yet returns an empty array with a `200` status so the head can apply its own defaults, while a genuine failure returns a `503` so the head can tell the difference and fall back gracefully.
 - The response contract is identical to the compiled headers endpoint in the PaaS version of Stott Security, allowing a single consumer implementation to work with either product.
-- The endpoint is anonymous by design.  These headers are visible on every response from the website anyway, but this is a deliberate decision and you should consider carefully what data you expose from any public function.
+- The endpoint is anonymous by design.  These headers are visible on every response from the website anyway, but this is a deliberate decision and you should consider carefully what data you expose from any public function.  If your data has privacy needs, then consider requiring an API Key.
 
 > Please note that I will cover consuming this endpoint in a headless solution in a future article so as to not detract from the topic of this article.
 
 ### Frontend
 
 Each entry within the `ui_extensions` section of your `app.yml` has a matching entry file within `src/cms-ui-extensions/`.  For Stott Security for SaaS CMS, this is a single `view` with an entry point of `SecurityConsole`, which maps to `SecurityConsole.view.tsx`.  The frontend is built with React and is rendered within an iFrame inside of the CMS.
+
+Your CMS UI Extension may have multiple entry points that manifest within the CMS in different ways. The naming convention for a UI entry file is as follows:
+
+```
+<Name>.<injection-point>.{ts,tsx,js,jsx}
+
+// Examples
+MyExtension.view.tsx
+MyExtension.sidebar.ts
+MyExtension.property-editor.js
+```
 
 #### SecurityConsole.view.tsx
 
@@ -296,6 +329,22 @@ const result = await context.extension.invokeFunction('cms_extension', { action,
 ```
 
 A nice benefit of this approach is that there are no URLs, authentication cookies, CORS rules or CSRF tokens to manage within the frontend.  The call never leaves the CMS host and OCP takes care of routing it to your backend function.  It is worth noting that `invokeFunction()` will only reject on a transport failure, application errors are returned as a normal response with a non-2xx status code, so you will want to handle both.
+
+The `ExtensionContext` offers more than the console needs.  Which members are available depends on where your extension manifests within the CMS:
+
+- **context.extension**: Available to all extensions.
+  - `setReady()` tells the CMS that your extension has finished loading.  The CMS may show a loading indicator until this is called.
+  - `getDefinition()` returns the id, display name, type and configuration of your extension.
+  - `invokeFunction(functionId, parameters)` calls a backend function.  The `functionId` is the key under `functions` in your `app.yml` (e.g. `cms_extension`) and not the class name.
+- **context.content**: Only meaningful within a `sidebar`.
+  - `get()` returns a snapshot of the content currently being edited, including its key, version, locale and public URL.
+  - `subscribe(callback)` notifies you when the content being edited changes.
+- **context.property**: Only bound within a `property-editor`.
+  - `get()` returns the current value of the property, whether it is read-only and any property settings.
+  - `set(value)` updates the value of the property.  This resolves to `{ success, error }` rather than throwing an error, so make sure you check `success`.
+  - `subscribe(callback)` notifies you when the value of the property changes.
+
+For both `content` and `property`, the `subscribe()` method only fires on subsequent changes.  You should call `get()` to read the initial value and then `subscribe()` to receive later changes, otherwise your component will remain empty until something changes.  The `subscribe()` method also returns a function that you should call to unsubscribe when your component unmounts.
 
 The rest of the file is a fairly standard React component.  The UI is built with [Optimizely Axiom](https://www.npmjs.com/package/@optiaxiom/react) (`@optiaxiom/react`), which is Optimizely's own design system, and helps the extension look and feel like a native part of the CMS.  Every Axiom component reads its design tokens from the `AxiomProvider`, so this needs to wrap your entire extension or the components will render unstyled.
 
