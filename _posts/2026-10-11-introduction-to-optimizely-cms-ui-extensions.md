@@ -25,7 +25,7 @@ A CMS UI Extension is an application built in **Node.js** and **JavaScript** tha
 
 ## Setting Up Your Environment
 
-To build apps for OCP, you need to be an Optimizely Partner or Customer with Developer access to an OCP environment.  Having access to OCP does not automatically make you a Developer, so you may need to raise a ticket with Optimizely Support to request it.
+To build apps for OCP, you need to be an Optimizely Partner or Customer with Developer access to an OCP environment.  You may need to raise a ticket with Optimizely Support to activate the developer functionality for ODP.  From there additional members of your team can be granted developer access by assigning the Developer role for ODP in the Admin Centre.
 
 Once you have access to the OCP Developer Portal, generate an API key for the OCP CLI.  Save the key to a credentials file at `~/.ocp/credentials.json` and then install the CLI:
 
