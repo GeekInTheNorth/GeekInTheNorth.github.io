@@ -363,16 +363,16 @@ function Shell({ children }: { children: React.ReactNode }): React.JSX.Element {
 
 There are a few other things to be aware of when building a `view`:
 
-- A `view` is a single mounted bundle, so navigation between the Response Headers, Content Security Policy, Permissions Policy, Preview and Tools screens is managed using component state and tabs rather than a client-side router.
-- The CMS already renders a title for your extension, so there is no need to repeat it within your own UI.  I have used this space for a sticky toolbar containing the publish status and the Save and Publish buttons.
+- A `view` is a single mounted bundle. For my multi-tab interface I manage what is visible through component state rather than using a client side router.
+- The CMS already renders a title for your extension, so there is no need to repeat it within your own UI.
 - The `ExtensionContext` does not currently carry the identity of the user, so you cannot rely on it for attributing actions to a named editor.
 
 ### App Directory Information
 
 The assets folder of your repository is used to provide additional information for when your app is added to the app directory:
 
-- `assets/logo.png` and `assets/icon.svg` provide a logo to be used
-- `assets/directory/overview.md` provides a description of the application directly visible in OCP.
+- `assets/logo.png` and `assets/icon.svg` provide a logo to be used both within the card on the App Directory and within the summary card on the app page.
+- `assets/directory/overview.md` provides the content to be displayed in the Overview tab within OCP.
 
 ![The CMS UI Extensions application detail screen within OCP.](/assets/ocp-cms-ui-extensions-1.png)
 
@@ -397,13 +397,8 @@ Other options you can add to your settings.yml include the following, you can se
 - **Toggle**: An option you can toggle on or off. 
 - **Text**: A plain input box, additional options can be set to change the input type to text, email, number or phone.
 - **Secret**: A secure field for sensitive data that will be displayed as asterisks.  Data added to one of these fields cannot be retrieved through the settings form interface.
-- **Select**: A single-select field that renders differently based on the number of options:
-  - 1 option is rendered as a toggle.
-  - 2-3 options are rendered as a radio group.
-  - 4+ options are rendered as a dropdown.
-- **Multi-Select**: A multi-select field that renders differently based on the number of options:
-  - 1-3 options are rendered as a collection of switches.
-  - 4+ options are rendered as a multi-select dropdown.
+- **Select**: A single-select field that renders differently based on the number of options provided.
+- **Multi-Select**: A multi-select field that renders differently based on the number of options provided.
 - **Button**: Allows for an action to be triggered within the form e.g. "Begin Integration"
 - **Link Button**: Allows for a link to an external URL and supports Mustache syntax for URL variation.
 - **OAuth Button**: Supports authentication with a third party in order to support integrations.
