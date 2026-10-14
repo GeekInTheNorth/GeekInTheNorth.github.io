@@ -15,9 +15,9 @@ relatedArticles:
 
 ## Introduction
 
-Developers have been using add-ons to extend the functionality of Optimizely PaaS CMS for years.  These have been built using C# and deployed as NuGet packages. Where you have control of the code for the CMS, this is the optimum approach for seamless integration.  As Optimizely SaaS CMS becomes a more common approach for composable architecture, the way we extend the CMS has had to change.
+Developers have been extending the functionality of Optimizely PaaS CMS for years using addons built in C# and deployed as NuGet packages. Where you have control of the code for the CMS, this is the optimum approach for seamless integration.  As Optimizely SaaS CMS becomes a more common approach for composable architecture, the way we extend the CMS has had to change.  To fill this gap, Optimizely have created a new feature for Optimizely Connect Platform (OCP) and SaaS CMS called CMS UI Extensions which is in beta at the time of writing.
 
-A CMS UI Extension is an application built in **Node.js** and **JavaScript** that is deployed into the Optimizely Connect Platform (OCP).  From there, your app can be installed into any SaaS CMS that is within your organisation. There are currently three ways that your CMS UI Extension can manifest within your SaaS CMS:
+A CMS UI Extension is an application built in **Node.js** and **JavaScript** that is deployed into the OCP.  From there, your app can be installed into any SaaS CMS that is within your organisation. There are currently three ways that your CMS UI Extension can manifest within your SaaS CMS:
 
 - **Sidebar**: Appears within the CMS editor interface within a panel mounted to the right-hand side of the screen.
 - **View**: Mounts a standalone full-width page that is accessed via the Extensions option in the left-hand menu.
@@ -25,7 +25,9 @@ A CMS UI Extension is an application built in **Node.js** and **JavaScript** tha
 
 ## Setting Up Your Environment
 
-To build apps for OCP, you need to be an Optimizely Partner or Customer with Developer access to an OCP environment.  You may need to raise a ticket with Optimizely Support to activate the developer functionality for ODP.  From there additional members of your team can be granted developer access by assigning the Developer role for ODP in the Admin Centre.
+To build apps for OCP, you need to be an Optimizely Partner or Customer with Developer access to an OCP environment.  You may need to raise a ticket with Optimizely Support to activate the developer functionality for OCP for the first time.  From there additional members of your team can be granted developer access by assigning the Developer role for OCP in the Admin Centre.
+
+![A screen shot of the OCP Developer Portal](/assets/ocp-developer-portal.png)
 
 Once you have access to the OCP Developer Portal, generate an API key for the OCP CLI.  Save the key to a credentials file at `~/.ocp/credentials.json` and then install the CLI:
 
@@ -63,6 +65,8 @@ ocp accounts whoami
 
 Before you get started with building your application you should look at installing the [Optimizely OCP Skills](https://github.com/optimizely/ocp-skills/) for your AI coding assistant.  Whether you clone these into your own repo or install them as a plugin is going to be your own decision.  It does come with 4 skills, 2 of which are migration skills. If you are new to OCP app development, you can focus on the **ocp-app-development** and **ocp-local-testing** skills.
 
+> 💡 **Tip:** These AI skills know how to build your app, how to register it, how to publish it for developer testing, beta testing and for production review.  It is highly recommended that you use them.
+
 Optimizely have also created a sample OCP CMS UI Extension called [Unsplash Viewer](https://github.com/optimizely/unsplash-viewer-cms-ui-extension-ocp-app) that has both a **sidebar** panel and a full-page **view**.  It is worth looking at this sample repository to see how the two entry points are configured and to understand the general architecture of a CMS UI Extension.
 
 ## Thinking About Data
@@ -76,11 +80,12 @@ When building add-ons for Optimizely PaaS CMS, you had access to your own tables
 
 If you are planning to store a lot of data to the Key Value Store, consider co-locating the data as a JSON object.  Each entry in the Key Value Store can be up to 400 KB in size and storing data together can reduce the number of API calls needed by your application.
 
-If the data you are storing to the Key Value Store is intended to have a limited lifespan, the data should be saved with a TTL (Time to Live).  Data saved without a TTL will have a lifespan limited to the application installation.  If you need to reinstall your CMS UI Extension, all of its data is removed when you uninstall it, and the reinstalled app starts with an empty store.
+If the data you are storing to the Key Value Store is intended to have a limited lifespan, e.g. 1 hour, then data should be saved with a TTL (Time to Live).  Data saved without a TTL will have a lifespan limited to the application installation.
 
-If you have a requirement for data permanence that extends beyond this, then you will need to consider alternative options such as:
+If you require data permenance, then you need to consider an alternative place to store your data.  The Key Value Store is expected to be rebuildable in the same way that the Content Graph index is expected to be rebuildable.  Any value without a TTL will be persisted for the life span of the application.  If you need to reinstall or update the application or move it from one regional store to another, then the Key Value Store is completely reset.
 
-- Using SDKs to store your data in Content Graph or as content.
+Options for permance should include:
+- Using SDKs to store your data as content in the CMS or CMP.
 - Using a third-party data store accessible via API using an API key stored within the Settings Store.
 
 ## Reviewing the Stott Security for SaaS CMS Solution
@@ -176,18 +181,9 @@ functions:
 
 A CMS UI Extension uses three Optimizely packages, plus a design system for the UI:
 
-- **[@zaiusinc/app-sdk](https://www.npmjs.com/package/@zaiusinc/app-sdk)** (Backend): The OCP App SDK, which provides:
-  - `App.Function` and `App.Response` for your functions.
-  - `Lifecycle` for install and settings form hooks.
-  - `storage` for the Settings, Secrets, Key Value and Shared Key Value stores.
-  - `functions` for resolving your public endpoints.
-  - `logger` for logging.
-  - `defineConfig` for `ocp-app.config.mjs`.
-- **[@optimizely/ocp-cms-ui-extensions-sdk](https://www.npmjs.com/package/@optimizely/ocp-cms-ui-extensions-sdk)** (Build and Backend): A plugin for the OCP App SDK that adds support for `ui_extensions` within your `app.yml`.
-  - It is used by `ocp app validate` and by the OCP runtime when your app starts.
-  - It exposes constants such as the supported injection points for your build tooling.
-  - It is never imported into your frontend code.
-- **[@optimizely/cms-extensibility-sdk](https://www.npmjs.com/package/@optimizely/cms-extensibility-sdk)** (Frontend): The SDK for the CMS side of your extension.  Provides `register()` and the `ExtensionContext` used to talk to the CMS and your backend.
+- **[@zaiusinc/app-sdk](https://www.npmjs.com/package/@zaiusinc/app-sdk)** (Backend): The OCP App SDK, which provides the framework for functions, storage and application lifecycle.
+- **[@optimizely/ocp-cms-ui-extensions-sdk](https://www.npmjs.com/package/@optimizely/ocp-cms-ui-extensions-sdk)** (Build and Backend): A plugin for the OCP App SDK that adds support for defining and validating your app.
+- **[@optimizely/cms-extensibility-sdk](https://www.npmjs.com/package/@optimizely/cms-extensibility-sdk)** (Frontend): The SDK for the CMS side of your extension that provides registration, delivery and access to your backend.
 - **[@optiaxiom/react](https://optimizely-axiom.github.io/optiaxiom/)** (Frontend): The React implementation of Optimizely's Axiom design system, which helps your extension look and feel like part of the CMS.
 
 The plugin must be registered within `ocp-app.config.mjs`, otherwise your `ui_extensions` declarations will not be recognised and `ocp app validate` will fail:
@@ -289,7 +285,7 @@ A few design decisions are worth highlighting here:
 - The response contract is identical to the compiled headers endpoint in the PaaS version of Stott Security, allowing a single consumer implementation to work with either product.
 - The endpoint is anonymous by design.  These headers are visible on every response from the website anyway, but this is a deliberate decision and you should consider carefully what data you expose from any public function.  If your data has privacy needs, then consider requiring an API Key.
 
-> Please note that I will cover consuming this endpoint in a headless solution in a future article so as to not detract from the topic of this article.
+> 📰 Please note that I will cover consuming this endpoint in a headless solution in a future article so as to not detract from the topic of this article.
 
 ### Frontend
 
@@ -418,9 +414,9 @@ Other options you can add to your settings.yml include the following, you can se
 
 CMS UI Extensions are a significant leap forward for Optimizely SaaS CMS.  For the first time, we can extend the SaaS editor interface in the same way that we have been extending PaaS CMS with add-ons for years, whether that is a full-width tool, a sidebar that works alongside the editor or a custom property editor.
 
-The technology choice also makes a lot of sense.  CMS UI Extensions are built with Node.js, TypeScript and React, which are the same tools that developers building headless solutions on SaaS CMS are already using every day.  This means the barrier to entry is low for the teams most likely to want to build them. 
+The technology choice also makes a lot of sense.  CMS UI Extensions are built with Node.js & JavaScript potentially with frameworks such as TypeScript and React.  These are the same tools that developers building headless solutions on SaaS CMS are already using every day.  This means the barrier to entry is low for the teams most likely to want to build them. 
 
-There are still some challenges to work through.  Data storage is limited to key value stores that are tied to the lifespan of the application installation, so anything that needs to outlive a reinstall requires some careful thought.  As this is a new feature, best practices are also still emerging.
+There are still some challenges to work through.  Data storage is limited to key value stores that are tied to the lifespan of the application installation, so anything that needs permenance requires some careful thought.  As this is a new feature, best practices are also still emerging.
 
 Overall, CMS UI Extensions are a really good addition to Optimizely SaaS CMS, and I'm looking forward to seeing what the community builds with them. If you are about to build your first CMS UI Extension, here are a few tips to help you get started:
 
