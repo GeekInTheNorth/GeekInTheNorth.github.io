@@ -6,9 +6,9 @@ permalink: "/article/introduction-to-optimizely-cms-ui-extensions"
 category:
   - Development
   - Optimizely
-image: "https://www.stott.pro/assets/stott-security-saas-preview-screen.png"
-promoImage: "/assets/stott-security-saas-preview-screen.png"
-promoImageAlt: "Stott Security for SaaS CMS, a CMS UI Extension built and hosted within OCP."
+image: "https://www.stott.pro/assets/building-ui-extensions-for-optimizely-saas-cms.png"
+promoImage: "/assets/building-ui-extensions-for-optimizely-saas-cms.png"
+promoImageAlt: "Promo Image for Building UI Extensions for Optimizely SaaS CMS"
 relatedArticles:
   - "_posts/2026-08-13-introducing-stott-security-for-saas.md"
 ---
