@@ -1,0 +1,37 @@
+---
+layout: null
+---
+# {{ site.title }}
+
+> The blog of Mark Stott, a Solutions Architect at Netcel and Platinum Optimizely MVP, covering development for Optimizely CMS and his open-source Optimizely add-ons, Stott Security and Stott Robots Handler.
+{%- assign sections = "Optimizely|Stott Security|Stott Robots Handler|Development" | split: "|" %}
+{%- for section in sections %}
+
+## {{ section }}
+{% assign sectionPage = site.pages | where: "category", section | first %}
+{%- if sectionPage %}
+- [{{ sectionPage.title }}]({{ site.url }}{{ sectionPage.url }}): {{ sectionPage.description }}
+{%- endif %}
+{%- if sectionPage.gitRepository %}
+- [{{ sectionPage.title }} {{ sectionPage.gitRepositoryLabel }}]({{ sectionPage.gitRepository }}): Source code on GitHub.
+{%- endif %}
+{%- if sectionPage.gitRepositoryTwo %}
+- [{{ sectionPage.title }} {{ sectionPage.gitRepositoryTwoLabel }}]({{ sectionPage.gitRepositoryTwo }}): Source code on GitHub.
+{%- endif %}
+{%- for post in site.posts %}
+{%- if post.categories contains "Stott Security" %}{% assign postSection = "Stott Security" %}
+{%- elsif post.categories contains "Stott Robots Handler" %}{% assign postSection = "Stott Robots Handler" %}
+{%- elsif post.categories contains "Optimizely" %}{% assign postSection = "Optimizely" %}
+{%- elsif post.categories contains "Development" %}{% assign postSection = "Development" %}
+{%- else %}{% assign postSection = "" %}
+{%- endif %}
+{%- if postSection == section %}
+- [{{ post.title }}]({% if post.externalUrl %}{{ post.externalUrl }}{% else %}{{ site.url }}{{ post.url }}{% endif %}): {{ post.description }}
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
+
+## Misc
+
+- [About](https://www.stott.pro/about): About Mark Stott, his career in software development and his interests outside work.
+- [Links](https://www.stott.pro/links): Mark Stott's blog, Optimizely add-ons, GitHub and social profiles in one place.
