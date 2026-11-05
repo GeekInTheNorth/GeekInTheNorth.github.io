@@ -39,7 +39,7 @@ It was suggested by the team that in order to test our functionality end to end,
 
 I started off at the business logic layer for this site, I added all my test files to a resource file and made a simple parser (requestTypeResolver) which would identify the type of request being made by looking at selected nodes in the XML document and then return an enumerated value.  I added another class (responseFileRetriever) whose responsiblity was to retun a test file based on the aforementioned enumerated value.  Taking an XML file and determining which file to return turned out to be the easy part.
 
-```
+```csharp
 public XmlDocument GetResponseFor(XmlDocument request)
 {
     var requestType = requestTypeResolver.GetRequestType(request);
@@ -77,7 +77,7 @@ Creating a web service to receive the request from the payroll client turned out
 
 I decided to create my first Web API method and it turned out to be much easier. I found that request content would be part of a HttpRequestMessage and I could wrap up the response file in a HttpResponseMessage.  I was worried that I would have to somehow target the method on the controller, however it turned out that I didn't need to do that, I just had to decorate the method to accept POST requests.
 
-```
+```csharp
 public class TestDataController : ApiController
 {
     [AcceptVerbs("POST")]
@@ -104,7 +104,7 @@ With the Web API successfully returning our test files to the Payroll Client as 
 
 So then I set about creating a data manipulator which would cycle through each employee in the response file from the HMRC in order to change the National Insurance Number and Works Number into something that would be recognised by our Payroll Client.
 
-```
+```csharp
 public string ApplyEmployeeIdentities(string response)
 {
     var xmlResponse = new XmlDocument();

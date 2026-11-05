@@ -25,7 +25,7 @@ As well as writing unit tests for your business logic, you can also write additi
 - Controller actions are secured with the Authorization attribute or marked with AllowAnonymous if security isn’t required. This enforces clear security requirements for each endpoint.
 - Controller actions are defined with specific routes, preventing conflicts with other modules or the consuming application’s routing.
 
-```
+```csharp
 [TestFixture]
 public sealed class ControllerStandardsTests
 {
@@ -79,7 +79,7 @@ public sealed class ControllerStandardsTests
 
 These tests use a Test Case Source method which uses reflection to identify all controllers within your solution. This means as you add new controllers, you will not forget to secure them.
 
-```
+```csharp
 public static class ControllerStandardsTestCases
 {
     public static IEnumerable<TestCaseData> PageControllerActionTestCases
@@ -153,7 +153,7 @@ If you're using Microsoft Entity Framework, be aware that each `DbContext` ins
 
 The following is an example of a cache wrapper that consumes the `ISynchronizedObjectInstanceCache.`
 
-```
+```csharp
 public sealed class CacheWrapper : ICacheWrapper
 {
     private readonly ISynchronizedObjectInstanceCache _cache;
@@ -211,14 +211,14 @@ public sealed class CacheWrapper : ICacheWrapper
 
 In order to use Lazy Loaded dependencies, you first need to define the Lazy variant within your service extension method:
 
-```
+```csharp
 services.AddScoped<IMyDataContext, MyDataContext>();
 services.AddScoped<Lazy<IMyDataContext>>(provider => new Lazy<IMyDataContext>(() => provider.GetRequiredService<IMyDataContext>()));
 ```
 
 You can then declare your dependencies as Lazy in your constructors and consume them as per the example below.  In this scenario, the `IMyDataContext` is instantiated once, but that is deferred until it is used by the `GetData()` method:
 
-```
+```csharp
 internal sealed class MyRepository : IMyRepository
 {
   private readonly Lazy<IMyDataContext> _context;
@@ -237,7 +237,7 @@ internal sealed class MyRepository : IMyRepository
 
 A service can then consume both the `IMyRepository`and `ICacheWrapper` and make performant calls to retrieve data that has not changed.  In the following example we attempt to retrieve the data from the cache first, then if it is null or empty we then attempt to load the data from the repository, push that data into cache before returning it. If the `Delete` method is called within the service, we call `RemoveAll()` on the cache wrapper to invalidate cache entries based on a master key:
 
-```
+```csharp
 internal sealed class MyService : IMyService
 {
   private readonly IMyRepository _repository;

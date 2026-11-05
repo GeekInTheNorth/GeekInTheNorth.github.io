@@ -20,7 +20,7 @@ There are a few reasons why you might want to use an image XML sitemap.  Perhaps
 
 In this format, the image (image:image) node exists as a child of the urlset node and exists once per image within your site:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <image:image>
@@ -39,7 +39,7 @@ Initially I thought that the level of information packaged with the image was ex
 
 In this format, the image nodes exist as a child of the url node and exists once per image that should be associated with that page:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -72,7 +72,7 @@ The core generation functionality for XML sitemaps within Geta Optimizely Sitema
 
 The first step was to make our own implementation of [IStandardSitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/IStandardSitemapXmlGenerator.cs) that inherits the [SitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/SitemapXmlGenerator.cs) and to then override the dependency injection to replace Geta's implementation with our own:
 
-```
+```csharp
 public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandardSitemapXmlGenerator
 {
     public StandardAndImageSitemapXmlGenerator(
@@ -102,7 +102,7 @@ public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandar
 }
 ```
 
-```
+```csharp
 public static class GetaOptimizelySitemapsServiceExtension
 {
     public static IServiceCollection AddGetaOptimizelySitemapsHandler(this IServiceCollection serviceCollection)
@@ -119,7 +119,7 @@ public static class GetaOptimizelySitemapsServiceExtension
 
 The first method that needed to be overridden is called GenerateRootElement and this is responsible for creating the urlset node and adding the standard namespace for an XML sitemap.  In our case we need to add an additional namespace for the image sitemaps:
 
-```
+```csharp
 public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandardSitemapXmlGenerator
 {
     private readonly ILogger<StandardSitemapXmlGenerator> _logger;
@@ -149,7 +149,7 @@ This overridden method is a clone of the base method. In order for the image nam
 
 The next step was to make sure content types had a common method that could be used to identify images that should be included with the page in the XML sitemap. This could easily be a property that allows the CMS Editor to have full control of said images.  This would also need to be identifiable to the generation logic, so I added an interface that could be used to identify pages with images:
 
-```
+```csharp
 public interface ISitePageWithSitemapImages : IContent
 {
     IList<ContentReference> SitemapImages { get; }
@@ -170,7 +170,7 @@ public class SitePageData : PageData, ISitePageWithSitemapImages
 
 The final part of the puzzle is then to override the GenerateSiteElement method within the [SitemapXmlGenerator](https://github.com/Geta/geta-optimizely-sitemaps/blob/master/src/Geta.Optimizely.Sitemaps/XML/SitemapXmlGenerator.cs).  This method's responsibility is to create the URL node and all of it's child elements.  In this case I was able to leverage the base method and extend it to parse and add image nodes only if the page implemented my interface:
 
-```
+```csharp
 public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandardSitemapXmlGenerator
 {
     private readonly ILogger<StandardSitemapXmlGenerator> _logger;
@@ -208,7 +208,7 @@ public class StandardAndImageSitemapXmlGenerator : SitemapXmlGenerator, IStandar
 
 The final generated XML Sitemap looks like this (please note I've sanitised the URLs generated here):
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>

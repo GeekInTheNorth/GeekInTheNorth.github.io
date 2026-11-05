@@ -17,7 +17,7 @@ In testing, articles about careers had a higher relevance than articles about ca
 
 In order to only boost exact matches, the elastic query had to be split into two separate query descriptors. One for exact matches with boosting applied and a second for partial matches with no boosting. The SearchDescriptor was then built to return results that fell into either query descriptor.
 
-```
+```csharp
 var titleBoost = 10;
 var descriptionBoost = 5;
 

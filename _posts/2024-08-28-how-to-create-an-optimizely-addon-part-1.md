@@ -75,7 +75,7 @@ If your Add-on has it's own interface, then you will want to expose that interfa
 
 In the following example, I am returning a single `UrlMenuItem` which takes three parameters: the name of the link within the menu, the path within the menu and the MVC controller route for where my interface exists.  I am then extending this to say that it is always available and sorting this to the end of the list of menu items.  I am also defining the authorization policy required to access this menu item.
 
-```
+```csharp
 [MenuProvider]
 public sealed class ExampleMenuProvider : IMenuProvider
 {
@@ -100,7 +100,7 @@ If you start the menu path with `global` then your Add-on will become visible wi
 
 If you have multiple menu items that you want to present in a hierarchial fashion, then you can simply return multiple UrlMenuItems, making sure to define the paths for the child menu items under their parent. 
 
-```
+```csharp
 [MenuProvider]
 public class ExampleMenuProvider : IMenuProvider
 {
@@ -149,7 +149,7 @@ If your Add-on UI is intended to be accessible to editors, then you can decorate
 
 Depending on the Domain of your Add-on, you may wish to provide your consumers with the ability to fine tune access to your Add-on. For [Stott Robots Handler](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler) and [Stott Security](https://github.com/GeekInTheNorth/Stott.Security.Optimizely) I wanted to give consumers the ability to grant access to the Add-ons to specific users such as an SEO Adminstrator or a Developer without granting that user access to the CMS Administrator interface.  In order to do this, you will want to include the ability to define the authentication policy for your Add-on within your service extension:
 
-```
+```csharp
 public static IServiceCollection AddMyAddOn(
     this IServiceCollection services,
     Action<AuthorizationOptions>? authorizationOptions = null)
@@ -177,7 +177,7 @@ public static IServiceCollection AddMyAddOn(
 
 If you have made this optional, then the consumer can choose to use your defaults or define the policy themselves within their startup.cs:
 
-```
+```csharp
 // Use Default Authentication Policy
 services.AddMyAddOn();
 

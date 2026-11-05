@@ -16,7 +16,7 @@ The following block provides three separate properties:
 - Hosted JavaScript File: A content reference for an optimized production JavaScript file that has been uploaded to the CMS to be used by this block and rendered at the bottom of the body of the page.
 - Hosted CSS File: A content reference for an optimized production stylesheet file that has been uploaded to the CMS to be used by this block and rendered within the head element of the page.
 
-```
+```csharp
 [ContentType(
     DisplayName = "Embed Block",
     GUID = "0de2bdc7-9fc1-407d-8a60-2c2fb0e0b85a",
@@ -54,7 +54,7 @@ public class EmbedBlock : BlockData
 
 When a block is rendered within a content area, any attempt to render the sources for the JavaScript and CSS files will end up being rendered within the container for the block. If you are using the standard razor rendering method for pages within the website, you will have used `@Html.RequiredClientResources(RenderingTags.Header)` to render Optimizely generated styles within the header of the page and scripts within the footer of the body.  In this case we can consume the built in Client Resources functionality and register our files to be placed appropriately within the document.
 
-```
+```csharp
 public sealed class EmbedBlockViewComponent : BlockComponent<EmbedBlock>
 {
     private readonly IUrlResolver _urlResolver;
@@ -85,7 +85,7 @@ The `ClientResources.RequireScript` and `ClientResources.RequireStyle` methods w
 
 Both of these methods come with additional methods that allow you to define the name for the resource, it's dependencies and it's additional attributes.  For example, the following call:
 
-```
+```csharp
 ClientResources.RequireScript(
     _urlResolver.GetUrl(currentContent.JavaScriptFile),
     currentContent.JavaScriptFile.ID.ToString(), // A nominated unique name for the javascript file
@@ -96,13 +96,13 @@ ClientResources.RequireScript(
 
 Will result in the follow script tag being rendered:
 
-```
+```html
 <script defer="defer" src="/globalassets/embeds/test.js"></script>
 ```
 
 You can extend this same functionality to render externally hosted files with additional attributes, which could include cross origin and subresource integrity hashes like the following example:
 
-```
+```csharp
 var externalJavaScript = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js";
 var externalJavaScriptSri = "sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL";
 
@@ -123,7 +123,7 @@ ClientResources.RequireScript(
 
 Which would then render like so:
 
-```
+```html
 <script crossorigin="anonymous" defer="defer" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 ```
 

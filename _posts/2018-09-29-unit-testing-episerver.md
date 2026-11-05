@@ -21,7 +21,7 @@ I created a new criterion class (MyCustomCriterion) that inherited from Criterio
 
 With the model now definable in the setup of a unit test, I set about writing my tests making them pass.  I injected my dependencies via the constructor of MyCustomCriterion and soon I had working custom criterion that looked a little like this.
 
-```
+```csharp
 [VisitorGroupCriterion(Category = "My Category", DisplayName = "My Custom Criterion")]
 public class MyCustomCriterion : CriterionBase<MyCustomCriterionSettings>
 {
@@ -49,7 +49,7 @@ All of the logic was correct, all the unit tests passed.  In practice however, t
 
 In order to unit test a class using dependencies resolved with the ServiceLocator, you can create a mock of IServiceLocator and assign it to the static ServiceLocator class.  You can then mock your other dependencies and set them to be returned by the mock IServiceLocator.
 
-```
+```csharp
 private Mock<IServiceLocator> mockServiceLocator;
 private Mock<IDependencyUnderTest> mockDependency;
 
