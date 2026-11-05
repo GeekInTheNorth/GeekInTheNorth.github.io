@@ -1,0 +1,61 @@
+/* ---------- Tokens ----------
+   Light values sit on :root. The dark set is defined once and applied either when the visitor
+   chooses dark (data-theme="dark") or when the system prefers dark and no light choice is saved. */
+{%- capture dark_tokens -%}
+  color-scheme: dark;
+  --bg: #111216;
+  --paper: #18191E;
+  --ink: #ECEDEF;
+  --muted: #A1A6AF;
+  --rule: #2B2D34;
+  --accent: #E28BC4;
+  --accent-soft: #2A1C26;
+  --code-bg: #0B0C0F;
+  --mat: #202228;
+  --syn-keyword: #E28BC4;
+  --syn-string: #8ED3A6;
+  --syn-comment: #A1A6AF;
+  --syn-type: #8CC2EE;
+  --syn-number: #E9B46C;
+  --syn-attr: #C3A6F0;
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+{%- endcapture %}
+:root {
+  color-scheme: light;
+  --bg: #F5F6F8;
+  --paper: #FFFFFF;
+  --ink: #15171C;
+  --muted: #5A606B;
+  --rule: #D9DCE1;
+  --accent: #8E3B7A;
+  --accent-soft: #F5E9F1;
+  --code-bg: #ECEEF1;
+  --mat: #ECEEF1;
+  --syn-keyword: #8E3B7A;
+  --syn-string: #1E6B47;
+  --syn-comment: #5A606B;
+  --syn-type: #1D5689;
+  --syn-number: #8A4A0B;
+  --syn-attr: #6B4AA0;
+  --shadow: 0 2px 4px rgba(21, 23, 28, 0.08), 0 16px 40px rgba(21, 23, 28, 0.16);
+
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --wrap: 1200px;
+  --measure: 680px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --tap: 44px;
+  --section-gap: clamp(56px, 8vw, 96px);
+}
+
+:root[data-theme="dark"] {
+{{ dark_tokens }}
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+{{ dark_tokens }}
+  }
+}

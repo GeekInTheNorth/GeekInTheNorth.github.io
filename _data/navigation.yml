@@ -1,0 +1,23 @@
+# Navigation and ordering used by the Editorial layouts.
+
+# Main navigation in the site header.
+primary:
+  - title: "Development"
+    url: "/article/list/development"
+  - title: "Optimizely"
+    url: "/article/list/optimizely"
+  - title: "Geek Stories"
+    url: "/article/list/geek-stories"
+
+# Sections listed on the home page, in display order. Each name matches the `category` of a section page.
+sections:
+  - "Development"
+  - "Optimizely"
+  - "Stott Security"
+  - "Stott Robots Handler"
+  - "Geek Stories"
+
+# Add-on data files in _data/addons/, in display order.
+addons:
+  - "stott-security"
+  - "stott-robots-handler"

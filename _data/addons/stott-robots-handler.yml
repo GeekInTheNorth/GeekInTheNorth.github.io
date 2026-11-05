@@ -1,0 +1,12 @@
+# Stott Robots Handler product data. Download counts and versions are not kept here:
+# assets/js/nuget-downloads.js fetches them live from nuget.org and the Optimizely NuGet feed.
+name: "Stott Robots Handler"
+category: "Stott Robots Handler"
+page: "/article/list/stott-robots-handler"
+package_id: "Stott.Optimizely.RobotsHandler"
+summary: "Manage robots.txt, llms.txt and robots headers."
+
+# Labels are used word for word in llms.txt.
+repositories:
+  - label: "PaaS Repository"
+    url: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler"
