@@ -51,6 +51,6 @@ Disallow: /episerver/
 Disallow: /utils/
 ```
 
-# Contributing and Licencing
+## Contributing and Licencing
 
 Stott.Optimizely.RobotsHandler has been built and uses the MIT licence.  If you find any defects with the package, then please log them as issues on the the repositories [issues](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler/issues) page. If you would like to contribute to changes for the solution, then feel free to clone the repository and submit a pull request against the develop branch.

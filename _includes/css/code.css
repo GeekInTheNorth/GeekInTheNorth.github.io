@@ -1,0 +1,135 @@
+/* ---------- Code ---------- */
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-mono);
+}
+
+/* Inline code */
+:not(pre) > code {
+  padding: 2px 6px;
+  background: var(--mat);
+  font-size: 0.8em;
+  overflow-wrap: anywhere;
+}
+
+/* Blocks: Rouge output (div.highlighter-rouge > div.highlight > pre.highlight) and plain pre > code. */
+.prose div.highlighter-rouge,
+.prose > pre {
+  margin-top: 1.4em;
+}
+
+pre.highlight,
+.prose pre {
+  margin: 0;
+  padding: 20px 24px;
+  overflow-x: auto;
+  background: var(--code-bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 4;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+pre.highlight:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Rouge tokens */
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs,
+.highlight .cd,
+.highlight .ch,
+.highlight .cpf {
+  color: var(--syn-comment);
+  font-style: italic;
+}
+
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kv,
+.highlight .ow,
+.highlight .cp {
+  color: var(--syn-keyword);
+}
+
+.highlight .kt,
+.highlight .nc,
+.highlight .nn,
+.highlight .ne,
+.highlight .nb,
+.highlight .bp,
+.highlight .nt {
+  color: var(--syn-type);
+}
+
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .ss,
+.highlight .dl {
+  color: var(--syn-string);
+}
+
+.highlight .m,
+.highlight .mi,
+.highlight .mf,
+.highlight .mh,
+.highlight .mo,
+.highlight .mb,
+.highlight .il,
+.highlight .kc {
+  color: var(--syn-number);
+}
+
+.highlight .na,
+.highlight .nd,
+.highlight .nf,
+.highlight .fm,
+.highlight .nl,
+.highlight .py {
+  color: var(--syn-attr);
+}
+
+/* Rouge marks some valid C# (attribute brackets) as errors; show it as plain code. */
+.highlight .err {
+  color: inherit;
+  background: none;
+}
+
+.highlight .gd {
+  background: rgba(220, 38, 38, 0.15);
+}
+
+.highlight .gi {
+  background: rgba(22, 163, 74, 0.15);
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .gs {
+  font-weight: 600;
+}

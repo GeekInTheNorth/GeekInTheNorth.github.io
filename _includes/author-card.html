@@ -1,0 +1,12 @@
+{%- assign ac_author = site.data.author -%}
+{%- assign ac_mvp = site.data.certifications | where: "type", "mvp" | first -%}
+<section class="author-card" aria-label="About the author">
+  <img class="author-card__portrait" src="{{ ac_author.portrait.src }}" alt="" width="80" height="80" loading="lazy">
+  <div class="author-card__body">
+    <p class="author-card__name">{{ ac_author.name }}</p>
+    <div class="author-card__bio">{{ ac_author.bio | markdownify }}</div>
+  </div>
+  {%- if ac_mvp %}
+  <a class="author-card__badge" href="{{ ac_mvp.url }}"><img src="{{ ac_mvp.image }}" alt="{{ ac_mvp.title }}, {{ ac_mvp.level }}" width="80" height="80" loading="lazy"></a>
+  {%- endif %}
+</section>

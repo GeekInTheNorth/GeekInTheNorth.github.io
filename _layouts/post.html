@@ -1,101 +1,68 @@
 ---
 layout: default
+scripts:
+  - toc
 ---
-
-{% if page.promoImage %}
-
-<section class="bg-dark text-white heroBanner">
-    <div class="container">
-        <div class="row align-items-center py-5">
-            <div class="col-12 col-lg-6">
-                <div class="text-center">
-                    <img alt="{{ page.promoImageAlt }}" class="img-fluid rounded-3 shadow-lg" src="{{ page.promoImage }}">
-                </div>
-            </div>  
-            <div class="col-12 col-lg-6">
-                <h1 class="display-4 fw-bold gap-4">{{ page.title }}</h1>
-                <p class="text-light fst-italic gap-4">{{ page.description }}</p>
-                <p class="text-light fst-italic gap-3"><i class="fa-solid fa-calendar me-2"></i>Published: {{ page.date | date_to_long_string: "ordinal" }}</p>
-            </div>
-            
-        </div>
+{%- comment -%}
+  Lazy-load images and iframes, make tables and code blocks scroll on their own on small screens,
+  then build the "In this article" list from the h2 headings (kramdown gives every heading an id).
+{%- endcomment -%}
+{%- assign body = content | replace: '<img ', '<img loading="lazy" decoding="async" ' | replace: '<iframe ', '<iframe loading="lazy" ' | replace: '<table>', '<div class="table-scroll" role="region" aria-label="Table" tabindex="0"><table>' | replace: '</table>', '</table></div>' | replace: '<pre class="highlight">', '<pre class="highlight" tabindex="0">' -%}
+{%- assign toc_parts = body | split: '<h2 id="' -%}
+{%- assign toc_count = toc_parts.size | minus: 1 -%}
+{%- assign toc_show = false -%}
+{%- if page.toc != false and toc_count >= 3 -%}
+  {%- assign toc_show = true -%}
+  {%- capture toc_list -%}
+  <ol role="list" class="toc__list">
+    {%- for toc_part in toc_parts offset: 1 -%}
+      {%- assign toc_id = toc_part | split: '"' | first -%}
+      {%- assign toc_text = toc_part | split: '</h2>' | first | remove_first: toc_id | remove_first: '">' | strip_html | strip %}
+    <li><a href="#{{ toc_id }}">{{ toc_text }}</a></li>
+    {%- endfor %}
+  </ol>
+  {%- endcapture -%}
+{%- endif %}
+<article class="article">
+  {%- if page.promoImage %}
+  <header class="wrap article-hero split">
+    <div class="split__body">
+      {% include kicker.html categories=page.categories %}
+      <h1 class="article-hero__title">{{ page.title }}</h1>
+      {%- if page.description %}
+      <p class="standfirst">{{ page.description }}</p>
+      {%- endif %}
+      {% include post-meta.html post=page byline=true %}
     </div>
-</section>
+    <figure class="split__media article-hero__media">
+      <img src="{{ page.promoImage }}" alt="{{ page.promoImageAlt }}" fetchpriority="high"{% if page.promoImageWidth %} width="{{ page.promoImageWidth }}" height="{{ page.promoImageHeight }}"{% endif %}>
+    </figure>
+  </header>
+  {%- else %}
+  <header class="wrap article-hero article-hero--text">
+    {% include kicker.html categories=page.categories %}
+    <h1 class="article-hero__title">{{ page.title }}</h1>
+    {%- if page.description %}
+    <p class="standfirst">{{ page.description }}</p>
+    {%- endif %}
+    {% include post-meta.html post=page byline=true %}
+  </header>
+  {%- endif %}
 
-{% else %}
-
-<section class="bg-dark text-white heroBanner">
-    <div class="container">
-        <div class="row align-items-center py-5">
-            <div class="col-12">
-                <h1 class="display-4 fw-bold gap-4">{{ page.title }}</h1>
-                <p class="text-light fst-italic gap-4">{{ page.description }}</p>
-                <p class="text-light fst-italic gap-3"><i class="fa-solid fa-calendar me-2"></i>Published: {{ page.date | date_to_long_string: "ordinal" }}</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-{% endif %}
-
-{% if page.categories contains "Stott Security" %}
-    {% include stottsecurity.html %}
-{% elsif page.categories contains "Stott Robots Handler" %}
-    {% include stottrobotshandler.html %}
-{% endif %}
-
-<div class="container-lg main-content mt-5">
-  <article class="px-md-3 px-lg-5">
-      {{ content | replace: '<img ', '<img loading="lazy" '  }}
-
-      <div>
-          {% for category in page.categories %}
-              <a href='/article/list/{{ category | downcase | replace: " ", "-" }}' class='btn btn-outline-primary'>{{ category }}<i class="fa-solid fa-arrow-right ms-2"></i></a>
-          {% endfor %}
+  <div class="wrap article-body{% if toc_show %} has-toc{% endif %}">
+    {%- if toc_show %}
+    {% include toc.html list=toc_list %}
+    {%- endif %}
+    <div class="article-main">
+      <div class="prose">
+        {{ body }}
       </div>
-  </article>
-
-  <!-- Author Section -->
-  <div class="author-section mt-5 p-4 border rounded bg-light shadow">
-    <div class="row align-items-center">
-      <div class="col-md-2 text-center mb-3 mb-md-0">
-        <a href="https://www.credly.com/badges/0b406a82-1eae-42bd-83be-2a8bf5e5681c/public_url" target="_blank" rel="noopener noreferrer">
-          <img alt="MVP Technology PLATINUM" loading="lazy" width="150" height="150" decoding="async" class="img-fluid credly-badge" src="/assets/optimizely-mvp-technology.png">
-        </a>
-      </div>
-      <div class="col-md-10">
-        <h3 class="my-3"><i class="fa-solid fa-user-circle me-2"></i>Mark Stott</h3>
-        <p class="mb-0">
-          A Solutions Architect and Optimizely MVP at Netcel, creator of the <a href="/article/list/stott-security">Stott Security</a> and <a href="/article/list/stott-robots-handler">Stott Robots Handler</a> addons for Optimizely CMS. He shares insights and solutions for modern web development challenges.
-        </p>
-      </div>
+      <footer class="article-footer">
+        {% include kicker.html categories=page.categories label="Filed under" class="kicker--filed" %}
+        {% include author-card.html %}
+      </footer>
     </div>
   </div>
+</article>
 
-</div>
-
-{% if page.relatedArticles %}
-<div class="container-fluid bg-dark py-3 px-0 my-4">
-  <section class="container-lg">
-    <h2 class="mb-3 text-light">Related Articles</h2>
-    <div class="row g-4">
-    {% for post in site.posts %}
-    {% if page.relatedArticles contains post.path %}
-      {% include promo.html article = post %}
-    {% endif %}
-    {% endfor %}
-    </div>
-  </section>
-</div>
-{% else %}
-<div class="container-fluid bg-dark py-3 my-4">
-  <section class="container">
-    <h2 class="mb-3 text-light">Recent Articles</h2>
-    <div class="row g-4">
-    {% for post in site.posts limit:3 %}
-      {% include promo.html article = post %}
-    {% endfor %}
-    </div>
-  </section>
-</div>
-{% endif %}
+{% include related.html %}

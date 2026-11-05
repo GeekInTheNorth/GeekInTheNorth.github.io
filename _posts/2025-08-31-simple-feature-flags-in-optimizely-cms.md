@@ -18,7 +18,7 @@ Different parts of the business would be sponsoring each new integration and the
 
 The first requirement was a static object with a method that could be accessed globally with minimal overhead. As this was a CMS 11 solution built on .NET Framework, I placed the flags in the AppSettings section of the `web.config` file and accessed them through the `ConfigurationManager`.
 
-```c#
+```csharp
 public static class FeatureFlagProvider
 {
     public const string FeatureOne = "FeatureOne:IsEnabled";
@@ -40,7 +40,7 @@ public static class FeatureFlagProvider
 
 The solution includes a Site Settings content type that holds global content and settings for the site. Both integrations introduced options on the Site Settings content type and added properties to the Listing Page content type. These properties needed to be conditionally hidden based on feature flags. To achieve this, I created a custom attribute inheriting from `ScaffoldColumn`:
 
-```c#
+```csharp
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
 public class FeatureFlaggedColumnAttribute : ScaffoldColumnAttribute
 {
@@ -53,14 +53,14 @@ public class FeatureFlaggedColumnAttribute : ScaffoldColumnAttribute
 The `ScaffoldColumn` attribute accepts a single boolean indicating whether a property should be visible in the editor UI. My `FeatureFlaggedColumn` attribute instead accepts a string and converts it into a boolean using the `FeatureFlagProvider` which is passed into the base constructor.
 Applying this to a property on a content type looks like this:
 
-```c#
+```csharp
 [FeatureFlaggedColumn(FeatureFlagProvider.FeatureOne)]
 public virtual ContentReference FeatureOneProperty { get; set; }
 ```
 
 The Listing Page also had a multi-select field allowing editors to select one or more content types to filter Search & Navigation results. I needed to hide the new page types in the selection factory for this field without removing the field itself. The same `FeatureFlagProvider` was used inside the selection factory:
 
-```c#
+```csharp
 public class ContentTypesSelectionFactory : ISelectionFactory
 {
     public IEnumerable<ISelectItem> GetSelections(ExtendedMetadata metadata)
@@ -99,7 +99,7 @@ public class ContentTypesSelectionFactory : ISelectionFactory
 
 Finally I needed to prevent the new scheduled jobs for the new integrations from running in higher environments where the feature would be turned off.  Again the same `FeatureFlagProvider` was checked and if the feature was disabled, the scheduled job would immediately exit.
 
-```c#
+```csharp
 [ScheduledPlugIn(DisplayName = "[Feature One] Content Sync", ...)]
 public class FeatureOneSyncScheduledJob : ScheduledJobBase
 {

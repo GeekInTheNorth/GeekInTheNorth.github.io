@@ -1,0 +1,6 @@
+{%- comment -%}
+  Approximate reading time for a post, at about 225 words a minute. Code blocks are counted too.
+{%- endcomment -%}
+{%- assign rt_words = include.post.content | strip_html | number_of_words -%}
+{%- assign rt_minutes = rt_words | plus: 112 | divided_by: 225 | at_least: 1 -%}
+<span class="reading-time">{{ rt_minutes }} min read</span>

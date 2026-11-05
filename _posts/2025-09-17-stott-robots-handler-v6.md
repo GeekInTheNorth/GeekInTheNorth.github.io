@@ -79,7 +79,7 @@ Stott Robots Handler v6 is available for **Optimizely PAAS CMS 12** on both nuge
 
 Getting started can be as simple as: 
 
-```c#
+```csharp
 // Install the nuget package
 dotnet add package Stott.Optimizely.RobotsHandler
 

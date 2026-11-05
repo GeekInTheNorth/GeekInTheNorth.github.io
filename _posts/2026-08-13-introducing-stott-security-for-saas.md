@@ -9,6 +9,8 @@ category:
   - "Stott Security"
 image: "https://www.stott.pro/assets/stott-security-saas-preview-screen.png"
 promoImage: "/assets/stott-security-saas-preview-screen.png"
+promoImageWidth: 1520
+promoImageHeight: 900
 promoImageAlt: "Response Headers preview screen for Stott Security for Optimizely SaaS CMS."
 relatedArticles:
   - "_posts/2026-04-30-getting-started-with-stott-security.md"
@@ -22,6 +24,7 @@ relatedArticles:
 [Stott Security](/article/getting-started-with-stott-security) has been helping developers and editors manage Content Security Policies and security headers on **Optimizely PaaS CMS** for several years. Today I am pleased to share an early access release of **Stott Security for Optimizely SaaS CMS**: a complete rebuild designed for Optimizely's composable platform, built on the **Optimizely Connect Platform (OCP)** and rendered inside the CMS using **CMS UI Extensions**.
 
 > **Please note:** Since this announcement was made, additional functionality to support Permissions Policy was delivered on the 21st August 2026
+{: .callout}
 
 ## A Complete Rebuild
 
@@ -88,7 +91,7 @@ On the roadmap, Application and Host level contexts are a firm commitment — th
 
 Every Optimizely SaaS CMS solution is a headless solution, so applying the headers is always the responsibility of your front end. Your head requests the compiled headers from the endpoint shown on the **Integration** view of the Preview tab and applies them to its responses. An example response looks like this:
 
-```JSON
+```json
 {
     "headers": [
         {

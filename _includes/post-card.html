@@ -1,0 +1,23 @@
+{%- comment -%}
+  A post as a card. The promo image sits in a fixed 4:3 frame and is scaled to fit, never cropped;
+  posts without an image get a text cover instead. The whole card is one link.
+  level: heading level for the title (default 3).
+{%- endcomment -%}
+{%- assign pc_post = include.post -%}
+{%- assign pc_href = pc_post.externalUrl | default: pc_post.url -%}
+{%- assign pc_level = include.level | default: 3 -%}
+<article class="card">
+  {%- if pc_post.promoImage %}
+  <div class="card__media">
+    <img src="{{ pc_post.promoImage }}" alt="" loading="lazy"{% if pc_post.promoImageWidth %} width="{{ pc_post.promoImageWidth }}" height="{{ pc_post.promoImageHeight }}"{% endif %}>
+  </div>
+  {%- else %}
+  <div class="card__media card__media--text" aria-hidden="true">
+    <span class="card__quote">“</span>
+    <span class="card__cover">{{ pc_post.description | truncatewords: 14 }}</span>
+  </div>
+  {%- endif %}
+  {% include kicker.html categories=pc_post.categories link=false %}
+  <h{{ pc_level }} class="card__title"><a class="card__link" href="{{ pc_href }}">{{ pc_post.title }}</a></h{{ pc_level }}>
+  {% include post-meta.html post=pc_post %}
+</article>

@@ -47,7 +47,7 @@ It is important to note that Optimizely CMS does not natively support nonce or h
 
 To provide deterministic control over where nonce and hash functionality is applied, version 4 introduces configurable exclusion paths. Requests routed to these paths, or any sub-paths beneath them, will have nonce and hash sources automatically removed from the generated Content Security Policy.
 
-```C#
+```csharp
 services.AddStottSecurity(cspSetupOptions =>
 {
     cspSetupOptions.ConnectionStringName = "EPiServerDB";

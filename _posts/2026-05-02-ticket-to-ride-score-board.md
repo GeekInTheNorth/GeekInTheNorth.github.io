@@ -8,6 +8,8 @@ category:
   - "Geek Stories"
 image: "https://www.stott.pro/assets/ticket-to-ride.png"
 promoImage: "/assets/ticket-to-ride.png"
+promoImageWidth: 600
+promoImageHeight: 598
 promoImageAlt: "Box Artwork for the Ticket to Ride Europe board game."
 extraCss: "/assets/css/ticket-to-ride.css?v=2"
 extraJs: "/assets/js/ticket-to-ride.js?v=2"
@@ -22,7 +24,7 @@ Often we leave our scoring until the end of the game since a number of points ca
 ## Ticket to Ride Scoreboard
 
 {% raw %}
-<div id="ticket-to-ride-root" class="my-4"></div>
+<div id="ticket-to-ride-root" class="tool-embed"></div>
 {% endraw %}
 
 ## Creating the Scoreboard

@@ -45,7 +45,7 @@ For Headless users, the Header Listing API has been updated so that all configur
 - /stott.security.optimizely/api/compiled-headers/list/?pageId=123
 
 **Example Response:**
-```JSON
+```json
 [
     {
         "key": "a-custom-header",
@@ -90,7 +90,7 @@ For Headless users, the Header Listing API has been updated so that all configur
 
 Stott Security has long had the ability to Audit changes to the configuration settings, but there has not been any means to clean up the audit records.  A new scheduled job called **[Stott Security] Audit Record Clean Up** has been created that will remove audit records that exceed a configured retention period.  By default this period is set to 2 years, but can be altered during the Add-On configuration by specifying the **AuditRetentionPeriod**.
 
-```C#
+```csharp
 services.AddStottSecurity(options =>
 {
   options.ConnectionStringName = "EPiServerDB";
@@ -119,7 +119,8 @@ Filtering of audit records has always been present within the system, however it
 
 ![Audit Interface](/assets/StottSecurityAuditWithFreeTextFilter.png)
 
-> 🙏 **Thank you** to [Samuel Joseph](https://github.com/SamuelJoseph23) for delivering [Add a free text filter to the Audit Screen](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/issues/347).
+> **Thank you** to [Samuel Joseph](https://github.com/SamuelJoseph23) for delivering [Add a free text filter to the Audit Screen](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/issues/347).
+{: .callout .callout--plain}
 
 ## Granular Settings Import
 
@@ -127,7 +128,8 @@ The ability to import and export settings was introduced back in version 2.6.0 b
 
 ![Import Settings Modal](/assets/StottSecurityImportSettingsModal.png)
 
-> 🙏 **Thank you** to [Samuel Joseph](https://github.com/SamuelJoseph23) for providing the initial implementation of [Enhance Settings Import Tool](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/issues/346).
+> **Thank you** to [Samuel Joseph](https://github.com/SamuelJoseph23) for providing the initial implementation of [Enhance Settings Import Tool](https://github.com/GeekInTheNorth/Stott.Security.Optimizely/issues/346).
+{: .callout .callout--plain}
 
 ## Summary
 

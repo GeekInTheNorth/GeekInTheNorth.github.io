@@ -7,6 +7,8 @@ category:
   - "Geek Stories"
 image: "https://www.stott.pro/assets/lego-star-wars-advent-2021-cover.jpg"
 promoImage: "/assets/lego-star-wars-advent-2021-cover.jpg"
+promoImageWidth: 1200
+promoImageHeight: 828
 promoImageAlt: "Lego Star Wars Advent Calendar 2021 Box"
 ---
 
@@ -18,7 +20,7 @@ The Razor Crest, owned by Mandalorian bounty hunter Din Djarin, was built as a g
 
 ![Lego Star Wars Micro Build - Razor Crest](/assets/lego-star-wars-advent-2021-day1.jpg)
 
-# Day 2: Riot Mar's Starfighter
+## Day 2: Riot Mar's Starfighter
 
 This ship made it's debut appearance in Season 1 Chapter 5 of the Mandalorian. The bounty hunter Riot Mar used one of these starfighters while pursuing the Mandalorian Din Djarin but was quickly dispatched. Admittedly I did not recognise this Star Fighter as it hasn't featured on screen for long or stationary enough to become iconic or recognisable.
 
@@ -86,7 +88,7 @@ This builds on the previous encounter with the Tuskens by yet again portraying t
 
 ![Lego Star Wars Micro Build - Tusken Ballista](/assets/lego-star-wars-advent-2021-day10.jpg)
 
-# Day 11: T65-B X-Wing Starfighter
+## Day 11: T65-B X-Wing Starfighter
 
 In The Mandalorian Season 1 Chapter 6, the Mandalorian encounters a wing of X-Wings led by Trapper Wolf (Played by the show runner Dave Fiolni) who proceeded to take out the prisoners who double crossed the Mandalorian.  In Season 2 Chapter 10, the Mandalorian encounters two X-Wing pilots led by the same Trapper Wolf.  In this second encounter, they are policing the space lanes and attempt to pull the Mandalorian over for not having a valid transponder to identify him and his ship.  You can read more about these encounter's in the following article: Inverse: [Lock S-Foils into Attack Position](https://www.inverse.com/entertainment/mandalorian-season-2-episode-2-x-wing-paul-sun-hyung-lee-dave-filoni)
 

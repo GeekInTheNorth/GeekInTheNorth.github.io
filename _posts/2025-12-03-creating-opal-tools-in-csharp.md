@@ -35,7 +35,7 @@ This guide assumes you are familiar with C# and creating basic web applications.
 
 In this example, we’ll create a simple "Hello World" tool. Every Opal Tool **must** have a parameters class, which can contain zero or more properties. Start by creating a new class with a single property named FirstName. If you decorate the property with the **[Required]** attribute, Opal will know that this parameter must always be provided. You should also add a **[Description]** attribute to help Opal understand the purpose of the property. Clear descriptions improve Opal’s ability to supply correct values.
 
-```C#
+```csharp
 public class HelloWorldParameters
 {
     [Required]
@@ -46,7 +46,7 @@ public class HelloWorldParameters
 
 Next, create a class that serves as the entry point for your tool. Add a public method that returns either an **object** or **Task\<object\>** if your code can run asynchronously. Decorate the method with the **[OpalTool]** attribute to declare the tool’s name (using snake_case or kebab-case). Decorate the method with the **[Description]** attribute to explain when and how Opal should use it. Whatever you return must be serializable to JSON.
 
-```C#
+```csharp
 public class HelloWorldTools(IHelloWorldService service)
 {
     [OpalTool("say-hello-world")]
@@ -65,7 +65,7 @@ Here we’re using **dependency injection** to provide an **IHelloWorldService**
 
 Now set up your tools in Program.cs or Startup.cs. The **AddOpalToolService()** extension registers the tool infrastructure and must be called before registering any tools. Then call **AddOpalTool\<ToolClass\>()** for each tool class. Finally, use **MapOpalTools()** to make the endpoints available in the request pipeline:
 
-```C#
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Register tool dependencies:
@@ -92,7 +92,7 @@ Because Opal Tools are invoked by Opal itself, the only way to test them locally
 
 Here is an example HTTP file for testing both the discovery endpoint and the tool endpoint. Your IDE will render a "Send Request" link above each request:
 
-```HTTP
+```http
 ### Variables for all tools
 @Tools_HostAddress = https://localhost:8000
 @token = dev-token-value
@@ -145,7 +145,7 @@ Executing the discovery endpoint from the HTTP file should provide the following
 
 Executing the tool endpoint should produce the following response:
 
-```JSON
+```json
 {
   "message": "Hello Mark"
 }
@@ -155,7 +155,7 @@ You’ll notice from the HTTP file example that the tool endpoint uses an **Auth
 
 Because the SDK controls the mapping of tool endpoints, you cannot apply individual **[Authorize]** attributes to them. If you want to require bearer-token authentication then you’ll need to implement custom middleware. That middleware should intercept requests whose path begins with **/tools/** and validate that a bearer token is present (and valid) before allowing the request to proceed:
 
-```C#
+```csharp
 public sealed class ToolAuthenticationMiddleware
 {
     private readonly RequestDelegate _next;
@@ -197,7 +197,7 @@ At the time of writing, the only supported authentication provider is "OptiId". 
 
 Let’s create a new tool that requires user authentication. To do this, you must apply the **[OpalAuthorization]** attribute to the method, specifying the provider ("OptiId"), the scope and whether authentication is mandatory. The method signature should include both a custom parameters object (like the previous example) and an instance of **OpalToolContext**, which contains the user’s authentication data and additional request context.
 
-```C#
+```csharp
 [OpalTool("test-auth")]
 [Description("A tool to test auth")]
 [OpalAuthorization("OptiId", "cms", true)]
@@ -221,7 +221,7 @@ public class AuthenticationTestParameters
 
 When inspecting the discovery endpoint for this tool, you’ll notice that the **auth_requirements** property is an array. This is intentional as Optimizely intends for Opal to support multiple authentication schemes for a single tool. If you want a tool to accept more than one provider, simply apply multiple **[OpalAuthorization]** attributes to the method.
 
-```JSON
+```json
 {
   "functions": [
     {
@@ -251,7 +251,7 @@ When inspecting the discovery endpoint for this tool, you’ll notice that the *
 
 When Opal executes this tool, it sends the request body (shown below) to your endpoint.  Notice that we decorated **AuthenticationTestParameters.EmailAddress** with a **[Description]** attribute of _"The email address of the current Opal user making this request."_.  Opal understands this description and will populate **parameters.EmailAddress** automatically based on the current user without any intervention being needed.  This really highlights the ability for Opal to infer, supply, and validate contextual user data without intervention from the user or the tool.  It can also give you a means to feed back to the user asynchronously using email.
 
-```JSON
+```json
 {
   "parameters": {
     "EmailAddress": "jo.bloggs@example.com"

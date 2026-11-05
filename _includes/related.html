@@ -1,0 +1,17 @@
+{%- comment -%}
+  Up to three related posts from the post's relatedArticles list, falling back to the latest posts.
+{%- endcomment -%}
+{%- assign rl_posts = site.posts | where_exp: "rl_post", "page.relatedArticles contains rl_post.path" -%}
+{%- assign rl_title = "Related reading" -%}
+{%- if rl_posts.size == 0 -%}
+  {%- assign rl_posts = site.posts | where_exp: "rl_post", "rl_post.url != page.url" -%}
+  {%- assign rl_title = "Recent writing" -%}
+{%- endif -%}
+<section class="wrap page-section related" aria-labelledby="related-title">
+  <h2 id="related-title" class="rule-heading">{{ rl_title }}</h2>
+  <ul role="list" class="grid-3">
+    {%- for rl_post in rl_posts limit: 3 %}
+    <li>{% include post-card.html post=rl_post %}</li>
+    {%- endfor %}
+  </ul>
+</section>
