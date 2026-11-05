@@ -7,6 +7,8 @@ category:
   - Development
   - Optimizely
   - "Stott Robots Handler"
+tags:
+  - release-notes
 ---
 
 ## Stott.Optimizely.RobotsHandler v1.0.1 Released

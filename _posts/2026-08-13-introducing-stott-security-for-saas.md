@@ -17,6 +17,8 @@ relatedArticles:
   - "_posts/2026-03-05-stott-security-5.md"
   - "_posts/2026-05-17-stott-security-6.md"
   - "_posts/2026-04-09-stott-security-7.md"
+tags:
+  - release-notes
 ---
 
 ## Introduction

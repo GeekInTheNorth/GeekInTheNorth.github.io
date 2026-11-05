@@ -7,6 +7,8 @@ category:
   - Development
   - Optimizely
   - "Stott Robots Handler"
+tags:
+  - release-notes
 ---
 
 ## So you've heard of **llms.txt**?

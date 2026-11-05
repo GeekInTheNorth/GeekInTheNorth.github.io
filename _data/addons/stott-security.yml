@@ -1,14 +1,191 @@
-# Stott Security product data. Download counts and versions are not kept here:
-# assets/js/nuget-downloads.js fetches them live from nuget.org and the Optimizely NuGet feed.
+# Stott Security product data, used by the product page (layout: product), the home page and llms.txt.
+# Download counts and versions are not kept here: assets/js/nuget-downloads.js fetches them live
+# from nuget.org and the Optimizely NuGet feed. Point text allows inline markdown.
 name: "Stott Security"
 category: "Stott Security"
 page: "/article/list/stott-security"
 package_id: "Stott.Security.Optimizely"
 summary: "Manage CSP, CORS and security headers from the CMS."
+kicker: "Free, open-source add-on for Optimizely CMS"
+tagline: "Manage Content Security Policy, CORS, Permissions Policy, response headers and security.txt from inside Optimizely CMS, without a code deployment."
+licence:
+  name: "MIT"
+  url: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely/blob/main/LICENSE.txt"
+issues_url: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely/issues"
 
-# Labels are used word for word in llms.txt.
+# Labels are used word for word in llms.txt. The first repository is the "View on GitHub" button.
 repositories:
   - label: "PaaS Repository"
     url: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely"
   - label: "SaaS Repository"
     url: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely.SaaS"
+
+hero_image:
+  src: "/assets/stott-security-7a.png"
+  alt: "Stott Security CSP Sources tab showing the source and directive grid"
+  caption: "The Content Security Policy sources tab in version 7."
+  width: 1439
+  height: 942
+
+# Optional extra link in the hero, for visitors who need a different edition.
+hero_link:
+  label: "Using SaaS CMS?"
+  url: "#editions"
+
+editions:
+  - name: "PaaS CMS 12 & 13"
+    channel: "NuGet package"
+    status: "Version 7 for CMS 13 and .NET 10 · Version 6 for CMS 12"
+    summary: "Installed into your CMS solution as a NuGet package, with the same steps for CMS 12 and CMS 13."
+    command: "dotnet add package Stott.Security.Optimizely"
+    links:
+      - label: "Installation steps"
+        url: "#get-started"
+      - label: "Version 7 release notes"
+        url: "/article/stott-security-7"
+      - label: "Version 6 release notes"
+        url: "/article/stott-security-6"
+  - name: "SaaS CMS"
+    channel: "Optimizely Connect Platform app"
+    status: "Early access"
+    summary: "A complete rebuild as an OCP app, shown inside the CMS using CMS UI Extensions. Audit history and per-page policies are not available on SaaS."
+    links:
+      - label: "Request early access"
+        url: "https://github.com/GeekInTheNorth/Stott.Security.Optimizely.SaaS/discussions/1"
+      - label: "Read the announcement"
+        url: "/article/introducing-stott-security-for-saas"
+
+# Three showcase rows, alternating image sides.
+features:
+  - title: "Global, Application & Host Configuration"
+    image:
+      src: "/assets/stott-security-7c.png"
+      alt: "Hierarchical inheritance of Content Security Policy sources from Global, Application, Host and Page levels"
+      caption: "CSP sources merge across Global, Application, Host and Page level."
+      width: 1536
+      height: 1024
+    points:
+      - label: "Multiple Contexts:"
+        text: "Configure headers globally, by application (site in CMS 12) and by individual host, using the built-in context switcher."
+      - label: "Layered Content Security Policy:"
+        text: "CSP sources merge across four levels — Global, Application, Host and Page — so you can enforce strong defaults while refining policies for specific journeys."
+      - label: "Override Model:"
+        text: "Permissions Policy and Response Headers use an override approach where more specific levels replace broader ones."
+      - label: "Separate Front-End & CMS Policies:"
+        text: "Apply tight, nonce-based policies to your delivery hosts while granting the CMS editor host the permissions it needs."
+  - title: "Content Security Policy"
+    image:
+      src: "/assets/stott-security-nonce-source.png"
+      alt: "A screenshot of the content security policy Nonce source modal"
+      caption: "Adding a nonce source to the Content Security Policy."
+      width: 1145
+      height: 458
+    points:
+      - label: "User Friendly Interface:"
+        text: "Manage individual domains and what permissions you grant them on a domain by domain basis."
+      - label: "Searchable:"
+        text: "Search by domain or filter by permission to fully understand what permissions have been granted."
+      - label: "Reporting:"
+        text: "Supporting internal and external reporting endpoints, understand violations either directly within the add-on or in a third party service."
+      - label: "Violation Handling:"
+        text: "Add blocked domains straight into your CSP straight from the violation report screen"
+      - label: "Agency Allow List:"
+        text: "Automatically update your Content Security Policies across multiple instances based on a centrally managed allow list."
+      - label: "Supports Nonce:"
+        text: "Supports nonce attributes on script and style tags. Automatically applied for traditional CMS pages, must be applied in UI code for Headless solutions."
+      - label: "Layered by Scope:"
+        text: "Define sources globally and refine them by application, host and page, merged into a single policy for the page being served."
+  - title: "Response Headers"
+    image:
+      src: "/assets/stott-security-7d.png"
+      alt: "Example of the Response Headers being overridden for a specific application"
+      caption: "Overriding response headers for a specific application."
+      width: 1437
+      height: 723
+    points:
+      - label: "User Friendly Interface:"
+        text: "Manage all of your classic response headers in a nice easy to manage interface."
+      - label: "Scoped Configuration:"
+        text: "Configure globally and override at application or host level."
+      - label: "Custom Headers:"
+        text: "Supports adding or removing of any configured header name."
+    codes_label: "Specialized Security Headers:"
+    codes:
+      - "Cross-Origin-Embedder-Policy"
+      - "Cross-Origin-Opener-Policy"
+      - "Cross-Origin-Resource-Policy"
+      - "X-Content-Type-Options"
+      - "X-XSS-Protection"
+      - "X-Frame-Options"
+      - "Referrer-Policy"
+      - "Strict-Transport-Security (HSTS)"
+
+also_included:
+  - title: "Permission Policy"
+    points:
+      - label: "User Friendly Interface:"
+        text: "Manage individual directives in an easy-to-use interface."
+      - label: "Searchable:"
+        text: "Search by domain or filter by permission to fully understand what permissions have been granted."
+      - label: "Scoped Configuration:"
+        text: "Configure globally and override at application or host level."
+  - title: "Cross Origin Resource Sharing (CORS)"
+    points:
+      - label: "CORS Support:"
+        text: "Manage the domains that are allows to make CORS requests into your website."
+      - label: "Native:"
+        text: "Hooks into the Microsoft’s built in .NET CORS middleware to protect your CMS with minimal effort."
+      - label: "Optimizely Headers:"
+        text: "Quickly add known Optimizely headers for the Content Delivery and Definition APIs at the click of a button."
+  - title: "Security.txt"
+    points:
+      - label: "User Friendly Interface:"
+        text: "Manage your security.txt files in an easy to interface that is familiar to users of Stott Robots Handler."
+      - label: "Multi-Domain / Host Support:"
+        text: "Write a single security.txt file for your entire CMS, or create them by application (site in CMS 12) or even specific host."
+  - title: "Additional Features"
+    points:
+      - label: "Previews:"
+        text: "A preview screen that will show you your complete collection of compiled headers."
+      - label: "Headless Support:"
+        text: "APIs can be consumed by your headless solution to serve headers using middleware in well known headless providers."
+      - label: "Import/Export:"
+        text: "Export all your settings to back them up before making sweeping changes and import them to roll them back to a known state."
+      - label: "Fully Audited:"
+        text: "All changes made within the add-on are audited complete with field value changes."
+      - label: "Audit Reporting:"
+        text: "Review all changes made to settings by user, date or record type."
+      - label: "Validation:"
+        text: "Client side and server side validation with visual feedback to prevent configuration errors"
+
+get_started:
+  guide_label: "Read the full guide"
+  guide_url: "/article/getting-started-with-stott-security"
+  register:
+    intro: "Two lines bring the module to life, one in your service registration and one in the request pipeline."
+    label: "C# · Startup"
+    highlight: [3, 10]
+    code: |
+      public void ConfigureServices(IServiceCollection services)
+      {
+          services.AddStottSecurity();
+      }
+
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+      {
+          app.UseAuthentication();
+          app.UseAuthorization();
+          app.UseStottSecurity();
+
+          app.UseEndpoints(endpoints =>
+          {
+              endpoints.MapContent();
+              endpoints.MapControllers();
+          });
+      }
+    notes:
+      - "Declare `app.UseStottSecurity()` immediately before `app.UseEndpoints(...)` so that the headers are added to content responses."
+      - "If you are calling `app.UseStaticFiles()`, make sure that call is made after `app.UseStottSecurity()`."
+  first_use:
+    title: "Create your first Content Security Policy"
+    text: "Open Stott Security in the CMS and follow the [getting started guide](/article/getting-started-with-stott-security) to add your first sources, including separate policies for your front-end and CMS hosts."

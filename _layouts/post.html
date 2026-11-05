@@ -2,6 +2,7 @@
 layout: default
 scripts:
   - toc
+  - nuget-downloads
 ---
 {%- comment -%}
   Lazy-load images and iframes, make tables and code blocks scroll on their own on small screens,
@@ -59,6 +60,7 @@ scripts:
       </div>
       <footer class="article-footer">
         {% include kicker.html categories=page.categories label="Filed under" class="kicker--filed" %}
+        {% include addon-aside.html %}
         {% include author-card.html %}
       </footer>
     </div>

@@ -13,6 +13,8 @@ relatedArticles:
   - "_posts/2026-03-05-stott-security-5.md"
   - "_posts/2026-05-17-stott-security-6.md"
   - "_posts/2026-04-09-stott-security-7.md"
+tags:
+  - release-notes
 ---
 
 In December 2023, I unveiled the initial version of Stott Security version 2. Although I typically announce each version I release, these announcements have often been concise, lacking in-depth explanations. Let's delve into that now.

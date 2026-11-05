@@ -1,0 +1,8 @@
+{%- comment -%}
+  A list of {label, text} feature points; text allows inline markdown.
+{%- endcomment -%}
+<ul role="list" class="feature-points">
+  {%- for fp_point in include.points %}
+  <li><strong>{{ fp_point.label }}</strong> {{ fp_point.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+  {%- endfor %}
+</ul>

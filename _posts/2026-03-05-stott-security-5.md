@@ -13,6 +13,8 @@ relatedArticles:
   - "_posts/2026-01-16-stott-security-4.md"
   - "_posts/2026-05-17-stott-security-6.md"
   - "_posts/2026-04-09-stott-security-7.md"
+tags:
+  - release-notes
 ---
 
 March 2026 marks the release of Stott Security v5, a significant update to the popular web security add-on for Optimizely CMS 12+, with more than 115,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.

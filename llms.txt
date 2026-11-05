@@ -12,12 +12,10 @@ layout: null
 {%- if sectionPage %}
 - [{{ sectionPage.title }}]({{ site.url }}{{ sectionPage.url }}): {{ sectionPage.description }}
 {%- endif %}
-{%- if sectionPage.gitRepository %}
-- [{{ sectionPage.title }} {{ sectionPage.gitRepositoryLabel }}]({{ sectionPage.gitRepository }}): Source code on GitHub.
-{%- endif %}
-{%- if sectionPage.gitRepositoryTwo %}
-- [{{ sectionPage.title }} {{ sectionPage.gitRepositoryTwoLabel }}]({{ sectionPage.gitRepositoryTwo }}): Source code on GitHub.
-{%- endif %}
+{%- assign sectionAddon = site.data.addons[sectionPage.addon] %}
+{%- for repository in sectionAddon.repositories %}
+- [{{ sectionPage.title }} {{ repository.label }}]({{ repository.url }}): Source code on GitHub.
+{%- endfor %}
 {%- for post in site.posts %}
 {%- if post.categories contains "Stott Security" %}{% assign postSection = "Stott Security" %}
 {%- elsif post.categories contains "Stott Robots Handler" %}{% assign postSection = "Stott Robots Handler" %}

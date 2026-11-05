@@ -13,6 +13,8 @@ relatedArticles:
   - "_posts/2026-01-16-stott-security-4.md"
   - "_posts/2026-03-05-stott-security-5.md"
   - "_posts/2026-04-09-stott-security-7.md"
+tags:
+  - release-notes
 ---
 
 Stott Security version 6 is now available for **Optimizely PaaS CMS 12**, bringing the support for configuring security headers by both **site** and **host** that was introduced in version 7 for CMS 13. This functionality has been migrated down to CMS 12 and adapted to work naturally with the established **Site** based architecture, enabling far more precise and maintainable security policies.
