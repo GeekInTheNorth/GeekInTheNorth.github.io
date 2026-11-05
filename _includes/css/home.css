@@ -151,27 +151,3 @@
   font-size: 13px;
   color: var(--muted);
 }
-
-/* "From Geek Stories" band */
-.band__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  padding-block: 56px 64px;
-  border-top: 1px solid var(--rule);
-}
-
-.band__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 8px 24px;
-}
-
-.band__intro {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  font-style: italic;
-  color: var(--muted);
-}
