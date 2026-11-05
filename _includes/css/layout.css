@@ -70,9 +70,10 @@
   gap: 32px 64px;
 }
 
+/* auto-fill keeps empty columns, so one or two items stay at a third of the width rather than stretching. */
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 32px;
 }
 

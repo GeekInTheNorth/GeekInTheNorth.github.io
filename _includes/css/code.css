@@ -42,6 +42,108 @@ pre.highlight:focus-visible {
   outline-offset: -2px;
 }
 
+/* Header bar added to article code blocks by code-expand.js: language on the left, Expand on the right. */
+.code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px 0 24px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--code-bg);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.prose > .code-toolbar {
+  margin-top: 1.4em;
+}
+
+.prose > .code-toolbar + pre {
+  margin-top: 0;
+}
+
+.code-button {
+  min-height: var(--tap);
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.code-button:hover {
+  color: var(--accent);
+}
+
+/* Full-screen code view */
+.code-dialog {
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--code-bg);
+  color: var(--ink);
+}
+
+.code-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.code-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+html:has(.code-dialog[open]) {
+  overflow: hidden;
+}
+
+.code-dialog__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 12px 0 32px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+}
+
+.code-dialog__title {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.code-dialog__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.code-dialog__body pre {
+  min-height: 100%;
+  padding: 28px 32px;
+  overflow: visible;
+  font-size: 15px;
+}
+
 /* Rouge tokens */
 .highlight .c,
 .highlight .c1,

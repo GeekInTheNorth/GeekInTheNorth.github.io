@@ -28,7 +28,9 @@
   .support-band,
   .addon-aside,
   .copy-command__button,
-  .code-panel__copy {
+  .code-panel__copy,
+  .code-toolbar,
+  .code-dialog {
     display: none !important;
   }
 
