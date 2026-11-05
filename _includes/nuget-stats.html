@@ -9,20 +9,20 @@
 data-package-id="{{ ns_addon.package_id }}" data-nuget-url="https://azuresearch-usnc.nuget.org/query?q=packageid:{{ ns_addon.package_id }}&amp;prerelease=true" data-optimizely-url="https://nuget.optimizely.com/v3/search?q={{ ns_addon.package_id | downcase }}&amp;prerelease=true"
 {%- endcapture -%}
 {%- if include.variant == "strip" %}
-<dl class="proof-strip__list" {{ ns_data }}>
-  <div class="proof-strip__item">
+<dl class="stat-strip__list" {{ ns_data }}>
+  <div class="stat-strip__item">
     <dt>nuget.org downloads</dt>
     <dd data-nuget-downloads><a href="{{ ns_nuget_page }}">View on NuGet</a></dd>
   </div>
-  <div class="proof-strip__item">
+  <div class="stat-strip__item">
     <dt>Optimizely feed downloads</dt>
     <dd data-optimizely-downloads><a href="https://nuget.optimizely.com/package/?id={{ ns_addon.package_id }}">View on the Optimizely feed</a></dd>
   </div>
-  <div class="proof-strip__item">
+  <div class="stat-strip__item">
     <dt>Latest version</dt>
     <dd data-package-version><a href="{{ ns_nuget_page }}">View on NuGet</a></dd>
   </div>
-  <div class="proof-strip__item">
+  <div class="stat-strip__item">
     <dt>Licence</dt>
     <dd>{{ ns_addon.licence.name | default: "MIT" }}</dd>
   </div>

@@ -1,0 +1,26 @@
+{%- comment -%}
+  Posts grouped by year, newest first. The newest year is open and shows full rows;
+  earlier years are collapsed and show compact rows.
+{%- endcomment -%}
+{%- assign ar_years = include.posts | group_by_exp: "ar_post", "ar_post.date | date: '%Y'" -%}
+<div class="archive">
+  {%- for ar_year in ar_years %}
+  {%- assign ar_full = forloop.first %}
+  <details class="archive__year"{% if forloop.first %} open{% endif %}>
+    <summary class="archive__summary">
+      <span class="archive__label">{{ ar_year.name }}</span>
+      <span class="archive__count">{{ ar_year.size }} article{% if ar_year.size != 1 %}s{% endif %}</span>
+      {% include icon.html name="chevron-down" class="archive__icon" %}
+    </summary>
+    <ol role="list" class="{% if ar_full %}post-list{% else %}archive__list{% endif %}">
+      {%- for ar_post in ar_year.items %}
+      {%- if ar_full %}
+      {% include post-row.html post=ar_post %}
+      {%- else %}
+      {% include archive-row.html post=ar_post %}
+      {%- endif %}
+      {%- endfor %}
+    </ol>
+  </details>
+  {%- endfor %}
+</div>
