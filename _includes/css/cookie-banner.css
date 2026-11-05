@@ -1,0 +1,38 @@
+/* ---------- Cookie banner ----------
+   Both choices are equal in size and weight, so declining is as easy as accepting. */
+.cookie-banner {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 440px;
+  margin-left: auto;
+  padding: 20px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner p {
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.cookie-banner__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.cookie-banner__actions .button {
+  width: 100%;
+  padding: 0 12px;
+}

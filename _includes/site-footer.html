@@ -1,0 +1,19 @@
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <a class="wordmark wordmark--small" href="/">{{ site.title }}</a>
+    <nav aria-label="Footer">
+      <ul role="list" class="site-footer__links">
+        {%- for sf_social in site.data.links.socials %}
+        <li><a href="{{ sf_social.url }}" rel="me">{{ sf_social.title }}</a></li>
+        {%- endfor %}
+        <li><a href="/links">Links</a></li>
+        <li><a href="/cookie-policy">Cookie policy</a></li>
+        <li class="js-only"><button type="button" class="site-footer__button js-cookie-settings">Cookie settings</button></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap site-footer__meta">
+    <span>© {{ site.time | date: '%Y' }} {{ site.author }}</span>
+    <div id="wcb" class="carbonbadge"></div>
+  </div>
+</footer>

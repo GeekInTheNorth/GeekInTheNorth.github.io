@@ -1,4 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
+// Cookie consent and Optimizely Web Experimentation.
+// Loaded in <head> so a consenting visitor's Optimizely snippet is requested as early as possible.
+(function () {
+    // Stored in accept_cookies. Bump it when the consent choices change so every visitor is asked again;
+    // version 2 replaced a banner whose personalisation switch was ticked by default.
+    const consentVersion = "2";
+    const optimizelyCookies = ["optimizelyEndUserId", "optimizelySession"];
+
     // Function to get a cookie value by name
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -12,7 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         const expires = `expires=${date.toUTCString()}`;
-        document.cookie = `${name}=${value}; ${expires}; path=/`;
+        const secure = window.location.protocol === "https:" ? "; Secure" : "";
+        document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=Lax${secure}`;
+    }
+
+    // Function to remove a cookie, including any copy set on the parent domain
+    function deleteCookie(name) {
+        const expired = "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        const parentDomain = window.location.hostname.replace(/^www\./, "");
+        document.cookie = `${name}=; ${expired}`;
+        document.cookie = `${name}=; ${expired}; domain=.${parentDomain}`;
     }
 
     // Helper to check query string
@@ -20,54 +36,63 @@ document.addEventListener("DOMContentLoaded", function () {
         return new URLSearchParams(window.location.search).get('optimizely_editor') === 'true';
     }
 
-    // Function to inject the Optimizely script
+    function hasMadeChoice() {
+        return getCookie("accept_cookies") === consentVersion;
+    }
+
+    function allowsPersonalization() {
+        return hasMadeChoice() && getCookie("accept_personalization") === "1";
+    }
+
+    let optimizelyLoaded = false;
+
+    // Function to inject the Optimizely script (once per page)
     function injectOptimizelyScript() {
+        if (optimizelyLoaded) return;
+        optimizelyLoaded = true;
         const script = document.createElement("script");
-        script.src = "https://cdn.optimizely.com/js/5709185699020800.js"; // Replace with the actual script URL
-        script.type = "text/javascript";
+        script.src = "https://cdn.optimizely.com/js/5709185699020800.js";
         document.head.insertBefore(script, document.head.firstChild);
     }
 
-    // Check if cookie banner has been interacted with
-    const cookieBanner = document.querySelector(".cookie-banner");
-    const cookieBannerValue = getCookie("accept_cookies");
-    if (cookieBannerValue === null) {
-        // Show the cookie banner if the cookie is not set
-        cookieBanner.classList.remove("d-none");
-        cookieBanner.classList.add("d-inline");
-    } else {
-        // Hide the cookie banner if the cookie is set
-        cookieBanner.classList.remove("d-inline");
-        cookieBanner.classList.add("d-none");
-    }
-
-    // Render Optimizely script if query param is present
-    if (hasOptimizelyEditorParam()) {
+    if (hasOptimizelyEditorParam() || allowsPersonalization()) {
         injectOptimizelyScript();
-    } else {
-        // Check if the cookie exists and has a value of "1"
-        const cookieValue = getCookie("accept_personalization");
-        if (cookieValue === "1") {
-            injectOptimizelyScript();
-        }
     }
 
-    // Add event listener to the CTA button
-    const cookieCTAButton = document.querySelector(".js-cookie-cta");
-    if (cookieCTAButton) {
-        cookieCTAButton.addEventListener("click", function () {
-            // Set cookies
-            setCookie("accept_cookies", "1", 365);
-            const personalizationCheckbox = document.getElementById("acceptPersonalization");
-            if (personalizationCheckbox && personalizationCheckbox.checked) {
-                setCookie("accept_personalization", "1", 365);
-            } else {
-                setCookie("accept_personalization", "0", 365);
+    document.addEventListener("DOMContentLoaded", function () {
+        const cookieBanner = document.querySelector("[data-cookie-banner]");
+        if (!cookieBanner) return;
+
+        function saveChoice(acceptPersonalization) {
+            const hadPersonalization = allowsPersonalization();
+            setCookie("accept_cookies", consentVersion, 365);
+            setCookie("accept_personalization", acceptPersonalization ? "1" : "0", 365);
+            cookieBanner.hidden = true;
+
+            if (acceptPersonalization) {
+                injectOptimizelyScript();
+            } else if (hadPersonalization) {
+                // Consent withdrawn: clear Optimizely's cookies and reload without the script.
+                optimizelyCookies.forEach(deleteCookie);
+                window.location.reload();
             }
+        }
 
-            // Hide the cookie banner
-            cookieBanner.classList.remove("d-inline");
-            cookieBanner.classList.add("d-none");
+        cookieBanner.querySelectorAll("[data-consent]").forEach(function (button) {
+            button.addEventListener("click", function () {
+                saveChoice(button.dataset.consent === "all");
+            });
         });
-    }
-});
+
+        document.querySelectorAll(".js-cookie-settings").forEach(function (button) {
+            button.addEventListener("click", function () {
+                cookieBanner.hidden = false;
+                cookieBanner.querySelector("[data-consent]").focus();
+            });
+        });
+
+        if (!hasMadeChoice()) {
+            cookieBanner.hidden = false;
+        }
+    });
+})();

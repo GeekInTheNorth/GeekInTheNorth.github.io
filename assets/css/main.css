@@ -7,3 +7,6 @@ layout: null
 {% include css/reset.css %}
 {% include css/base.css %}
 {% include css/layout.css %}
+{% include css/header.css %}
+{% include css/footer.css %}
+{% include css/cookie-banner.css %}
