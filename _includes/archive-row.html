@@ -1,8 +1,0 @@
-{%- assign arr_post = include.post -%}
-{%- assign arr_href = arr_post.externalUrl | default: arr_post.url -%}
-<li class="archive-row">
-  <time class="archive-row__date" datetime="{{ arr_post.date | date_to_xmlschema }}">{{ arr_post.date | date: "%-d %b" }}</time>
-  <a class="archive-row__link" href="{{ arr_href }}">{{ arr_post.title }}
-    {%- if arr_post.externalUrl %} {% include icon.html name="box-arrow-up-right" label="on an external site" %}{% endif -%}
-  </a>
-</li>

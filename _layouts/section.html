@@ -1,11 +1,13 @@
 ---
 layout: default
+scripts:
+  - archive-filter
 ---
 {%- comment -%}
   A section page for one category: title, optional stats strip, optional introduction (the page's own
   content), optional certifications, then every article in the category grouped by year.
   Front matter: category (required), description, stats (list of {source: articles|addons} or {value}, with label),
-  certifications: true.
+  certifications: true. The article list can be filtered by category and year (archive-filter.js).
 {%- endcomment -%}
 {%- assign sec_posts = site.categories[page.category] -%}
 {%- assign sec_intro = content | strip -%}

@@ -5,7 +5,7 @@
 {%- assign pr_post = include.post -%}
 {%- assign pr_href = pr_post.externalUrl | default: pr_post.url -%}
 {%- assign pr_level = include.level | default: 3 -%}
-<li class="post-row">
+<li class="post-row" data-year="{{ pr_post.date | date: '%Y' }}" data-categories="|{{ pr_post.categories | join: '|' }}|">
   <time class="post-row__date" datetime="{{ pr_post.date | date_to_xmlschema }}">
     <span class="post-row__day">{{ pr_post.date | date: "%-d" }}</span>
     <span class="post-row__month">{{ pr_post.date | date: "%b %Y" }}</span>

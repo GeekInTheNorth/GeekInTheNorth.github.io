@@ -17,7 +17,6 @@
   {% include site-footer.html %}
   {% include cookie-banner.html %}
 
-  <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
   {%- assign default_version = site.time | date: '%s' %}
   {%- for default_script in layout.scripts %}
   <script src="/assets/js/{{ default_script }}.js?v={{ default_version }}" defer></script>

@@ -1,7 +1,8 @@
 {%- comment -%}
   Live NuGet figures for an add-on, filled in by assets/js/nuget-downloads.js. No figures are stored in the site.
   variant: "strip" shows labelled figures that fall back to links to the package pages;
-           "inline" is a single line that stays hidden until the figures arrive.
+           "inline" is a single line of nuget.org downloads and version, hidden until the figures arrive;
+           "total" is the same line with nuget.org and Optimizely feed downloads added together.
 {%- endcomment -%}
 {%- assign ns_addon = include.addon -%}
 {%- assign ns_nuget_page = "https://www.nuget.org/packages/" | append: ns_addon.package_id -%}
@@ -27,6 +28,8 @@ data-package-id="{{ ns_addon.package_id }}" data-nuget-url="https://azuresearch-
     <dd>{{ ns_addon.licence.name | default: "MIT" }}</dd>
   </div>
 </dl>
+{%- elsif include.variant == "total" %}
+<p class="nuget-inline" {{ ns_data }} data-nuget-reveal hidden><strong data-total-downloads></strong> downloads · v<span data-package-version></span></p>
 {%- else %}
 <p class="nuget-inline" {{ ns_data }} data-nuget-reveal hidden><strong data-nuget-downloads></strong> nuget.org downloads · v<span data-package-version></span></p>
 {%- endif %}

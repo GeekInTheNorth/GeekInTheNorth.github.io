@@ -42,12 +42,6 @@
             toggles.forEach(function (toggle) {
                 toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
             });
-
-            // The Website Carbon badge has a dark variant.
-            const carbonBadge = document.getElementById("wcb");
-            if (carbonBadge) {
-                carbonBadge.classList.toggle("wcb-d", isDark);
-            }
         }
 
         toggles.forEach(function (toggle) {

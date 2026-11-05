@@ -18,7 +18,7 @@ We do **not** use cookies for advertising, tracking across other websites, or an
 
 ## Managing Cookies
 
-You can change your choice at any time using **Cookie settings** in the footer of every page. If you withdraw your consent, the personalisation cookies are removed.
+You can change your choice at any time using **Cookie Settings** in the footer of every page. If you withdraw your consent, the personalisation cookies are removed.
 
 You can also control or delete cookies through your browser settings. Most browsers allow you to block or delete cookies entirely or on a site-by-site basis.
 

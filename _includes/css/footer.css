@@ -9,20 +9,19 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px 32px;
-  padding-block: 24px 4px;
+  gap: 4px 32px;
+  padding-block: 16px 32px;
+  font-size: 14px;
 }
 
-.wordmark--small {
-  min-height: var(--tap);
-  font-size: 22px;
+.site-footer__copyright {
+  color: var(--muted);
 }
 
 .site-footer__links {
   display: flex;
   flex-wrap: wrap;
   gap: 0 20px;
-  font-size: 14px;
 }
 
 .site-footer__links a,
@@ -45,15 +44,4 @@
   border: 0;
   background: none;
   font-size: 14px;
-}
-
-.site-footer__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 32px;
-  padding-block: 4px 32px;
-  font-size: 14px;
-  color: var(--muted);
 }

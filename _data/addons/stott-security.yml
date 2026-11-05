@@ -35,7 +35,7 @@ hero_link:
 editions:
   - name: "PaaS CMS 12 & 13"
     channel: "NuGet package"
-    status: "Version 7 for CMS 13 and .NET 10 · Version 6 for CMS 12"
+    status: "Version 7 for CMS 13 · Version 6 for CMS 12"
     summary: "Installed into your CMS solution as a NuGet package, with the same steps for CMS 12 and CMS 13."
     command: "dotnet add package Stott.Security.Optimizely"
     links:

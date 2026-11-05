@@ -1,7 +1,7 @@
 // Highlights the "In this article" link for the section currently being read.
 // The contents list works as plain links without this script.
 document.addEventListener("DOMContentLoaded", function () {
-    const rail = document.querySelector(".toc--rail");
+    const rail = document.querySelector(".toc");
     if (!rail || !("IntersectionObserver" in window)) return;
 
     const links = new Map();

@@ -14,6 +14,11 @@ body {
   margin: 0;
 }
 
+/* Elements hidden with the hidden attribute stay hidden even when a class gives them a display value. */
+[hidden] {
+  display: none !important;
+}
+
 img,
 svg,
 video,
