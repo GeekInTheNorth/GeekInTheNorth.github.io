@@ -19,3 +19,4 @@ layout: null
 {% include css/home.css %}
 {% include css/section.css %}
 {% include css/product.css %}
+{% include css/print.css %}

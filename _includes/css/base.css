@@ -82,6 +82,11 @@ p {
   top: 16px;
 }
 
+/* The skip link moves focus to <main>; the jump itself is enough of a cue. */
+main:focus {
+  outline: none;
+}
+
 .icon {
   width: 1em;
   height: 1em;

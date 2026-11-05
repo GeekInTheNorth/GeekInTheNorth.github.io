@@ -1,0 +1,72 @@
+/* ---------- Print ----------
+   Black on white whatever the screen theme, without navigation, banners or interactive extras. */
+@media print {
+  :root,
+  :root[data-theme],
+  :root:not([data-theme="light"]) {
+    color-scheme: light;
+    --bg: #FFFFFF;
+    --paper: #FFFFFF;
+    --ink: #000000;
+    --muted: #333333;
+    --rule: #CCCCCC;
+    --accent: #000000;
+    --accent-soft: #F2F2F2;
+    --code-bg: #F5F5F5;
+    --mat: #F5F5F5;
+  }
+
+  .skip-link,
+  .site-nav,
+  .site-header__utility,
+  .theme-toggle,
+  .cookie-banner,
+  .toc,
+  .site-footer,
+  .related,
+  .band,
+  .support-band,
+  .addon-aside,
+  .copy-command__button,
+  .code-panel__copy {
+    display: none !important;
+  }
+
+  body {
+    font-size: 11pt;
+  }
+
+  .prose {
+    font-size: 11.5pt;
+  }
+
+  .article-body,
+  .article-body.has-toc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    overflow-wrap: anywhere;
+  }
+
+  pre.highlight,
+  .prose pre {
+    white-space: pre-wrap;
+  }
+
+  img,
+  figure,
+  pre,
+  blockquote,
+  .table-scroll {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+}
