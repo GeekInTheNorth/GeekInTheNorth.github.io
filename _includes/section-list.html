@@ -1,0 +1,11 @@
+{%- comment -%}
+  The sections from _data/navigation.yml with their article counts. A section is listed only if it has a page.
+{%- endcomment -%}
+<ul role="list" class="section-list">
+  {%- for sl_name in site.data.navigation.sections %}
+  {%- assign sl_page = site.pages | where: "category", sl_name | first %}
+  {%- if sl_page %}
+  <li><a href="{{ sl_page.url }}"><span>{{ sl_name }}</span><span class="section-list__count">{{ site.categories[sl_name].size }}</span></a></li>
+  {%- endif %}
+  {%- endfor %}
+</ul>

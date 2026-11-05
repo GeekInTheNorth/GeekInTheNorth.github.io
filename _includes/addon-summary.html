@@ -1,0 +1,6 @@
+{%- assign as_addon = include.addon -%}
+<li class="addon-summary">
+  <a class="addon-summary__name" href="{{ as_addon.page }}">{{ as_addon.name }}</a>
+  <p class="addon-summary__text">{{ as_addon.summary }}</p>
+  {% include nuget-stats.html addon=as_addon variant="inline" %}
+</li>

@@ -1,77 +1,79 @@
 ---
 layout: default
+header: masthead
+scripts:
+  - nuget-downloads
 ---
+{%- assign home_lead = site.posts.first -%}
+{%- assign home_shown = "|" | append: home_lead.url | append: "|" -%}
+{%- assign home_mvp = site.data.certifications | where: "type", "mvp" | first -%}
+{%- assign home_stories = site.pages | where: "category", "Geek Stories" | first -%}
 
-<section class="bg-dark text-white heroBanner">
-    <div class="container">
-        <div class="row align-items-center py-5">
-            <div class="col-12 col-lg-8">
-                <h1 class="display-4 fw-bold gap-4">Software Solution Architect &amp; OMVP</h1>
-                <p class="text-light gap-4">With 25+ years in software engineering, I specialise in helping teams simplify complexity and deliver secure, reliable solutions. As an Optimizely MVP, I build tools, share strategies, and provide hands-on expertise to ensure your CMS and digital platforms perform at their best.</p>
-                <div class="d-flex gap-3 flex-wrap">
-                    <a href="https://github.com/GeekInTheNorth/" class="btn btn-outline-light btn-lg" target="_blank"><i class="fab fa-github me-2"></i>GitHub</a>
-                    <a href="https://www.linkedin.com/in/mark-antony-stott/" class="btn btn-outline-light btn-lg" target="_blank"><i class="fab fa-linkedin me-2"></i>LinkedIn</a>
-                    <a href="https://www.buymeacoffee.com/markstott" class="btn btn-outline-light btn-lg" target="_blank"><i class="fa fa-coffee me-2"></i>Buy me a coffee</a>
-                </div>
-            </div>
-            <div class="col-lg-4 d-none d-lg-block">
-                <div class="text-center">
-                    <img alt="Mark Stott - Software Solution Architect" class="img-fluid rounded-3 shadow-lg" src="/assets/mark_stott_lock_down_small.jpg" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="bg-light border-top border-bottom">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <div class="h3 fw-bold text-dark mb-1">40+</div>
-                <div class="text-muted">Technical Articles</div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <div class="h3 fw-bold text-dark mb-1">25+</div>
-                <div class="text-muted">Years of Development Experience</div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <div class="h3 fw-bold text-dark mb-1">8+</div>
-                <div class="text-muted">Years of Optimizely Experience</div>
-            </div>
-                <div class="col-12 col-sm-6 col-lg-3 my-2">
-                <div class="h3 fw-bold text-dark mb-1">2</div>
-                <div class="text-muted">Optimizely Add-Ons</div>
-            </div>
-        </div>
-    </div>
+<section class="wrap home-lead" aria-label="Latest article">
+  {% include lead-story.html post=home_lead %}
 </section>
 
-<div class="container main-content">
+<div class="wrap home-columns">
+  <section class="home-latest" aria-labelledby="latest-title">
+    <h2 id="latest-title" class="rule-heading">Latest writing</h2>
+    <ol role="list" class="post-list">
+      {%- for home_post in site.posts offset: 1 limit: 6 %}
+      {% include post-row.html post=home_post %}
+      {%- assign home_shown = home_shown | append: home_post.url | append: "|" %}
+      {%- endfor %}
+    </ol>
+  </section>
 
-<section>
-    <h2>Latest Posts</h2>
-    <p>Deep dives into software solutions, development practices, and technical insights</p>
-    <div class="row g-4">
-    {% for post in site.posts limit:12 %}
-        {% include promo.html article = post %}
-    {% endfor %}
-    </div>
-
-    <h3 class="h4 fw-bold text-dark my-4 d-flex align-items-center">Read more articles about...</h3>
-    <div class="row g-3">
-        <div class="col-12 col-md-6 col-xl-4">
-            <a href="/article/list/optimizely" class="btn btn-outline-primary me-2 w-100">Optimizely<i class="fa-solid fa-arrow-right ms-2"></i></a>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-            <a href="/article/list/development" class="btn btn-outline-primary me-2 w-100">Development<i class="fa-solid fa-arrow-right ms-2"></i></a>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-            <a href="/article/list/stott-robots-handler" class="btn btn-outline-primary me-2 w-100">Stott Robots Handler<i class="fa-solid fa-arrow-right ms-2"></i></a>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-            <a href="/article/list/stott-security" class="btn btn-outline-primary me-2 w-100">Stott Security<i class="fa-solid fa-arrow-right ms-2"></i></a>
-        </div>
-        <div class="col-12 col-md-6 col-xl-4">
-            <a href="/article/list/geek-stories" class="btn btn-outline-primary me-2 w-100">Geek Stories<i class="fa-solid fa-arrow-right ms-2"></i></a>
-        </div>
+  <aside class="home-sidebar" aria-label="About this site">
+    <section class="home-sidebar__section" aria-labelledby="author-title">
+      <h2 id="author-title" class="rule-heading">The author</h2>
+      <div class="home-author__images">
+        <img class="home-author__portrait" src="{{ site.data.author.portrait.src }}" alt="{{ site.data.author.portrait.alt }}" width="88" height="88" loading="lazy">
+        {%- if home_mvp %}
+        <a href="{{ home_mvp.url }}"><img class="home-author__badge" src="{{ home_mvp.image }}" alt="{{ home_mvp.title }}, {{ home_mvp.level }}" width="72" height="72" loading="lazy"></a>
+        {%- endif %}
+      </div>
+      <p class="home-author__summary">{{ site.data.author.summary }}</p>
+      <a class="text-link" href="/about">More about Mark</a>
     </section>
+
+    <section class="home-sidebar__section" aria-labelledby="addons-title">
+      <h2 id="addons-title" class="rule-heading">Open-source add-ons</h2>
+      <ul role="list" class="addon-list">
+        {%- for home_addon_key in site.data.navigation.addons %}
+        {%- assign home_addon = site.data.addons[home_addon_key] %}
+        {% include addon-summary.html addon=home_addon %}
+        {%- endfor %}
+      </ul>
+    </section>
+
+    <section class="home-sidebar__section" aria-labelledby="sections-title">
+      <h2 id="sections-title" class="rule-heading">Sections</h2>
+      {% include section-list.html %}
+    </section>
+  </aside>
 </div>
+
+{%- if home_stories %}
+<section class="band" aria-labelledby="stories-title">
+  <div class="wrap band__inner">
+    <div class="band__head">
+      <div class="stack">
+        <h2 id="stories-title" class="section-title">From {{ home_stories.title }}</h2>
+        <p class="band__intro">{{ home_stories.description }}</p>
+      </div>
+      <a class="text-link" href="{{ home_stories.url }}">All {{ site.categories["Geek Stories"].size }} stories</a>
+    </div>
+    <ul role="list" class="grid-3">
+      {%- assign home_story_count = 0 %}
+      {%- for home_story in site.categories["Geek Stories"] %}
+        {%- capture home_story_key %}|{{ home_story.url }}|{% endcapture %}
+        {%- if home_shown contains home_story_key %}{% continue %}{% endif %}
+      <li>{% include post-card.html post=home_story %}</li>
+        {%- assign home_story_count = home_story_count | plus: 1 %}
+        {%- if home_story_count == 3 %}{% break %}{% endif %}
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+{%- endif %}
