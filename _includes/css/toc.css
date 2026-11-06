@@ -8,9 +8,11 @@
   .toc {
     display: block;
     position: sticky;
-    top: 24px;
+    /* Sits beneath the sticky header while it is in view (nav.js sets the offset). */
+    top: calc(var(--site-header-offset, 0px) + 24px);
     align-self: start;
-    max-height: calc(100vh - 48px);
+    max-height: calc(100vh - var(--site-header-offset, 0px) - 48px);
+    transition: top 0.4s cubic-bezier(0.22, 1, 0.36, 1), max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     overflow-y: auto;
     padding-top: 8px;
   }

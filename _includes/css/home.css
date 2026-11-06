@@ -1,4 +1,31 @@
 /* ---------- Home page ---------- */
+/* Masthead: the site name set large under the standard header, closed by a heavy rule. */
+.home-masthead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-block: 48px 40px;
+  border-bottom: 1.5px solid var(--ink);
+  text-align: center;
+}
+
+.home-masthead__title {
+  font-size: clamp(56px, 9vw, 108px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.home-masthead__tagline {
+  max-width: 46ch;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
 .home-lead {
   padding-block: 48px 56px;
   border-bottom: 1px solid var(--rule);

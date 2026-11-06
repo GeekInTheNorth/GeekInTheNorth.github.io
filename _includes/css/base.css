@@ -1,6 +1,7 @@
 /* ---------- Base ---------- */
+/* Room for the sticky header (nav.js sets its height), so focus and anchor jumps land below it. */
 html {
-  scroll-padding-top: 24px;
+  scroll-padding-top: calc(var(--site-header-height, 0px) + 24px);
 }
 
 @media (prefers-reduced-motion: no-preference) {

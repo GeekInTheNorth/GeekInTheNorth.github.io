@@ -1,11 +1,17 @@
 ---
 layout: default
-header: masthead
 scripts:
   - nuget-downloads
 ---
 {%- assign home_lead = site.posts.first -%}
 {%- assign home_mvp = site.data.certifications | where: "type", "mvp" | first -%}
+
+<div class="wrap home-masthead">
+  <h1 class="home-masthead__title">{{ site.title }}</h1>
+  {%- if page.tagline %}
+  <p class="home-masthead__tagline">{{ page.tagline }}</p>
+  {%- endif %}
+</div>
 
 <section class="wrap home-lead" aria-label="Latest article">
   {% include lead-story.html post=home_lead %}

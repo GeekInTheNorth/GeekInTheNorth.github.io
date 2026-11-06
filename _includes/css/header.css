@@ -3,12 +3,26 @@
   border-bottom: 1px solid var(--rule);
 }
 
+/* Semi-sticky: the header holds the top of the window, tucks away while scrolling down and slides back on
+   scrolling up (nav.js). Without JavaScript it scrolls away with the page. */
+.js .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg);
+  /* Ease-out, so the header glides in and settles rather than snapping. */
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .site-header.is-tucked {
+  transform: translateY(-100%);
+}
+
 .site-header__bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px 24px;
+  gap: 8px 4px;
   padding-block: 8px;
 }
 
@@ -16,6 +30,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 48px;
+  margin-right: auto;
   font-family: var(--font-serif);
   font-size: 30px;
   font-weight: 500;
@@ -55,71 +70,74 @@
   color: var(--accent);
 }
 
-/* Home page masthead */
-.site-header--masthead {
-  border-bottom: 0;
-}
-
-.site-header__utility {
-  border-bottom: 1px solid var(--rule);
-}
-
-.site-header__utility-inner {
-  display: flex;
-  flex-wrap: wrap;
+/* Menu button: below 720px the nav collapses behind it. It needs JavaScript (theme.js adds the js
+   class), so without it the button stays hidden and the links wrap as normal. */
+.site-nav__toggle {
+  display: none;
   align-items: center;
-  justify-content: space-between;
-  gap: 4px 24px;
-  padding-block: 4px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.masthead {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding-top: 48px;
-  text-align: center;
-}
-
-.masthead__title {
-  font-size: clamp(56px, 9vw, 108px);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-}
-
-.masthead__title a {
+  gap: 8px;
+  min-height: var(--tap);
+  padding: 0 10px;
+  border: 0;
+  background: none;
   color: var(--ink);
-  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.masthead__tagline {
-  max-width: 46ch;
-  font-family: var(--font-serif);
-  font-size: 20px;
-  font-style: italic;
-  line-height: 1.5;
-  color: var(--muted);
-  text-wrap: balance;
+.site-nav__toggle:hover {
+  color: var(--accent);
 }
 
-.masthead__nav {
-  align-self: stretch;
-  justify-content: center;
-  margin-top: 28px;
-  border-top: 1.5px solid var(--ink);
-  border-bottom: 1px solid var(--rule);
+.site-nav__toggle .icon {
+  width: 18px;
+  height: 18px;
 }
 
-.masthead__nav .site-nav__list {
-  justify-content: center;
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-open,
+.site-nav__toggle[aria-expanded="false"] .site-nav__toggle-close {
+  display: none;
 }
 
-.masthead__nav .site-nav__list a {
-  min-height: 48px;
-  padding: 0 14px;
+@media (max-width: 719px) {
+  .js .site-nav__toggle {
+    display: inline-flex;
+  }
+
+  .js .site-nav {
+    display: block;
+  }
+
+  .js .site-nav__toggle[aria-expanded="false"] + .site-nav {
+    display: none;
+  }
+
+  .js .site-nav__list {
+    flex-direction: column;
+  }
+
+  .js .site-nav__list a {
+    display: flex;
+    min-height: 48px;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Bar: wordmark, menu button and theme toggle share the first row; the open menu drops below. */
+  .js .site-header__bar {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0 4px;
+  }
+
+  .js .site-header__bar .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }
 
 /* Theme toggle: shows the moon in light mode and the sun in dark mode. Needs JavaScript. */

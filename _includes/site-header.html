@@ -1,47 +1,30 @@
 {%- comment -%}
-  Site header. variant: "bar" (default, compact) or "masthead" (home page).
+  Site header, the same on every page that uses the default layout.
   A nav item is current when it is the page itself, or the first category of the post being read.
+  On small screens the nav collapses behind the menu button (header.css, nav.js); the button must sit
+  directly before the nav.
 {%- endcomment -%}
-{%- assign sh_variant = include.variant | default: "bar" -%}
-{%- capture sh_nav_items -%}
-  {%- for sh_item in site.data.navigation.primary -%}
-    {%- assign sh_current = "" -%}
-    {%- if page.url == sh_item.url -%}
-      {%- assign sh_current = "page" -%}
-    {%- elsif page.categories.first == sh_item.title -%}
-      {%- assign sh_current = "true" -%}
-    {%- endif %}
-    <li><a href="{{ sh_item.url }}"{% if sh_current != "" %} aria-current="{{ sh_current }}"{% endif %}>{{ sh_item.title }}</a></li>
-  {%- endfor -%}
-{%- endcapture -%}
-{%- if sh_variant == "masthead" %}
-<header class="site-header site-header--masthead">
-  <div class="site-header__utility">
-    <div class="wrap site-header__utility-inner">
-      <span>{{ site.data.author.role }}</span>
-      {% include theme-toggle.html %}
-    </div>
-  </div>
-  <div class="wrap masthead">
-    <h1 class="masthead__title"><a href="/">{{ site.title }}</a></h1>
-    {%- if include.tagline %}
-    <p class="masthead__tagline">{{ include.tagline }}</p>
-    {%- endif %}
-    <nav class="site-nav masthead__nav" aria-label="Main">
-      <ul role="list" class="site-nav__list">{{ sh_nav_items }}
-      </ul>
-    </nav>
-  </div>
-</header>
-{%- else %}
 <header class="site-header">
   <div class="wrap site-header__bar">
     <a class="wordmark" href="/">{{ site.title }}</a>
-    <nav class="site-nav" aria-label="Main">
-      <ul role="list" class="site-nav__list">{{ sh_nav_items }}
+    <button type="button" class="site-nav__toggle js-nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      {% include icon.html name="list" class="site-nav__toggle-open" %}
+      {% include icon.html name="x-lg" class="site-nav__toggle-close" %}
+      Menu
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul role="list" class="site-nav__list">
+        {%- for sh_item in site.data.navigation.primary -%}
+          {%- assign sh_current = "" -%}
+          {%- if page.url == sh_item.url -%}
+            {%- assign sh_current = "page" -%}
+          {%- elsif page.categories.first == sh_item.title -%}
+            {%- assign sh_current = "true" -%}
+          {%- endif %}
+        <li><a href="{{ sh_item.url }}"{% if sh_current != "" %} aria-current="{{ sh_current }}"{% endif %}>{{ sh_item.title }}</a></li>
+        {%- endfor %}
       </ul>
-      {% include theme-toggle.html %}
     </nav>
+    {% include theme-toggle.html %}
   </div>
 </header>
-{%- endif %}

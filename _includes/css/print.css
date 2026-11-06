@@ -18,7 +18,7 @@
 
   .skip-link,
   .site-nav,
-  .site-header__utility,
+  .site-nav__toggle,
   .theme-toggle,
   .cookie-banner,
   .toc,
@@ -35,6 +35,11 @@
 
   body {
     font-size: 11pt;
+  }
+
+  .js .site-header {
+    position: static;
+    transform: none;
   }
 
   .prose {
