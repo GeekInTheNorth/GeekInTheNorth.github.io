@@ -16,7 +16,7 @@ We have an "Integration" layer that facilitates data transfers between an employ
 
 The following piece of code has been sanitised but is structurally the same.  We gather a collection of valid Ids from the target system.  We then query the data from the source system and filter it by the ids in the target system.  In the example below we directly filter this in a LINQ to Entities statement.
 
-```
+```csharp
 var inMemoryCollection = inMemoryCollectionSource.Select(x => x.Id).ToList();
 
 var emps = (from employee in context.Employees
@@ -37,7 +37,7 @@ For small sets of data this is perfectly performant, however this does not scale
 
 So it was time to change tactics on how we filter this data. The following snippet is the change that was made:
 
-```
+```csharp
 var inMemoryCollection = inMemoryCollectionSource.Select(x => x.Id).ToList();
 
 var emps = (from employee in context.Employees

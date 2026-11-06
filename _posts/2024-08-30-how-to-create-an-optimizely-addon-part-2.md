@@ -36,7 +36,7 @@ When the editor interface loads your gadget, it will include an `id` query strin
 
 Below is an example of the minimum required setup for your controller. Note the inclusion of the `[Authorize]` attribute on the controller and the `[HttpGet]` attribute on the action. These ensure that the user is authenticated and that the interface cannot be accessed using an unexpected HTTP verb. Note how I use the `id` query string parameter to load the specific version of the page the user has selected within the CMS Editor interface to provide context specific information to the user.
 
-```
+```csharp
 [Authorize(Policy = OptimizelyAddOnConstants.AuthorizationPolicy)]
 [IFrameComponent(
     Url = "/optimizely-addon/gadget/index/",
@@ -96,7 +96,7 @@ In the gadget I developed for [Stott Security](https://github.com/GeekInTheNorth
 
 When your user logs into the CMS, they will be given your new gadget by default.  Now you can ensure that only specific roles have access to the gadget by setting the `AllowedRoles` property within the `[IFrameComponent]` declaration.  If your Add-on allows the developer to define a custom security policy for accessing your module, you cannot simply specify the roles within the attribute.  For next version of the Stott Security Add-on, I have created a `SecureIFrameComponentAttribute` that inherits the `IFrameComponentAttribute` and dynamically resolves the roles that are allowed access to the Gadget based on that security profile.
 
-```
+```csharp
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class SecureIFrameComponentAttribute : IFrameComponentAttribute
 {
@@ -124,7 +124,7 @@ There are two steps to enable the Editor Interface to recognize our Add-on.  The
 
 Below is an example of a `module.config` file. Note the inclusion of an Authorization Policy as an attribute of the module node; this should correspond to the policy required by your Add-on. Additionally, ensure that the full name of the assembly containing your gadget is listed within the assemblies node.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <module loadFromBin="true" clientResourceRelativePath="" viewEngine="Razor" authorizationPolicy="MyAddOn:Policy" moduleJsonSerializerType="None" prefferedUiJsonSerializerType="Net">
   <assemblies>
@@ -143,7 +143,7 @@ If you are simply adding a gadget to a specific Optimizely CMS build, the assemb
 
 The second step that is needed to inform the CMS of our Add-on is to ensure that is included within the `ProtectedModuleOptions`. This can be achieved within a service extensions method that you call within your `startup.cs` as follows:
 
-```
+```csharp
 public static class OptimizelyAddOnServiceExtensions
 {
     public static IServiceCollection AddOptimizelyAddOn(this IServiceCollection services)

@@ -8,12 +8,15 @@ category:
   - Optimizely
 image: "https://www.stott.pro/assets/async-and-caching-performance-promo.jpg"
 promoImage: "/assets/async-and-caching-performance-promo.jpg"
+promoImageWidth: 1672
+promoImageHeight: 941
 promoImageAlt: "An illustration of the performance improvements based on caching and asynchronous coding."
 ---
 
 Almost every CMS served website has some concept of dynamic content resolution.  A means to serve up related or latest content links while minimising the burden on the content editors. This style of functionality is commonly delivered through functionality such as Search & Navigation, Content Graph, Algolia or some other indexing functionality.  Another common use of dynamic content resolution are mega menus where the structure is based on the IA of the site and uses some form of recursive logic.  For an **In-Process** or **Traditional CMS**, these can have a significant impact on the server response time for a page.
 
-> 📖**Note:** The server response time is the time between the server receiving a request and delivering it's response, disregarding any transmission time between the server and the client.
+> **Note:** The server response time is the time between the server receiving a request and delivering it's response, disregarding any transmission time between the server and the client.
+{: .callout}
 
 In the following sections I'm going to be talking about techniques I have used in practice on a high traffic website that was observed to be having performance issues such as Thread Pool Starvation.
 
@@ -40,7 +43,7 @@ In my case, I had a listing block that used Optimizely Search & Navigation to re
 To make this change effective, the async pattern needs to flow all the way back to the rendering layer. In Optimizely CMS, that meant pushing the change up to the ViewComponent level.
 
 Instead of using:
-```C#
+```csharp
 public class ListingBlockComponent : BlockComponent<ListingBlock>
 {
     protected override IViewComponentResult InvokeComponent(ListingBlock currentContent)
@@ -57,7 +60,7 @@ public class ListingBlockComponent : BlockComponent<ListingBlock>
 ```
 
 The component was refactored to:
-```C#
+```csharp
 public class ListingBlockComponent : AsyncBlockComponent<ListingBlock>
 {
     protected override async Task<IViewComponentResult> InvokeComponentAsync(ListingBlock currentContent)
@@ -94,7 +97,7 @@ The following code is an evolution of the previous example of a listing block, b
 2. Build model if it does not exist in the cache
 3. Render the model
 
-```C#
+```csharp
 public class ListingBlockComponent(
   ISynchronizedObjectInstanceCache cache,
   IPageRouteHelper pageRouteHelper) : AsyncBlockComponent<ListingBlock>
@@ -135,7 +138,8 @@ public class ListingBlockComponent(
 }
 ```
 
-> 💡**Top Tip:** Short cache key names can result in faster cache lookups, but make sure you maintain the right level of uniqueness for your own usage.
+> **Top Tip:** Short cache key names can result in faster cache lookups, but make sure you maintain the right level of uniqueness for your own usage.
+{: .callout}
 
 ## Why Asynchronous Code and Caching work well together
 

@@ -16,7 +16,7 @@ In Optimizely CMS 11, developers could extend functionality with the Admin mode 
 
 First off, we are going to create a simple controller for our new Admin function.  Note that there are no specific Optimizely references or decorators used within this controller, I have used a standard Microsoft Authorize attribute to ensure only the right users are able to use this functionality.
 
-```
+```csharp
 namespace OptimizelyTwelveTest.Features.CustomAdmin
 {
     using Microsoft.AspNetCore.Authorization;
@@ -37,7 +37,7 @@ namespace OptimizelyTwelveTest.Features.CustomAdmin
 
 Next we need to set up a new menu provider; I needed to both decorate the class with the [MenuProvider] attribute and ensure that the class implemented the IMenuProvider interface in order for Optimizely CMS to recognise and render these menus.
 
-```
+```csharp
 namespace OptimizelyTwelveTest.Features.CustomAdmin
 {
     using System.Collections.Generic;
@@ -69,7 +69,7 @@ When I navigate to the admin section of the CMS I can now clearly see my menu it
 
 As previously stated, when you click on this menu item, your custom admin page is no longer rendered in an iFrame and instead you are sent directly to your custom admin page.  This means that the user can no longer see the CMS Admin menu which can be a jarring experience for the user.  Thankfully Optimizely CMS 12 also comes with a razor helper method that renders the admin menu when you call @Html.CreatePlatformNavigationMenu(), but you will need to tweak your styles to ensure that the menu does not show as an overlay on top of your custom admin page.
 
-```
+```csharp
 @using EPiServer.Shell.Navigation
 
 @{
@@ -116,7 +116,7 @@ Now lets say you want to create a new top level CMS menu section which in turn h
 
 You would need to define multiple UrlMenuItems within your MenuProvider.  No hierarchy of objects is required here as Optimizely organises your menu items based on the path values that you provide for each menu item.  I made the above work with the following MenuProvider; please note that I have not used a SectionMenuItem as the CMS user still needs something to happen when they click on the top menu for "Custom Admin Module".
 
-```
+```csharp
 namespace OptimizelyTwelveTest.Features.CustomAdmin
 {
     using System.Collections.Generic;

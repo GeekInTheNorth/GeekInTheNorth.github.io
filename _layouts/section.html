@@ -1,0 +1,49 @@
+---
+layout: default
+scripts:
+  - archive-filter
+---
+{%- comment -%}
+  A section page for one category: title, optional stats strip, optional introduction (the page's own
+  content), optional certifications, then every article in the category grouped by year.
+  Front matter: category (required), description, stats (list of {source: articles|addons} or {value}, with label),
+  certifications: true. The article list can be filtered by category and year (archive-filter.js).
+{%- endcomment -%}
+{%- assign sec_posts = site.categories[page.category] -%}
+{%- assign sec_intro = content | strip -%}
+
+<header class="wrap section-header">
+  <h1 class="section-header__title">{{ page.title }}</h1>
+  {%- if page.description %}
+  <p class="standfirst">{{ page.description }}</p>
+  {%- endif %}
+</header>
+
+{%- if page.stats %}
+{% include section-stats.html posts=sec_posts %}
+{%- endif %}
+
+{%- if sec_intro != "" %}
+<section class="wrap page-section sidehead" aria-labelledby="about-title">
+  <div class="sidehead__head">
+    <h2 id="about-title" class="section-title">About</h2>
+  </div>
+  <div class="sidehead__body prose">
+    {{ content }}
+  </div>
+</section>
+{%- endif %}
+
+{%- if page.certifications %}
+{% include certifications.html %}
+{%- endif %}
+
+<section class="wrap page-section sidehead" aria-labelledby="articles-title">
+  <div class="sidehead__head">
+    <h2 id="articles-title" class="section-title">Articles</h2>
+    <p class="section-note">{{ sec_posts.size }} article{% if sec_posts.size != 1 %}s{% endif %}, newest first</p>
+  </div>
+  <div class="sidehead__body">
+    {% include archive.html posts=sec_posts %}
+  </div>
+</section>

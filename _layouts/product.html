@@ -1,0 +1,197 @@
+---
+layout: default
+scripts:
+  - nuget-downloads
+  - copy
+---
+{%- comment -%}
+  Product page for an add-on. Front matter: addon (key of a file in _data/addons/), category, title, description.
+  Content comes from the add-on's data file; download counts and versions load live from NuGet.
+  Posts in the add-on's category tagged release-notes are listed as release notes, the rest as guides.
+{%- endcomment -%}
+{%- assign pd = site.data.addons[page.addon] -%}
+{%- assign pd_posts = site.categories[pd.category] -%}
+{%- assign pd_releases = pd_posts | where_exp: "pd_post", "pd_post.tags contains 'release-notes'" -%}
+{%- assign pd_guides = "" | split: "" -%}
+{%- for pd_post in pd_posts -%}
+  {%- unless pd_post.tags contains "release-notes" -%}
+    {%- assign pd_guides = pd_guides | push: pd_post -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- assign pd_repository = pd.repositories | first -%}
+{%- assign pd_intro = content | strip -%}
+{%- assign pd_mvp = site.data.certifications | where: "type", "mvp" | first -%}
+
+<section class="wrap product-hero" aria-labelledby="page-title">
+  <div class="product-hero__body">
+    <p class="eyebrow">{{ pd.kicker }}</p>
+    <h1 id="page-title" class="product-hero__title">{{ page.title }}</h1>
+    <p class="standfirst">{{ pd.tagline }}</p>
+    {% include copy-command.html command=pd.editions.first.command %}
+    <p class="cluster">
+      <a class="button button--primary" href="#get-started">Get started</a>
+      {%- if pd_repository %}
+      <a class="button" href="{{ pd_repository.url }}">{% include icon.html name="github" %}View on GitHub</a>
+      {%- endif %}
+      {%- if pd.hero_link %}
+      <a class="text-link" href="{{ pd.hero_link.url }}">{{ pd.hero_link.label }}</a>
+      {%- endif %}
+    </p>
+  </div>
+  <figure class="product-hero__media">
+    <img src="{{ pd.hero_image.src }}" alt="{{ pd.hero_image.alt }}" width="{{ pd.hero_image.width }}" height="{{ pd.hero_image.height }}" fetchpriority="high">
+    {%- if pd.hero_image.caption %}
+    <figcaption>{{ pd.hero_image.caption }}</figcaption>
+    {%- endif %}
+  </figure>
+</section>
+
+<section class="stat-strip" aria-label="{{ pd.name }} at a glance">
+  <div class="wrap">
+    {% include nuget-stats.html addon=pd variant="strip" %}
+  </div>
+</section>
+
+{%- if pd_intro != "" %}
+<section class="wrap page-section sidehead" aria-labelledby="about-title">
+  <div class="sidehead__head">
+    <h2 id="about-title" class="section-title">About the add-on</h2>
+  </div>
+  <div class="sidehead__body prose">
+    {{ content }}
+  </div>
+</section>
+{%- endif %}
+
+<section id="editions" class="wrap page-section" aria-labelledby="editions-title">
+  <h2 id="editions-title" class="section-title">{% if pd.editions.size > 1 %}Choose your edition{% else %}Edition{% endif %}</h2>
+  <div class="editions{% if pd.editions.size == 1 %} editions--single{% endif %}">
+    {%- for pd_edition in pd.editions %}
+    {% include edition-card.html edition=pd_edition %}
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="wrap page-section" aria-labelledby="features-title">
+  <h2 id="features-title" class="section-title">Key features</h2>
+  <div class="feature-rows">
+    {%- for pd_feature in pd.features %}
+    {%- capture pd_number %}{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}{% endcapture %}
+    {% include feature-row.html feature=pd_feature number=pd_number %}
+    {%- endfor %}
+  </div>
+  {%- if pd.also_included %}
+  <div class="also-included">
+    <h3 class="rule-heading">Also included</h3>
+    <div class="grid-2">
+      {%- for pd_extra in pd.also_included %}
+      <div class="also-included__item">
+        <h4 class="also-included__title">{{ pd_extra.title }}</h4>
+        {% include feature-points.html points=pd_extra.points %}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+  {%- endif %}
+</section>
+
+<section id="get-started" class="wrap page-section sidehead" aria-labelledby="start-title">
+  <div class="sidehead__head">
+    <h2 id="start-title" class="section-title">Get started</h2>
+    <a class="text-link" href="{{ pd.get_started.guide_url }}">{{ pd.get_started.guide_label }}</a>
+  </div>
+  <ol role="list" class="sidehead__body steps">
+    <li class="step">
+      <span class="step__number" aria-hidden="true">1</span>
+      <div class="step__body">
+        <h3 class="step__title">Install the package</h3>
+        <div class="code-panel">
+          <pre class="highlight" tabindex="0"><code><span class="c1"># .NET CLI</span>
+dotnet add package {{ pd.package_id }}
+<span class="c1"># Package Manager Console</span>
+Install-Package {{ pd.package_id }}</code></pre>
+        </div>
+      </div>
+    </li>
+    <li class="step">
+      <span class="step__number" aria-hidden="true">2</span>
+      <div class="step__body">
+        <h3 class="step__title">Register the services</h3>
+        <p class="step__text">{{ pd.get_started.register.intro }}</p>
+        {% include code-lines.html code=pd.get_started.register.code highlight=pd.get_started.register.highlight label=pd.get_started.register.label %}
+        {%- if pd.get_started.register.notes %}
+        <ul class="step__notes">
+          {%- for pd_note in pd.get_started.register.notes %}
+          <li>{{ pd_note | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+      </div>
+    </li>
+    <li class="step">
+      <span class="step__number" aria-hidden="true">3</span>
+      <div class="step__body">
+        <h3 class="step__title">{{ pd.get_started.first_use.title }}</h3>
+        <div class="step__text">{{ pd.get_started.first_use.text | markdownify }}</div>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap page-section" aria-labelledby="reading-title">
+  <h2 id="reading-title" class="section-title">Guides &amp; release notes</h2>
+  <div class="grid-2 reading">
+    {%- if pd_guides.size > 0 %}
+    <div>
+      <h3 class="reading__heading">Guides</h3>
+      <ul role="list" class="reading__list">
+        {%- for pd_guide in pd_guides %}
+        {%- assign pd_guide_href = pd_guide.externalUrl | default: pd_guide.url %}
+        <li>
+          <a class="reading__link" href="{{ pd_guide_href }}">{{ pd_guide.title }}</a>
+          <span class="reading__meta">
+            {%- if pd_guide.externalUrl -%}
+              On {{ pd_guide.externalSource | default: "an external site" }} {% include icon.html name="box-arrow-up-right" %}
+            {%- else -%}
+              {{ pd_guide.date | date_to_long_string: "ordinal" }} · {% include reading-time.html post=pd_guide %}
+            {%- endif -%}
+          </span>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+    {%- if pd_releases.size > 0 %}
+    <div>
+      <h3 class="reading__heading">Release notes</h3>
+      <ul role="list" class="reading__list">
+        {%- for pd_release in pd_releases %}
+        <li class="reading__release">
+          <a class="reading__link" href="{{ pd_release.url }}">{{ pd_release.title }}</a>
+          <time class="reading__meta" datetime="{{ pd_release.date | date_to_xmlschema }}">{{ pd_release.date | date: "%b %Y" }}</time>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="support-band" aria-label="Support">
+  <div class="wrap support-band__inner">
+    <div class="support-band__about">
+      {%- if pd_mvp %}
+      <img src="{{ pd_mvp.image }}" alt="{{ pd_mvp.title }}, {{ pd_mvp.level }}" width="88" height="88" loading="lazy">
+      {%- endif %}
+      <div class="stack">
+        <p class="support-band__title">Built and maintained by {{ site.data.author.name }}, Platinum Optimizely MVP.</p>
+        <p class="support-band__text">Free to use and covered by an <a href="{{ pd.licence.url }}">{{ pd.licence.name }} licence</a>.</p>
+      </div>
+    </div>
+    <p class="cluster">
+      <a class="button button--primary" href="#get-started">Get started</a>
+      <a class="button" href="https://www.buymeacoffee.com/markstott">{% include icon.html name="cup-hot" %}Buy me a coffee</a>
+      <a class="text-link" href="{{ pd.issues_url }}">Raise an issue</a>
+    </p>
+  </div>
+</section>

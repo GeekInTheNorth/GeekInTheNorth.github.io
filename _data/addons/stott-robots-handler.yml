@@ -1,0 +1,140 @@
+# Stott Robots Handler product data, used by the product page (layout: product), the home page and llms.txt.
+# Download counts and versions are not kept here: assets/js/nuget-downloads.js fetches them live
+# from nuget.org and the Optimizely NuGet feed. Point text allows inline markdown.
+name: "Stott Robots Handler"
+category: "Stott Robots Handler"
+page: "/article/list/stott-robots-handler"
+package_id: "Stott.Optimizely.RobotsHandler"
+summary: "Manage robots.txt, llms.txt and robots headers."
+kicker: "Free, open-source add-on for Optimizely CMS"
+tagline: "Manage robots.txt content, llms.txt content and environment robots meta tags and headers from inside Optimizely CMS, without a code deployment."
+licence:
+  name: "MIT"
+  url: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler/blob/main/LICENSE.txt"
+issues_url: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler/issues"
+readme_url: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler#installation"
+
+# Labels are used word for word in llms.txt. The first repository is the "View on GitHub" button.
+repositories:
+  - label: "PaaS Repository"
+    url: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler"
+
+hero_image:
+  src: "/assets/stott-robots-v5-modal.png"
+  alt: "The modal view for maintaining llms.txt files in Stott Robots Handler"
+  caption: "Editing llms.txt content in the Robots Handler."
+  width: 2878
+  height: 1708
+
+editions:
+  - name: "PaaS CMS 12 & 13"
+    channel: "NuGet package"
+    status: "Version 7 for CMS 13 · Version 6 for CMS 12"
+    summary: "Installed into your CMS solution as a NuGet package, with the same steps for CMS 12 and CMS 13."
+    command: "dotnet add package Stott.Optimizely.RobotsHandler"
+    links:
+      - label: "Installation steps"
+        url: "#get-started"
+      - label: "Version 7 release notes"
+        url: "/article/stott-robots-handler-v7"
+      - label: "Version 6 release notes"
+        url: "/article/stott-robots-handler-v6"
+
+# Three showcase rows, alternating image sides.
+features:
+  - title: "Robots.txt Management"
+    image:
+      src: "/assets/robots-handler-2.png"
+      alt: "Stott Robots Handler - Edit Modal"
+      caption: "Editing robots.txt content for an application."
+      width: 1101
+      height: 543
+    points:
+      - label: "User Friendly Interface:"
+        text: "Manage robots.txt content across your whole CMS without a code deployment."
+      - label: "Per Application & Host:"
+        text: "Define distinct robots.txt content by application (site in CMS 12) and by specific host."
+      - label: "Smart Resolution:"
+        text: "Requests to `/robots.txt` are matched to the correct application by domain, returning sensible default content when none has been configured."
+  - title: "LLMS.txt Management"
+    image:
+      src: "/assets/stott-robots-v5-list.png"
+      alt: "The list view for maintaining llms.txt files in Stott Robots Handler"
+      caption: "llms.txt content listed by application and host."
+      width: 2878
+      height: 664
+    points:
+      - label: "Familiar Interface:"
+        text: "Manage Markdown llms.txt content in the same interface used for robots.txt, with a larger editor suited to longer files."
+      - label: "Per Application & Host:"
+        text: "Configure llms.txt by application (site in CMS 12) and specific host, or as an application-wide default."
+      - label: "Served on Demand:"
+        text: "Content is served on `/llms.txt` only when defined — matching a specific host first, then an application default, otherwise returning a 404."
+  - title: "Optimizely Opal Tools"
+    image:
+      src: "/assets/robots-handler-opal-tools-5.png"
+      alt: "A screenshot of the conversations with Opal regarding robots.txt content"
+      caption: "Managing robots.txt content through a conversation with Opal."
+      width: 1278
+      height: 703
+    points:
+      - label: "Conversational Management:"
+        text: "Create and modify robots.txt and llms.txt content directly from Optimizely Opal's chat interface."
+      - label: "Bearer Token Management:"
+        text: "Issue multiple tokens, each with its own Read or Write scope for robots.txt and llms.txt."
+      - label: "Self-Describing:"
+        text: "A built-in discovery endpoint registers the available tools with Opal."
+      - label: "Instruction Friendly:"
+        text: "Pair the tools with Opal Instructions to generate rich llms.txt content tailored to your site."
+
+also_included:
+  - title: "Environment Robots"
+    points:
+      - label: "Protect Lower Environments:"
+        text: "Override robots meta tags and response headers at an environment level to keep integration and preproduction environments out of search engines."
+      - label: "Global Configuration:"
+        text: "Applied across the whole instance, independent of any application or host configuration."
+  - title: "Additional Features"
+    points:
+      - label: "Headless Support:"
+        text: "APIs allow robots.txt and llms.txt content to be served and managed within headless solutions."
+      - label: "No Code Deployment:"
+        text: "All content is managed by CMS administrators with no need for a code deployment."
+      - label: "Opti Id Ready:"
+        text: "Configurable for use with Optimizely Opti Id."
+      - label: "CMS 12 & 13:"
+        text: "Supports both Optimizely CMS 12 (Sites) and CMS 13 (Applications)."
+      - label: "Free & Open Source:"
+        text: "Released under the MIT licence."
+
+# Install and registration steps are taken from the repository README.
+get_started:
+  guide_label: "Full installation guide on GitHub"
+  guide_url: "https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler#installation"
+  register:
+    intro: "Add the following lines to the startup class of your solution."
+    label: "C# · Startup"
+    highlight: [3, 8, 13]
+    code: |
+      public void ConfigureServices(IServiceCollection services)
+      {
+          services.AddRobotsHandler();
+      }
+
+      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+      {
+          app.UseRobotsHandler();
+
+          app.UseEndpoints(endpoints =>
+          {
+              endpoints.MapContent();
+              endpoints.MapControllers();
+          });
+      }
+    notes:
+      - "`services.AddRobotsHandler()` sets up the dependency injection requirements for the Robots Handler."
+      - "`app.UseRobotsHandler()` sets up the middleware that creates the `X-Robots-Tag` header."
+      - "`endpoints.MapControllers()` ensures the routing for the administration page, assets and robots.txt is correctly mapped."
+  first_use:
+    title: "Add it to your CMS menus"
+    text: "Follow the [installation guide on GitHub](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler#installation) to add Robots Admin to your CMS menus and configure authorisation, then create the robots.txt content for each application."

@@ -1,0 +1,14 @@
+# Author details used by the home page sidebar, article author cards and product pages.
+name: "Mark Stott"
+role: "Solutions Architect at Netcel · Platinum Optimizely MVP"
+portrait:
+  src: "/assets/mark_stott_lock_down_small.jpg"
+  width: 300
+  height: 400
+  alt: "Mark Stott"
+
+# Short introduction for the home page sidebar.
+summary: "Software Solution Architect with 25+ years in software engineering, and a Platinum Optimizely MVP since August 2022. Ceroc dancer, DJ and roller skater."
+
+# Shown beneath every article. Markdown is allowed.
+bio: "A Solutions Architect and Optimizely MVP at Netcel, creator of the [Stott Security](/article/list/stott-security) and [Stott Robots Handler](/article/list/stott-robots-handler) addons for Optimizely CMS. He shares insights and solutions for modern web development challenges."

@@ -52,7 +52,7 @@ I would recommend you complete the following:
 
 If you are using Visual Studio Code instead of Visual Studio, then you can edit the .csproj directly and add the package properties directly as XML values at the top of the csproj file. You can also add these properties into a .nuspec instead, when you package your project, the values from the .csproj and .nuspec are merged into a new .nuspec that is contained in the root of the compiled .nupkg file. I personnally prefer to put the NuGet properties directly into the .csproj.
 
-```
+```xml
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
@@ -110,7 +110,7 @@ However, there may be instances where you need to compile your application in mu
 1. Change the `TargetFramework` node in your .csproj to be `TargetFrameworks` and separate your target frameworks with a semicolon. e.g. `net6.0;net8.0`.
 2. Add a separate `ItemGroup` per framework version to contain framework specific dependencies and add a condition to the ItemGroup to target the specific framework. e.g. `Condition="'$(TargetFramework)' == 'net6.0'"`. 
 
-```
+```xml
 <Project Sdk="Microsoft.NET.Sdk.Razor">
   <PropertyGroup>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
@@ -135,7 +135,7 @@ If your package contains an `IFrameComponent` or other files needed to extend th
 
 First you will need to tell the .csproj file that we want to copy these files into the `contentFiles` folder of the NuGet package.  This is as simple as setting the build output for those files to be `None` and to set the `PackagePath` to be inside of the `contentFiles` folder.
 
-```
+```xml
 <ItemGroup>
   <None Include="module.config">
     <Pack>true</Pack>
@@ -150,7 +150,7 @@ The `ItemGroup` tells the .targets file where the specific files are within the 
 
 The `Target` node is then performing an action that is configured to execute on `BeforeBuild`.  This then performs a `Copy` action that will take my `module.config` file from the `contentFiles` folder in the nuget package to the `modules\_protected\Stott.Security.Optimizely` folder within the target website.  This means that when you first install the package, the module.config file and folder will not exist within the protected modules folder.  When you first build the solution they will be copied into this location.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <ItemGroup>
@@ -165,7 +165,7 @@ The `Target` node is then performing an action that is configured to execute on 
 
 In order to make sure the `.targets` file can be executed, we also need to make sure that it is copied into the NuGet package file. This is as simple as setting the build output for the `.targets` file to be `None` and to set the `PackagePath` to be inside of the `build` folder.
 
-```
+```xml
 <ItemGroup>
   <None Include="msbuild\copyfiles.targets">
     <Pack>true</Pack>
@@ -180,7 +180,7 @@ Before submitting your Add-on to the Optimizely NuGet package feed, it is essent
 
 To designate your package as an alpha or beta release, you should modify the `version` property within your `.csproj` file to include a trailing `-alpha` or `-beta`. NuGet will automatically recognize this as a pre-release version and will generally filter these versions out by default. Developers can view these pre-release versions by selecting the option to display pre-release versions within their IDE’s NuGet package tool.
 
-```
+```xml
 <Version>2.0.0.2-beta</Version>
 ```
 

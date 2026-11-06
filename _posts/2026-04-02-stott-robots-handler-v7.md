@@ -11,6 +11,8 @@ relatedArticles:
   - "_posts/2025-08-08-stott-robots-handler-v5.md"
   - "_posts/2025-09-17-stott-robots-handler-v6.md"
   - "_posts/2026-01-30-working-with-applications-in-cms13.md"
+tags:
+  - release-notes
 ---
 
 Stott Robots Handler version 7 is now available for **Optimizely PaaS CMS 13**.  This is includes updates to support the switch from a Site based architecture to an Application based architecture.
@@ -45,7 +47,7 @@ Stott Robots Handler v7 is available for **Optimizely PaaS CMS 13** on nuget.org
 
 Getting started can be as simple as: 
 
-```c#
+```csharp
 // Install the nuget package
 dotnet add package Stott.Optimizely.RobotsHandler
 

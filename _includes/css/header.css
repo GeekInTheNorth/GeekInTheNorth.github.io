@@ -1,0 +1,170 @@
+/* ---------- Site header ---------- */
+.site-header {
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Semi-sticky: the header holds the top of the window, tucks away while scrolling down and slides back on
+   scrolling up (nav.js). Without JavaScript it scrolls away with the page. */
+.js .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg);
+  /* Ease-out, so the header glides in and settles rather than snapping. */
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .site-header.is-tucked {
+  transform: translateY(-100%);
+}
+
+.site-header__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 4px;
+  padding-block: 8px;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin-right: auto;
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 4px;
+}
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 4px;
+}
+
+.site-nav__list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-nav__list a:hover,
+.site-nav__list a[aria-current] {
+  color: var(--accent);
+}
+
+/* Menu button: below 720px the nav collapses behind it. It needs JavaScript (theme.js adds the js
+   class), so without it the button stays hidden and the links wrap as normal. */
+.site-nav__toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap);
+  padding: 0 10px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.site-nav__toggle:hover {
+  color: var(--accent);
+}
+
+.site-nav__toggle .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.site-nav__toggle[aria-expanded="true"] .site-nav__toggle-open,
+.site-nav__toggle[aria-expanded="false"] .site-nav__toggle-close {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  .js .site-nav__toggle {
+    display: inline-flex;
+  }
+
+  .js .site-nav {
+    display: block;
+  }
+
+  .js .site-nav__toggle[aria-expanded="false"] + .site-nav {
+    display: none;
+  }
+
+  .js .site-nav__list {
+    flex-direction: column;
+  }
+
+  .js .site-nav__list a {
+    display: flex;
+    min-height: 48px;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Bar: wordmark, menu button and theme toggle share the first row; the open menu drops below. */
+  .js .site-header__bar {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0 4px;
+  }
+
+  .js .site-header__bar .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* Theme toggle: shows the moon in light mode and the sun in dark mode. Needs JavaScript. */
+.theme-toggle .icon {
+  display: block;
+}
+
+.theme-toggle .theme-toggle__light,
+:root[data-theme="dark"] .theme-toggle .theme-toggle__dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .theme-toggle__light {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .theme-toggle__dark {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle .theme-toggle__light {
+    display: block;
+  }
+}
+
+.no-js .theme-toggle,
+.no-js .js-only {
+  display: none;
+}

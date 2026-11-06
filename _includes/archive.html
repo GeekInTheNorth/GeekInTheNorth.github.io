@@ -1,0 +1,53 @@
+{%- comment -%}
+  Every post in the section as one list, newest first, with a filter bar (category and year)
+  that archive-filter.js reveals and drives. Without JavaScript the full list is shown and the bar stays hidden.
+  The category filter lists the other categories the section's posts carry, leaving out any that every post
+  shares (such as the section's own), since filtering by those would change nothing.
+{%- endcomment -%}
+{%- assign ar_years = include.posts | group_by_exp: "ar_post", "ar_post.date | date: '%Y'" -%}
+{%- assign ar_categories = include.posts | map: "categories" | join: "|" | split: "|" | uniq | sort -%}
+{%- capture ar_category_options -%}
+  {%- for ar_category in ar_categories -%}
+    {%- assign ar_category_posts = include.posts | where_exp: "ar_post", "ar_post.categories contains ar_category" -%}
+    {%- if ar_category_posts.size < include.posts.size %}
+          <option value="{{ ar_category }}">{{ ar_category }} ({{ ar_category_posts.size }})</option>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+<div class="archive" data-archive>
+  <div class="archive-filters" data-filter-bar hidden>
+    {%- if ar_category_options != "" %}
+    <div class="archive-filters__field">
+      <label class="archive-filters__label" for="archive-category">Category</label>
+      <span class="archive-filters__control">
+        <select id="archive-category" class="archive-filters__select" data-filter="category">
+          <option value="">All categories</option>{{ ar_category_options }}
+        </select>
+      </span>
+    </div>
+    {%- endif %}
+    {%- if ar_years.size > 1 %}
+    <div class="archive-filters__field">
+      <label class="archive-filters__label" for="archive-year">Year</label>
+      <span class="archive-filters__control">
+        <select id="archive-year" class="archive-filters__select" data-filter="year">
+          <option value="">All years</option>
+          {%- for ar_year in ar_years %}
+          <option value="{{ ar_year.name }}">{{ ar_year.name }} ({{ ar_year.size }})</option>
+          {%- endfor %}
+        </select>
+      </span>
+    </div>
+    {%- endif %}
+    <p class="archive-filters__status" role="status" data-filter-status></p>
+    <button type="button" class="text-link archive-filters__reset" data-filter-reset hidden>Clear filters</button>
+  </div>
+
+  <p class="archive__empty" data-filter-empty hidden>No articles match these filters.</p>
+
+  <ol role="list" class="post-list">
+    {%- for ar_post in include.posts %}
+    {% include post-row.html post=ar_post %}
+    {%- endfor %}
+  </ol>
+</div>

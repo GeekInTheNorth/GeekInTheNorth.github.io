@@ -1,0 +1,23 @@
+{%- comment -%}
+  The home page lead story. With a promo image: image and text at a 1/3 : 2/3 balance, the image at its
+  natural aspect ratio (never cropped). Without one: a text-only lead.
+{%- endcomment -%}
+{%- assign ls_post = include.post -%}
+{%- assign ls_href = ls_post.externalUrl | default: ls_post.url -%}
+<article class="lead{% if ls_post.promoImage %} split{% else %} lead--text{% endif %}" aria-labelledby="lead-title">
+  {%- if ls_post.promoImage %}
+  <figure class="split__media lead__media">
+    <a href="{{ ls_href }}" tabindex="-1" aria-hidden="true">
+      <img src="{{ ls_post.promoImage }}" alt="" fetchpriority="high"{% if ls_post.promoImageWidth %} width="{{ ls_post.promoImageWidth }}" height="{{ ls_post.promoImageHeight }}"{% endif %}>
+    </a>
+  </figure>
+  {%- endif %}
+  <div class="split__body lead__body">
+    {% include kicker.html categories=ls_post.categories %}
+    <h2 id="lead-title" class="lead__title"><a href="{{ ls_href }}">{{ ls_post.title }}</a></h2>
+    {%- if ls_post.description %}
+    <p class="standfirst">{{ ls_post.description }}</p>
+    {%- endif %}
+    {% include post-meta.html post=ls_post %}
+  </div>
+</article>

@@ -14,7 +14,7 @@ I had been looking into performance issues with one of our products.  This is th
 
 The following example was found in our production code, I have cleansed this to hide business logic.  The includes are string parameters passed in the Lambda statement that tell Entity Framework to return not only the selected table of data, but the associated child records in that table.  Where a string of table names separated by periods is specified, entity framework looks across the relationships to get the data.
 
-```
+```csharp
 var filter = "some string";
 var list = context.Record.FindWhere(
     x => x.RecordCategories.Id == RecordCategoryId
@@ -35,7 +35,7 @@ You may notice that the SubRecord3 line looks a little odd. Not only are we gett
 
 This was very bad, so I set about rebuilding the data queries to get just what I wanted.  Granted this required more code than the original query:
 
-```
+```csharp
 var filter = "some string";
 
 var subRecord3Classification = OurEnum.OurClassification.ToString();
@@ -83,7 +83,7 @@ For the most part the original functionality works well enough on our smaller cl
 
 Now if you can imagine my groans at finding out what the original query above was doing, imagine how I felt when I found something like the following shortly afterwards.  This one took 2 minutes to execute and SQL Profiler refused to show the SQL Generated:
 
-```
+```csharp
 var list = context.Record.FindWhere(
     x => x.RecordCategories.Id == RecordCategoryId
         && x.FieldToFilter == filter

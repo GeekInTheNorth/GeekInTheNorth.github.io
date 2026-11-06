@@ -1,0 +1,30 @@
+{%- comment -%}
+  Site header, the same on every page that uses the default layout.
+  A nav item is current when it is the page itself, or the first category of the post being read.
+  On small screens the nav collapses behind the menu button (header.css, nav.js); the button must sit
+  directly before the nav.
+{%- endcomment -%}
+<header class="site-header">
+  <div class="wrap site-header__bar">
+    <a class="wordmark" href="/">{{ site.title }}</a>
+    <button type="button" class="site-nav__toggle js-nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      {% include icon.html name="list" class="site-nav__toggle-open" %}
+      {% include icon.html name="x-lg" class="site-nav__toggle-close" %}
+      Menu
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul role="list" class="site-nav__list">
+        {%- for sh_item in site.data.navigation.primary -%}
+          {%- assign sh_current = "" -%}
+          {%- if page.url == sh_item.url -%}
+            {%- assign sh_current = "page" -%}
+          {%- elsif page.categories.first == sh_item.title -%}
+            {%- assign sh_current = "true" -%}
+          {%- endif %}
+        <li><a href="{{ sh_item.url }}"{% if sh_current != "" %} aria-current="{{ sh_current }}"{% endif %}>{{ sh_item.title }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    {% include theme-toggle.html %}
+  </div>
+</header>

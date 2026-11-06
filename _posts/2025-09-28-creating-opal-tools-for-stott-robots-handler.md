@@ -76,7 +76,8 @@ The discovery endpoint must return a JSON object containing an array of function
 }
 ```
 
-> 💡 **Tip:** Opal will not include the Authorization header when making a request to the discovery endpoint, so make sure your implementation is accessible anonymously.
+> **Tip:** Opal will not include the Authorization header when making a request to the discovery endpoint, so make sure your implementation is accessible anonymously.
+{: .callout}
 
 ### Tool Endpoint
 
@@ -121,7 +122,7 @@ Additional data items are also included as **environment** and **chat_metadata**
 
 Implementing the discovery endpoint itself is a simple.  The C# SDK for example uses reflection and understands the attributes you decorate on your tools.  As I'm not using an SDK in this scenario I could either ship a JSON object with my code, or in this case create the classes that achieve the same outcome.  I opted to create the DTO objects that would be serialized into the desired JSON structure.  I decorated the controller action with the `HttpGet` and `AllowAnonymous` attributes to ensure that the endpoint was publicly accessible for GET requests only.
 
-```C#
+```csharp
 [HttpGet]
 [AllowAnonymous]
 [Route("/stott.robotshandler/opal/discovery/")]
@@ -193,7 +194,7 @@ public class AuthData
 
 In the following example, I have decorated my controller with the `HttpPost` attribute and then two separate `Route` attributes.  This helps my controller respond to both possible request paths, depending on whether the discovery endpoint was registered with a trailing slash or not.  I have then used the generic `ToolRequest<T>` class to wrap my specific model of `GetRobotTextConfigurationsQuery` as the parameter for the method.
 
-```C#
+```csharp
 [HttpPost]
 [Route("/stott.robotshandler/opal/tools/get-robot-txt-configurations/")]
 [Route("/stott.robotshandler/opal/discovery/tools/get-robot-txt-configurations/")]

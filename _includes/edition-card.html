@@ -1,0 +1,17 @@
+{%- assign ec_edition = include.edition -%}
+<article class="edition">
+  <p class="eyebrow">{{ ec_edition.channel }}</p>
+  <h3 class="edition__name">{{ ec_edition.name }}</h3>
+  <p class="edition__status">{{ ec_edition.status }}</p>
+  <p class="edition__summary">{{ ec_edition.summary }}</p>
+  {%- if ec_edition.command %}
+  <code class="edition__command">{{ ec_edition.command }}</code>
+  {%- endif %}
+  {%- if ec_edition.links %}
+  <p class="edition__links">
+    {%- for ec_link in ec_edition.links %}
+    <a class="text-link{% unless forloop.first %} text-link--ink{% endunless %}" href="{{ ec_link.url }}">{{ ec_link.label }}</a>
+    {%- endfor %}
+  </p>
+  {%- endif %}
+</article>

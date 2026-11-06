@@ -1,0 +1,8 @@
+{%- comment -%}
+  "In this article" contents, built in the post layout. Shown as a sticky rail beside the article on wide
+  screens only; on smaller screens the whole component is hidden.
+{%- endcomment -%}
+<nav class="toc" aria-label="In this article">
+  <p class="toc__title">In this article</p>
+  {{ include.list }}
+</nav>

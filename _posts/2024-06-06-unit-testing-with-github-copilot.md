@@ -11,7 +11,7 @@ I recently signed up for GitHub Copilot to explore the integration of AI in soft
 
 The code I wanted to unit test was this handy extension method inside of a `SiteDefinitionExtensions` class that I had created for my Optimizely Robots Add-on:
 
-```
+```csharp
 public static IEnumerable<KeyValuePair<string, string>> ToHostSummaries(this IList<HostDefinition> hostDefinitions)
 {
     yield return new KeyValuePair<string, string>("Default", string.Empty);
@@ -31,7 +31,7 @@ The method isn't particularly complex, it converts the `IList<HostDefinition>` p
 
 I created a new test class by the name of `SiteDefinitionExtensionTests`, added the `[TestFixture]` attribute to the class and then started to write my first test.  I got as far as writing `public void ToHostSummaries` and I was presented with the following test as an auto complete:
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsIsNull_ShouldReturnDefault()
 {
@@ -50,7 +50,7 @@ public void ToHostSummaries_WhenHostDefinitionsIsNull_ShouldReturnDefault()
 
 GitHub Copilot went as far as to add the `[Test]` attribute, name the test, and write all the code. However, it didn't add the necessary imports to the class file, so I had to correct that. Additionally, it didn't properly set up the initial collection's null state, causing a mismatch between the test and its name. It also used the `Assert.AreEqual(expectedValue, actualValue)` syntax, which is not my preferred style. I favor the `Assert.That(actualValue, Is.EqualTo(expectedValue))` style, as I find it is much more understandable when read aloud. After my amends, the test ended up as such:
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsIsNull_ShouldReturnDefault()
 {
@@ -69,7 +69,7 @@ public void ToHostSummaries_WhenHostDefinitionsIsNull_ShouldReturnDefault()
 
 I started writing my second test as `public void ToHostSummaries`, and it suggested the following test, which was entirely correct. It learned from my previous intervention, adopting my preferred assertion style and the way I declared the opening variable.
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsIsEmpty_ShouldReturnDefault()
 {
@@ -88,7 +88,7 @@ public void ToHostSummaries_WhenHostDefinitionsIsEmpty_ShouldReturnDefault()
 
 The third test I wanted to write was where the `hostDefinitions` collection contained entries, again I typed `public void ToHostSummaries` and the following was generated:
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsIsNotEmpty_ShouldReturnHostSummaries()
 {
@@ -123,7 +123,7 @@ public void ToHostSummaries_WhenHostDefinitionsIsNotEmpty_ShouldReturnHostSummar
 
 The initial structure of the test appeared sound, and its choices seemed appropriate. However, the test failed to compile. The Url property on the `HostDefinition` class has only a public getter and no setter, and its value is based on the Name property and can be conditionally null. GitHub Copilot didn't decompile or fully understand the class, so I had to make additional changes to the test.
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsIsNotEmpty_ShouldReturnHostSummaries()
 {
@@ -150,7 +150,7 @@ public void ToHostSummaries_WhenHostDefinitionsIsNotEmpty_ShouldReturnHostSummar
 
 The final test for this class was to prove that host definitions with a null URL are omitted from the result.  Again I just had to type `public void ToHostSummaries` to get the following result:
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsContainsNullUrl_ShouldReturnHostSummaries()
 {
@@ -175,7 +175,7 @@ public void ToHostSummaries_WhenHostDefinitionsContainsNullUrl_ShouldReturnHostS
 
 Unfortunately, GitHub Copilot does not understand the internals of the `HostDefinition` class. While the Act part of the test had the correct structure, the Assert contained an incorrect assertion for the number of items to be returned. Additionally, the Arrange section needed complete correction, though I noted it did follow my example of using the `new()` syntax. If the host definition has a name of `*`, the URL will be empty, and the host definition becomes a wildcard definition which my extension method excludes from the results.
 
-```
+```csharp
 [Test]
 public void ToHostSummaries_WhenHostDefinitionsContainsNullUrl_ShouldReturnHostSummaries()
 {

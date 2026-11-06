@@ -57,7 +57,7 @@ Now you have your events logged in Application Insights, you may want to retriev
 
 The first thing you will want to do is design your query, I recommend you do that directly in the Logs tool in Application Inisights.  For my query, I only wanted data relating to my specific event type named "TrackSearch" and I wanted to aggregate that data by unique **Query** value and include a count of instances as **UniqueCount**.  As a result my query looks like this:
 
-```
+```sql
 customEvents
 | where name contains "TrackSearch"
 | where timestamp > ago(7d)
@@ -69,7 +69,7 @@ customEvents
 
 In order to retrieve this directly in your application, you need to make a GET request to Application Insights and include an escaped version of your query.  You will recieve a response which contains a collection of tables.  As my query is summarizing the customEvents table, that is the only populated table I receive in my response.  Now the data isn't as straight forward as you might think.  I had to include the following DTOs so I could serialize out the content:
 
-```
+```csharp
 public sealed class InsightsResponse
 {
     [JsonPropertyName("tables")]

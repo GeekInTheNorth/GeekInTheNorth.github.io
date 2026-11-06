@@ -7,6 +7,8 @@ category:
   - Development
   - Optimizely
   - "Stott Robots Handler"
+tags:
+  - release-notes
 ---
 
 ## Stott.Optimizely.RobotsHandler v1.0.1 Released
@@ -29,7 +31,7 @@ The content of the robots.txt for any site is shown in a modal dialog and saved 
 
 Installation is straight forward, the Stott.Optimizely.RobotsHandler package can be installed either from the Optimizely NuGet feed or from the nuget.org feed.  You will then need to add the following lines to the Startup class in your .NET 5.0 solution:
 
-```
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
    services.AddRazorPages();
@@ -45,12 +47,12 @@ The call to services.AddRobotsHandler() sets up the dependency injection require
 
 A standard controller is configured to respond to requests to `www.example.com/robots.txt`. When recieving the request, the controller interogates the domain of the request and uses this to resolve the relevant site and the returns the robots.txt content for that site.  If not content has been previously defined for the site, the the default content will be returned as follows:
 
-```
+```csharp
 User-agent: *
 Disallow: /episerver/
 Disallow: /utils/
 ```
 
-# Contributing and Licencing
+## Contributing and Licencing
 
 Stott.Optimizely.RobotsHandler has been built and uses the MIT licence.  If you find any defects with the package, then please log them as issues on the the repositories [issues](https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler/issues) page. If you would like to contribute to changes for the solution, then feel free to clone the repository and submit a pull request against the develop branch.

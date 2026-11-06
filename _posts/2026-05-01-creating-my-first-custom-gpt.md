@@ -7,6 +7,8 @@ category:
   - Development
 image: "https://www.stott.pro/assets/dj-custom-gpt.jpg"
 promoImage: "/assets/dj-custom-gpt.jpg"
+promoImageWidth: 1254
+promoImageHeight: 1096
 promoImageAlt: "An infographic for the article."
 relatedArticles:
   - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"
@@ -38,9 +40,9 @@ Both are very natural things to ask a chatbot.  *"Where are you playing next?"*,
 
 There are two ways to put a Custom GPT together.  OpenAI offers a dedicated **GPT Builder** which has both a form based approach and a chat experience: a build agent walks you through who the GPT is for, how it should behave, and what tools it should have, updating the configuration fields for you as you talk.
 
-<figure class="figure">
-  <img src="https://www.stott.pro/assets/dj-custom-gpt-chat.png" class="figure-img img-fluid rounded" alt="The chat interface of the GPT Builder">
-  <figcaption class="figure-caption text-end"><em>Please note that this image has been generated after I published my GPT so I can share the Chat interface.</em></figcaption>
+<figure>
+  <img src="https://www.stott.pro/assets/dj-custom-gpt-chat.png" alt="The chat interface of the GPT Builder">
+  <figcaption><em>Please note that this image has been generated after I published my GPT so I can share the Chat interface.</em></figcaption>
 </figure>
 
 I personnally chose to start in a regular ChatGPT conversation to *draft* the instructions and the OpenAPI schema iteratively, then created the Custom GPT itself through the standard **Create a GPT → Configure** screen by pasting the instructions into the Instructions field and the schema into the Actions section.  This worked well for me for a few reasons:
@@ -148,7 +150,8 @@ The schema itself is a fairly standard OpenAPI document.  The bits that matter m
 }
 ```
 
-> 💾 **Note:** The full schema can be seen here: <a href="https://github.com/GeekInTheNorth/DjPortal/blob/main/GPT/Schema.json" rel="nofollow" target="_blank">schema.json</a>
+> **Note:** The full schema can be seen here: <a href="https://github.com/GeekInTheNorth/DjPortal/blob/main/GPT/Schema.json" rel="nofollow" target="_blank">schema.json</a>
+{: .callout}
 
 The interesting wrinkle here is that `listMusicRequests` requires an `eventId` that the user is very unlikely to know off the top of their head.  In the instructions I taught the GPT to chain the calls: when someone names an event by venue or date, look it up via `listEvents` first, match it, and then use the returned `id` for the request lookup.  Once that pattern was written down, the GPT did it correctly without further prompting.
 

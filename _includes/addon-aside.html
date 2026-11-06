@@ -1,0 +1,14 @@
+{%- comment -%}
+  On posts about an add-on, a short panel linking to its product page with live NuGet figures.
+{%- endcomment -%}
+{%- for aa_key in site.data.navigation.addons %}
+  {%- assign aa_addon = site.data.addons[aa_key] %}
+  {%- if page.categories contains aa_addon.category %}
+<aside class="addon-aside" aria-label="{{ aa_addon.name }}">
+  <p class="eyebrow">Open-source add-on</p>
+  <p class="addon-aside__name"><a href="{{ aa_addon.page }}">{{ aa_addon.name }}</a></p>
+  <p class="addon-aside__text">{{ aa_addon.summary }}</p>
+  {% include nuget-stats.html addon=aa_addon variant="inline" %}
+</aside>
+  {%- endif %}
+{%- endfor %}

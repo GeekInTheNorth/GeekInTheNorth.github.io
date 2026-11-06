@@ -8,6 +8,8 @@ category:
   - Optimizely
 image: "https://www.stott.pro/assets/building-ui-extensions-for-optimizely-saas-cms.png"
 promoImage: "/assets/building-ui-extensions-for-optimizely-saas-cms.png"
+promoImageWidth: 1254
+promoImageHeight: 1254
 promoImageAlt: "Promo Image for Building UI Extensions for Optimizely SaaS CMS"
 relatedArticles:
   - "_posts/2026-08-13-introducing-stott-security-for-saas.md"
@@ -32,7 +34,7 @@ To build apps for OCP, you need to be an Optimizely Partner or Customer with Dev
 Once you have access to the OCP Developer Portal, generate an API key for the OCP CLI.  Save the key to a credentials file at `~/.ocp/credentials.json` and then install the CLI:
 
 Windows:
-```Powershell
+```powershell
 # Create the folder
 New-Item -Path "~/.ocp" -Name "home dir" -ItemType "directory"
 
@@ -44,7 +46,7 @@ iwr -useb https://cli.ocp.optimizely.com/install.ps1 | iex
 ```
 
 Mac:
-```Bash
+```bash
 # Create the folder
 mkdir ~/.ocp (home dir)
 
@@ -57,7 +59,7 @@ curl -fsSL https://cli.ocp.optimizely.com/install.sh | bash
 
 You should then be able to verify access with the whoami command:
 
-```Bash
+```bash
 ocp accounts whoami
 ```
 
@@ -65,7 +67,8 @@ ocp accounts whoami
 
 Before you get started with building your application you should look at installing the [Optimizely OCP Skills](https://github.com/optimizely/ocp-skills/) for your AI coding assistant.  Whether you clone these into your own repo or install them as a plugin is going to be your own decision.  It does come with 4 skills, 2 of which are migration skills. If you are new to OCP app development, you can focus on the **ocp-app-development** and **ocp-local-testing** skills.
 
-> 💡 **Tip:** These AI skills know how to build your app, how to register it, how to publish it for developer testing, beta testing and for production review.  It is highly recommended that you use them.
+> **Tip:** These AI skills know how to build your app, how to register it, how to publish it for developer testing, beta testing and for production review.  It is highly recommended that you use them.
+{: .callout}
 
 Optimizely have also created a sample OCP CMS UI Extension called [Unsplash Viewer](https://github.com/optimizely/unsplash-viewer-cms-ui-extension-ocp-app) that has both a **sidebar** panel and a full-page **view**.  It is worth looking at this sample repository to see how the two entry points are configured and to understand the general architecture of a CMS UI Extension.
 
@@ -135,7 +138,7 @@ You may notice that the code is split into two separate runtimes, the backend an
 
 The app.yml file contains the manifest for your CMS UI Extension.  You can see the full YAML file for this solution on [GitHub](https://github.com/GeekInTheNorth/Stott.Security.Optimizely.SaaS).  The metadata for the application and all of its entry points and functions are declared within this file.
 
-```YML
+```yaml
 meta:
   app_id: stott_security_saas
   display_name: Stott Security
@@ -188,7 +191,7 @@ A CMS UI Extension uses three Optimizely packages, plus a design system for the 
 
 The plugin must be registered within `ocp-app.config.mjs`, otherwise your `ui_extensions` declarations will not be recognised and `ocp app validate` will fail:
 
-```JavaScript
+```javascript
 import { defineConfig } from '@zaiusinc/app-sdk';
 import { cmsUiExtensions } from '@optimizely/ocp-cms-ui-extensions-sdk';
 
@@ -201,7 +204,7 @@ export default defineConfig({
 
 Each function declared within the `functions` section of your `app.yml` has a matching entry file within `src/backend/functions/`.  The `entry_point` must match the name of the exported class, and that class must extend `App.Function` from the `@zaiusinc/app-sdk` package and implement a `perform()` method that returns an `App.Response`.  One thing to watch out for is that the status code is the **first** argument for `App.Response`, which is the opposite of the standard web `Response` object.
 
-```TypeScript
+```typescript
 import * as App from '@zaiusinc/app-sdk';
 
 export class HelloWorld extends App.Function {
@@ -217,7 +220,7 @@ Stott Security for SaaS CMS has two backend functions, one private and one publi
 
 This is the private backend for the security console.  Because it is declared with `accepts: cms_ui_extension`, it has no public URL and can only be called by the frontend using `context.extension.invokeFunction()`.  Rather than creating a function per operation, the convention is to have a single function that accepts an `action` and a set of `params` and then switches on the action:
 
-```TypeScript
+```typescript
 export class CmsExtension extends App.Function {
   public async perform(): Promise<App.Response> {
     const body = (this.request.bodyJSON ?? {}) as RequestBody;
@@ -253,7 +256,7 @@ The function also uses `functions.getEndpoints()` to resolve the public URL of t
 
 This is the public endpoint that the head of the website calls in order to retrieve the published security headers.  As `accepts` is omitted within the `app.yml`, OCP gives this function a public URL which contains a unique identifier for the installation.  This matters because a regular `App.Function` resolves the installation from that URL and can therefore read the same Key Value Store that `CmsExtension` writes to.  If this were declared as a global function, it would have no installation context and could only reach the Shared Key Value Store.
 
-```TypeScript
+```typescript
 export class CompiledHeaders extends App.Function {
   public async perform(): Promise<App.Response> {
     if (this.request.method !== 'GET') {
@@ -285,7 +288,8 @@ A few design decisions are worth highlighting here:
 - The response contract is identical to the compiled headers endpoint in the PaaS version of Stott Security, allowing a single consumer implementation to work with either product.
 - The endpoint is anonymous by design.  These headers are visible on every response from the website anyway, but this is a deliberate decision and you should consider carefully what data you expose from any public function.  If your data has privacy needs, then consider requiring an API Key.
 
-> 📰 Please note that I will cover consuming this endpoint in a headless solution in a future article so as to not detract from the topic of this article.
+> Please note that I will cover consuming this endpoint in a headless solution in a future article so as to not detract from the topic of this article.
+{: .callout .callout--plain}
 
 ### Frontend
 
@@ -306,7 +310,7 @@ MyExtension.property-editor.js
 
 The most important line in this file is at the very bottom.  The `register()` method from the `@optimizely/cms-extensibility-sdk` package is how your extension is mounted into the CMS.  This must be called exactly once at the top level of the module and never inside of a component or effect.  The CMS passes an `ExtensionContext` into the callback, which you then pass down into your components:
 
-```TypeScript
+```typescript
 import { register, type ExtensionContext } from '@optimizely/cms-extensibility-sdk';
 
 function SecurityConsole({ context }: { context: ExtensionContext }): React.JSX.Element {
@@ -327,7 +331,7 @@ The `ExtensionContext` is your bridge between the frontend and both the CMS and 
 
 All backend calls are wrapped within a small typed client, so the components never need to know about the transport:
 
-```TypeScript
+```typescript
 const result = await context.extension.invokeFunction('cms_extension', { action, params });
 ```
 
@@ -351,7 +355,7 @@ For both `content` and `property`, the `subscribe()` method only fires on subseq
 
 The rest of the file is a fairly standard React component.  The UI is built with [Optimizely Axiom](https://www.npmjs.com/package/@optiaxiom/react) (`@optiaxiom/react`), which is Optimizely's own design system, and helps the extension look and feel like a native part of the CMS.  Every Axiom component reads its design tokens from the `AxiomProvider`, so this needs to wrap your entire extension or the components will render unstyled.
 
-```TypeScript
+```typescript
 function Shell({ children }: { children: React.ReactNode }): React.JSX.Element {
   return (
     <AxiomProvider>
@@ -382,7 +386,7 @@ Your app must have a `forms/settings.yml` which is used to declare the settings 
 
 As Stott Security for SaaS CMS does not require any data from the Settings Store, my entry contains a single information entry:
 
-```YML
+```yaml
 sections:
   - key: about
     label: Stott Security

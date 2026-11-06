@@ -3,6 +3,7 @@ title: Mark Stott, Solutions Architect, Optimizely MVP
 description: Welcome to the Blog of Mark Stott, a Lead Developer, Optimizely MVP, Roller Skater and Ceroc Dancer.
 layout: homepage
 permalink: /
+tagline: "Software Solution Architect & OMVP. Writing on Optimizely, .NET, security and the occasional board game."
 ---
 
 I am Software Solution Architect and an experienced lead developer and team leader with over 24 years of experience within the software development industry. I have worked with both cross functional teams and project teams across a variety of Agile software delivery methodologies including Scrum, Kanban and SAFe. I make it my aim to encourage and empower my colleagues so that we may collaborate and evolve as a team through continuous improvement.

@@ -1,0 +1,49 @@
+/* ---------- Cookie banner ----------
+   Both choices are equal in size and weight, so declining is as easy as accepting. */
+
+/* While the banner is open, site.js sets --cookie-banner-space to its height, so the page can scroll
+   clear of it and a focused element is never hidden behind it (WCAG 2.4.11). */
+html {
+  scroll-padding-bottom: var(--cookie-banner-space, 0px);
+}
+
+body {
+  padding-bottom: var(--cookie-banner-space, 0px);
+}
+
+.cookie-banner {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 440px;
+  margin-left: auto;
+  padding: 20px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner p {
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.cookie-banner__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.cookie-banner__actions .button {
+  width: 100%;
+  padding: 0 12px;
+}

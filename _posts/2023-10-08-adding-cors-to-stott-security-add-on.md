@@ -7,6 +7,8 @@ category:
   - Development
   - Optimizely
   - "Stott Security"
+tags:
+  - release-notes
 ---
 
 In December 2021, I started working on a new add-on for Optimizely CMS 12.  This add-on introduced a new way to manage the Content Security Policy within the CMS that was designed to be more accessible to non-technical people.  This Add-on allowed the CMS Administrator to define on an origin-by-origin basis what origin was allowed to do what action with the website with every change being fully audited. This Add-on is now live on a number of Optimizely CMS websites and has gone through a number of penetration tests.
@@ -38,7 +40,7 @@ In an attempt to understand a better way of handling this, I added CORS to my sa
 
 By navigating to the decompiled version of `UseCors()` I was able to see the [CorsMiddleware](https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/CORS/src/Infrastructure/CorsMiddleware.cs) that was implemented by microsoft and see that it used an implementation of `ICorsPolicyProvider` to retrieve a `CorsPolicy` object and an implementation of `ICorsService` to evaluate the [CorsPolicy](https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/CORS/src/Infrastructure/CorsPolicy.cs) itself.  Looking at the decompiled code for `AddCors()` I could see that the dependency injection calls for `ICorsPolicyProvider` and `ICorsService` were using TryAdd which only adds the default implementations of these interfaces if they have not already been declared.
 
-```
+```csharp
 /// <summary>
 /// Adds cross-origin resource sharing services to the specified <see cref="IServiceCollection" />.
 /// </summary>
@@ -62,7 +64,7 @@ public static IServiceCollection AddCors(this IServiceCollection services)
 
 Implementation then appeared to be relatively simple.  Create a custom Implementation of `ICorsPolicyProvider` that consumed the data saved by my Add-On to create an instance of [CorsPolicy](https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/CORS/src/Infrastructure/CorsPolicy.cs) to be consumed by the default implementations of `ICorsService`.  The interface of `ICorsPolicyProvider` contained just a single method for me to implement.
 
-```
+```csharp
 /// <summary>
 /// A type which can provide a <see cref="CorsPolicy"/> for a particular <see cref="HttpContext"/>.
 /// </summary>
@@ -80,7 +82,7 @@ public interface ICorsPolicyProvider
 
 To minimise performance issues, my data storage is a single table with a very flat record that is transformed into a domain object with multiple properties and collections.  To reduce further round trips to the SQL Server and constructing the domain object and then mapping that over to the [CorsPolicy](https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/CORS/src/Infrastructure/CorsPolicy.cs) object, I also stored the compiled [CorsPolicy](https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/CORS/src/Infrastructure/CorsPolicy.cs) object into Optimizely's `ISynchronizedObjectInstanceCache` which would then be invalidated on any subsequent update of the CORS policy.
 
-```
+```csharp
 public async Task<CorsPolicy?> GetPolicyAsync(HttpContext context, string? policyName)
 {
     var policy = _cache.Get<CorsPolicy>(CacheKey);

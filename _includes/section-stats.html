@@ -1,0 +1,24 @@
+{%- comment -%}
+  Stats strip for a section page, from page.stats. source "articles" counts the posts passed in,
+  source "addons" counts the add-on data files, otherwise the stat's value is shown as written.
+{%- endcomment -%}
+<section class="stat-strip" aria-label="At a glance">
+  <div class="wrap">
+    <dl class="stat-strip__list">
+      {%- for ss_stat in page.stats %}
+      <div class="stat-strip__item">
+        <dt>{{ ss_stat.label }}</dt>
+        <dd>
+          {%- if ss_stat.source == "articles" -%}
+            {{ include.posts.size }}
+          {%- elsif ss_stat.source == "addons" -%}
+            {{ site.data.addons.size }}
+          {%- else -%}
+            {{ ss_stat.value }}
+          {%- endif -%}
+        </dd>
+      </div>
+      {%- endfor %}
+    </dl>
+  </div>
+</section>

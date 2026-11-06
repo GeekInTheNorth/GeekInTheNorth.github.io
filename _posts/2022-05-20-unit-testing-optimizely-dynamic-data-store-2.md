@@ -21,7 +21,7 @@ Developers who are familiar with Entity Framework (EF) or Unit of Work (UOW) pat
 
 For this example, I am using a custom data object which implements the `IDynamicData` interface required for use with Dynamic Data Store:
 
-```
+```csharp
 public class MyCustomDataObject : IDynamicData
 {
     public Identity Id { get; set; }
@@ -34,7 +34,7 @@ public class MyCustomDataObject : IDynamicData
 
 Next we add an interface for data context, and since this will potentially expose multiple data collections, we also add an interface for operations on a data collection:
 
-```
+```csharp
 public interface IDdsContext
 {
    IDdsEntityCollection<MyCustomDataObject> MyCustomDataObjects { get; }
@@ -57,7 +57,7 @@ public interface IDdsEntityCollection<TModel>
 
 Next we need to add a implementation of the `IDdsEntityCollection<TModel>` to facilitate data operations against a singular data type.  As you will see below, each of the implemented methods is as light weight as possible.  If you are using additional methods within the Dynamic Data Store, then you will need to extend this interface and implementation.
 
-```
+```csharp
 public class DdsEtityCollection<TModel> : IDdsEntityCollection<TModel>
    where TModel : IDynamicData
 {
@@ -97,7 +97,7 @@ public class DdsEtityCollection<TModel> : IDdsEntityCollection<TModel>
 
 Now we have an implementation of `IDdsEntityCollection<TModel>`, we can now implement `IDdsContext`. In this example, the implementation of `IDdsEntityCollection<TModel>` is not instantiated until it is actually required by the consuming code.
 
-```
+```csharp
 public class DdsContext : IDdsContext
 {
    private DynamicDataStoreFactory _dataStoreFactory;
@@ -126,7 +126,7 @@ public class DdsContext : IDdsContext
 
 Now we can update the repository we created in [Part 1](/article/unit_testing_optimizely_dynamic_data_store_1) of this series, stripping out the Dynamic Data Store objects and injecting the `IDdsContext` instead.
 
-```
+```csharp
 public class MyCustomDataObjectRepository
 {
    private readonly IDdsContext _context;
@@ -160,7 +160,7 @@ public class MyCustomDataObjectRepository
 
 Finally, we can write the same unit tests again, however we are now mocking interfaces inside of our repositories instead of mocking the implementations of the Dynamic Data Store.
 
-```
+```csharp
 [TestFixture]
 public class MyCustomDataObjectRepositoryTests
 {

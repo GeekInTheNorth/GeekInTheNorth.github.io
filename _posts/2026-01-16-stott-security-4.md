@@ -13,6 +13,8 @@ relatedArticles:
   - "_posts/2026-03-05-stott-security-5.md"
   - "_posts/2026-05-17-stott-security-6.md"
   - "_posts/2026-04-09-stott-security-7.md"
+tags:
+  - release-notes
 ---
 
 January 2026 marks the release of Stott Security v4, a significant update to the popular web security add-on for Optimizely CMS 12, with more than 115,000 downloads across nuget.org and nuget.optimizely.com. Below is a high-level overview of what’s new in this release.
@@ -47,7 +49,7 @@ It is important to note that Optimizely CMS does not natively support nonce or h
 
 To provide deterministic control over where nonce and hash functionality is applied, version 4 introduces configurable exclusion paths. Requests routed to these paths, or any sub-paths beneath them, will have nonce and hash sources automatically removed from the generated Content Security Policy.
 
-```C#
+```csharp
 services.AddStottSecurity(cspSetupOptions =>
 {
     cspSetupOptions.ConnectionStringName = "EPiServerDB";

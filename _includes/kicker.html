@@ -1,0 +1,23 @@
+{%- comment -%}
+  A post's categories as a small-caps kicker.
+  Each category links to the section page whose `category` matches it, and is plain text when no such page
+  exists. Pass link=false inside cards and rows, where the whole item is already a link.
+  Optional label (e.g. "Filed under") and class.
+{%- endcomment -%}
+{%- if include.categories and include.categories.size > 0 -%}
+<p class="kicker{% if include.class %} {{ include.class }}{% endif %}">
+  {%- if include.label %}<span class="kicker__label">{{ include.label }}</span>{% endif -%}
+  {%- for kc_category in include.categories -%}
+    {%- assign kc_page = nil -%}
+    {%- unless include.link == false -%}
+      {%- assign kc_page = site.pages | where: "category", kc_category | first -%}
+    {%- endunless -%}
+    {%- unless forloop.first %}<span class="kicker__sep" aria-hidden="true"> · </span>{% endunless -%}
+    {%- if kc_page -%}
+      <a href="{{ kc_page.url }}">{{ kc_category }}</a>
+    {%- else -%}
+      <span>{{ kc_category }}</span>
+    {%- endif -%}
+  {%- endfor -%}
+</p>
+{%- endif -%}

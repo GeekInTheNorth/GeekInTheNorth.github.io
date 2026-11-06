@@ -1,0 +1,35 @@
+{%- comment -%}
+  Live NuGet figures for an add-on, filled in by assets/js/nuget-downloads.js. No figures are stored in the site.
+  variant: "strip" shows labelled figures that fall back to links to the package pages;
+           "inline" is a single line of nuget.org downloads and version, hidden until the figures arrive;
+           "total" is the same line with nuget.org and Optimizely feed downloads added together.
+{%- endcomment -%}
+{%- assign ns_addon = include.addon -%}
+{%- assign ns_nuget_page = "https://www.nuget.org/packages/" | append: ns_addon.package_id -%}
+{%- capture ns_data -%}
+data-package-id="{{ ns_addon.package_id }}" data-nuget-url="https://azuresearch-usnc.nuget.org/query?q=packageid:{{ ns_addon.package_id }}&amp;prerelease=true" data-optimizely-url="https://nuget.optimizely.com/v3/search?q={{ ns_addon.package_id | downcase }}&amp;prerelease=true"
+{%- endcapture -%}
+{%- if include.variant == "strip" %}
+<dl class="stat-strip__list" {{ ns_data }}>
+  <div class="stat-strip__item">
+    <dt>nuget.org downloads</dt>
+    <dd data-nuget-downloads><a href="{{ ns_nuget_page }}">View on NuGet</a></dd>
+  </div>
+  <div class="stat-strip__item">
+    <dt>Optimizely feed downloads</dt>
+    <dd data-optimizely-downloads><a href="https://nuget.optimizely.com/package/?id={{ ns_addon.package_id }}">View on the Optimizely feed</a></dd>
+  </div>
+  <div class="stat-strip__item">
+    <dt>Latest version</dt>
+    <dd data-package-version><a href="{{ ns_nuget_page }}">View on NuGet</a></dd>
+  </div>
+  <div class="stat-strip__item">
+    <dt>Licence</dt>
+    <dd>{{ ns_addon.licence.name | default: "MIT" }}</dd>
+  </div>
+</dl>
+{%- elsif include.variant == "total" %}
+<p class="nuget-inline" {{ ns_data }} data-nuget-reveal hidden><strong data-total-downloads></strong> downloads · v<span data-package-version></span></p>
+{%- else %}
+<p class="nuget-inline" {{ ns_data }} data-nuget-reveal hidden><strong data-nuget-downloads></strong> nuget.org downloads · v<span data-package-version></span></p>
+{%- endif %}

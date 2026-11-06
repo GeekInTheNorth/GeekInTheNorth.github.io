@@ -33,7 +33,7 @@ I later stumbled upon this article that resonated with the issue that we were en
 
 If your Razor Class library includes Razor Pages, then the following methods need to called with the the Startup.cs of the consuming application:
 
-```
+```csharp
 services.AddRazorPages();
 
 app.MapRazorPages();
@@ -41,7 +41,7 @@ app.MapRazorPages();
 
 If your Razor Class library includes static files like .css and .js files, then a call to UseStaticWebAssetts() must be used in the Program.cs of the consuming application:
 
-```
+```csharp
 public static class Program
 {
    public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();

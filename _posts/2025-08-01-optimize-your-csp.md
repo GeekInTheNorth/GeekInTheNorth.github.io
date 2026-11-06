@@ -23,17 +23,18 @@ In both cases, the Content Security Policy (CSP) contained between 220–250 dom
 In CSP 3, the ability to split `script-src` into `script-src-elem` and `script-src-attr` was added.  This was intended to give more control over what could be used in a `<script>` element vs what could be used in a JavaScript attribute on an element.  There was a period of time where if you wanted to use `script-src-elem` and `script-src-attr` you still had to produce `script-src` to support devices and browsers that were not yet CSP 3 compliant.  CSP 3 support is now very broad so you can omit `script-src`.  If you still have a lot of sources and there is an overlap of sources for `script-src-elem` and `script-src-attr` then you could switch back to using `script-src` instead.
 
 **Larger and very specific:**
-```csp
+```plaintext
 script-src-elem 'self' 'nonce-r4nd0m' https://www.example.com https://www.elem-only.com;
 script-src-attr 'self' https://www.example.com https://www.attr-only.com;
 ```
 
 **Smaller but less specific:**
-```csp
+```plaintext
 script-src 'self' 'nonce-r4nd0m' https://www.example.com https://www.elem-only.com https://www.attr-only.com;
 ```
 
-> 💡 **Tip:** the same technique can be used for `style-src`, `style-src-elem` and `style-src-attr`.
+> **Tip:** the same technique can be used for `style-src`, `style-src-elem` and `style-src-attr`.
+{: .callout}
 
 ## 2. Keep default-src simple
 
@@ -45,7 +46,8 @@ Here are three practical options:
 - `default-src 'self';` Allows only resources from the current domain. This is a common and safe choice for many sites.
 - `default-src 'self' https://*.mydomain.com;` Slightly more permissive—this allows resources from your domain and all subdomains. Be cautious: this could include dev, test, or legacy subdomains unless you scope them intentionally.
 
->💡**Tip:** If you're already specifying individual directives like `script-src`, `style-src`, and `img-src`, you may not need a permissive `default-src` at all. In that case, consider using `'none'` to avoid accidentally allowing fallback behaviors you didn’t intend.
+> **Tip:** If you're already specifying individual directives like `script-src`, `style-src`, and `img-src`, you may not need a permissive `default-src` at all. In that case, consider using `'none'` to avoid accidentally allowing fallback behaviors you didn’t intend.
+{: .callout}
 
 ## 3. Keep base-uri simple
 
@@ -55,7 +57,7 @@ Without this restriction, a malicious actor could modify the `<base>` element to
 
 Because this directive serves a very specific purpose, it’s best to keep it narrowly scoped, typically to one of the following:
 
-```csp
+```plaintext
 base-uri 'self';
 
 or
@@ -67,7 +69,7 @@ base-uri 'self' https://*.mydomain.com;
 
 The purpose of `frame-ancestors` is to restrict which websites can host your CMS site in an iframe.  For most Optimizely websites, this should be limited to allowing only the website to frame itself:
 
-```csp
+```plaintext
 frame-ancestors 'self';
 or
 frame-ancestors 'self'; https://*.mydomain.com;
@@ -75,7 +77,7 @@ frame-ancestors 'self'; https://*.mydomain.com;
 
 If you are using Optimizely Web Experimentation then you will also want to allow optimizely.com in order to allow the edit variant interface to work:
 
-```csp
+```plaintext
 frame-ancestors 'self'; https://*.mydomain.com https://*.optimizely.com;
 ```
 
@@ -83,7 +85,7 @@ frame-ancestors 'self'; https://*.mydomain.com https://*.optimizely.com;
 
 In the Content Security Policies that I reviewed, I noted that there were multiple instances of the same domain being added twice.  Both with and without a trailing slash like so:
 
-```csp
+```plaintext
 script-src 'self' https://www.example.com https://www.example.com/
 ```
 
@@ -91,19 +93,20 @@ In a Content Security Policy, these two forms are functionally identical. The tr
 
 **Simplify your policy** by removing duplicates and keeping only one clean version:
 
-```csp
+```plaintext
 script-src 'self' https://www.example.com
 ```
 
->💡 **Tip:** If you're using a CSP source that includes a **path**, then the trailing slash *does* matter and it will limit resources to just those immediately below the path:
+> **Tip:** If you're using a CSP source that includes a **path**, then the trailing slash *does* matter and it will limit resources to just those immediately below the path:
 > - `https://example.com/js/` matches `/js/app.js`
 > - `https://example.com/js` matches only `/js`
+{: .callout}
 
 ## 6. Check if wildcard subdomains already cover more specific domains
 
 In the reported examples, I found multiple instances of redundant wildcard entries for closely related domains. These examples included:
 
-```csp
+```plaintext
 script-src https://*.consentmanager.net https://*.delivery.consentmanager.net https://*.fls.doubleclick.net https://*.g.doubleclick.net https://*.doubleclick.net
 ```
 
@@ -114,16 +117,17 @@ When using a wildcard source like `https://*.example.com`, it's important to und
 
 Knowing this, we can simplify the content security policy to:
 
-```csp
+```plaintext
 script-src https://*.consentmanager.net https://*.doubleclick.net;
 ```
->💡 **Tip:** Always verify that the broader wildcard covers all required sources and doesn't introduce unwanted access. If the root domain (e.g. `https://doubleclick.net`) is needed, it must still be listed separately. It is not included in a wildcard like `*.doubleclick.net`.
+> **Tip:** Always verify that the broader wildcard covers all required sources and doesn't introduce unwanted access. If the root domain (e.g. `https://doubleclick.net`) is needed, it must still be listed separately. It is not included in a wildcard like `*.doubleclick.net`.
+{: .callout}
 
 ## 7. Be cautious with https: and wss: wildcard protocols in source directives
 
 On large, multinational CMS platforms (especially those where editors frequently embed third-party content like donation forms, interactive widgets, or 360° views) Content Security Policies can become hard to maintain. In these cases, it's tempting to use a broad directive like:
 
-```csp
+```plaintext
 frame-src 'self' https:;
 ```
 
@@ -131,7 +135,7 @@ This allows any content to be iframed as long as it's served over HTTPS, which c
 
 Using `https:` effectively tells the browser to allow **any** secure domain and not just trusted partners. That means explicitly listing a domain like `https://example.com` is redundant, and worse, it also implicitly permits `https://malicious.site` or any other HTTPS-based domain to load scripts or frames on your site.  The same behaviour exists for `wss:` and `http:` protocols as well. So do be cautious when using them, or avoid them entirely:
 
-```csp
+```plaintext
 script-src 'self' https: https://example.com;  // Redundant and risky
 ```
 
@@ -163,7 +167,7 @@ If any issues arise, you can simply re-import your saved configuration from the 
 
 To implement this, your development team or agency partner can implement the `IContentSecurityPolicyPage` interface either as a CMS editable property or by using code you implement yourself as follows:
 
-```c#
+```csharp
 public class MyPage : PageData, IContentSecurityPolicyPage
 {
     [Display(

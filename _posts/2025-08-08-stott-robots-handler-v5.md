@@ -7,6 +7,8 @@ category:
   - Development
   - Optimizely
   - "Stott Robots Handler"
+tags:
+  - release-notes
 ---
 
 ## So you've heard of **llms.txt**?
@@ -41,7 +43,7 @@ Stott Robots Handler v5 is available for Optimizely PAAS CMS 12 on nuget.optimiz
 
 Getting started can be as simple as: 
 
-```c#
+```csharp
 // Install the nuget package
 dotnet add package Stott.Optimizely.RobotsHandler
 

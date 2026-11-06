@@ -13,6 +13,8 @@ relatedArticles:
   - "_posts/2026-03-05-stott-security-5.md"
   - "_posts/2026-05-17-stott-security-6.md"
   - "_posts/2026-04-09-stott-security-7.md"
+tags:
+  - release-notes
 ---
 
 April 2025 marks a new milestone for the Stott Security Add-on with the release of version 3.  This release has been developed over several months owing to a significant new feature among other quality of life changes.

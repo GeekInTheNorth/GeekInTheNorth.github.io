@@ -12,7 +12,7 @@ In a recent client build, I have been tasked with updating their search to use w
 
 While the solution did work, after reviewing the performance of the query and the structure of the query being sent to Optimizely Search and Navigation, I discovered that the solution was actually much simpler and did not need any new scaffolding of custom query building.  The For method has overloads which exposes the QueryStringQuery object that allows you to customise the query behaviour.
 
-```
+```csharp
 private ITypeSearch<T> GetQuerySearch<T>(
    string query,
    bool isWildCardSearch) where T : MyVariant
@@ -45,7 +45,7 @@ By passing in the wild card version of the query string into options.Query and s
 
 The main downside to this approach is that synonym functionality no longer worked.  The query with the wildcards would never match a synonym but it would work with best bets.  I resolved this by using a Multi Search query and passed in the unaltered query and then the wild card query.  In Multi Search, each result set is returned in the same order in which it has been defined and they are packaged in a single API call.  It was then a simple case of selecting the first result set with at least one match.
 
-```
+```csharp
 var searchResult _findClient.MultiSearch<DentalVariantProjectionModel>()
    .Search<MyVariant, MyProjectionModel>(x => GetQuerySearch(query, false))
    .Search<MyVariant, MyProjectionModel>(x => GetQuerySearch(query, true))

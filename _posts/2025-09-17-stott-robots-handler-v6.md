@@ -10,6 +10,8 @@ category:
 relatedArticles:
   - "_posts/2025-09-19-helping-opal-build-llms-txt-content.md"
   - "_posts/2025-09-28-creating-opal-tools-for-stott-robots-handler.md"
+tags:
+  - release-notes
 ---
 
 During August, the Netcel team and I took part in the Optimizely Opal Hackathon.  The challenge for this hackathon was to generate tools that extend Opal's abilities within the Optimizely Platform.  As a late second entry for our team, I put forward a proposal to add Opal Tools support to an Optimizely Add-on.  This work sparked something bigger, and today I'm excited to share that Opal Tools functionality and improved headless support has made it's way into a production-ready release of Stott Robots Handler v6.
@@ -79,7 +81,7 @@ Stott Robots Handler v6 is available for **Optimizely PAAS CMS 12** on both nuge
 
 Getting started can be as simple as: 
 
-```c#
+```csharp
 // Install the nuget package
 dotnet add package Stott.Optimizely.RobotsHandler
 

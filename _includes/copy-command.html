@@ -1,0 +1,8 @@
+{%- comment -%}
+  A shell command with a copy button (the button needs JavaScript; the command can always be selected).
+{%- endcomment -%}
+<div class="copy-command" data-copy-scope>
+  <code class="copy-command__text"><span class="copy-command__prompt" aria-hidden="true">&gt; </span><span data-copy-text>{{ include.command }}</span></code>
+  <button type="button" class="icon-button copy-command__button js-only" data-copy aria-label="Copy install command" title="Copy install command">{% include icon.html name="clipboard" %}</button>
+  <span class="visually-hidden" role="status" data-copy-status></span>
+</div>

@@ -12,7 +12,7 @@ I have been building .NET 5.0 websites for personal projects as well as reviewin
 
 .NET 5.0 and .NET Core 3.1 follow a common pattern in how you build websites.  Web.config is meant to be a thing of the past with configuration of the site moving to appsettings.json and code.  A good place to add security headers to your requests is to create a security header middleware:
 
-```
+```csharp
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
@@ -45,7 +45,7 @@ namespace MyProject.Feature.Security
 
 This middleware can then be added to the configure method of your startup class like so:
 
-```
+```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
    app.UseMiddleware<SecurityHeaderMiddleware>();
@@ -54,7 +54,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 I did find that I couldn't remove the server and x-powered-by headers using this method regardless of whether these headers were removed before or after the _next.Invoke(context) call or whether the middleware was declared first or last.  As it turns out, these are added by the hosting technology, in this case IIS.  The only way to remove these headers was to add a minimal web.config file to the web solution that contained just enough configuration to remove these headers.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
    <system.webServer>
@@ -72,7 +72,7 @@ I did find that I couldn't remove the server and x-powered-by headers using this
 
 I spent a good while looking for this solution, almost every solution I could find was based on hosting within Kestrel rather than IIS.  If you are hosting with Kestrel, then you can remove the server header by updating your CreateHostBuilder method in program.cs to set the options for Kestrel to exclude the server header.
 
-```
+```csharp
 public static IHostBuilder CreateHostBuilder(string[] args, bool isDevelopment)
 {
    return Host.CreateDefaultBuilder(args)
@@ -89,7 +89,7 @@ public static IHostBuilder CreateHostBuilder(string[] args, bool isDevelopment)
 
 Now if you don't want to build a custom middleware component and you'd like a simple fluent language to building content security policies, then you can install the NWebsec.AspNetCore.Middleware NuGet package.  This provides a collection of middleware and extensions which cover each of the security header requirements.
 
-```
+```csharp
 app.UseXContentTypeOptions();
 app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
 app.UseXfo(opt => opt.SameOrigin());

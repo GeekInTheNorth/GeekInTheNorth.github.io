@@ -14,7 +14,7 @@ One of our clients had purchased the Content Recommendations module for use with
 ## The Solution
 Our solution for this was to create a Custom Content Recommendations Block that obfuscates a number of the options on the default Content Recommendations Block and added additional properties that would allow them to render Content Recommendations as if it were the same design as another block within the site.  The key properties that I hid in this case were the Number of Recommendations and Recommendations Template properties.
 
-```
+```csharp
 // Display and ContentType attributes omitted for brevity.
 public class CustomContentRecommendationsBlock : ContentRecommendationsBlock
 {
@@ -46,7 +46,7 @@ public class CustomContentRecommendationsBlock : ContentRecommendationsBlock
 
 The razor file itself was then created to conditionally render elements within the Content Recommendations script tag on the server side in accordance with the designs by our creative team. To handle recommendations which lacked a main image, a fallback image was rendered server side within the `{{^main_image_url}}` handlebars tag.  Markup with `{{^main_image_url}}` is then only rendered by the content recommendations code when the main_image_url is null.
 
-```
+```csharp
 {% raw %}
 @model CustomContentRecommendationsBlock
 

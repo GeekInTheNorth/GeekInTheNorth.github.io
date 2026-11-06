@@ -25,7 +25,7 @@ In the following solution I have used the app.UseCookiePolicy(...) method to set
 - **oid-** : These are cookies which Opti ID uses for authentication
 - **.AspNetCore** : These are cookies NET Core uses for Authentication
 
-```
+```csharp
 public static IApplicationBuilder UseSecureCookies(this IApplicationBuilder app)
 {
     // Set the default cookie policy
@@ -62,7 +62,7 @@ Here is the challenge: These modules will not allow you to access them when usin
 
 Take this configuration for the **Stott Security Add-on** as an example; this Add-on allows you to segment the data for the Add-on into a separate database and it allows you to define an authorization policy.  In this scenario it is a simple matter of making sure the Opti ID Scheme Name is added to the policy:
 
-```
+```csharp
 public static IServiceCollection AddSecurityAddOn(this IServiceCollection services)
 {
     services.AddStottSecurity(

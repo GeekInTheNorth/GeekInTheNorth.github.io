@@ -1,0 +1,17 @@
+{%- comment -%}
+  Date and reading time for a post (or the external site it lives on). byline=true adds the author.
+{%- endcomment -%}
+{%- assign pm_post = include.post -%}
+<p class="post-meta">
+  {%- if include.byline %}
+  <span class="post-meta__author"><img src="{{ site.data.author.portrait.src }}" alt="" width="36" height="36">By {{ site.data.author.name }}</span>
+  <span aria-hidden="true">·</span>
+  {%- endif %}
+  <time datetime="{{ pm_post.date | date_to_xmlschema }}">{{ pm_post.date | date_to_long_string: "ordinal" }}</time>
+  <span aria-hidden="true">·</span>
+  {%- if pm_post.externalUrl %}
+  <span>On {{ pm_post.externalSource | default: "an external site" }}</span>
+  {%- else %}
+  {% include reading-time.html post=pm_post %}
+  {%- endif %}
+</p>

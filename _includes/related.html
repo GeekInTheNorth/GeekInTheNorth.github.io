@@ -1,0 +1,19 @@
+{%- comment -%}
+  Every post in the post's relatedArticles list, or the three latest posts when it has none.
+{%- endcomment -%}
+{%- assign rl_posts = site.posts | where_exp: "rl_post", "page.relatedArticles contains rl_post.path" -%}
+{%- assign rl_title = "Related reading" -%}
+{%- assign rl_limit = rl_posts.size -%}
+{%- if rl_posts.size == 0 -%}
+  {%- assign rl_posts = site.posts | where_exp: "rl_post", "rl_post.url != page.url" -%}
+  {%- assign rl_title = "Recent writing" -%}
+  {%- assign rl_limit = 3 -%}
+{%- endif -%}
+<section class="wrap page-section related" aria-labelledby="related-title">
+  <h2 id="related-title" class="rule-heading">{{ rl_title }}</h2>
+  <ul role="list" class="grid-3">
+    {%- for rl_post in rl_posts limit: rl_limit %}
+    <li>{% include post-card.html post=rl_post %}</li>
+    {%- endfor %}
+  </ul>
+</section>

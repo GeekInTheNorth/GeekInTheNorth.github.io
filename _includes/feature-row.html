@@ -1,0 +1,25 @@
+{%- comment -%}
+  A product feature with its screenshot. Rows alternate image sides in CSS. Parameters: feature, number.
+{%- endcomment -%}
+{%- assign fr_feature = include.feature -%}
+<article class="feature-row">
+  <div class="feature-row__body">
+    <span class="feature-row__number">{{ include.number }}</span>
+    <h3 class="feature-row__title">{{ fr_feature.title }}</h3>
+    {% include feature-points.html points=fr_feature.points %}
+    {%- if fr_feature.codes %}
+    <p class="feature-row__codes-label">{{ fr_feature.codes_label }}</p>
+    <ul role="list" class="code-chips">
+      {%- for fr_code in fr_feature.codes %}
+      <li><code>{{ fr_code }}</code></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+  <figure class="feature-row__media">
+    <img src="{{ fr_feature.image.src }}" alt="{{ fr_feature.image.alt }}" width="{{ fr_feature.image.width }}" height="{{ fr_feature.image.height }}" loading="lazy">
+    {%- if fr_feature.image.caption %}
+    <figcaption>{{ fr_feature.image.caption }}</figcaption>
+    {%- endif %}
+  </figure>
+</article>

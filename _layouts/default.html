@@ -1,114 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
-  <script src="/assets/js/site.js"></script>
-  <meta charset='utf-8'>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/ https://unpkg.com/website-carbon-badges@1.1.3/ https://*.optimizely.com https://*.optimizelyedit.com; connect-src 'self' https://api.websitecarbon.com https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/ https://*.optimizely.com https://*.optimizelyedit.com https://*.nuget.org; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/ https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/ https://*.optimizely.com https://*.optimizelyedit.com; font-src 'self' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/; img-src 'self' data: https://ko-fi.com/; frame-src 'self' https://www.youtube-nocookie.com/ https://*.optimizely.com;">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="/assets/css/site.css" rel="stylesheet">
-  {% if page.extraCss %}
-  <link href="{{ page.extraCss }}" rel="stylesheet">
-  {% endif %}
-  {% seo %}
-  {% include head-custom.html %}
+  {% include head.html %}
 </head>
 
-<body class="bg-white">
-  <header>
-    <nav class="navbar navbar-expand-sm navbar-light border-bottom bg-light shadow-sm fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-dark fw-bold" href="{{ '/' | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto me-0">
-            <li class="nav-item">
-              <a class="nav-link text-dark fw-bold" href="/article/list/development">Development</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark fw-bold" href="/article/list/optimizely">Optimizely</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark fw-bold" href="/article/list/geek-stories">Geek Stories</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  {{ content }}
+  {% include site-header.html %}
 
-  <div class="container mt-3">
-    <div id="wcb" class="carbonbadge"></div>
-  </div>
+  <main id="main" tabindex="-1">
+    {{ content }}
+  </main>
 
-  <div class="container-fluid border-top mt-3 py-3 bg-light">
-    <footer class="d-flex flex-wrap text-center">
-      <ul class="nav container justify-content-center">
-        <li class="nav-item">
-          <a href="https://github.com/GeekInTheNorth/" class="nav-link" title="GitHub">
-            <span class="fa-stack">
-                <i class="fab fa-github fa-stack-2x"></i>
-            </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="https://www.linkedin.com/in/mark-antony-stott/" class="nav-link" title="LinkedIn">
-            <span class="fa-stack">
-                <i class="fa-brands fa-linkedin fa-stack-2x"></i>
-            </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="https://www.threads.net/@GeekInTheNorth" class="nav-link" title="Threads">
-            <span class="fa-stack">
-                <i class="fa-brands fa-square-threads fa-stack-2x"></i>
-            </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="https://twitter.com/GeekInTheNorth" class="nav-link" title="X (Twitter)">
-            <span class="fa-stack">
-                <i class="fa-brands fa-x-twitter fa-stack-2x"></i>
-            </span>
-          </a>
-        </li>
-      </ul>
-      <ul class="nav container justify-content-center">
-        <li class="nav-item"><a href="/cookie-policy" class="nav-link px-2 text-muted">Cookie Policy</a></li>
-        <li class="nav-item"><span class="nav-link px-2 text-muted">© 2026 Mark Stott</span></li>
-      </ul>
-    </footer>
-  </div>
-  <div class="container cookie-banner bg-light border-top border-start border-end fixed-bottom p-3 d-none">
-    <div class=" row"><div class="col-12 col-lg-6">Please note that this website uses cookies as per this <a href="/cookie-policy" rel="nofollow">cookie policy</a>.</div>
-      <div class="form-check col-12 col-sm-6 col-md-4 col-lg-2 form-switch px-5">
-        <input class="form-check-input" type="checkbox" id="acceptFunctional" checked="" disabled="" role="switch">
-        <label class="form-check-label" for="acceptFunctional">
-          Functional
-        </label>
-      </div>
-      <div class="form-check col-12 col-sm-6 col-md-4 col-lg-2 form-switch px-5">
-        <input class="form-check-input" type="checkbox" id="acceptPersonalization" checked="" role="switch">
-        <label class="form-check-label" for="acceptPersonalization">
-          Personalization
-        </label>
-      </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2"><button class="btn btn-primary js-cookie-cta" id="cookieBannerCTA">Accept</button></div>
-    </div>
-  </div>
+  {% include site-footer.html %}
+  {% include cookie-banner.html %}
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-  {% if page.extraJs %}
+  {%- assign default_version = site.time | date: '%s' %}
+  {%- for default_script in layout.scripts %}
+  <script src="/assets/js/{{ default_script }}.js?v={{ default_version }}" defer></script>
+  {%- endfor %}
+  {%- if page.extraJs %}
   <script src="{{ page.extraJs }}" defer></script>
-  {% endif %}
+  {%- endif %}
 </body>
 
 </html>

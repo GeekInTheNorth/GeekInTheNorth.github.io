@@ -1,0 +1,8 @@
+{%- assign cc_cert = include.cert -%}
+<a class="cert-card" href="{{ cc_cert.url }}">
+  <img src="{{ cc_cert.image }}" alt="" width="64" height="64" loading="lazy">
+  <span class="cert-card__body">
+    <span class="cert-card__title">{{ cc_cert.title }}</span>
+    <span class="cert-card__label">{{ cc_cert.label }}</span>
+  </span>
+</a>

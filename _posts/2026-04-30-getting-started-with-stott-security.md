@@ -116,7 +116,7 @@ By default the admin UI is accessible to users in the **WebAdmins**, **CmsAdmins
 
 Stott Security generates the nonce per request and the bundled tag helper writes it onto your `<script>` and `<style>` tags.  Add `@addTagHelper *, Stott.Security.Optimizely` to your `_ViewImports.cshtml`, then mark up your tags with the `nonce` attribute and the helper will populate the value.
 
-```
+```csharp
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Stott.Security.Optimizely
 @addTagHelper *, EPiServer.Cms.AspNetCore.TagHelpers

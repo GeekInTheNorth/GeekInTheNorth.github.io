@@ -15,7 +15,8 @@ Over the course of November, my colleagues at <a href="https://www.netcel.com/" 
 
 In this technical blog, I'm going to focus on how we can leverage publish events to trigger workflows within Opal.  The traditional method of doing this would be to leverage content events in **C#** by registering handlers for the **IContentEvents** interface.  This approach has the downside of only being applicable for **PaaS** solutions.  I will be showing you how to achieve the same goal using webhooks in **Content Graph** which has the advantage of being applicable to both **SaaS** and **PaaS** CMS without relying on CMS hosted event handlers.
 
->💡**Tip:** Optimizely is moving away from **Search & Navigation** to **Content Graph** for improved flexibility, stability and performance. Use add-ons such as <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optigraphextensions-v2.0-enhanced-search-control-with-language-support-synonym-slots-and-stop-words" target="_blank">OptiGraphExtensions</a> to manage your synonyms in **Content Graph**.
+> **Tip:** Optimizely is moving away from **Search & Navigation** to **Content Graph** for improved flexibility, stability and performance. Use add-ons such as <a href="https://world.optimizely.com/blogs/allthingsopti/dates/2025/12/a-day-in-the-life-of-an-optimizely-omvp---optigraphextensions-v2.0-enhanced-search-control-with-language-support-synonym-slots-and-stop-words" target="_blank">OptiGraphExtensions</a> to manage your synonyms in **Content Graph**.
+{: .callout}
 
 ## Solution Flow
 
@@ -35,7 +36,8 @@ You might ask why there is an Integration API included here? This is because Con
 
 Testing Webhook responses can be a challenge, especially if you are unsure what real data is going to look like.  This is where tools such as <a href="https://webhook.cool/" target="_blank"><strong>Webhook</strong>Cool</a> come in.  This particular website provides you with a temporary end point that you can point your webhook at so that you can examine your data before implementing an endpoint.  I've found this particular tool to be very helpful during the prototyping phases.
 
-> 🔒 **Security Warning:** Third party tools like WebhookCool can be useful for testing APIs, however you should **never** use them with a production environment or anything that might contain PII data.
+> **Security Warning:** Third party tools like WebhookCool can be useful for testing APIs, however you should **never** use them with a production environment or anything that might contain PII data.
+{: .callout}
 
 ## Creating Webhooks In Content Graph
 
@@ -45,7 +47,7 @@ A webhook can be registered with Content Graph using a POST request.  This POST 
 - The **topic** is set to be "doc.updated", this tells Content Graph we are only interested in single document update events.
 - The **filter** is set to filter content to published items only.
 
-```JSON
+```json
 POST https://cg.optimizely.com/api/webhooks
 Content-Type: application/json
 Authorization: Basic <Base64 encoded App Key and Secret>
@@ -66,7 +68,7 @@ Authorization: Basic <Base64 encoded App Key and Secret>
 
 When you update the content item in Content Graph you will get one or more webhook events being executed with a response like so:
 
-```JSON
+```json
 {
   "timestamp": "2025-12-22T13:56:00.7410789+00:00",
   "tenantId": "00000000000000000000000000000000",
@@ -82,15 +84,17 @@ When you update the content item in Content Graph you will get one or more webho
 
 Out of the box this isn't ready for consumption for Opal as this doesn't contain any information about the updated page beyond the docId which is a unique identifier within graph for the content item.  If you wanted to pass something more useful to Opal, like a URL, then you will need an Integration API end point to handle this.
 
->💡**Tip:** Please note that webhooks are registered per CMS and Content Graph environment, typically these are Integration, Preproduction and Production. However, there is only one Opal instance and you may not want events raised during QA or UAT to burn through your Opal credits.
+> **Tip:** Please note that webhooks are registered per CMS and Content Graph environment, typically these are Integration, Preproduction and Production. However, there is only one Opal instance and you may not want events raised during QA or UAT to burn through your Opal credits.
+{: .callout}
 
 ## Creating The Integration API
 
-> 🔒 **Please Note:** identifiers in these examples have been swapped out with a randomly generated id to aid visualization and should not reflect any specific system.
+> **Please Note:** identifiers in these examples have been swapped out with a randomly generated id to aid visualization and should not reflect any specific system.
+{: .callout}
 
 The first thing we will need is to convert the Content Graph docId into data we can use to filter graph queries.  This requires us to split the docId based on underscores with the first component being the Content GUID, the second being the language for the content and the third being the published state.  To make matters more interesting, the Content GUIDs are stored without hyphens in Content Graph, so we have to strip those out too:
 
-```C#
+```csharp
 public bool TryConvertContentIdentifiers(string docId, out string id, out string locale)
 {
     id = string.Empty;
@@ -138,7 +142,7 @@ query MyQuery {
 
 This will have a response that looks like:
 
-```JSON
+```json
 {
   "data": {
     "_Page": {
@@ -167,7 +171,7 @@ We can then wrap this up into a request to get the data from Content Graph by pe
 - Serializing the data onto an object model based on the example response above.
 - Validating the URL data for each content item in the response
 
-```C#
+```csharp
 public async Task<List<Uri>> GetContentUris(string id, string locale)
 {
     if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(locale))
@@ -236,7 +240,7 @@ Now we have a means to transform the data from the Graph Webhook and to retrieve
 - Retrieve the URLs for the updated content items from Content Graph
 - Push each URL into the Opal Workflow Webhook
 
-```C#
+```csharp
 [HttpPost]
 [Route("api/content/publish")]
 [Consumes("text/plain", "application/json")]
@@ -294,7 +298,7 @@ Keen observers may note that the controller is configured to accept both **text/
 
 The end result of this integration API is that content update actions for non-pages will be ignored and Opal will only recieve an instruction to run a workflow for publicly accessible pages with a provided URL in a simple payload: 
 
-```JSON
+```json
 { 
   "url": "https://www.example.com/insights/"
 }

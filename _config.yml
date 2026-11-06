@@ -1,6 +1,8 @@
 # theme: jekyll-theme-architect
 plugins:
   - jekyll-redirect-from
+  - jekyll-seo-tag
+url: "https://www.stott.pro"
 title: Mark Stott
 description: Welcome to my technical blog
 author: Mark Stott

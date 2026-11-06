@@ -1,0 +1,17 @@
+{%- comment -%}
+  A short code sample with selected lines highlighted, used for the key lines in the product "Get started" steps.
+  Rouge cannot highlight individual lines on GitHub Pages, and its output cannot safely be split into lines,
+  so the sample is escaped and split here; only the C# keywords used in these samples are coloured.
+  Parameters: code, highlight (list of line numbers), label.
+{%- endcomment -%}
+{%- capture cl_newline %}
+{% endcapture -%}
+{%- assign cl_lines = include.code | strip | escape | replace: "public void", '<span class="k">public</span> <span class="kt">void</span>' | split: cl_newline -%}
+<div class="code-panel" data-copy-scope>
+  <div class="code-panel__bar">
+    <span>{{ include.label }}</span>
+    <button type="button" class="code-panel__copy js-only" data-copy>Copy</button>
+  </div>
+  <pre class="highlight" tabindex="0"><code data-copy-text>{% for cl_line in cl_lines %}<span class="code-line{% if include.highlight contains forloop.index %} is-highlighted{% endif %}">{{ cl_line }}</span>{% unless forloop.last %}{{ cl_newline }}{% endunless %}{% endfor %}</code></pre>
+  <span class="visually-hidden" role="status" data-copy-status></span>
+</div>

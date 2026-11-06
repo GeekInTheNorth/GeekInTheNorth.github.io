@@ -8,6 +8,8 @@ category:
   - "Geek Stories"
 image: "https://www.stott.pro/assets/heat-pedal-to-the-metal.jpg"
 promoImage: "/assets/heat-pedal-to-the-metal.jpg"
+promoImageWidth: 900
+promoImageHeight: 900
 promoImageAlt: "Box Artwork for the Heat, Pedal To The Metal board game."
 extraCss: "/assets/css/heat-legends-generator.css?v=2"
 extraJs: "/assets/js/heat-legends-generator.js?v=2"
@@ -26,7 +28,7 @@ The generator below is designed to vary difficulty levels and to include additio
 ## Legends, Deck Generator
 
 {% raw %}
-<div id="heat-legends-root" class="my-4"></div>
+<div id="heat-legends-root" class="tool-embed"></div>
 {% endraw %}
 
 ## Creating The Deck Generator

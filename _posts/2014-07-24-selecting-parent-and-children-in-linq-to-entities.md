@@ -12,7 +12,7 @@ relatedArticles:
 
 Recently I wanted to select one or more parent records along with the collection of child records as a property of the parent record using Linq to Entities.  I started out writing something like this:
 
-```
+```csharp
 var items = (from item in Context.Items
              join itemParameters in Context.ItemParameters
              on item.ID equals itemParameters.ItemId
@@ -27,7 +27,7 @@ var items = (from item in Context.Items
 
 This came with it's own problem in that it returned a parent for each child on a one to one relationship and what I wanted was a one to many parent to child relationship. After a lot of unhappy googling I did find the following solution:
 
-```
+```csharp
 var items = (from item in Context.Items
              select new
                  {
