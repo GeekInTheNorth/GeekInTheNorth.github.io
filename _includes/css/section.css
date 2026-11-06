@@ -6,8 +6,9 @@
   padding-block: clamp(48px, 7vw, 72px) 56px;
 }
 
+/* The 48px floor keeps "Development" inside a 320px screen (WCAG 1.4.10). */
 .section-header__title {
-  font-size: clamp(60px, 8.4vw, 112px);
+  font-size: clamp(48px, 8.4vw, 112px);
   line-height: 0.95;
   letter-spacing: -0.035em;
 }

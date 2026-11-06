@@ -62,12 +62,39 @@
     document.addEventListener("DOMContentLoaded", function () {
         const cookieBanner = document.querySelector("[data-cookie-banner]");
         if (!cookieBanner) return;
+        let opener = null;
+
+        // While the banner is open, reserve its height at the foot of the page so it never covers
+        // the element with keyboard focus (WCAG 2.4.11). The CSS reads --cookie-banner-space.
+        function reserveSpace() {
+            const space = cookieBanner.hidden ? 0 : cookieBanner.offsetHeight + 32;
+            document.documentElement.style.setProperty("--cookie-banner-space", `${space}px`);
+        }
+
+        function showBanner() {
+            cookieBanner.hidden = false;
+            reserveSpace();
+        }
+
+        function hideBanner() {
+            cookieBanner.hidden = true;
+            reserveSpace();
+            // Reopened from "Cookie Settings": hand focus back rather than dropping it on the page.
+            if (opener) {
+                opener.focus();
+                opener = null;
+            }
+        }
+
+        if ("ResizeObserver" in window) {
+            new ResizeObserver(reserveSpace).observe(cookieBanner);
+        }
 
         function saveChoice(acceptPersonalization) {
             const hadPersonalization = allowsPersonalization();
             setCookie("accept_cookies", consentVersion, 365);
             setCookie("accept_personalization", acceptPersonalization ? "1" : "0", 365);
-            cookieBanner.hidden = true;
+            hideBanner();
 
             if (acceptPersonalization) {
                 injectOptimizelyScript();
@@ -86,13 +113,14 @@
 
         document.querySelectorAll(".js-cookie-settings").forEach(function (button) {
             button.addEventListener("click", function () {
-                cookieBanner.hidden = false;
+                opener = button;
+                showBanner();
                 cookieBanner.querySelector("[data-consent]").focus();
             });
         });
 
         if (!hasMadeChoice()) {
-            cookieBanner.hidden = false;
+            showBanner();
         }
     });
 })();

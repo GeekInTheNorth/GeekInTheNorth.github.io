@@ -58,13 +58,13 @@
   background: var(--paper);
 }
 
+/* Wraps on narrow screens rather than scrolling, so the whole command can be read without a mouse (WCAG 1.4.10). */
 .copy-command__text {
   min-width: 0;
   padding: 0;
-  overflow-x: auto;
   background: none;
   font-size: 14px;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .copy-command__prompt {

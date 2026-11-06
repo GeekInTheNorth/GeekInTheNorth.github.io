@@ -12,7 +12,11 @@
   color: var(--accent);
 }
 
+/* At least 24px tall, so links stay clear of each other when the kicker wraps (WCAG 2.5.8). */
 .kicker a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   color: var(--accent);
   text-decoration: none;
 }
@@ -66,8 +70,9 @@
   padding-top: clamp(40px, 6vw, 64px);
 }
 
+/* The 34px floor keeps long words such as "Programmatically" inside a 320px screen (WCAG 1.4.10). */
 .article-hero__title {
-  font-size: clamp(38px, 4.8vw, 60px);
+  font-size: clamp(34px, 4.8vw, 60px);
   line-height: 1.05;
   letter-spacing: -0.025em;
 }
@@ -86,7 +91,7 @@
 }
 
 .article-hero--text .article-hero__title {
-  font-size: clamp(40px, 5.6vw, 66px);
+  font-size: clamp(34px, 5.6vw, 66px);
   line-height: 1.04;
 }
 

@@ -44,6 +44,8 @@ h4 {
   line-height: 1.15;
   letter-spacing: -0.015em;
   text-wrap: balance;
+  /* A word longer than the column breaks rather than pushing the page sideways (WCAG 1.4.10). */
+  overflow-wrap: break-word;
 }
 
 p {
