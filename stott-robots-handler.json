@@ -2,19 +2,52 @@
 layout: null
 permalink: /data/stott-robots-handler.json
 ---
-{
-  "cms12": "6.0.1",
-  "cms13": "7.0.0",
-  "articles": [
-  {% assign posts = site.categories['Stott Robots Handler'] %}
-  {% for post in posts %}
-    {
-      "title": {{ post.title | jsonify }},
-      "url": {{ post.url | prepend: site.url | jsonify }},
-      "date": {{ post.date | date_to_xmlschema | jsonify }},
-      "description": {{ post.description | jsonify }}
-    }
-  {% unless forloop.last %},{% endunless %}
-  {% endfor %}
-  ]
-}
+[
+  {
+    "cmsVersion": 12,
+    "latestVersion": "6.1.0",
+    "releaseNotes": [
+      {
+        "title": "Stott Robots Handler v6",
+        "summary": "Introduces Tools for Optimizely Agent Platform (Mark, formerly known as Opal).",
+        "url": "https://www.stott.pro/article/stott-robots-handler-v6"
+      },
+      {
+        "title": "Stott Robots Handler v5",
+        "summary": "Introduces support for LLMS.txt files.",
+        "url": "https://www.stott.pro/article/stott-robots-handler-v5"
+      },
+      {
+        "title": "Stott Security v1",
+        "summary": "Announcing the release of Stott Robots Handler for CMS 12.",
+        "url": "https://www.stott.pro/article/a_robots_txt_handler_for_optimizely_cms_12"
+      }
+    ]
+  },
+  {
+    "cmsVersion": 13,
+    "latestVersion": "7.1.1",
+    "releaseNotes": [
+      {
+        "title": "Stott Robots Handler v7",
+        "summary": "Upgraded to work for CMS 13 and .NET 10. Includes a rearchitecture of working for applications instead of sites.",
+        "url": "https://www.stott.pro/article/stott-robots-handler-v7"
+      },
+      {
+        "title": "Stott Robots Handler v6",
+        "summary": "Introduces Tools for Optimizely Agent Platform (Mark, formerly known as Opal).",
+        "url": "https://www.stott.pro/article/stott-robots-handler-v6"
+      },
+      {
+        "title": "Stott Robots Handler v5",
+        "summary": "Introduces support for LLMS.txt files.",
+        "url": "https://www.stott.pro/article/stott-robots-handler-v5"
+      },
+      {
+        "title": "Stott Security v1",
+        "summary": "Announcing the release of Stott Robots Handler for CMS 12.",
+        "url": "https://www.stott.pro/article/a_robots_txt_handler_for_optimizely_cms_12"
+      }
+    ]
+  }
+]
