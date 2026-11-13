@@ -6,3 +6,6 @@ url: "https://www.stott.pro"
 title: Mark Stott
 description: Welcome to my technical blog
 author: Mark Stott
+# Jekyll skips dot-folders by default; .well-known holds the agent discovery files.
+include:
+  - .well-known

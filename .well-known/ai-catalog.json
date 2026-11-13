@@ -1,0 +1,71 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Mark Stott",
+    "identifier": "www.stott.pro",
+    "documentationUrl": "https://www.stott.pro/llms.txt"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:www.stott.pro:skills:index",
+      "displayName": "Agent skills for Stott Security, Stott Robots Handler and stott.pro",
+      "description": "Agent Skills discovery index listing skills for installing Stott Security and Stott Robots Handler in Optimizely CMS, and for reading articles on www.stott.pro.",
+      "type": "application/agent-skills+json",
+      "url": "https://www.stott.pro/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "How do I install Stott Security in Optimizely CMS?",
+        "How do I register Stott Robots Handler in Startup.cs?",
+        "Configure Content Security Policy headers in Optimizely CMS 13",
+        "Manage llms.txt from Optimizely CMS"
+      ]
+    },
+    {
+      "identifier": "urn:air:www.stott.pro:content:llms-txt",
+      "displayName": "Mark Stott's blog index (llms.txt)",
+      "description": "Markdown index of articles on Optimizely CMS, .NET development, Stott Security and Stott Robots Handler, with a one-line description of each.",
+      "type": "text/plain",
+      "url": "https://www.stott.pro/llms.txt",
+      "representativeQueries": [
+        "Articles about Optimizely CMS development",
+        "Blog posts by an Optimizely MVP about Opal tools",
+        "Guides to building Optimizely CMS add-ons"
+      ]
+    },
+    {
+      "identifier": "urn:air:www.stott.pro:content:articles",
+      "displayName": "Article index for www.stott.pro",
+      "description": "JSON array of every article on www.stott.pro with title, description, URL, publication date and categories, newest first.",
+      "type": "application/json",
+      "url": "https://www.stott.pro/data/articles.json",
+      "representativeQueries": [
+        "Search Mark Stott's articles about Content Security Policy",
+        "Latest articles about Optimizely CMS 13",
+        "List articles about Optimizely Opal and Mark"
+      ]
+    },
+    {
+      "identifier": "urn:air:www.stott.pro:data:stott-security-versions",
+      "displayName": "Stott Security versions and release notes",
+      "description": "Latest Stott Security version for Optimizely CMS 12 and CMS 13, with release notes and guides for each.",
+      "type": "application/json",
+      "url": "https://www.stott.pro/data/stott-security.json",
+      "representativeQueries": [
+        "What is the latest version of Stott Security for CMS 13?",
+        "Which Stott Security version supports Optimizely CMS 12?",
+        "Stott Security release notes"
+      ]
+    },
+    {
+      "identifier": "urn:air:www.stott.pro:data:stott-robots-handler-versions",
+      "displayName": "Stott Robots Handler versions and release notes",
+      "description": "Latest Stott Robots Handler version for Optimizely CMS 12 and CMS 13, with release notes for each.",
+      "type": "application/json",
+      "url": "https://www.stott.pro/data/stott-robots-handler.json",
+      "representativeQueries": [
+        "What is the latest version of Stott Robots Handler for CMS 13?",
+        "Which Stott Robots Handler version adds llms.txt support?",
+        "Stott Robots Handler release notes"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "stott-pro-articles",
+      "type": "skill-md",
+      "description": "Find and read Mark Stott's articles on www.stott.pro about Optimizely CMS, .NET development, and his Stott Security and Stott Robots Handler add-ons. Use when a question may be answered by this blog, or when you need release notes or the latest version of either add-on.",
+      "url": "https://www.stott.pro/.well-known/agent-skills/stott-pro-articles/SKILL.md",
+      "digest": "sha256:4a8797bddb2f2ac1d11454efedf83949ebee679c29ae5ece8eda08513bada460"
+    },
+    {
+      "name": "stott-security-setup",
+      "type": "skill-md",
+      "description": "Install and register the Stott Security add-on in an Optimizely CMS 12 or CMS 13 (PaaS) solution, covering the NuGet package, service registration, middleware order, authorisation and nonce tag helpers. Use when adding Stott Security to a .NET Optimizely CMS project or fixing its start-up configuration.",
+      "url": "https://www.stott.pro/.well-known/agent-skills/stott-security-setup/SKILL.md",
+      "digest": "sha256:8ec565932504b5edddcd5e76506c365ebf4bd395440cf3808ef81a8454a1a691"
+    },
+    {
+      "name": "stott-robots-handler-setup",
+      "type": "skill-md",
+      "description": "Install and register the Stott Robots Handler add-on in an Optimizely CMS 12 or CMS 13 (PaaS) solution, to manage robots.txt, llms.txt and environment robots meta tags and headers from the CMS. Use when adding Stott Robots Handler to a .NET Optimizely CMS project, configuring its authorisation, upgrading it to CMS 13, or connecting its agent tools.",
+      "url": "https://www.stott.pro/.well-known/agent-skills/stott-robots-handler-setup/SKILL.md",
+      "digest": "sha256:e6b39edb78503eb4f811f3df0d6966e5eeb5475ca9fb5c067af20926692a9718"
+    }
+  ]
+}
