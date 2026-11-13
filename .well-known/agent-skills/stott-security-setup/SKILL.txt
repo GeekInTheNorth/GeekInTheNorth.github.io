@@ -1,0 +1,102 @@
+---
+layout: null
+permalink: /.well-known/agent-skills/stott-security-setup/SKILL.md
+---
+---
+name: stott-security-setup
+description: Install and register the Stott Security add-on in an Optimizely CMS 12 or CMS 13 (PaaS) solution, covering the NuGet package, service registration, middleware order, authorisation and nonce tag helpers. Use when adding Stott Security to a .NET Optimizely CMS project or fixing its start-up configuration.
+---
+
+# Stott Security setup for Optimizely CMS
+
+Stott Security is a free, MIT-licensed add-on for Optimizely CMS. It lets CMS administrators manage Content Security Policy (CSP), CORS, Permissions Policy, response headers and security.txt from inside the CMS, without a code deployment.
+
+## Choose the right edition
+
+| Platform | What to install |
+|-|-|
+| Optimizely CMS 13 (PaaS) | NuGet package, version 7.x (targets .NET 10) |
+| Optimizely CMS 12 (PaaS) | NuGet package, version 6.x |
+| Optimizely SaaS CMS | Not the NuGet package. A separate Optimizely Connect Platform (OCP) app, in early access: https://github.com/GeekInTheNorth/Stott.Security.Optimizely.SaaS/discussions/1 |
+
+The latest version for each CMS version is published at https://www.stott.pro/data/stott-security.json.
+
+## 1. Install the package
+
+The package is `Stott.Security.Optimizely`, on both nuget.org and the Optimizely NuGet feed.
+
+```
+dotnet add package Stott.Security.Optimizely
+```
+
+On CMS 12, pin a 6.x version, because 7.x requires CMS 13.
+
+## 2. Register the services and middleware
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddStottSecurity();
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.UseStottSecurity();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapContent();
+        endpoints.MapControllers();
+    });
+}
+```
+
+Placement rules:
+
+- Call `app.UseStottSecurity()` immediately before `app.UseEndpoints(...)`, so the headers are added to content responses.
+- If the solution calls `app.UseStaticFiles()`, that call must come after `app.UseStottSecurity()`.
+
+## 3. Customise options and authorisation (optional)
+
+```csharp
+services.AddStottSecurity(options =>
+{
+    options.ConnectionStringName = "EPiServerDB";
+    options.NonceHashExclusionPaths.Add("/exclude-me");
+    options.AuditRetentionPeriod = TimeSpan.FromDays(730);
+},
+authorization =>
+{
+    authorization.AddPolicy(CspConstants.AuthorizationPolicy, policy =>
+    {
+        policy.RequireRole("SecurityAdmins");
+    });
+});
+```
+
+- Without a custom policy, the admin UI is available to users in the WebAdmins, CmsAdmins or Administrator roles.
+- With Opti ID, also call `policy.AddAuthenticationSchemes(OptimizelyIdentityDefaults.SchemeName);` inside the policy, so that signed-in CMS users are recognised.
+
+## 4. Add nonce support to Razor views
+
+Add the tag helper to `_ViewImports.cshtml`:
+
+```
+@addTagHelper *, Stott.Security.Optimizely
+```
+
+Then add a `nonce` attribute to `<script>` and `<style>` tags, and the tag helper fills in the per-request value. Headless front ends must apply the nonce in their own UI code.
+
+## 5. Hand over to the CMS
+
+Header values are managed in the Stott Security area of the CMS, not in code. When advising on a first Content Security Policy:
+
+- Start with Report Only mode on, and enable the internal reporting endpoints so violations appear on the CSP Violations screen.
+- Keep `default-src` as `'self'` or `'none'`.
+- Use separate Edit and Primary hosts where possible. The CMS editor needs `'unsafe-inline'`, `'unsafe-eval'` and `https://*.optimizely.com`, but the public site can stay on `'self'` plus nonces.
+- Switch Report Only mode off only once the violations list is clean.
+
+Full guide: https://www.stott.pro/article/getting-started-with-stott-security
+Source code and issues: https://github.com/GeekInTheNorth/Stott.Security.Optimizely

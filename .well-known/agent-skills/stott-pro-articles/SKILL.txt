@@ -1,0 +1,40 @@
+---
+layout: null
+permalink: /.well-known/agent-skills/stott-pro-articles/SKILL.md
+---
+---
+name: stott-pro-articles
+description: Find and read Mark Stott's articles on www.stott.pro about Optimizely CMS, .NET development, and his Stott Security and Stott Robots Handler add-ons. Use when a question may be answered by this blog, or when you need release notes or the latest version of either add-on.
+---
+
+# Reading www.stott.pro
+
+www.stott.pro is a static blog by Mark Stott, a Solutions Architect and Optimizely MVP. It has no API and no authentication. Every resource below is a plain HTTPS GET.
+
+## Resources
+
+| Resource | Use it to |
+|-|-|
+| https://www.stott.pro/llms.txt | Start here. A markdown index of the Optimizely, Stott Security, Stott Robots Handler and Development sections, with a one-line description of each article. |
+| https://www.stott.pro/data/articles.json | Search every article, newest first. A JSON array of `{ title, description, url, date, categories }`. |
+| https://www.stott.pro/data/stott-security.json | Find the latest Stott Security version for CMS 12 and CMS 13, plus release notes and guides. |
+| https://www.stott.pro/data/stott-robots-handler.json | The same for Stott Robots Handler. |
+| https://www.stott.pro/sitemap.xml | List every page on the site. |
+
+Categories in use: Optimizely, Development, Stott Security, Stott Robots Handler, Security, Geek Stories, Gaming and Theatre.
+
+## Steps
+
+1. Fetch `/llms.txt`, or for a wider search `/data/articles.json`. Pick the articles whose title, description or categories match the question.
+2. Fetch each chosen article URL. Articles live at `https://www.stott.pro/article/<slug>`. Pages are HTML only, and the article text is inside the `<article>` element. There is no markdown version.
+3. An entry can point to another site, such as Optimizely World. Follow its URL as normal.
+4. Cite the article URL in your answer.
+
+## Usage terms
+
+The site's robots.txt allows search indexing and use as AI input, but not AI training (`Content-Signal: search=yes, ai-input=yes, ai-train=no`).
+
+## Related skills
+
+- `stott-security-setup`: install and configure Stott Security.
+- `stott-robots-handler-setup`: install and configure Stott Robots Handler.

@@ -1,0 +1,117 @@
+---
+layout: null
+permalink: /.well-known/agent-skills/stott-robots-handler-setup/SKILL.md
+---
+---
+name: stott-robots-handler-setup
+description: Install and register the Stott Robots Handler add-on in an Optimizely CMS 12 or CMS 13 (PaaS) solution, to manage robots.txt, llms.txt and environment robots meta tags and headers from the CMS. Use when adding Stott Robots Handler to a .NET Optimizely CMS project, configuring its authorisation, upgrading it to CMS 13, or connecting its agent tools.
+---
+
+# Stott Robots Handler setup for Optimizely CMS
+
+Stott Robots Handler is a free, MIT-licensed add-on for Optimizely CMS. It lets CMS administrators manage robots.txt content, llms.txt content, and environment-specific robots meta tags and `X-Robots-Tag` headers, without a code deployment.
+
+## Choose the right version
+
+| Platform | Package version |
+|-|-|
+| Optimizely CMS 13 (PaaS) | 7.x (targets .NET 10) |
+| Optimizely CMS 12 (PaaS) | 6.x |
+
+The latest version for each CMS version is published at https://www.stott.pro/data/stott-robots-handler.json.
+
+## 1. Install the package
+
+```
+dotnet add package Stott.Optimizely.RobotsHandler
+```
+
+On CMS 12, pin a 6.x version, because 7.x requires CMS 13.
+
+## 2. Register the services and middleware
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRobotsHandler();
+}
+
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    app.UseRobotsHandler();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapContent();
+        endpoints.MapControllers();
+    });
+}
+```
+
+- `services.AddRobotsHandler()` sets up dependency injection and is required.
+- `app.UseRobotsHandler()` adds the middleware that writes the `X-Robots-Tag` header. Call it before `app.UseEndpoints(...)`.
+- `endpoints.MapControllers()` is needed to route the admin pages, their assets and `/robots.txt`.
+
+## 3. Enable static web assets
+
+The admin UI's JavaScript and CSS ship in a Razor Class Library, so the host must call `UseStaticWebAssets()`:
+
+```csharp
+Host.CreateDefaultBuilder(args)
+    .ConfigureCmsDefaults()
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.UseStartup<Startup>();
+        webBuilder.UseStaticWebAssets();
+    });
+```
+
+## 4. Add the tag helper
+
+Add this to `_ViewImports.cshtml`:
+
+```
+@addTagHelper *, Stott.Optimizely.RobotsHandler
+```
+
+The tag helper controls the robots meta tag for each environment, so keep the robots meta element rendered in your layout.
+
+## 5. Authorisation (optional)
+
+The admin pages appear automatically in the CMS Admin menu under "Robots". No menu code is needed.
+
+```csharp
+services.AddRobotsHandler(authorizationOptions =>
+{
+    authorizationOptions.AddPolicy(RobotsConstants.AuthorizationPolicy, policy =>
+    {
+        policy.RequireRole("WebAdmins");
+    });
+});
+```
+
+- Without a custom policy, the default roles are CmsAdmins, Administrator and WebAdmins.
+- With Opti ID, also call `policy.AddAuthenticationSchemes(OptimizelyIdentityDefaults.SchemeName);` inside the policy.
+
+## Upgrading from CMS 12 to CMS 13 (version 7)
+
+CMS 13 replaces Sites with Applications, and the identifiers change from GUIDs to strings. This breaks the link between existing content and the sites it was set up for, so robots.txt and llms.txt content must be configured again after the upgrade. Environment Robots settings and API tokens are global, so they carry over unchanged.
+
+## Behaviour to expect
+
+- `/robots.txt` is matched to the right application by domain. Sensible default content is returned when none has been configured.
+- `/llms.txt` returns 404 until content has been defined for the site or host.
+
+## Agent tools (version 6 and later)
+
+The add-on exposes tools for Optimizely's agent platform (Mark, formerly Opal):
+
+1. Create a bearer token on the Robots Handler's API Tokens tab. Set the robots.txt and llms.txt scopes to None, Read or Write. The token is shown once only.
+2. In Opal, open the tools interface, go to the Registries tab and choose "Add tool registry".
+3. Paste the Discovery URL from the Robots Handler's endpoint list.
+4. Paste the bearer token. Opal marks the field as optional, but these tools require it.
+
+The same APIs can be used by headless solutions.
+
+Installation guide: https://github.com/GeekInTheNorth/Stott.Optimizely.RobotsHandler#installation
+Articles: https://www.stott.pro/article/list/stott-robots-handler
