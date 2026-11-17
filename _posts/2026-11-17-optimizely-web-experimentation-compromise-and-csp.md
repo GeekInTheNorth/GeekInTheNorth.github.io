@@ -66,7 +66,15 @@ Their conclusion: "What separated the 24 protected sites from the rest was a res
 
 ### Two settings that undid otherwise good policies
 
-**`'strict-dynamic'`** tells the browser to trust any script that an already-trusted script adds to the page, and to ignore the host allow list. It is an excellent defence against cross-site scripting, and one of the example policies in [Optimizely's own CSP guidance](https://docs.optimizely.com/web-experimentation/docs/update-your-site-s-content-security-policies-csp) uses a nonce with `'strict-dynamic'`. In this attack, though, the trusted snippet was the thing adding the malicious script, so the browser passed that trust straight on to `track.js`.
+**`'strict-dynamic'`** changes how the browser decides which scripts to trust. Without it, every script is checked against the hosts listed in `script-src`. With it, the browser works from a chain of trust instead:
+
+1. A script is trusted if it carries a valid nonce or hash, such as the `<script>` tag that loads your Optimizely snippet.
+2. Any script that a trusted script creates and adds to the page is also trusted, wherever it is loaded from.
+3. Host sources such as `https://*.optimizely.com` and `'self'` are ignored by browsers that support `'strict-dynamic'`. They stay in the policy only as a fallback for older browsers.
+
+This is a strong defence against cross-site scripting. An attacker who injects a `<script>` tag into your HTML cannot know the nonce, so their script never runs. It also saves you from maintaining a long allow list for tag managers and other loaders that pull in scripts from hosts you cannot predict. One of the example policies in [Optimizely's own CSP guidance](https://docs.optimizely.com/web-experimentation/docs/update-your-site-s-content-security-policies-csp) uses a nonce with `'strict-dynamic'`.
+
+The weakness is that the chain of trust is only as good as the script at the start of it. In this attack, the trusted Optimizely snippet was the thing adding `track.js` to the page, so the browser passed its trust straight on to `1688360.cc`. With the host allow list ignored, there was nothing left to check the new host against.
 
 **`'unsafe-eval'`** allows strings to be executed as JavaScript. Optimizely's documentation explains that some features, such as audiences with custom JavaScript conditions, need it. Report URI found one large bank where `track.js` and the data theft were both blocked, but the inline fallback still ran because the policy allowed `'unsafe-eval'`.
 
@@ -82,15 +90,15 @@ Stott Security takes a source-first approach to CSP: you add each source and gra
 
 ### Separate policies for your CMS and your visitors
 
-The Optimizely CMS editor needs `'unsafe-inline'` and `'unsafe-eval'` to work. If your editors and your visitors share a single host, those relaxations end up in the policy your visitors receive, including the same `'unsafe-eval'` that let the inline fallback run.
+The Optimizely CMS Editor needs `'unsafe-inline'` and `'unsafe-eval'` to work. If your editors and your visitors share a single host, those relaxations end up in the policy your visitors receive, including the same `'unsafe-eval'` that let the inline fallback run.
 
 Stott Security version 6 (CMS 12) and version 7 (CMS 13) let you configure your CSP at Global, Application and Host level. Your Edit host keeps the relaxations the editor needs, while your Primary host runs a tight policy. I cover how to set this up in [Why Configure Separate UI and CMS Backend Hosts](/article/getting-started-with-stott-security#why-configure-separate-ui-and-cms-backend-hosts). On SaaS CMS the editor is hosted by Optimizely, so your front-end policy never needs to make room for it.
 
-If you are using earlier versions of Stott Security which do no support separate CMS and Frontend Content Security Policies; then you can tighten your frontend and use a middleware to remove the CSP for the CMS backend.
+If you are using earlier versions of Stott Security which do not support separate CMS and Frontend Content Security Policies; then you can tighten your frontend and use a middleware to remove the CSP for the CMS backend.
 
 ### Seeing the violations
 
-Every time the browser blocks something, it can send a violation report. A site with a restrictive policy and reporting turned on would have received reports for `1688360.cc` as soon as the loader reached it. Report URI also point out that their detection signals only require a CSP in report-only mode, so you can gather this evidence without risking breaking your site.
+Every time the browser blocks something, it can send a violation report. A site with a restrictive policy and reporting turned on would have received reports for `1688360.cc` as soon as the loader reached it. Report URI also points out that their detection signals only require a CSP in report-only mode, so you can gather this evidence without risking breaking your site.
 
 Stott Security supports report-only mode and violation reporting on every edition. On CMS 12 and CMS 13, internal reporting endpoints place violations on the **CSP Violations** screen inside the CMS. Every edition, including SaaS, can also send reports to an external collector. The Violations screen is a place to review reports, not an alerting system. If you want to be told about a new domain within minutes, pair Stott Security with a dedicated reporting service such as Report URI. Stott Security manages the policy, and the reporting service watches what browsers report back.
 
@@ -104,7 +112,7 @@ Report-only mode on its own detects but does not protect. Use it to tune your po
 When an incident like this breaks, you want to act in minutes, not wait for a release window. Because your configuration is managed in the CMS, you can:
 
 - Remove `'unsafe-eval'` or `'strict-dynamic'` from your front-end policy.
-- Restrict `connect-src` to destinations you recognise.
+- Restrict `connect-src` to destinations you recognise. This directive controls where JavaScript can send data to and fetch data from, covering `fetch()`, `XMLHttpRequest`, WebSockets and `navigator.sendBeacon()`, which is how this payload sent card details to the attacker. Limiting it to your own site and the services you actually use, such as `https://logx.optimizely.com` for Optimizely's event logging, means a malicious script that does run cannot send what it collects to a new host. This is what stopped the data theft on 17 of the affected sites. Keep `img-src` tight too, because image requests are a common fallback for sending data and are controlled separately.
 - Look for entries such as `http:`, `https:`, `ws:` and `wss:`, when entered without a domain, they act as a wild card allowing any domain to act using that protocol, irrespective of whether you have specified that domain or not.
 
 On CMS 12 and CMS 13 every change is audited, giving you a record of what changed, when and by whom for your incident report. On SaaS CMS the draft and publish workflow, together with the **Live** view on the Preview tab, shows exactly what your site is being served. Either way, allow for any caching between Stott Security and your visitors, such as your CDN or your headless front end.
@@ -140,8 +148,8 @@ Stott Security is not the only way to manage a CSP inside Optimizely CMS, and th
 1. **If you use Optimizely Web Experimentation**, Optimizely have already removed the injected code from affected projects, so the focus now is on the impact. Review which users, API tokens and integrations have write access to your projects, and rotate credentials where needed. Report URI's article also explains how to handle payment cards and cookies that may have been exposed on 16th November.
 2. **If you already collect CSP violation reports**, search reports from 16th November for `1688360.cc` and the other indicators listed in Report URI's article.
 3. **Review your front-end policy.** Remove `'unsafe-eval'` unless you have decided you need it, decide whether `'strict-dynamic'` is right given what your trusted scripts load, and restrict `connect-src` to destinations you recognise.
-4. **Consider configuring n-once**, Optimizely PaaS CMS supports n-once attributes with scripts it injects into the frontent.  Optimizely PaaS CMS does not support n-once on the CMS back end.  Google Tag Manager also has a variant of the GTM script which supports n-once for injected scripts.
-5. **Separate your Edit and Primary hosts** so that the CMS editor's relaxations never reach your visitors.
+4. **Consider configuring nonce**, Optimizely PaaS CMS supports nonce attributes with scripts it injects into the frontend.  Optimizely PaaS CMS does not support nonce on the CMS back end.  Google Tag Manager also has a variant of the GTM script which supports nonce for injected scripts.
+5. **Separate your Edit and Primary hosts** so that the CMS Editor's relaxations never reach your visitors.
 6. **If you have no CSP at all**, start one in report-only mode today. The [Getting Started with Stott Security](/article/getting-started-with-stott-security) guide walks you through it.
 
 ## Closing Thoughts

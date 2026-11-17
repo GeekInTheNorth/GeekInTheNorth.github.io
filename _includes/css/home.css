@@ -58,6 +58,7 @@
 }
 
 .lead--text .lead__body {
+  flex: none;
   display: flex;
   flex-direction: column;
   gap: 18px;
