@@ -112,7 +112,8 @@ Report-only mode on its own detects but does not protect. Use it to tune your po
 When an incident like this breaks, you want to act in minutes, not wait for a release window. Because your configuration is managed in the CMS, you can:
 
 - Remove `'unsafe-eval'` or `'strict-dynamic'` from your front-end policy.
-- Restrict `connect-src` to destinations you recognise. This directive controls where JavaScript can send data to and fetch data from, covering `fetch()`, `XMLHttpRequest`, WebSockets and `navigator.sendBeacon()`, which is how this payload sent card details to the attacker. Limiting it to your own site and the services you actually use, such as `https://logx.optimizely.com` for Optimizely's event logging, means a malicious script that does run cannot send what it collects to a new host. This is what stopped the data theft on 17 of the affected sites. Keep `img-src` tight too, because image requests are a common fallback for sending data and are controlled separately.
+- Restrict `connect-src` to destinations you recognise. This directive controls where JavaScript can send data to and fetch data from, covering `fetch()`, `XMLHttpRequest`, WebSockets and `navigator.sendBeacon()`, which is how this payload sent card details to the attacker. Limiting it to your own site and the services you actually use means a malicious script that does run cannot send what it collects to a new host. This is what stopped the data theft on 17 of the affected sites.
+  - Keep `img-src` tight too, because image requests are a common fallback for sending data and are controlled separately.
 - Review your CSP sources for broad scheme sources such as `http:`, `https:`, `ws:` and `wss:`. When specified without a hostname, these act as wildcards for the corresponding scheme, potentially allowing resources or connections to any host using that scheme. A specific hostname allowlist does not restrict these broader permissions.
 
 On CMS 12 and CMS 13 every change is audited, giving you a record of what changed, when and by whom for your incident report. On SaaS CMS the draft and publish workflow, together with the **Live** view on the Preview tab, shows exactly what your site is being served. Either way, allow for any caching between Stott Security and your visitors, such as your CDN or your headless front end.
@@ -157,3 +158,12 @@ Stott Security is not the only way to manage a CSP inside Optimizely CMS, and th
 Optimizely have fixed the vulnerability and removed the injected code, but the next compromise could come through a different vendor. Your Content Security Policy is one of the few controls you fully own, and Report URI's data shows that a restrictive one made a real difference here.
 
 My thanks to Report URI for publishing such a thorough investigation. If you would like to suggest a feature or report a bug, head over to the [Stott Security GitHub repository](https://github.com/GeekInTheNorth/Stott.Security.Optimizely), or the [Stott Security for SaaS repository](https://github.com/GeekInTheNorth/Stott.Security.Optimizely.SaaS) if you are on SaaS CMS.
+
+## References
+
+- [Report URI - World's Largest Brands Infected With Malware Via Optimizely](https://blog.report-uri.com/worlds-largest-brands-infected-with-malware-via-optimizely/)
+- [Optimizely Service Status - Web Experimentation Security Incident](https://status.optimizely.com/incidents/ftw0fh9wx43z)
+- [Optimizely Documentation - Update your site's Content Security Policies (CSP)](https://docs.optimizely.com/web-experimentation/docs/update-your-site-s-content-security-policies-csp)
+- [MDN - Content-Security-Policy: script-src directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src)
+- [MDN - Content-Security-Policy: connect-src directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/connect-src)
+- [Google Tag Platform - Content Security Policy guide](https://developers.google.com/tag-platform/security/guides/csp)
